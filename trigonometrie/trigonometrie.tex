@@ -1,0 +1,74 @@
+\documentclass[11pt, a4paper]{scrartcl}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage[ngerman]{babel}
+\title{Trigonometrie}
+\author{Patrick Bucher}
+\begin{document}
+\maketitle
+\section{Werte und Eigenschaften von Sinus und Kosinus}
+	\subsection{Werte}
+	\begin{align*}
+		& \sin 0 = 0 &
+		& \cos 0 = 1 &
+		& \tan 0 = 0 &
+		\\
+		& \sin \frac{\pi}{6}=\sin 30^\circ = \frac{1}{2} &
+		& \cos \frac{\pi}{6}=\cos 30^\circ = \frac{\sqrt{3}}{2} &
+		& \tan \frac{\pi}{6}=\tan 30^\circ = \frac{\sqrt{3}}{3} &
+		\\
+		& \sin \frac{\pi}{4}=\sin 45^\circ = \frac{\sqrt{2}}{2} &
+		& \cos \frac{\pi}{4}=\cos 45^\circ = \frac{\sqrt{2}}{2} &
+		& \tan \frac{\pi}{4}=\tan 45^\circ = 1 &
+		\\
+		& \sin \frac{\pi}{3}=\sin 60^\circ = \frac{\sqrt{3}}{2} &
+		& \cos \frac{\pi}{3}=\cos 60^\circ = \frac{1}{2} &
+		& \tan \frac{\pi}{3}=\tan 60^\circ = \sqrt{3} &
+		\\
+		& \sin \frac{\pi}{2}=\sin 90^\circ = 1 &
+		& \cos \frac{\pi}{2}=\cos 90^\circ = 0 &
+		& \tan \frac{\pi}{2}=\tan 90^\circ = \emptyset &
+		\\
+	\end{align*}
+	\subsection{Eigenschaften}
+	\begin{align*}
+		& \sin(\pi-\alpha) = \sin \alpha &
+		& \cos(\pi-\alpha) = -\cos \alpha &
+		\\
+		& \sin \alpha = \sin(\pi-\alpha) &
+		& \cos \alpha = \cos(2\pi-\alpha) &
+		\\
+		& \sin -\alpha = -\sin \alpha &
+		& \cos -\alpha = \cos \alpha &
+	\end{align*}
+	\begin{align*}
+		\cos 2\alpha & = \cos^2 \alpha - \sin^2 \alpha \\
+					 & = 2\cos^2 \alpha - 1 \\
+					 & = \frac{1}{2}(1+\cos 2\alpha) \\
+					 & = 1 - 2\sin^2 \alpha
+	\end{align*}
+	\begin{align*}
+		\sin 2\alpha & = 2\sin \alpha \cos \alpha \\
+		\sin^2 \alpha & = \frac{1}{2}(1-\cos 2\alpha)
+	\end{align*}
+	\section{Sinus- und Kosinussatz}
+	\subsection{Sinussatz}
+	\begin{align*}
+		\frac{a}{\sin \alpha} = \frac{b}{\sin \beta} = \frac{c}{\sin \gamma}
+	\end{align*}
+	\subsection{Kosinussatz}
+	\begin{align*}
+		a^2 & = b^2 + c^2 - 2bc \cos \alpha \\
+		b^2 & = a^2 + c^2 - 2ac \cos \beta \\
+		c^2 & = a^2 + b^2 - 2ab \cos \gamma
+	\end{align*}
+	\section{Additionstheoreme}
+	\begin{align*}
+		\sin(\alpha+\beta) & = \sin \alpha \cos \beta + \sin \beta \cos \alpha \\
+		\sin(\alpha-\beta) & = \sin \alpha \cos \beta - \sin \beta \cos \alpha \\
+		\cos(\alpha+\beta) & = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+		\cos(\alpha-\beta) & = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
+		\tan(\alpha+\beta) &= \frac{\tan \alpha + \tan \beta}{1-\tan \alpha \tan \beta} \\
+		\tan(\alpha-\beta) &= \frac{\tan \alpha - \tan \beta}{1+\tan \alpha \tan \beta}
+	\end{align*}
+\end{document}
