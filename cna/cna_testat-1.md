@@ -225,8 +225,8 @@ Das Steuerwerk steuert den Ablauf der Befehlsabarbeitung. Es verfügt über:
 
 - Der Stack ist ein Stapelspeicher, die Daten werden darauf "gestapelt".
 - Es kann nur immer auf das zuoberst gespeicherte Datenelement zugegriffen werden.
-- FIFO: first in, first out
-- LILO: last in, last out
+    - LIFO: last in first out
+    - FILO: first in last out
 - Der Stack Pointer (Stapelzeiger) zeigt immer auf den obersten Eintrag
 - Befehle
     - push: Daten auf den Stack schreiben (obendrauf legen)
