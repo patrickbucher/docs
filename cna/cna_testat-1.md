@@ -9,10 +9,22 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 - Rechenwerk: Speicherinhalt als Zahl interpretieren und manipulieren (rechnen)
 - Ablaufsteuerung: auf Inhalt des Speichers reagieren
 
+## Was beschreibt eine Rechenarchitektur?
+
+Die Art und Weise wie ein Rechner aus Baulementen aufgebaut ist.
+
+## Kann auf einem Turing Rechner Windows 7 ausgeführt werden?
+
+Theretisch ja, da alle Computer gleich sind und jede Architektur emuliert werden kann. 
+
 ## Was besagt das Mooresche Gesetz?
 
 - Die Anzahl der Transistoren pro Fläche verdoppelt sich alle 18 Monate.
 - Die Anzahl der Transistoren pro Fläche steigt um 60% pro Jahr.
+
+## Was ist ein Mikroprozessor?
+
+Es werden alle Grundfunktionen (Rechenwerk, Steuerwerk, ...) auf einem einzelnen Mikrochip vereint.
 
 ## Welche speziellen Arten von Prozessoren gibt es?
 
@@ -30,11 +42,13 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 
 ## Wie sieht die Speicherhierarchie aus?
 
-1. Register (SRAM)
-2. Cache (SRAM)
-3. Arbeitsspeicher (DRAM)
-4. Dateisystem (SSD, HD)
-5. Archiv (HD, optische Medien, Magnetbänder)
+| # | Name            | Typ                           | Geschwindigkeit        | Speichergrösse |
+|---|-----------------|-------------------------------|------------------------|----------------|
+| 1 | Register        | SRAM                          | 0.2-1ns                | kByte          |
+| 2 | Cache           | SRAM                          | 2ns                    | 0.5-8MB        |
+| 3 | Arbeitsspeicher | DRAM                          | 5-10ns                 | 1-32 GB        |
+| 4 | Dateisystem     | SSD, HD                       | 3-10ms (SSD 30mums)    | 60GB-10TB      |
+| 5 | Archiv          | optische Medien, Magnetbänder | 1-110s (Optisch 100ms) | 240GB-5TB      |
 
 ## Wie funktioniert der Fetch/Decode/Execute-Cycle?
 
