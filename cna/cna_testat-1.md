@@ -15,7 +15,7 @@ Die Art und Weise wie ein Rechner aus Baulementen aufgebaut ist.
 
 ## Kann auf einem Turing Rechner Windows 7 ausgeführt werden?
 
-Theretisch ja, da alle Computer gleich sind und jede Architektur emuliert werden kann. 
+Theoretisch ja, da alle Computer gleich sind und jede Architektur emuliert werden kann. 
 
 ## Was besagt das Mooresche Gesetz?
 
@@ -156,14 +156,8 @@ In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu find
         - Datumsangabe 19.10.2016 (auch 19. Oktober 2016)
         - Zweistellige Zahlen in Deutsch: 22 zweiundzwanzig
 - In der Informatik bezeichnet Endian die Byte-Reihenfolge im Arbeitsspeicher.
-    - Big Endian
-        - UNIX
-        - Java
-        - Motorola
-        - Freescale
-    - Little Endian
-        - Windows
-        - Intel
+    - Big Endian: UNIX, Java, Motorola, Freescale
+    - Little Endian: Windows, Intel
 
 ## Welche Levels/Stufen gibt es bei den Rechnerarchitekturen?
 
