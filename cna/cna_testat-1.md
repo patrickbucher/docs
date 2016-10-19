@@ -7,7 +7,7 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 - Steuerwerk: Befehle eines Programms der Reihe nach ausführen
 - Speicher: Zahlen speichern
 - Rechenwerk: Speicherinhalt als Zahl interpretieren und manipulieren (rechnen)
-- Ablaufsteuerung: auf Inhalts des Speichers reagieren
+- Ablaufsteuerung: auf Inhalt des Speichers reagieren
 
 ## Was besagt das Mooresche Gesetz?
 
@@ -19,7 +19,7 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 - Mikrocontroller: Mikroprozessor, Peripheriefunktionen und Speicher auf einem Chip (SoC: System on a Chip)
 - DSP: Digitaler Signalprozessor, bearbeitet digitale Signale, z.B. Audio- oder Videosignale
 - GPU: Graphics Processing Unit, für rechenintensive 2D- und 3D-Aufgaben
-- Krypto-Prozessoren: Ver- und entschlüsselt Daten, liegt zwischen CPU und Memory
+- Krypto-Prozessoren: ver- und entschlüsselt Daten, liegt zwischen CPU und Memory
 - Mathematischer Koprozessor, z.B. FPU (Floating Point Unit); heute auf der CPU
 
 ## Was ist der Unterschied zwischen SRAM und DRAM?
@@ -72,7 +72,7 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 1. die Binärzahlen zu je 4 Bits gruppieren
 1. die einzelnen Gruppen als hexadezimale Zahl darstellen
 
-## Wie ermittelt man eine Fliesskommazahl anzand der IEEE-754-Darstellung?
+## Wie ermittelt man eine Fliesskommazahl anhand der IEEE-754-Darstellung?
 
 1. jede Ziffer der hexadezimalen Zahl mit vier Bits im Binärcode darstellen
 1. die Bitreihe aufteilen
@@ -105,17 +105,17 @@ Ein Rechner muss einen Algorithmus ausführen können, dazu braucht er:
 - Separate Speicher für Daten und Befehle
 - Separate Busse zu den beiden Speichern
 - Vorteil gegenüber Von-Neumann-Architektur
-    1. Befehle und D1.en können gleichzeitig gel1.en werden: Geschwindigkeit
-    1. Strikte Trennung von D1.en und Progr1.men: Sicherheit
-    1. D1.enwortbreite und Befehlswortbreite sind un1.hängig vonein1.der
-    1. Synchrones L1.en 1.ch mehrerer Rechenwerke
+    1. Befehle und Daten können gleichzeitig gelesen werden: Geschwindigkeit
+    1. Strikte Trennung von Daten und Programmen: Sicherheit
+    1. Datenwortbreite und Befehlswortbreite sind unabhängig voneinander
+    1. Synchrones Laden durch mehrerer Rechenwerke
 
 In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu finden.
 
 ## Welche Benchmarkprogramme gibt es?
 
 - Linpack: Lineare Gleichungssysteme
-- SPEC: Standard PErformance Evaluation
+- SPEC: Standard Performance Evaluation
 - Whetstone: Floating-Point- und Integer-Berechnungen
 - Dhrystone: Integer-Berechnungen
 - Weitere für PC: 3DMark, Windows-Leistungsindex, Geekbench
@@ -137,7 +137,7 @@ In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu find
 - In welcher Reihenfolge die Ziffern einer Grösse aufgelistet werden
     - Big Endian: grosse zuerst
         - Datumsangabe 2016/10/19 (19. Oktober 2016)
-        - Zahlen in Englisch: 122 one hundred twenty to
+        - Zahlen in Englisch: 122 one hundred twenty two
     - Little Endian: kleine zuerst
         - Datumsangabe 19.10.2016 (auch 19. Oktober 2016)
         - Zweistellige Zahlen in Deutsch: 22 zweiundzwanzig
@@ -155,7 +155,7 @@ In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu find
 
 - Level 5: Problem-oriented language level
     - Translation (compiler)
-- Level 4: Assembly language lavel
+- Level 4: Assembly language level
     - Translation (assembler)
 - Level 3: Operating system machine level
     - Partial interpretation (operating system)
@@ -180,7 +180,7 @@ In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu find
     - Resultat
 - Adresse des nächsten Befehls
     - implizit (durch Befehlslänge)
-    - explizit (durch bedingen Sprung)
+    - explizit (durch bedingten Sprung)
 
 ## Welche Adressierungsarten gibt es?
 
@@ -246,11 +246,11 @@ Das Steuerwerk steuert den Ablauf der Befehlsabarbeitung. Es verfügt über:
 
 ## Wie lauten die in der Informatik gebräuchlichsten SI-Vorsätze?
 
-- kleiner als 1
+- kleiner als 1:
     - 10^-3: milli, m
     - 10^-6: micro, µ
     - 10^-9: nano, n
-- grösser als 1
+- grösser als 1:
     - 10^3: kilo, k
     - 10^6: mega, M
     - 10^9: giga, G
