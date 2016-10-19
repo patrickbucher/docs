@@ -217,8 +217,8 @@ In der Praxis sind oft Mischformen von Harvard- und Von-Neumann-Rechnern zu find
 Das Steuerwerk steuert den Ablauf der Befehlsabarbeitung. Es verfügt über:
 
 - einen Program Counter, der auf die nächste Instruktion zeigt
-- einen Instruktionsregister
-- einen Adressregister
+- ein Instruktionsregister
+- ein Adressregister
 - einen Stackpointer
 
 ## Wie funktioniert ein Stack?
