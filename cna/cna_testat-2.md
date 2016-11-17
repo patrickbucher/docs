@@ -208,3 +208,46 @@ Gewährleistung einer sicheren Übertragung durch:
 * Anforderung an Sender zur Wiederholung bei fehlerhafter Übertragung
 * Durchnummerieren der Frames zur Erkennung vorlorener Frames
 * Frame erneut senden, sollte die Empfangsbestätigung nach Timeout eintreffen
+
+### Wie funktioniert Broadcasting?
+* Mehrere Sender können auf einen Übertragungskanal zugreifen
+* Nachrichten werden als Pakete gesendet
+* Pakete können von allen angeschlossenen Rechnern empfangen werden
+* Ein Adressfeld im Paket gibt das Ziel an
+    * Broadcasting: Versand an alle
+    * Multicasting: Versand an eine Gruppe
+    * Unicasting: Versand an einen einzelnen Empfänger
+
+### Was ist MAC?
+Beim Senden auf einem gemeinsamen Kanal kann es zu Kollisionen kommen, wenn mehrere Sender gleichzeitig den Übertragungskanal verwenden wollen. Medium Access Control (MAC, Layer 2) regelt die Vergabe des Zugriffsrechts auf den gemeinsamen Übertragungskanal.
+
+### Welche MAC-Zugriffsverfahren gibt es?
+* ALOHA
+    * Erneutes Senden nach zufälliger Wartezeit nach negativer Rückmeldung
+    * Slotted ALOHA: Übertragung nur zu Beginn von definierten Zeitabschnitten möglich
+* CSMA (Carrier Sense Multiple Access)
+    * Sender hört den Datenverkehr auf der Leitung ab
+    * Sobald der Kanal frei ist, wird gesendet
+    * Im Falle einer Kollision wird nach einer zufälligen Wartezeit erneut gesendet
+    * CSMA/CD (Carrier Sense Multiple Access/Collission Detection)
+        * Abbruch der Übertragung bei einem Fehler
+    * CSMA/CA (Carrier Sense Multiple Access/Collission Avoidance)
+        * Teilnehmerkennung (= Priorität)
+
+### In welche Unterschichten wird die Sicherungsschicht unterteilt?
+* LLC: Logic Link Control
+    * Fügt jedem Frame einen LLC-Header hinzu
+    * dieser enthält Folge- und Bestätigungsnummern
+    * Dienste
+        * Unzuverlässiger Datagrammdienst
+        * Bestätigter Datagrammdienst
+        * Zuverlässiger, verbindungsorientierter Dienst
+* MAC: Vergabe des Kanal-Zugriffsrechts 
+
+### Welche Protokolle definiert IEEE-802?
+* 802.1 Internetworking, Layer 3
+* 802.2 LLC, Layer 2
+* 802.3 Ethernet, Layer 1/2
+* 802.5 Tokenring, Layer 1/2
+* 802.11 WLAN, Layer 1/2
+* 802.15 WPAN (Bluetooth), Layer 1/2

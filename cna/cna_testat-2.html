@@ -257,5 +257,65 @@
 <li>Durchnummerieren der Frames zur Erkennung vorlorener Frames</li>
 <li>Frame erneut senden, sollte die Empfangsbestätigung nach Timeout eintreffen</li>
 </ul>
+<h3 id="wie-funktioniert-broadcasting">Wie funktioniert Broadcasting?</h3>
+<ul>
+<li>Mehrere Sender können auf einen Übertragungskanal zugreifen</li>
+<li>Nachrichten werden als Pakete gesendet</li>
+<li>Pakete können von allen angeschlossenen Rechnern empfangen werden</li>
+<li>Ein Adressfeld im Paket gibt das Ziel an
+<ul>
+<li>Broadcasting: Versand an alle</li>
+<li>Multicasting: Versand an eine Gruppe</li>
+<li>Unicasting: Versand an einen einzelnen Empfänger</li>
+</ul></li>
+</ul>
+<h3 id="was-ist-mac">Was ist MAC?</h3>
+<p>Beim Senden auf einem gemeinsamen Kanal kann es zu Kollisionen kommen, wenn mehrere Sender gleichzeitig den Übertragungskanal verwenden wollen. Medium Access Control (MAC, Layer 2) regelt die Vergabe des Zugriffsrechts auf den gemeinsamen Übertragungskanal.</p>
+<h3 id="welche-mac-zugriffsverfahren-gibt-es">Welche MAC-Zugriffsverfahren gibt es?</h3>
+<ul>
+<li>ALOHA
+<ul>
+<li>Erneutes Senden nach zufälliger Wartezeit nach negativer Rückmeldung</li>
+<li>Slotted ALOHA: Übertragung nur zu Beginn von definierten Zeitabschnitten möglich</li>
+</ul></li>
+<li>CSMA (Carrier Sense Multiple Access)
+<ul>
+<li>Sender hört den Datenverkehr auf der Leitung ab</li>
+<li>Sobald der Kanal frei ist, wird gesendet</li>
+<li>Im Falle einer Kollision wird nach einer zufälligen Wartezeit erneut gesendet</li>
+<li>CSMA/CD (Carrier Sense Multiple Access/Collission Detection)
+<ul>
+<li>Abbruch der Übertragung bei einem Fehler</li>
+</ul></li>
+<li>CSMA/CA (Carrier Sense Multiple Access/Collission Avoidance)
+<ul>
+<li>Teilnehmerkennung (= Priorität)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="in-welche-unterschichten-wird-die-sicherungsschicht-unterteilt">In welche Unterschichten wird die Sicherungsschicht unterteilt?</h3>
+<ul>
+<li>LLC: Logic Link Control
+<ul>
+<li>Fügt jedem Frame einen LLC-Header hinzu</li>
+<li>dieser enthält Folge- und Bestätigungsnummern</li>
+<li>Dienste
+<ul>
+<li>Unzuverlässiger Datagrammdienst</li>
+<li>Bestätigter Datagrammdienst</li>
+<li>Zuverlässiger, verbindungsorientierter Dienst</li>
+</ul></li>
+</ul></li>
+<li>MAC: Vergabe des Kanal-Zugriffsrechts</li>
+</ul>
+<h3 id="welche-protokolle-definiert-ieee-802">Welche Protokolle definiert IEEE-802?</h3>
+<ul>
+<li>802.1 Internetworking, Layer 3</li>
+<li>802.2 LLC, Layer 2</li>
+<li>802.3 Ethernet, Layer 1/2</li>
+<li>802.5 Tokenring, Layer 1/2</li>
+<li>802.11 WLAN, Layer 1/2</li>
+<li>802.15 WPAN (Bluetooth), Layer 1/2</li>
+</ul>
 </body>
 </html>
