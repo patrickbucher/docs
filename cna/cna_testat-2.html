@@ -396,5 +396,37 @@
 <li>Broadcast-Routing</li>
 <li>Multicast-Routing</li>
 </ul>
+<h3 id="womit-werden-netzwerke-auf-verschiedenen-schichten-miteinander-verbunden">Womit werden Netzwerke auf verschiedenen Schichten miteinander verbunden?</h3>
+<ul>
+<li>Anwendungsschicht: Applikations-Gateways</li>
+<li>Transportschicht: Transport-Gateways</li>
+<li>Vermittlungsschicht: Router</li>
+<li>Sicherungsschicht
+<ul>
+<li>Bridge: verbindet Netzwerke; weiss, welche MAC-Adresse zu welcher Seite gehören
+<ul>
+<li>transparente Bridge: verbindet zwei lokale Netzwerke mit gleichem Layer-2-Protokoll</li>
+<li>übersetzende Bridge: verbindet zwei lokale Netzwerke mit unterschiedlichem Layer-2-Protokoll</li>
+<li>Remote-Bridge (Tunnel): schliesst weit entfernte LANs über ein WAN zusammen</li>
+</ul></li>
+<li>Switch: &quot;intelligentes&quot; Hub, schickt Pakete nur an Zielhost weiter</li>
+</ul></li>
+<li>Bitübertragungsschicht
+<ul>
+<li>Repeater: Regeneriert das Signal auf der Leitung</li>
+<li>Hub: Sternförmige Verkabelung der Busteilnehmer (simuliert gemeinsames Ethernetkabel)</li>
+</ul></li>
+<li>Alle Schichten
+<ul>
+<li>Gateway</li>
+</ul></li>
+</ul>
+<h3 id="was-ist-ein-internet-steuerprotokoll">Was ist ein Internet-Steuerprotokoll?</h3>
+<p>Ein Protokoll, das parallel zu IP auf der Vermittlungsschicht angesiedelt ist. Beispiele:</p>
+<ul>
+<li>ICMP: Internet Control Messag Protocol (für Roter, ping)</li>
+<li>ARP: Address Resolution Protocol (Auflösung von MAC- zu IP-Adresse)</li>
+<li>DHCP: Dynamic Host Configuratoin Protocol (Vergabe dynamischer IP-Adressen)</li>
+</ul>
 </body>
 </html>
