@@ -317,5 +317,84 @@
 <li>802.11 WLAN, Layer 1/2</li>
 <li>802.15 WPAN (Bluetooth), Layer 1/2</li>
 </ul>
+<h3 id="was-ist-die-aufgabe-der-vermittlungsschicht">Was ist die Aufgabe der Vermittlungsschicht?</h3>
+<p>Der Transport von Paketen von einer Quelle bis zu einem Ziel durch das gesamte Netzwerk bzw. durch ein Teilnetzwerk.</p>
+<h3 id="welche-netzwerkarten-gibt-es">Welche Netzwerkarten gibt es?</h3>
+<ul>
+<li>PAN: Personal Area Network
+<ul>
+<li>Peripherie zu PC, Smartphone zu Laptop</li>
+</ul></li>
+<li>LAN: Local Area Network
+<ul>
+<li>Vernetzung innerhalb eines Gebäudes bzw. auf einem Firmengelände</li>
+</ul></li>
+<li>MAN: Metropolitan Area Network
+<ul>
+<li>Vernetzung einer Stadt (z.B. EWL Glasfasernetzwerk)</li>
+</ul></li>
+<li>WAN: Wide Area Network
+<ul>
+<li>Vernetzung von Städten, Ländern, Kontinenten</li>
+</ul></li>
+</ul>
+<h3 id="wie-funktioniert-das-store-and-forward-verfahren">Wie funktioniert das Store-and-Forward-Verfahren?</h3>
+<ul>
+<li>Pakete werden jeweils an den nächsten Router gesendet</li>
+<li>Zwischenspeicherung des Pakets beim Router (Sicherungsschicht)</li>
+<li>Weiterleitung des Pakets zum nächsten Router</li>
+<li>usw. bis Ankunft beim Ziel-Host</li>
+</ul>
+<h3 id="auf-welche-beiden-arten-kann-die-vermittlungsschicht-arbeiten">Auf welche beiden Arten kann die Vermittlungsschicht arbeiten?</h3>
+<ol style="list-style-type: decimal">
+<li>Verbindungslos
+<ul>
+<li>Vermittlung einzelner Pakete durch das Netzwerk</li>
+<li>Jedes Paket trägt die vollständige Zieladresse</li>
+<li>Jedes Paket kann einen anderen Weg nehmen</li>
+<li>Fehlerüberwachung erfolgt durch Hosts</li>
+<li>Beispiel: IP</li>
+</ul></li>
+<li>Verbindungsorientiert (virtuelle Verbindung)
+<ul>
+<li>Verbindung wird auf- und abgebaut</li>
+<li>Jedes Paket trägt eine Verbindungskennung</li>
+<li>Alle Pakete nehmen den gleichen Weg durchs Netzwerk</li>
+<li>Gewährleistung der Verbindungsqualität</li>
+<li>Beispiel: ISDN</li>
+</ul></li>
+</ol>
+<h3 id="wie-werden-routing-tabellen-erstellt">Wie werden Routing-Tabellen erstellt?</h3>
+<ul>
+<li>statisch: durch Initialisierung beim Start
+<ul>
+<li>einfacher</li>
+</ul></li>
+<li>dynamisch: durch Berechnung während des Betriebs
+<ul>
+<li>erfordert zusätzlichen Informationsaustausch zwischen den Routern</li>
+</ul></li>
+</ul>
+<h3 id="wozu-dienen-routing-algorithmen">Wozu dienen Routing-Algorithmen?</h3>
+<p>Sie füllen die Routing-Tabelle aufgrund von Messungen und/oder Schätzungen auf und können sich dabei der Topologie anpassen.</p>
+<h3 id="was-sind-anforderungen-an-einen-routing-algorithmus">Was sind Anforderungen an einen Routing-Algorithmus?</h3>
+<ul>
+<li>Genauigkeit</li>
+<li>Einfachheit</li>
+<li>Robustheit</li>
+<li>Fairness</li>
+<li>Optimum</li>
+</ul>
+<p>Zwischen Fairness und Optimum kann es konflikte geben: optimale Auslastung vs. faire Verteilung.</p>
+<h3 id="welche-routing-algorithmen-gibt-es">Welche Routing-Algorithmen gibt es?</h3>
+<ul>
+<li>Shortest Path Routing (nach Dijkstra)</li>
+<li>Flooding (Fluten)</li>
+<li>Distance Vector Routing (dynamisch, berücksichtigt Netzlast)</li>
+<li>Link State Routing/Shortest Path First</li>
+<li>Hierarchisches Routing</li>
+<li>Broadcast-Routing</li>
+<li>Multicast-Routing</li>
+</ul>
 </body>
 </html>

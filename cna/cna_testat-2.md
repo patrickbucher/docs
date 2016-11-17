@@ -251,3 +251,63 @@ Beim Senden auf einem gemeinsamen Kanal kann es zu Kollisionen kommen, wenn mehr
 * 802.5 Tokenring, Layer 1/2
 * 802.11 WLAN, Layer 1/2
 * 802.15 WPAN (Bluetooth), Layer 1/2
+
+### Was ist die Aufgabe der Vermittlungsschicht?
+Der Transport von Paketen von einer Quelle bis zu einem Ziel durch das gesamte Netzwerk bzw. durch ein Teilnetzwerk.
+
+### Welche Netzwerkarten gibt es?
+* PAN: Personal Area Network
+    * Peripherie zu PC, Smartphone zu Laptop
+* LAN: Local Area Network
+    * Vernetzung innerhalb eines Gebäudes bzw. auf einem Firmengelände
+* MAN: Metropolitan Area Network
+    * Vernetzung einer Stadt (z.B. EWL Glasfasernetzwerk)
+* WAN: Wide Area Network
+    * Vernetzung von Städten, Ländern, Kontinenten
+
+### Wie funktioniert das Store-and-Forward-Verfahren?
+* Pakete werden jeweils an den nächsten Router gesendet
+* Zwischenspeicherung des Pakets beim Router (Sicherungsschicht)
+* Weiterleitung des Pakets zum nächsten Router
+* usw. bis Ankunft beim Ziel-Host
+
+### Auf welche beiden Arten kann die Vermittlungsschicht arbeiten?
+1. Verbindungslos
+    * Vermittlung einzelner Pakete durch das Netzwerk
+    * Jedes Paket trägt die vollständige Zieladresse
+    * Jedes Paket kann einen anderen Weg nehmen
+    * Fehlerüberwachung erfolgt durch Hosts
+    * Beispiel: IP
+1. Verbindungsorientiert (virtuelle Verbindung)
+    * Verbindung wird auf- und abgebaut
+    * Jedes Paket trägt eine Verbindungskennung
+    * Alle Pakete nehmen den gleichen Weg durchs Netzwerk
+    * Gewährleistung der Verbindungsqualität
+    * Beispiel: ISDN
+
+### Wie werden Routing-Tabellen erstellt?
+* statisch: durch Initialisierung beim Start
+    * einfacher
+* dynamisch: durch Berechnung während des Betriebs
+    * erfordert zusätzlichen Informationsaustausch zwischen den Routern
+
+### Wozu dienen Routing-Algorithmen?
+Sie füllen die Routing-Tabelle aufgrund von Messungen und/oder Schätzungen auf und können sich dabei der Topologie anpassen.
+
+### Was sind Anforderungen an einen Routing-Algorithmus?
+* Genauigkeit
+* Einfachheit
+* Robustheit
+* Fairness
+* Optimum
+
+Zwischen Fairness und Optimum kann es konflikte geben: optimale Auslastung vs. faire Verteilung.
+
+### Welche Routing-Algorithmen gibt es?
+* Shortest Path Routing (nach Dijkstra)
+* Flooding (Fluten)
+* Distance Vector Routing (dynamisch, berücksichtigt Netzlast)
+* Link State Routing/Shortest Path First
+* Hierarchisches Routing
+* Broadcast-Routing
+* Multicast-Routing
