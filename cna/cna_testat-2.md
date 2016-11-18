@@ -334,3 +334,15 @@ Ein Protokoll, das parallel zu IP auf der Vermittlungsschicht angesiedelt ist. B
 * ICMP: Internet Control Messag Protocol (für Roter, ping)
 * ARP: Address Resolution Protocol (Auflösung von MAC- zu IP-Adresse)
 * DHCP: Dynamic Host Configuratoin Protocol (Vergabe dynamischer IP-Adressen)
+
+### Wie lauten die Port-Nummern für einige wichtige Dienste?
+* FTP: 20, 21
+* SSH: 22
+* Telnet: 23
+* SMTP: 25
+    * SMTP (via SSL): 465
+* DNS: 53
+* HTTP: 80
+    * HTTPS: 443
+* POP3: 110
+* CUPS: 631
