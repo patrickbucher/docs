@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="effective-java">Effective Java</h1>
+<h2 id="item-7-avoid-finalizers">Item 7: Avoid Finalizers</h2>
+<ul>
+<li>A finalizer in Java is <em>not</em> the same as a destructor in C++. In Java:
+<ul>
+<li>memory is reclaimed using garbace collection, and</li>
+<li>non-memory resources are reclaimed using <code>try-finally</code> blocks.</li>
+</ul></li>
+<li>There's now guarantee that the finalizer will be executed <em>in time</em>.
+<ul>
+<li>The finalizer thread might run with lower priority.</li>
+<li>The execution of finalizers depends both on the implementation on the specific platform and on the garbage collection (and its implementation).</li>
+<li>Never do anything time-critical in a finalizer!</li>
+<li>Don't try to free limited ressources (memory, file descriptors) in a finalizer!</li>
+</ul></li>
+<li>There's not even a guarantee that the finalizer will be executed <em>at all</em>.
+<ul>
+<li>Never update persistent states in a finalizer!</li>
+</ul></li>
+<li>Just as <code>System.gc()</code> doesn't necessarily run garbage collection, <code>System.runFinalization()</code> doesn't run the finalizers.
+<ul>
+<li>Don't use them, and also don't use the deprecated methods <code>System.runFinalizersOnExit()</code> and <code>Runtime.runFinalizersOnExit()</code>!</li>
+</ul></li>
+<li>Uncaught exceptions thrown during finalization are ignored and the finalization will be terminated.
+<ul>
+<li>The programmer won't even notice that something bad happened.</li>
+</ul></li>
+<li>Finalizers come with a performance penalty.</li>
+<li>Provide explicit termination methods for classes that need to free non-memory resources.
+<ul>
+<li>Example: the <code>close()</code> method of <code>InputStream</code> and <code>OutputStream</code></li>
+<li>The class implementing <code>close()</code> must store it's state and throw an <code>IllegalStateException</code> when <code>close()</code> was called on it.</li>
+<li>Termination methods are usually called within a <code>finally</code> block to guarantee their execution.</li>
+</ul></li>
+<li>However, finalizers can be used in some cases:
+<ul>
+<li>If the client forgot to call the termination method, the finalizer can call it <em>and should log a warning</em> so that the client code can be fixed.</li>
+<li>When working with native objects, whose memory resources cannot be freed by garbage collection.</li>
+</ul></li>
+<li>Unlike default constructors, the <code>finalize()</code> method of the subclass doesn't call the <code>finalize()</code> method of the superclass; it must be called manually (inside a <code>finally</code> block).</li>
+</ul>
+<h2 id="item-8-obey-the-general-contract-when-overriding-equals">Item 8: Obey the general contract when overriding <code>equals</code></h2>
+<ul>
+<li><code>Object</code>'s implementation of <code>equals()</code> is adequate:
+<ul>
+<li>if an instance only has to be equals to itself (<code>equals()</code> does the same as <code>==</code>: <code>o.equals(o) == (o == o)</code>),</li>
+<li>if the <code>equals()</code> method of the superclass is appropriate,</li>
+<li>or if the class is private or package-private and the <code>equals()</code> method is never called.</li>
+</ul></li>
+<li>Classes implementing the singleton pattern and enums don't need an <code>equals()</code> method.</li>
+<li>Implementations of <code>equals()</code> must adhere to its <em>general contract</em>:
+<ul>
+<li><em>Reflexiveness</em>: for <code>o != null</code>, <code>o.equals(o)</code> must return <code>true</code>.</li>
+<li><em>Symmetry</em>: for <code>a != null &amp;&amp; b != null</code>, <code>a.equals(b)</code> must return the same as <code>b.equals(a)</code>.</li>
+<li><em>Transitivity</em>: for <code>x != null &amp;&amp; y != null &amp;&amp; z != null</code>, <code>x.equals(z)</code> must return <code>true</code> if <code>x.equals(y)</code> and <code>y.equals(z)</code> return <code>true</code>.</li>
+<li><em>Consistency</em>: for <code>m != null &amp;&amp; n != null</code>, multiple invocations of <code>m.equals(n)</code> must return the same (unless information used in <code>equals()</code> has been changed in the meantime).</li>
+<li><em>«Non-nullity»</em>: for <code>o != null</code>, <code>o.equals(null)</code> must return <code>false</code>.</li>
+</ul></li>
+<li>Many classes (say, those of the Collections framework) depend on <code>equals()</code> adhering to the <em>general contract</em>!
+<ul>
+<li>The behaviour of classes violating the <em>general contract</em> is undefined.</li>
+</ul></li>
+<li>Getting <code>equals()</code> right can be hard when using inheritance.
+<ul>
+<li>Using composition over inheritance makes it easier.</li>
+<li><code>a.equals(b)</code> should only return true, if <code>a</code> and <code>b</code> are instances of the same class (<code>a.getClass() == b.getClass()</code>).
+<ul>
+<li>Example: A date might be equals to a timestamp, but a timestamp (containing time information) not to a date, which violates the <em>summetry</em> rule.</li>
+</ul></li>
+<li>Don't use unreliable resources in <code>equals()</code>.
+<ul>
+<li>Example: <code>URL</code> uses the IP address in its <code>equals()</code> implementation, but the IP might change, where's the hostname is still the same (DNS).</li>
+</ul></li>
+</ul></li>
+<li>When using the <code>instanceof</code> operator (to make sure that instances of the same class are compared), checking for <code>null</code> is not necessary.
+<ul>
+<li>For <code>o == null</code>, <code>o instanceof MyClass</code> always returns <code>false</code>.</li>
+</ul></li>
+<li>Recipe for high-quality <code>equals()</code> methods:
+<ol style="list-style-type: decimal">
+<li>Check for identity (to save time):
+<ul>
+<li><code>if (this == o) return true;</code></li>
+</ul></li>
+<li>Use <code>instanceof</code>:
+<ul>
+<li><code>if (!(o instanceof MyClass)) return false;</code></li>
+</ul></li>
+<li>Cast the object, it's safe now:
+<ul>
+<li><code>MyClass other = (MyClass)o;</code></li>
+</ul></li>
+<li>Check all the significant fields for equality:
+<ul>
+<li>for <code>boolean</code>, <code>int</code>, <code>long</code>, <code>short</code>, <code>byte</code> and <code>char</code>, compare with <code>==</code></li>
+<li>for <code>float</code> and <code>double</code>, use <code>Float.compare()</code> or <code>Double.compare()</code>, respectively: <code>Float.compare(this.a, other.getA()) == 0</code></li>
+<li>for arrays, iterate over all elements or, better, use <code>Arrays.equals()</code>; the element order matters: <code>Arrays.equals(this.arr, other.getArr()) == true</code></li>
+<li>for object references, first check for null and then call <code>equals()</code> on it: <code>this.field == null ? other.getField() == null : this.field.equals(other.getField()</code></li>
+<li>for performance reasons, first check for fields that are more likely to differ, and immediately return <code>false</code> after the first difference is detected.</li>
+</ul></li>
+<li>Write a test case to check the adherence to the <em>general contract</em>.</li>
+</ol></li>
+<li>Make sure to use the correct method signature when overriding <code>equals()</code>: <code>public boolean equals(Object o)</code>
+<ul>
+<li>Don't replace <code>Object</code> with anything else, otherwise <code>equals()</code> won't be called.</li>
+<li>Use the <code>@Override</code> annotation to make sure you have the correct signature.</li>
+</ul></li>
+<li>Consider letting the IDE generate the <code>equals()</code> method.</li>
+<li>Since Java 7, consider using <code>Objects.equals(this.a, other.getA())</code> for instance fields.</li>
+<li>When you override <code>equals()</code>, also override <code>hashCode()</code>.</li>
+</ul>
+<h2 id="item-9-always-override-hashcode-when-you-override-equals">Item 9: Always override <code>hashCode</code> when you override <code>equals</code></h2>
+<ul>
+<li>When overriding <code>equals()</code>, always also override the <code>hashCode()</code> method, otherwise the class might not work properly for <code>HashMap</code>, <code>HashSet</code> and <code>Hashtable</code>, among others.</li>
+<li>The <code>hashCode()</code> implementantion must adhere to the following contract:
+<ul>
+<li>As long as no information used by <code>equals()</code> is changed on an object, it's <code>hashCode()</code> method must return the same value in the same execution context.</li>
+<li>If <code>a.equals(b)</code>, <code>a.hashCode()</code> must be the same as <code>b.hashCode()</code>.</li>
+<li>If <code>!a.equals(b)</code>, <code>a.hashCode()</code> and <code>b.hashCode()</code> are <em>not</em> required to differ; they should, however, for performance reasons when working with hash tables and the like.</li>
+</ul></li>
+<li>When two objects that are equal have different hash codes ‒ which is the case when <code>equals()</code> has been overridden but not so <code>hashCode() ‒, the lookup of those objects in a</code>HashMap<code>(or the like) might be slower or even fail (return</code>null`).</li>
+<li>A good <code>hashCode()</code> implementation producees equal hash codes for equal objects and unequal hash codes for unequal objects; it can be achieved using this recipe:
+<ol style="list-style-type: decimal">
+<li>Store a constant nonzero value in an integer variable, say, 17.
+<ul>
+<li><code>int result = 17;</code></li>
+</ul></li>
+<li>For each significant field <code>f</code> (i.e. a field used in <code>equals()</code>), do the following:
+<ol style="list-style-type: lower-alpha">
+<li>Compute a hash code for the field:
+<ul>
+<li>for <code>boolean</code>: <code>int c = (f ? 1 : 0);</code></li>
+<li>for <code>boolean</code>, <code>int</code>, <code>short</code>, <code>byte</code> and <code>char</code>: <code>int c = (int)f;</code></li>
+<li>for <code>long</code>: <code>int c = (int)(f ^ (f &gt;&gt;&gt; 32));</code></li>
+<li>for <code>float</code>: <code>int c = Float.floatToIntBits(f);</code></li>
+<li>for <code>double</code>: <code>long l = Double.doubleToLongBits(f); int c = (int)(l ^ (l &gt;&gt;&gt; 32));</code></li>
+<li>for object references: <code>int c = (f == null ? ' : f.hashCode());</code></li>
+<li>for arrays, apply the same steps for every item ‒ or better use <code>int c = Arrays.hashCode(f);</code></li>
+</ul></li>
+<li>Combine the computed hash code into <code>result</code> as follows:
+<ul>
+<li><code>result = 31 * result + c;</code></li>
+</ul></li>
+</ol></li>
+<li>Return <code>result</code></li>
+<li>Write a test case to make sure that equal instances have equal hash codes ‒ and unequal instances unequal hash codes.</li>
+</ol></li>
+<li>17 and 31 are uneven prime numbers and have some interesting properties that help reduce colissions when computing hash codes. Use those values, unless you are a mathematician.</li>
+<li>Since Java 7, consider using <code>Objects.hashCode(f1, f2, f3, ...)</code> by passing all fields that are also used in <code>equals()</code>.</li>
+<li>Don't try to optimize <code>hashCode()</code> for performance. <em>Good</em> hash codes are more important than <em>quickly generated</em> hash codes, for any computation time saved for creating worse hash codes can make <code>HashMap</code> (et al.) perform worse.</li>
+</ul>
+</body>
+</html>

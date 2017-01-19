@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="designprinzipien">Designprinzipien</h1>
+<ol style="list-style-type: decimal">
+<li>Single Responsibility Principle (SRP)
+<ul>
+<li>Unix-Philosophie: <em>«Do only one thing and do it well.»</em></li>
+<li>Eine Klasse hat nur <em>eine</em> Zuständigkeit</li>
+<li>Eine Klasse hat nur <em>einen</em> Grund sich zu ändern</li>
+<li>Änderungen/Erweiterungen beschränken sich auf möglichst wenige Klassen</li>
+<li>Viele kleine Klassen statt wenige grosse Klassen → verbesserte Testbarkeit</li>
+</ul></li>
+<li>Don't Repeat Yourself (DRY)
+<ul>
+<li>Duplizierung von Code vermeiden
+<ul>
+<li>Einfache Duplizierung: kopierte Codefragmente</li>
+<li>Subtile Duplizierung: wiederholte Bedingungskonstrukte, identische Algorithmen unterschiedlich implementiert</li>
+</ul></li>
+<li>Lösung: Unterfunktionen, Objektorientierung, Design-Patterns</li>
+<li>Vermeidung von Duplizierung verbessert/ermöglicht Wiederverwendung und erhöht dadurch die Produktivität</li>
+</ul></li>
+<li>Favor Composition over Inheritance (FCoI)
+<ul>
+<li>Komposition ist flexibler und weniger wartungsintensiv
+<ul>
+<li>Wrapper-, Delegate- oder Decorator-Pattern (GoF)</li>
+<li>Komposition ist ohne Einfluss auf das Interface austauschbar</li>
+</ul></li>
+<li>Im Zweifelsfall Komposition der Vererbung vorziehen</li>
+<li>Nicht von Klassen erben, die nicht explizit für Vererbung vorgesehen sind (selbst wenn diese <em>nicht</em> mit <code>final</code> deklariert sind</li>
+</ul></li>
+<li>Design for Inheritance, or Prohibit it
+<ul>
+<li>Das Schreiben gut spezialisierbarer Basisklassen ist schwierig</li>
+<li>Implementation muss für API dokumentiert werden → Verletzung der Datenkapselung</li>
+<li>Aufruf von überschreibbaren Methoden ist gefährlich</li>
+<li>Klassen sollten entweder zum Überschreiben entworfen werden oder als <code>final</code> deklariert werden bzw. private Konstruktoren haben</li>
+</ul></li>
+<li>Hohe Kohäsion, lose Kopplung
+<ul>
+<li>Hohe Kohäsion: eine Klasse fasst nur Attribute und Methoden zusammen, die wirklich zusammengehören
+<ul>
+<li>Optimale Kohäsion ist erreicht, wenn eine weitere Teilung nicht mehr sinnvoll ist</li>
+</ul></li>
+<li>Lose Kopplung: Wenige Abhängigkeiten zwischen Klassen</li>
+</ul></li>
+<li>Datenkapselung vs. Information Hiding
+<ul>
+<li>Datenkapselung: expliziter und bewusster Umgang mit Zugriffsmodifikatoren
+<ul>
+<li>Attribute möglichst <code>private</code>, aber <em>nicht</em> alle Methoden <code>public</code></li>
+<li>private Attribute mit öffentlichen getter- und setter-Methoden reicht nicht</li>
+</ul></li>
+<li>Information Hiding: strikte Trennung von Schnittstelle und Implementierung
+<ul>
+<li>Schnittstelle sollte keine Rückschlüsse auf die interne Implementierung ermöglichen</li>
+</ul></li>
+<li>fördert hohe Kohäsion und lose Kopplung</li>
+</ul></li>
+<li>Schnittstellen zur Enkopplung und Abstraktion
+<ul>
+<li>Schnittstellen als Mittel zur Abstraktion und Entkopplung</li>
+<li>Schnittstellen als bessere Alternative zu abstrakten Klassen</li>
+<li><em>«Design by Interface»</em>: Fokus auf das <em>was</em> (Schnittstelle), dann auf das <em>wie</em> (Implementierung)
+<ul>
+<li>Fokus auf die Perspektive des Nutzers</li>
+</ul></li>
+<li>Im Zweifelsfall lieber zu viele als zu wenige Schnittstellen</li>
+<li>Erleichtert Einhaltung des Test-First-Principles</li>
+</ul></li>
+<li>Test First Principle
+<ul>
+<li>Nicht nachträglich testen um Fehler zu finden</li>
+<li>Stattdessen fortlaufend testen, um Gewissheit zu haben, dass es funktioniert</li>
+<li>Automatisiertes Testen (mit dem JUnit-Framework) ist sehr effizient</li>
+<li>Test First Programming/Test-Driven Development
+<ul>
+<li>Früh die Perspektive des Nutzers einer Klasse einnehmen</li>
+<li>Intuitive Aufdeckung und Berücksichtigung von Spezialfällen</li>
+</ul></li>
+<li>Kein Projekt ist zu klein, um nicht mit Unit-Tests getestet zu werden</li>
+</ul></li>
+<li>viele kleine statt wenige grosse Einheiten
+<ul>
+<li>Einheiten: Klassen und Methoden</li>
+<li>Kleine Einheiten sind besser verständlich, wiederverwendbar und testbar</li>
+<li>Bei jeder Erweiterung überprüfen, ob nicht eine Aufteilung besser wäre
+<ul>
+<li>Kurzfristig höherer Arbeitsaufwand, langfristig geringerer Arbeitsaufwand</li>
+</ul></li>
+<li>Refactoring als andauernder Prozess (permanentes Refactoring)</li>
+</ul></li>
+<li>aussagestarke Namen und formatierter Quellcode
+<ul>
+<li>Klassen, Methoden usw. nicht leichtfertig benennen</li>
+<li>Ein guter Name hilft
+<ul>
+<li>Sinn und Absicht zu verstehen</li>
+<li>Dokumentationsaufwand zu reduzieren</li>
+<li>Verletzungen der Kohäsion zu erkennen: <code>doThisAndThat()</code></li>
+<li>beim Verständnis des Quellcodes (bessere Wartbarkeit und Erweiterbarkeit)</li>
+</ul></li>
+<li>Quellcode immer sauber halten und (automatisch) formatieren</li>
+</ul></li>
+<li>Open/Closed Principle (OC)
+<ul>
+<li>Klassen und Methoden sollten offen für Erweiterungen und geschlossen für Änderungen sein</li>
+<li>Änderung: Anpassung bestehenden Quellcodes (fehleranfällig, da bereits in Verwendung)
+<ul>
+<li>Änderung einer Schnittstelle → viele Anpassungen im bestehenden Code</li>
+</ul></li>
+<li>Erweiterung: Implementierung einer Schnittstelle, Hinzufügen einer Methode
+<ul>
+<li>→ Kein Einfluss auf bestehenden Code</li>
+</ul></li>
+</ul></li>
+<li>Interface Segregation Principle (ISP)
+<ul>
+<li>Aufteilung grosser Schnittstellen in kleinere Schnittstellen sobald Implementierungen unnötige Methoden implementieren müssen</li>
+</ul></li>
+<li>Law of Demeter (LoD)
+<ul>
+<li>Auch bekannt als <em>«Principle of Least Knowledge»</em>
+<ul>
+<li>Objekte sollten nur mit Objekten aus ihrer unmittelbaren Umgebung kommunizieren</li>
+<li><em>«Talk to friends, not to strangers.»</em></li>
+</ul></li>
+<li>Eine Methode <code>m</code> des Objektes <code>O</code>sollte nur folgendes verwenden:
+<ul>
+<li><code>O</code> selber</li>
+<li>die Eigenschaften von <code>O</code></li>
+<li>die eigenen Parameter von <code>m</code></li>
+<li>von <code>m</code> selber erstellte Instanzen</li>
+<li>globale Variablen</li>
+</ul></li>
+</ul></li>
+<li>Liskov Substitution Principle (LSP)
+<ul>
+<li>Code, der Instanzen einer Basisklasse verwendet, muss auch mit Instanzen davon abgeleiteter Klassen funktionieren, ohne den Code verändern zu müssen. Beispiel:
+<ul>
+<li>Basisklasse <code>Person</code></li>
+<li>Unterklasse <code>Student</code></li>
+<li><code>insert(Person p);</code> muss auch für <code>insert(Student s);</code> funktionieren, ohne die <code>insert</code>-Methode anpassen zu müssen</li>
+</ul></li>
+<li>Beispiel für eine Verletzung des Prinzips:
+<ul>
+<li>Die Klasse <code>Kreis</code> erbt von der Klasse <code>Ellipse</code> (ein Kreis ist tatsächlich eine Ellipse!)</li>
+<li>Die Methode <code>skaliereX()</code> und <code>skaliereY()</code> funktionieren für Ellipsen, die in beide Achsen skaliert werden können</li>
+<li>Ein Kreis darf jedoch nur in beide Achsen gleichzeitig skaliert werden!</li>
+<li>→ Das Prinzip hängt weniger von der Klassenstruktur als vom Client-Code ab</li>
+</ul></li>
+</ul></li>
+</ol>
+</body>
+</html>
