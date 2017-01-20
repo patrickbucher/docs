@@ -13,7 +13,7 @@
 <ul>
 <li>A finalizer in Java is <em>not</em> the same as a destructor in C++. In Java:
 <ul>
-<li>memory is reclaimed using garbace collection, and</li>
+<li>memory is reclaimed using garbage collection, and</li>
 <li>non-memory resources are reclaimed using <code>try-finally</code> blocks.</li>
 </ul></li>
 <li>There's now guarantee that the finalizer will be executed <em>in time</em>.
@@ -21,7 +21,7 @@
 <li>The finalizer thread might run with lower priority.</li>
 <li>The execution of finalizers depends both on the implementation on the specific platform and on the garbage collection (and its implementation).</li>
 <li>Never do anything time-critical in a finalizer!</li>
-<li>Don't try to free limited ressources (memory, file descriptors) in a finalizer!</li>
+<li>Don't try to free limited resources (memory, file descriptors) in a finalizer!</li>
 </ul></li>
 <li>There's not even a guarantee that the finalizer will be executed <em>at all</em>.
 <ul>
@@ -75,11 +75,11 @@
 <li>Using composition over inheritance makes it easier.</li>
 <li><code>a.equals(b)</code> should only return true, if <code>a</code> and <code>b</code> are instances of the same class (<code>a.getClass() == b.getClass()</code>).
 <ul>
-<li>Example: A date might be equals to a timestamp, but a timestamp (containing time information) not to a date, which violates the <em>summetry</em> rule.</li>
+<li>Example: A date might be equals to a timestamp, but a timestamp (containing time information) not to a date, which violates the <em>symmetry</em> rule.</li>
 </ul></li>
 <li>Don't use unreliable resources in <code>equals()</code>.
 <ul>
-<li>Example: <code>URL</code> uses the IP address in its <code>equals()</code> implementation, but the IP might change, where's the hostname is still the same (DNS).</li>
+<li>Example: <code>URL</code> uses the IP address in its <code>equals()</code> implementation, but the IP might change, where's the host name is still the same (DNS).</li>
 </ul></li>
 </ul></li>
 <li>When using the <code>instanceof</code> operator (to make sure that instances of the same class are compared), checking for <code>null</code> is not necessary.
@@ -122,14 +122,14 @@
 <h2 id="item-9-always-override-hashcode-when-you-override-equals">Item 9: Always override <code>hashCode</code> when you override <code>equals</code></h2>
 <ul>
 <li>When overriding <code>equals()</code>, always also override the <code>hashCode()</code> method, otherwise the class might not work properly for <code>HashMap</code>, <code>HashSet</code> and <code>Hashtable</code>, among others.</li>
-<li>The <code>hashCode()</code> implementantion must adhere to the following contract:
+<li>The <code>hashCode()</code> implementation must adhere to the following contract:
 <ul>
 <li>As long as no information used by <code>equals()</code> is changed on an object, it's <code>hashCode()</code> method must return the same value in the same execution context.</li>
 <li>If <code>a.equals(b)</code>, <code>a.hashCode()</code> must be the same as <code>b.hashCode()</code>.</li>
 <li>If <code>!a.equals(b)</code>, <code>a.hashCode()</code> and <code>b.hashCode()</code> are <em>not</em> required to differ; they should, however, for performance reasons when working with hash tables and the like.</li>
 </ul></li>
 <li>When two objects that are equal have different hash codes ‒ which is the case when <code>equals()</code> has been overridden but not so <code>hashCode() ‒, the lookup of those objects in a</code>HashMap<code>(or the like) might be slower or even fail (return</code>null`).</li>
-<li>A good <code>hashCode()</code> implementation producees equal hash codes for equal objects and unequal hash codes for unequal objects; it can be achieved using this recipe:
+<li>A good <code>hashCode()</code> implementation produces equal hash codes for equal objects and unequal hash codes for unequal objects; it can be achieved using this recipe:
 <ol style="list-style-type: decimal">
 <li>Store a constant nonzero value in an integer variable, say, 17.
 <ul>
@@ -155,9 +155,134 @@
 <li>Return <code>result</code></li>
 <li>Write a test case to make sure that equal instances have equal hash codes ‒ and unequal instances unequal hash codes.</li>
 </ol></li>
-<li>17 and 31 are uneven prime numbers and have some interesting properties that help reduce colissions when computing hash codes. Use those values, unless you are a mathematician.</li>
+<li>17 and 31 are uneven prime numbers and have some interesting properties that help reduce collisions when computing hash codes. Use those values, unless you are a mathematician.</li>
 <li>Since Java 7, consider using <code>Objects.hashCode(f1, f2, f3, ...)</code> by passing all fields that are also used in <code>equals()</code>.</li>
 <li>Don't try to optimize <code>hashCode()</code> for performance. <em>Good</em> hash codes are more important than <em>quickly generated</em> hash codes, for any computation time saved for creating worse hash codes can make <code>HashMap</code> (et al.) perform worse.</li>
 </ul>
+<h2 id="item-15-minimize-mutability">Item 15: Minimize mutability</h2>
+<ul>
+<li>An immutable class is a class whose instances cannot be modified.</li>
+<li>All the information of an instance is provided when it is created.</li>
+<li>A class can be made immutable following these rules:
+<ol style="list-style-type: decimal">
+<li>Don't provide any methods that modify the object's state (mutators).</li>
+<li>Make sure the class cannot be extended by declaring it with the <code>final</code> keyword or make the constructor <code>private</code>.
+<ul>
+<li>Provide a <code>public static</code> factory method instead of a <code>public</code> constructor.</li>
+</ul></li>
+<li>Make all fields <code>final</code> and initialize them in the constructor.</li>
+<li>Make all fields <code>private</code> so that clients cannot obtain access to objects referred to by them.</li>
+<li>Ensure exclusive access to any mutable components.
+<ul>
+<li>If there are fields that refer to mutable objects, make sure that clients of the class cannot obtain references to those.</li>
+<li>Don't initialize a field to a object reference provided by the client.</li>
+<li>Don't return references to objects in accessor methods.</li>
+</ul></li>
+</ol></li>
+<li>Instead of setter methods that modify the instance, create a new instance based on the setter's parameter(s) and return it (<em>functional approach</em>).</li>
+<li>Immutable objects have only one state and hence no state transitions to deal with, which makes them simpler.</li>
+<li>Immutable objects are thread-safe and don't require synchronisation. So they can be shared freely.</li>
+<li>Immutable objects are greap map keys and set elements, because their values don't change.</li>
+<li>However, immutable classes require an object for each distinct value, which can be costly.</li>
+</ul>
+<h2 id="item-18-prefer-interfaces-to-abstract-classes">Item 18: Prefer interfaces to abstract classes</h2>
+<ul>
+<li>A Java class can only inherit from one (abstract) class but many interfaces.
+<ul>
+<li>Providing an interface-definition as an abstract class takes flexibility away from the client.</li>
+<li>If the client already inherits from another class, he either needs change inheritance or build a deeper class-hierarchy.</li>
+</ul></li>
+<li>Existing classes easily can implement new interfaces but not so easily inherit from a new abstract class.
+<ul>
+<li>Implementing another interface is <em>extending the code</em>, inheriting from another abstract class is <em>changing the code</em>.</li>
+</ul></li>
+<li>Combining abstract classes to types requires large and unflexible class hierarchies, wheres interfaces can be combined easily and freely (interfaces have multi-inheritance).</li>
+</ul>
+<h2 id="item-25-prefer-list-to-array">Item 25: Prefer List to Array</h2>
+<ul>
+<li>If you put any object (that is not an instance of <code>Object</code>) into an <code>Object</code> array, you get a runtime error. If you put any such object into an <code>Object</code> array list, you get a compile-time error.
+<ul>
+<li>A compile-time error allows you to fix the problem early and is hence preferrable.</li>
+</ul></li>
+<li><code>List</code> implementations (and Collections and generic classes in general) use type-erasure and hence work well together with legacy code.</li>
+<li>Arrays don't support generics, lists do.</li>
+<li>Arrays and (generic) lists don't mix well. Lists are much more powerful, so try to use lists instead of arrays whereever possible.
+<ul>
+<li>Varargs, implemented as arrays, therefore should be used with caution.</li>
+</ul></li>
+</ul>
+<h2 id="item-38-check-parameters-for-validity">Item 38: Check parameters for validity</h2>
+<ul>
+<li>Restrictions on method parameters must be checked and the beginning of the method and documented.</li>
+<li>Parameters need to be checked before the method works with them or stores them somehow.
+<ul>
+<li>Failing early helps detecting problems early.</li>
+<li>Otherwise errors hard to track down can occur later in the execution.</li>
+<li>Returning a result based on illegal parameters can be dangerous. The client thinks that everything went ok and continues to work with a pointless return value.</li>
+</ul></li>
+<li>Throw exceptions to make the client aware of violated restrictions on the parameters and document them with the <code>@throws</code> tag.
+<ul>
+<li><code>NullPointerException</code> for <code>null</code> references</li>
+<li><code>IndexOutOfBoundsException</code> for invalid indices</li>
+<li><code>IllegalArgumentException</code> for all other illegal values</li>
+</ul></li>
+<li>For exported (i.e. non-<code>private</code>) methods, throw exceptions; for not-exported (i.e. <code>private</code>) methods, use assertions.</li>
+<li>Don't restrict parameters arbitrarily, but naturally. Example:
+<ul>
+<li>«Nobody will ever order more than 1000 items at a time!» What if? <em>Don't</em> do an upper-bound check here!</li>
+<li>«Nobody will ever order a negative amount.» True. <em>Do</em> a lower-bound check here!</li>
+</ul></li>
+</ul>
+<h2 id="item-51-beware-the-performance-of-string-concatenation">Item 51: Beware the performance of string concatenation</h2>
+<ul>
+<li>String concatenation using the <code>+</code> operator doesn't scale well.</li>
+<li>Strings are immutable, for every modification to a String, a new object has to be created.</li>
+<li>To concatenate long strings, use a <code>StringBuilder</code>.
+<ul>
+<li>Create a <code>StringBuilder</code> with optional length: `StringBuilder sb = new StringBuilder(length);</li>
+<li>Add to a <code>StringBuilder</code>: <code>sb.append(&quot;...&quot;); // any type goes, not only String</code></li>
+<li>Get the concatenated <code>String</code> when done: <code>sb.toString()</code></li>
+</ul></li>
+</ul>
+<h2 id="item-52-refer-to-objects-by-their-interfaces">Item 52: Refer to objects by their interfaces</h2>
+<ul>
+<li>If an appropriate interface type exist, make the declaration using the interface name instead of the class name.
+<ul>
+<li>do so for parameters, return values, variables and fields</li>
+</ul></li>
+<li>This will make the code more flexible, because the specific implementation can be replaced by modifying only one line: the instantiation.</li>
+<li>Besides the instantiation, only use the class name as the reference type when you really need implementation specific methods.</li>
+<li>When no interface is available, it could be a good idea to refer to a (maybe abstract) base class instead of a specific implementation.</li>
+</ul>
+<h2 id="item-57-use-exceptions-only-for-exceptional-conditions">Item 57: Use exceptions only for exceptional conditions</h2>
+<ul>
+<li>Exceptions are supposed to be used for exceptional cases, not for control flow.</li>
+<li>Relying on exceptions does <em>not</em> perform better then explicit tests.
+<ul>
+<li>JVM implementations have no incentive to optimize the performance for exceptional cases.</li>
+<li>Code inside a <code>try-catch</code> block cannot be optimized like other code.</li>
+<li>The JVM <em>can</em> optimize explicit control flow tests.</li>
+</ul></li>
+<li>Using exceptions for control flow obfuscates the meaning of the code.</li>
+<li>If exception handling is used for control flow, <em>real</em> exceptions are dismissed silently, which makes it hard to detect bugs.</li>
+<li>Don't write APIs that throw exceptions for non-exceptional cases.</li>
+</ul>
+<h2 id="item-58-use-checked-exceptions-for-recoverable-conditions-and-runtime-exceptions-for-programming-errors">Item 58: Use checked exceptions for recoverable conditions and runtime exceptions for programming errors</h2>
+<ul>
+<li>There are three kinds of throwables in Java:
+<ol style="list-style-type: decimal">
+<li>Checked exceptions (subclasses of <code>Exception</code>): for conditions from which the caller can recover. Handle those in a <code>catch</code> block.</li>
+<li>Runtime exceptions (subclasses of <code>RuntimeException</code>): for programming errors. Don't catch those, but fix the code that causes them.</li>
+<li>Errors (subclasses of <code>Error</code>): <code>StackOverflowError</code>, <code>OutOfMemoryError</code> and the like. Handle those like runtime exceptions.</li>
+</ol></li>
+<li>When writing subclasses of <code>Exception</code>, notice that exceptions are full-fledged classes.
+<ul>
+<li>Don't just provide a text message, but consider storing relevant information in the exception class and provide accessors to them.</li>
+</ul></li>
+</ul>
+<h2 id="item-59-avoid-unnecessary-use-of-checked-exceptions">Item 59: Avoid unnecessary use of checked exceptions</h2>
+<h2 id="item-60-favor-the-use-of-standard-exceptions">Item 60: Favor the use of standard exceptions</h2>
+<h2 id="item-61-throw-exceptions-appropriate-to-the-abstraction">Item 61: Throw exceptions appropriate to the abstraction</h2>
+<h2 id="item-64-strive-for-failure-atomicity">Item 64: Strive for failure atomicity</h2>
 </body>
 </html>
