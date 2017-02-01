@@ -189,10 +189,9 @@
 - When writing subclasses of `Exception`, notice that exceptions are full-fledged classes.
     * Don't just provide a text message, but consider storing relevant information in the exception class and provide accessors to them.
 
-## Item 59: Avoid unnecessary use of checked exceptions
+## TODO
 
-## Item 60: Favor the use of standard exceptions
-
-## Item 61: Throw exceptions appropriate to the abstraction
-
-## Item 64: Strive for failure atomicity
+- Item 59: Avoid unnecessary use of checked exceptions
+- Item 60: Favor the use of standard exceptions
+- Item 61: Throw exceptions appropriate to the abstraction
+- Item 64: Strive for failure atomicity

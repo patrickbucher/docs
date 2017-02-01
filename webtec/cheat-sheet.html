@@ -1,0 +1,938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="cheat-sheet.css" type="text/css" />
+</head>
+<body>
+<div class="main">
+
+<h1 id="html">HTML</h1>
+<h2 id="meta-tags">Meta Tags</h2>
+<pre><code>&lt;!-- Sprache --&gt;
+&lt;meta http-equiv=&quot;language&quot; content=&quot;deutsch, de&quot;&gt;
+
+&lt;!-- Automatisches Laden der Seite foobar.html nach 10 Sekunden --&gt;
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;10; URL=foobar.html&quot;&gt;
+
+&lt;!-- Seitenbeschreibung --&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Webseite meiner Brauerei&quot;&gt;
+
+&lt;!-- Autor der Seite --&gt;
+&lt;meta name=&quot;author&quot; content=&quot;Patrick Bucher, patrick.bucher87@gmail.com&gt;
+
+&lt;!-- Schlüsselwörter --&gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;bier, brauen, hopfen, malz&quot;&gt;
+
+&lt;!-- Thema der Seite --&gt;
+&lt;meta name=&quot;page-topic&quot; content=&quot;Bier brauen&quot;&gt;
+
+&lt;!-- Zielpublikum --&gt;
+&lt;meta name=&quot;audience&quot; content=&quot;Erwachsene&quot;&gt;
+
+&lt;!-- Verhalten von Suchmaschinen --&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;&gt;
+
+&lt;!-- Intervall für erneute Suchmaschinen-Indizierung --&gt;
+&lt;meta name=&quot;revisit-after&quot; content=&quot;14 days&quot;&gt;</code></pre>
+<h2 id="robots.txt">robots.txt</h2>
+<p>Im Hauptverzeichnis der Seite abgelegt, Beispiel:</p>
+<pre><code>User-agent: Googlebot
+Disallow: /private/
+Disallow: /pictures/
+Allow: /public/</code></pre>
+<h2 id="textauszeichnung-inline">Textauszeichnung (Inline)</h2>
+<pre><code>&lt;!-- Abkürzung --&gt;
+&lt;abbr&gt;...&lt;/abbr&gt;
+
+&lt;!-- Akronym --&gt;
+&lt;acronym&gt;...&lt;/acronym&gt;
+
+&lt;!-- Zitat --&gt;
+&lt;cite&gt;...&lt;/cite&gt;
+
+&lt;!-- Quellcode --&gt;
+&lt;code&gt;...&lt;/code&gt;
+
+&lt;!-- Definition --&gt;
+&lt;dfn&gt;...&lt;/dfn&gt;
+
+&lt;!-- Betonung (kursiv) --&gt;
+&lt;em&gt;...&lt;/em&gt;
+
+&lt;!-- Tastatureingabe --&gt;
+&lt;kbd&gt;...&lt;/kbd&gt;
+
+&lt;!-- Beispiel --&gt;
+&lt;samp&gt;...&lt;/samp&gt;
+
+&lt;!-- Stark (fett) --&gt;
+&lt;strong&gt;...&lt;/strong&gt;
+
+&lt;!-- Variable --&gt;
+&lt;var&gt;...&lt;/var&gt;</code></pre>
+<h2 id="html-5-blockelemente">HTML 5 Blockelemente</h2>
+<pre><code>&lt;header&gt;
+&lt;footer&gt;
+&lt;figure&gt;
+&lt;figcaption&gt;
+&lt;aside&gt;
+&lt;nav&gt;
+&lt;section&gt;
+&lt;article&gt;
+&lt;address&gt;</code></pre>
+<h2 id="tabellen">Tabellen</h2>
+<pre><code>&lt;table&gt;
+    &lt;caption&gt;Tabellenüberschrift&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Spaltenüberschrift 1&lt;/th&gt;
+        &lt;th&gt;Spaltenüberschrift 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Spalte 1, Zeile 1&lt;/td&gt;
+        &lt;td&gt;Spalte 2, Zeile 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Spalte 1, Zeile 2&lt;/td&gt;
+        &lt;td&gt;Spalte 2, Zeile 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<h2 id="image-maps">Image-Maps</h2>
+<pre><code>&lt;map&gt;
+    &lt;!-- Rechteck mit linker oberen Ecke (10,20)
+     und rechter unteren Ecke (30,40) --&gt;
+    &lt;area shape=&quot;rect&quot; coords=&quot;10, 20, 30, 40&quot; href=&quot;...&quot;&gt;
+    &lt;!-- Kreis mit Zentrum (10,20) und Radius 30 --&gt;
+    &lt;area shape=&quot;circle&quot; coords=&quot;10, 20, 30&quot; href=&quot;...&quot;&gt;
+    &lt;!-- Polygon durch (5,0), (10,5), (5,10), (5,0): eine Raute --&gt;
+    &lt;area shape=&quot;poly&quot; coords=&quot;5,0, 10,5, 5,10 5,0&quot; href=&quot;...&quot;&gt;
+&lt;/map&gt;</code></pre>
+<h2 id="frames-und-iframes">Frames und iFrames</h2>
+<pre><code>&lt;!-- anstelle von &lt;body&gt;, nicht in HTML5! --&gt;
+&lt;frameset cols=&quot;20%, 80%&quot;&gt;
+    &lt;frame src=&quot;nav.html&quot; name=&quot;navigation&quot;&gt;
+        &lt;a href=&quot;info.html&quot; target=&quot;content&quot;&gt;Info&lt;/a&gt;
+    &lt;/frame&gt;
+    &lt;frame src=&quot;content.html&quot; name=&quot;content&quot; /&gt;
+&lt;/frameset&gt;
+
+&lt;iframe src=&quot;http://google.com&quot; name=&quot;search&quot; /&gt;</code></pre>
+<h2 id="html-5-formularelemente">HTML 5 Formularelemente</h2>
+<pre><code>&lt;!-- Data List --&gt;
+&lt;input type=&quot;text&quot; list=&quot;mylist&quot;&gt;
+&lt;datalist id=&quot;mylist&quot;&gt;
+    &lt;option value=&quot;Option A&quot;&gt;
+    &lt;option value=&quot;Option B&quot;&gt;
+    &lt;option value=&quot;Option C&quot;&gt;
+&lt;/datalist&gt;
+
+&lt;!-- Platzhalter für Input-Text --&gt;
+&lt;input type=&quot;text&quot; placeholder=&quot;Ihr Name&quot;&gt;
+
+&lt;!-- Spezielle Texteingaben (Suche, E-Mail, URL, Telefonnummer) --&gt;
+&lt;input type=&quot;search&quot;&gt;
+&lt;input type=&quot;email&quot;&gt;
+&lt;input type=&quot;url&quot;&gt;
+&lt;input type=&quot;tel&quot;&gt;
+
+&lt;!-- Slider --&gt;
+&lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;2&quot;
+
+&lt;!-- Nummmer --&gt;
+&lt;input type=&quot;number&quot; min=&quot;1&quot; max=&quot;100&quot; step=&quot;10&quot;&gt;
+
+&lt;!-- Datum und Uhrzeit --&gt;
+&lt;input type=&quot;date&quot;&gt;
+&lt;input type=&quot;datetime&quot;&gt;
+&lt;input type=&quot;datetime-local&quot;&gt;
+&lt;input type=&quot;time&quot;&gt;
+&lt;input type=&quot;month&quot;&gt;
+
+&lt;!-- Validierung mittels Regex (hier: drei oder mehr Ziffern) --&gt;
+&lt;input type=&quot;text&quot; pattern=&quot;^[0-9]{3,}$&quot;&gt;
+
+&lt;!-- Farbauswahl --&gt;
+&lt;input type=&quot;color&quot;&gt;</code></pre>
+<h2 id="definitionslisten">Definitionslisten</h2>
+<pre><code>&lt;!-- Definitionsliste (Glossar) --&gt;
+&lt;dl&gt;...&lt;/dl&gt;
+
+&lt;!-- Definitionsbegriff --&gt;
+&lt;dt&gt;...&lt;/dt&gt;
+
+&lt;!-- Definition --&gt;
+&lt;dd&gt;...&lt;/dd&gt;
+
+&lt;!-- Beispiel einer Definitionsliste --&gt;
+&lt;dl&gt;
+    &lt;dt&gt;Yes&lt;/dt&gt; &lt;dd&gt;heisst Ja&lt;/dd&gt;
+    &lt;dt&gt;No&lt;/dt&gt; &lt;dd&gt;heisst Nein&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+<h2 id="multimedia">Multimedia</h2>
+<pre><code>&lt;!-- Audio --&gt;
+&lt;audio src=&quot;sound.mp3&quot;&gt;
+&lt;audio&gt;
+    &lt;source src=&quot;sound.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+    &lt;source src=&quot;sound.ogg&quot; type=&quot;audio/ogg&quot;&gt;
+&lt;/audio&gt;
+
+&lt;!-- Video --&gt;
+&lt;video src=&quot;movie.mp4&quot; poster=&quot;screenshot.jpg&quot;&gt;
+&lt;video poster=&quot;screenshot.jpg&quot;&gt;
+    &lt;source src=&quot;movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;source src=&quot;movie.ogv&quot; type=&quot;video/ogg&quot;&gt;
+&lt;/video&gt;
+
+&lt;!-- Skalierbare Vektorgrafik --&gt;
+&lt;svg&gt;...&lt;/svg&gt;
+
+&lt;!-- Canvas --&gt;
+&lt;canvas&gt;</code></pre>
+<h2 id="diverses">Diverses</h2>
+<pre><code>&lt;!-- Viewport automatisch auf die Breite des Bildschirmes setzen --&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+&lt;!-- fixer Viewport mit einer Breite von 320 Pixel --&gt;
+&lt;meta name=&quot;viewpoert&quot; content=&quot;width=320&quot;&gt;</code></pre>
+<h1 id="css">CSS</h1>
+<h2 id="einbindung-in-html-dokument">Einbindung in HTML-Dokument</h2>
+<p>Im Header:</p>
+<pre><code>&lt;style&gt;
+* {
+    font-size: 16pt;
+}
+&lt;/style&gt;</code></pre>
+<p>Externe CSS-Datei verlinken:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;&gt;</code></pre>
+<p>Inline:</p>
+<pre><code>&lt;body style=&quot;font-size: 16pt;&quot;&gt;</code></pre>
+<p>Medien (per <code>&lt;link&gt;</code>-Tag):</p>
+<pre><code>&lt;!-- Bildschirm --&gt;
+&lt;link rel=&quot;stylesheet&quot; media=&quot;screen&quot; href=&quot;screen.css&quot;&gt;
+
+&lt;!-- Drucker --&gt;
+&lt;link rel=&quot;stylesheet&quot; media=&quot;print&quot; href=&quot;print.css&quot;&gt;
+
+&lt;!-- Braille --&gt;
+&lt;link rel=&quot;stylesheet&quot; media=&quot;embossed&quot; href=&quot;embossed.css&quot;&gt;</code></pre>
+<p>Weitere: <code>handheld</code>, <code>projection</code>, <code>speech</code>, <code>tty</code>, <code>tv</code></p>
+<p>Medien (mit CSS):</p>
+<pre><code>@import url(screen.css) screen;
+@import url(print.css) print;
+@import url(embossed.css) embossed;</code></pre>
+<h2 id="priorität-zunehmend">Priorität (zunehmend)</h2>
+<ol style="list-style-type: decimal">
+<li>Deklaration des Browsers (Standardeinstellungen)</li>
+<li>Deklaration des Besuchers</li>
+<li>Externe CSS-Anweisung des Autors</li>
+<li>Interne CSS-Anweisung des Autors</li>
+<li>Inline CSS-Anweisung des Autors</li>
+<li><code>!important</code>-Deklaration des Autors</li>
+<li><code>!important</code>-Deklaration des Benutzers</li>
+</ol>
+<h2 id="pseudo-selektoren">Pseudo-Selektoren</h2>
+<ul>
+<li><code>a:link</code> Hyperlink</li>
+<li><code>a:visited</code> bereits besucht</li>
+<li><code>a:active</code> angeklickter Hyperlink</li>
+<li><code>a:hover</code> unter dem Mauszeiger</li>
+<li><p><code>a:focus</code> mit Tastatur ausgewählt</p></li>
+<li><code>p:first-line</code> erste Zeile</li>
+<li><p><code>p:first-letter</code> erster Buchstabe</p></li>
+</ul>
+<h2 id="farben">Farben</h2>
+<ul>
+<li>RGB
+<ul>
+<li><code>color: #ff0000;</code></li>
+<li><code>color: rgb(255, 0, 0);</code></li>
+</ul></li>
+<li>RGBA (mit Alpha-Channel für Transparenz; 0: völlig transparent)
+<ul>
+<li><code>color: rgba(255, 0, 0, 0.5);</code></li>
+</ul></li>
+<li>HSL (hue, saturation, lightness)
+<ul>
+<li><code>color: hsl(120, 65%, 75%);</code></li>
+</ul></li>
+<li>HSLA (mit Alpha-Channel):
+<ul>
+<li><code>color: hsla(120, 65%, 75%, 0.5);</code></li>
+</ul></li>
+</ul>
+<h2 id="externe-schriften">Externe Schriften</h2>
+<pre><code>@font-face {
+    font-family: &quot;myfont&quot;;
+    src: url(&quot;/fonts/myfont.ttf&quot;);
+}</code></pre>
+<h2 id="selektoren">Selektoren</h2>
+<ul>
+<li><code>A B</code>
+<ul>
+<li>Alle Elemente B, die Kind von Element A sind</li>
+</ul></li>
+<li><code>A&gt;B</code>
+<ul>
+<li>Alle Elemente B, die <em>unmittelbares</em> Kind von Element A sind</li>
+</ul></li>
+<li><code>A+B</code>
+<ul>
+<li>Alle Elemente B, die auf ein Element A folgen</li>
+</ul></li>
+<li><code>A~B</code>
+<ul>
+<li>Alle Elemente B, die <em>unmittelbar</em> auf ein Element A folgen</li>
+</ul></li>
+</ul>
+<h2 id="nth-child">nth Child</h2>
+<pre><code>p:nth-child(n) {
+    // apply to paragraph number n
+}
+
+p:nth-child(odd) {
+    // apply to paragraphs with odd number
+}
+
+p:nth-child(even) {
+    // apply to paragraphs with even number
+}
+
+p:nth-child(an+b) {
+    // apply to paragraph with index
+    // a = cycle size (every &quot;a-th&quot; paragraph)
+    // b = offset (starting from &quot;b-th&quot; paragraph)
+}
+
+p:nth-child(3n+2) {
+    // apply to every third paragraph
+    // starting from the second paragraph
+}</code></pre>
+<h2 id="media-queries">Media-Queries</h2>
+<pre><code>@media screen and (orientation: portrait) {
+    /* Styles für das Hochformat */ 
+} 
+@media screen and (orientation: landscape) {
+    /* Styles für das Hochformat */ 
+}
+
+@media (min-width: 800px) {
+    /* Styles für breite Bildschirme */
+}
+@media (max-width: 800px) {
+    /* Styles für schmale Bildschirme */
+}
+
+@media screen and (device-aspct-ratio: 16/9) {
+    /* Styles für das 16:9-Format */
+}
+
+@media screen and (device-aspct-ratio: 4/3) {
+    /* Styles für das 16:9-Format */
+}</code></pre>
+<h2 id="positionierung">Positionierung</h2>
+<h3 id="absolut">Absolut</h3>
+<pre><code>div {
+    position: absolute;
+    width: 50%;
+    top: 100px;
+    left: 50px;
+}</code></pre>
+<h3 id="relativ-zu-übergeordneten-absolut-positioniertem-element">Relativ (zu übergeordneten, absolut positioniertem Element)</h3>
+<pre><code>div {
+    position: relative;
+    top: 20px;
+    left: 10px;
+}</code></pre>
+<h3 id="float">Float</h3>
+<pre><code>div.main {
+    margin-right: 30%;
+}
+
+div.side {
+    float: left;
+    width: 30%;
+}</code></pre>
+<h3 id="fixed">Fixed</h3>
+<pre><code>div.footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+}</code></pre>
+<h3 id="flexbox">Flexbox</h3>
+<ul>
+<li>Container-Element
+<ul>
+<li>display
+<ul>
+<li>flex</li>
+</ul></li>
+<li>flex-direction
+<ul>
+<li>row</li>
+<li>row-reverse</li>
+<li>column</li>
+<li>column-reverse</li>
+</ul></li>
+<li>flex-wrap
+<ul>
+<li>nowrap</li>
+<li>wrap</li>
+<li>wrap-reverse;</li>
+</ul></li>
+<li>flex-flow
+<ul>
+<li>[flex-direction] [flex-wrap]</li>
+<li>Kombination der vorherigen beiden</li>
+</ul></li>
+<li>justify-content
+<ul>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+<li>space-between</li>
+<li>space-around;`</li>
+</ul></li>
+<li>align-items
+<ul>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+<li>baseline</li>
+<li>stretch;</li>
+</ul></li>
+<li>align-content
+<ul>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+<li>space-between</li>
+<li>space-around</li>
+<li>stretch</li>
+</ul></li>
+</ul></li>
+<li>Child-Elemente
+<ul>
+<li>order
+<ul>
+<li>[integer]</li>
+</ul></li>
+<li>flex-grow
+<ul>
+<li>[integer]</li>
+</ul></li>
+<li>flex-shrink
+<ul>
+<li>[integer]</li>
+</ul></li>
+<li>flex-basis:
+<ul>
+<li>[length]</li>
+<li>auto</li>
+<li>content</li>
+</ul></li>
+<li>flex
+<ul>
+<li>[flex-grow] [flex-shrink] [flex-basis];</li>
+<li>Kombination der vorherigen drei</li>
+</ul></li>
+<li>`align-self
+<ul>
+<li>auto</li>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+<li>baseline</li>
+<li>stretch</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="accessibility">Accessibility</h1>
+<ul>
+<li>«Accessibility» bedeutet «Zugänglichkeit».</li>
+<li>Webseiten so gestalten, dass sie jedermann betrachten kann</li>
+<li>Sensibilisierung wichtig</li>
+<li>Gesetzgebung</li>
+<li>«Barrierefreiheit»</li>
+<li>Genügend Zeit bei der Umsetzung von Web-Projekten einplanen!</li>
+</ul>
+<h2 id="zielgruppe">Zielgruppe</h2>
+<ul>
+<li>Sehbehinderte (auch Farbenblinde)</li>
+<li>Muskel-, Gelenk- und Nervenkranke
+<ul>
+<li>mausorientierte Navigation</li>
+<li>Epilepise: blinkende und flackernde Elemente</li>
+</ul></li>
+<li>Gehörlose
+<ul>
+<li>Audio- und Videoelemente</li>
+</ul></li>
+<li>Benutzer textorientierter Browser bzw. mit ausgeschalteter Grafikfunktion</li>
+<li>Tablet-, Netbook- und Smartphone-Benutzer</li>
+<li>bei tiefen Übertragungsraten</li>
+<li>Suchmaschinen-Crawler</li>
+</ul>
+<h2 id="richtlinien">Richtlinien</h2>
+<ul>
+<li>WAI (Web Accessibility Initiative)</li>
+<li>Web Content Accessibility Guidelines (1999)</li>
+<li>Schweizer Bundesverfassung
+<ul>
+<li>Massnahmen zur Beseitigung von Benachteiligungen der Behinderten</li>
+</ul></li>
+<li>Behindertengleichstellungsgesetz (BehiG, seit 2004)
+<ul>
+<li>&quot;sämtliche Dienstleistungen öffentlicher Gemeinwesen&quot; (d.h. auch Webseiten) müssen so angeboten werden, dass sie auch von Behinderten ohne Benachteiligung verwendet werden können</li>
+<li>Möglichkeit, dieses Recht per Beschwerde oder Klage durchzusetzen (Entschädigung!)</li>
+<li>Bund, Kantone, Gemeinden und bundesnahe Betriebe zu barrierefreiem Webdesign verpflichtet!</li>
+</ul></li>
+<li>Empfehlungen: access-for-all.ch</li>
+<li>WCAG (Web Content Accessibility Guidelines), eine W3C-Initiative
+<ul>
+<li>1.0 (1999)
+<ul>
+<li>korrekte Verwendung von HTML und CSS</li>
+<li>14 Kategorien</li>
+<li>66 Gebote/Verbote</li>
+<li>Prioritäten: muss, soll, darf/kann</li>
+<li>3 Konformitäten: WAI-A, WAI-AA, WAI-AAA</li>
+</ul></li>
+<li>2.0 (2008)
+<ul>
+<li>technologieunabhängige Prinzipien</li>
+<li>offizielle Empfehlung des W3C</li>
+<li>Prinzipien, Richtlinien, Erfolgskriterien (normativ)</li>
+<li>Ausreichende und empfohlene Techniken (informatik)</li>
+</ul></li>
+</ul></li>
+<li>Evaluation für Accessibility: w3.org/WAI/eval/Overview.html</li>
+<li>P028 (Richtlinien des Bundes für die Gestaltung von barrierefreien Internetangeboten)</li>
+<li>WCAG 2.0 ist umfangreicher, tiefgehender und präziser
+<ul>
+<li>für einfache Webseiten und Webapplikationen geeignet</li>
+<li>trägt der Wichtigkeit von JavaScript Rechnung</li>
+<li>Einführung von HTML5 in die Richtlinien</li>
+<li>WAI-ARIA (für Rich Internet Applications)</li>
+</ul></li>
+</ul>
+<h3 id="wcag-2.0">WCAG 2.0</h3>
+<ul>
+<li>Prinzipien
+<ol style="list-style-type: decimal">
+<li>Wahrnehmbar (perceivable)
+<ul>
+<li>Textalternativen für Bilder</li>
+<li>Audio-Untertitel</li>
+<li>Anpassbarkeit der Darstellung und Farbkontraste</li>
+<li>Alternativen für zeitbasierte Medien</li>
+</ul></li>
+<li>Bedienbar (operable)
+<ul>
+<li>Maus- und Tastaturbedienung möglich</li>
+<li>Farbkontraste</li>
+<li>Zeitbegrenzungen bei Eingaben</li>
+<li>Navigierarkeit</li>
+<li>keine Effekte, die epileptische Anfälle auslösen können</li>
+</ul></li>
+<li>Verständlich (understandable)
+<ul>
+<li>Lesbarkeit</li>
+<li>Vorhersagbarkeit</li>
+<li>Hilfen bei Fehlern und bei der Eingabe</li>
+</ul></li>
+<li>Robust (robust)
+<ul>
+<li>Browser-Kompatibilität</li>
+<li>Kompatibilität mit Hilfstechnologien (z.B. Braille-Lesegerät)</li>
+</ul></li>
+</ol></li>
+</ul>
+<h2 id="problemquellen">Problemquellen</h2>
+<ul>
+<li>Clientseitige Scripts (JavaScript, Java)</li>
+<li>Bilder ohne weiterführende Informationen (<code>alt</code>-Attribut, Caption)</li>
+<li>Flash-Animationen</li>
+<li>schlechte Farbwahl
+<ul>
+<li>tiefer Kontrast</li>
+<li>Rot-Grün-Blindheit</li>
+</ul></li>
+<li>schlechte Typographie</li>
+</ul>
+<h1 id="webdesign">Webdesign</h1>
+<ul>
+<li>Design for your target audience</li>
+<li>Test your page on different browsers</li>
+<li>Test your page at various screen resolutions
+<ul>
+<li>widely used: 1024x768, 1366x768, 1280x800</li>
+<li>also test for mobile screens</li>
+</ul></li>
+<li>Website organization: hierarchical, linear, random
+<ul>
+<li>not too deep (three click rule)</li>
+</ul></li>
+<li>Visual Design: Repetition, Contrast, Proximity, Alignment</li>
+<li>Design to provide for accessibility: POUR
+<ul>
+<li>Perceivable: easy to see and hear</li>
+<li>Operable: by mouse and keyboard</li>
+<li>Understandable: easy to read content, well-organized</li>
+<li>Robust: correct syntax, works on different platforms</li>
+</ul></li>
+<li>Writing for the Web
+<ul>
+<li>avoid long blocks of text</li>
+<li>use bullet points instead</li>
+<li>use headings and subheadings</li>
+<li>use short paragraphs</li>
+</ul></li>
+<li>Design &quot;easy to read&quot; text
+<ul>
+<li>use common fonts</li>
+<li>use appropriate text size</li>
+<li>use appropriate line length (50-75 chars)</li>
+<li>use strong contrasts</li>
+<li>use columns for wide text areas</li>
+</ul></li>
+<li>Other considerations
+<ul>
+<li>choose hyperlink text carefully (bad: &quot;click here&quot;)</li>
+<li>use spell checkers</li>
+<li>mind the load time</li>
+<li>mind mobile devices</li>
+</ul></li>
+</ul>
+<h1 id="javascript">JavaScript</h1>
+<h2 id="einbindung">Einbindung</h2>
+<pre><code>&lt;script language=&quot;JavaScript&quot; src=&quot;script.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot;&gt;
+    document.write(&quot;&lt;h1&gt;hello world&lt;/h1&gt;&quot;);
+&lt;/script&gt;</code></pre>
+<h2 id="dom">DOM</h2>
+<h3 id="das-document-objekt">Das <code>document</code>-Objekt</h3>
+<ul>
+<li>Eigenschaften
+<ul>
+<li>forms (Formulare)</li>
+<li>images (Bilder)</li>
+<li>links (Links)</li>
+<li>location (URL des angezeigten Dokuments)</li>
+</ul></li>
+<li>Methoden
+<ul>
+<li>write(htmlStr); // htmlStr ins Dokument schreiben</li>
+<li>getSelection(); // markierten Text auslesen</li>
+</ul></li>
+<li>Events
+<ul>
+<li>onClick</li>
+<li>onDblClick // Doppelklick</li>
+<li>onKeyUp</li>
+<li>onKeyPress</li>
+<li>onKeyDown</li>
+</ul></li>
+</ul>
+<h3 id="das-window-objekt">Das <code>window</code>-Objekt</h3>
+<ul>
+<li>Eigenschaften
+<ul>
+<li>document</li>
+<li>frames</li>
+<li>location</li>
+</ul></li>
+<li>Methoden
+<ul>
+<li>alert(meldung) // Meldung (Pop-Up)</li>
+<li>print() // öffnet Druckdialog</li>
+<li>close() // Fenster schliessen*</li>
+<li>prompt(message, default) // Eingabeaufforderung</li>
+<li>resizeTo(x, y) // Fenstergrösse ändern*</li>
+<li>confirm(meldung) // Bestätigungsdialog anzeigen</li>
+</ul></li>
+<li>Events
+<ul>
+<li>onError</li>
+<li>onFocus</li>
+<li>onLoad</li>
+<li>onUnload</li>
+<li>onResize</li>
+</ul></li>
+</ul>
+<p>* wird meistens vom Browser abgefangen</p>
+<h2 id="array">Array</h2>
+<ul>
+<li>join()</li>
+<li>sort()</li>
+<li>reverse()</li>
+<li>push(element)</li>
+<li>pop()</li>
+<li><p>slice(start, ende)</p>
+<p>var arr = ['a', 'b', 'c']; var arr2d = [ ['a', 'b', 'c'], ['A', 'B', 'C']];</p></li>
+</ul>
+<h2 id="hashes">Hashes</h2>
+<pre><code>var hash = [];
+hash[&#39;a&#39;] = &#39;foo&#39;;
+hash[&#39;b&#39;] = &#39;bar&#39;;
+
+console.log(hash[&#39;a&#39;]);
+console.log(hash.b);</code></pre>
+<h2 id="objekte">Objekte</h2>
+<pre><code>var o = new Object();
+o.a = &#39;foo&#39;;
+o.b = &#39;bar&#39;;
+o.f = function() { ... }:
+
+var o = {
+    a : &#39;foo&#39;,
+    b : &#39;bar&#39;,
+    f : function() { ... }
+};</code></pre>
+<h2 id="fehlerbehandlung">Fehlerbehandlung</h2>
+<pre><code>window.onerror = handleError;
+function handleError(msg, file, line) {
+    console.err(&quot;error: &quot; + msg + &quot; in +
+        file + &quot; on line &quot; + line);
+}
+
+try {
+    if (b == 0) {
+        throw(&quot;divide by zero&quot;);
+    } else {
+        return a / b;
+    }
+} catch (e) {
+    console.error(e);
+} finally {
+    console.log(&quot;always executed&quot;);
+}</code></pre>
+<h2 id="canvas">Canvas</h2>
+<pre><code>var canvas = document.getElementById(&quot;canvas&quot;);
+var context = canvas.getContext(&quot;2d&quot;);
+context.fillStyle = &quot;rgb(255, 0, 0)&quot;; // rot
+context.fillRect(30, 0, 50, 40); // Rechteck von (30,0), Höhe 50 und Breite 40</code></pre>
+<h3 id="figurenlinien">Figuren/Linien</h3>
+<pre><code>context.beginPath(); // anfangen Linie/Figur zu zeichnen
+
+// Linie von (x1,y1) nach (x2,y2)
+context.moveTo(x1, y1);
+context.lineTo(x1, y2); 
+
+// 10px dicke, rote Linie
+context.lineWidth=10;
+context.strokeStyle=&quot;#ff0000&quot;;
+context.stroke();
+context.closePath();
+
+// Figur blau ausfüllen (Anfangs- und Endpunkt werden automatisch verbunden)
+context.strokeStyle=&quot;#0000ff&quot;;
+context.fill();
+
+context.closePath(); // Figur/Linie abschliessen</code></pre>
+<h3 id="kreisbögen">Kreisbögen</h3>
+<pre><code>context.beginPath();
+
+// Bogen mit Mittelpunkt (x,y) mit Radius r
+// von Winkel alpha bis omega (von der positiven x-Achse)
+// true: Gegenuhrzeigersinn, false: Uhrzeigersinn
+arc(x, y, r, alpha, omega, true);
+
+// Halbkreis (Math.PI) mit Mittelpunkt (50,50) und Radius 10
+// vom Punkt (60,50) im Uhrzeigersinn
+arc(50, 50, 10, 0, Math.PI, false);
+
+// Kreis (2*Math.PI) mit Mittelpunkt (100,100) und Radius 50
+// vom Punkt (150,100) im Uhrzeigersinn (irrelevant, da voller Kreis) 
+arc(100, 100, 50, 0, 2*Math.PI, true);
+
+context.closePath();</code></pre>
+<ul>
+<li>für Bogen: <code>fillStyle</code> setzen</li>
+<li>für Segment: <code>strokeStyle</code> setzen</li>
+</ul>
+<h3 id="text">Text</h3>
+<pre><code>// umrahmte Buchstaben
+context.fillText(str, x, y, maxWidth);
+
+// ausgefüllte Buchstaben
+context.strokeText(str, x, y, maxWidth);</code></pre>
+<h3 id="canvas-leeren">Canvas &quot;leeren&quot;</h3>
+<pre><code>// ein Rechteck von Punkt (x,y) mit Breite w und Höhe h &quot;leeren&quot;
+context.clearRect(x, y, w, h);</code></pre>
+<h2 id="jquery">jQuery</h2>
+<pre><code>$(document).ready(function() {
+    // ...
+});
+
+$(&#39;#element&#39;).html(&quot;change content&quot;);
+
+var pw = $(&#39;#password&#39;).val();
+$(&#39;#password&#39;).val(&#39;geheim&#39;);
+
+var numberOfDivs = $(&#39;div&#39;).length;
+var thirdDiv = $(&#39;div&#39;).get(3);
+var everyOtherDiv = $(&#39;div&#39;).eq(2);
+
+$(&#39;div&#39;).each(function(i) {
+    var div = $(this).html(&#39;div number &#39; + i);
+});
+
+.next(selector);
+.prev(selector);
+.siblings(selector);
+.children(selector);
+.parent(selector);
+
+.is(property);
+.find(class);
+
+.html(&#39;&lt;p&gt;hello world&lt;/p&gt;&#39;);
+.text(&#39;hello world&#39;);
+
+$(&#39;&lt;h1&gt;).replaceWith(&#39;&lt;h1&gt;CENSORED&lt;/h1&gt;&#39;);
+$(&#39;&lt;h1&gt;CENSORED&lt;/h1&gt;&#39;).replaceAll(&#39;h1&#39;);
+
+$(&#39;div&#39;).append(&#39;&lt;p&gt;...&lt;/p&gt;&#39;);
+$(&#39;div&#39;).prepend(&#39;&lt;p&gt;...&lt;/p&gt;&#39;);
+$(&#39;&lt;p&gt;...&lt;/p&gt;&#39;).appendTo(&#39;div&#39;);
+$(&#39;&lt;p&gt;...&lt;/p&gt;&#39;).prependTo(&#39;div&#39;);
+
+$(&#39;div&#39;).empty(); // remove all children
+$(&#39;div&#39;).remove(); // remove selection
+
+// put all odd paragraphs to the end
+$(&#39;div&#39;).remove(&#39;nth-child(odd)&#39;).appendTo(&#39;div&#39;);
+
+$(&#39;a&#39;).attr(&#39;href&#39;, &#39;index.html&#39;);
+$(&#39;img&#39;).attr({
+    &quot;src&quot; : &quot;screenshot.png&quot;,
+    &quot;alt&quot; : &quot;Screenshot&quot;
+});
+$(&#39;img&#39;).removeAttr(&#39;alt&#39;);
+
+
+$(&#39;div&#39;).addClass(&#39;foo&#39;);
+$(&#39;div&#39;).removeClass(&#39;foo&#39;);
+$(&#39;div&#39;).toggleClass(&#39;hidden&#39;);
+$(&#39;div&#39;).css(&#39;border: 1px solid black;&#39;);
+$(&#39;div&#39;).css({
+    &quot;align&quot; : &quot;center&quot;,
+    &quot;color&quot; : &quot;red&quot;
+});
+
+var h = $(&#39;div&#39;).height();
+h += 10;
+$(&#39;div&#39;).height(h);
+.innerWidth()
+.outerWidth()
+
+.show(&quot;fast&quot;);
+.hide(&quot;slow)&quot;;
+.toggle(100); // 100ms
+
+.slideUp(&quot;fast&quot;);
+.slideDown(&quot;slow&quot;);
+.slideToggle(100);
+
+.fadeIn(&quot;slow&quot;);
+.fadeOut(100);
+.fadeTo(&quot;fast&quot;, 0.5); // to opacity 0.5</code></pre>
+<h2 id="ajax">AJAX</h2>
+<h3 id="javascript-1">JavaScript</h3>
+<pre><code>var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE &amp;&amp; xmlhttp.status == 200) {
+        // do some stuff
+    } else {
+        // error, check xmlhttp.status for details
+    }
+};
+xmlhttp.open(&quot;GET&quot;, &quot;content.html&quot;, true); // true: async
+xmlhttp.send();</code></pre>
+<h3 id="jquery-1">jQuery</h3>
+<pre><code>$.ajax({
+    type : &#39;GET&#39;,
+    url : src,
+    dataType : &#39;text/html&#39;,
+    success : function(data) {
+        // do something with data
+    },
+    dataType : &quot;text&quot;
+});
+
+$.ajax({
+    type : &#39;GET&#39;,
+    dataType : &#39;json&#39;,
+    url : &#39;data/images.json&#39;,
+    success : function(data) {
+        // handle data
+    },
+    error : function(err, msg) {
+        // handle err, msg
+    }
+});</code></pre>
+<h2 id="cookies">Cookies</h2>
+<pre><code>// receive
+var cookie = document.cookie;
+
+// set with expiration date
+var expires = new Date();
+expires.setTime(expires.getTime() +
+    (1000 * 3600 * 24 * 30)); // 30 days
+var cookieStr = &#39;style=&#39; + styleName + 
+    &#39;; expires=&#39; + expires.toUTCString();</code></pre>
+<h1 id="internet-networking">Internet Networking</h1>
+<h2 id="ip-header">IP-Header</h2>
+<ul>
+<li>Version</li>
+<li>Header Length</li>
+<li>Type of Service</li>
+<li>Total Length</li>
+<li>Identification</li>
+<li>Flags</li>
+<li>Offset</li>
+<li>Time to Live</li>
+<li>Protocol</li>
+<li>Checksum</li>
+<li>Source Address</li>
+<li>Destination Address</li>
+<li>Options and Padding</li>
+</ul>
+<p>Header + Payload &lt;= 63 kByte</p>
+<h2 id="http">HTTP</h2>
+<ul>
+<li>METHOD URL HTTP/Version</li>
+<li>Methoden: GET, POST, OPTIONS, HEAD, PUT, DELETE, TRACE, CONNECT</li>
+<li>Response Codes
+<ul>
+<li>1xx: informelle Meldungen</li>
+<li>2xx: Erfolg
+<ul>
+<li>200: OK</li>
+</ul></li>
+<li>3xx: weiterleiten
+<ul>
+<li>301: Moved Permanently</li>
+</ul></li>
+<li>4xx: Clientfehler
+<ul>
+<li>400: Bad Request</li>
+<li>401: Unauthorized</li>
+<li>403: Forbidden</li>
+<li>404: Not Found</li>
+</ul></li>
+<li>5xx: Serverfehler
+<ul>
+<li>500: Internal Server Error</li>
+<li>503: Service Unavailable</li>
+</ul></li>
+</ul></li>
+</ul>
+</body>
+</html>
