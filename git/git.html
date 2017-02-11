@@ -8,7 +8,21 @@
   <style type="text/css">code{white-space: pre;}</style>
 </head>
 <body>
-<h1 id="git">Git</h1>
+<div id="header">
+<h1 class="title">Git</h1>
+<h2 class="author">Patrick Bucher</h2>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#explore-a-repository">Explore a Repository</a></li>
+<li><a href="#configuration-git-config">Configuration (<code>git config</code>)</a></li>
+<li><a href="#help-git-help">Help (<code>git help</code>)</a></li>
+<li><a href="#miscellaneous">Miscellaneous</a><ul>
+<li><a href="#switches">Switches</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="explore-a-repository">Explore a Repository</h1>
 <p>Cloning an existing Git repository:</p>
 <pre><code>git clone https://github.com/[username]/[repository]</code></pre>
 <p>List a repository’s files:</p>
@@ -17,9 +31,40 @@
 <pre><code>git blame [file]</code></pre>
 <p>Show the repository’s history of commits:</p>
 <pre><code>git log --oneline</code></pre>
-<p>Display the installed version of git:</p>
-<pre><code>git --version</code></pre>
+<h1 id="configuration-git-config">Configuration (<code>git config</code>)</h1>
+<p>Set global configuration (name and email):</p>
+<pre><code>git config --global [option] [value]
+
+git config --global user.name &quot;Patrick Bucher&quot;
+git confif --global user.email &quot;patrick.bucher@stud.hslu.ch&quot;</code></pre>
+<p>Show all configuration:</p>
+<pre><code>git config --list</code></pre>
+<p>Show a specific configuration item (name and email):</p>
+<pre><code>git config [option]
+
+git config user.name
+git config user.email</code></pre>
+<h1 id="help-git-help">Help (<code>git help</code>)</h1>
+<p>Show the help page (most important commands):</p>
+<pre><code>git help</code></pre>
+<p>Show all commands (with pager):</p>
+<pre><code>git -p help -a</code></pre>
+<p>Show all available guides:</p>
+<pre><code>git help -g</code></pre>
+<p>Getting help on a specific command or read a guide (help itself, the glossary and the tutorial guide):</p>
+<pre><code>git help [command/subject]
+
+git help help
+git help glossary
+git help tutorial</code></pre>
+<h1 id="miscellaneous">Miscellaneous</h1>
 <p>Starting Git GUI (the package <code>tk</code> is required under Linux):</p>
 <pre><code>git gui</code></pre>
+<h2 id="switches">Switches</h2>
+<p>Display the installed version of git:</p>
+<pre><code>git --version</code></pre>
+<p>Use a pager (usually <code>less</code>) for the output:</p>
+<pre><code>git -p [command]
+git --paginate [command]</code></pre>
 </body>
 </html>

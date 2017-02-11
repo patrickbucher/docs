@@ -1,4 +1,4 @@
-# Git
+# Explore a Repository
 
 Cloning an existing Git repository:
 
@@ -16,10 +16,61 @@ Show the repository's history of commits:
 
     git log --oneline
 
-Display the installed version of git:
+# Configuration (`git config`)
 
-    git --version
+Set global configuration (name and email):
+
+    git config --global [option] [value]
+
+    git config --global user.name "Patrick Bucher"
+    git confif --global user.email "patrick.bucher@stud.hslu.ch"
+
+Show all configuration:
+
+    git config --list
+
+Show a specific configuration item (name and email):
+
+    git config [option]
+
+    git config user.name
+    git config user.email
+
+# Help (`git help`)
+
+Show the help page (most important commands):
+
+    git help
+
+Show all commands (with pager):
+
+    git -p help -a
+
+Show all available guides:
+
+    git help -g
+
+Getting help on a specific command or read a guide (help itself, the glossary and the tutorial guide):
+
+    git help [command/subject]
+
+    git help help
+    git help glossary
+    git help tutorial
+
+# Miscellaneous
 
 Starting Git GUI (the package `tk` is required under Linux):
 
     git gui
+
+## Switches
+
+Display the installed version of git:
+
+    git --version
+
+Use a pager (usually `less`) for the output:
+
+    git -p [command]
+    git --paginate [command]
