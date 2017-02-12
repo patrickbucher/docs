@@ -82,6 +82,14 @@ Starting Git GUI (the package `tk` is required under Linux):
 
     git gui
 
+Starting Git GUI to commit changes (`citool`):
+
+    git citool
+
+Starting the Git log viewer (`gitk`):
+
+    gitk
+
 ## Switches
 
 Display the installed version of git:
