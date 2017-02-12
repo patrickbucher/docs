@@ -1,8 +1,24 @@
-# Explore a Repository
+# Git Basics
 
-Cloning an existing Git repository:
+Create a new Git repository (move into its directory first):
 
-    git clone https://github.com/[username]/[repository]
+    git init
+
+Show a repository's state:
+
+    git status
+
+Add a file to the repository:
+
+    git add [file]
+
+Commit changes to a repository (with a message):
+
+    git commit -m "[message]"
+
+Cloning an existing Git repository from GitHub:
+
+    git clone https://github.com/[username]/[repository].git
 
 List a repository's files:
 
@@ -12,9 +28,11 @@ Show revisions of a file:
 
     git blame [file]
 
-Show the repository's history of commits:
+Show the repository's history of commits (also in one line and with statistics):
 
+    git log
     git log --oneline
+    git log --stat
 
 # Configuration (`git config`)
 
