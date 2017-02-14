@@ -1,7 +1,7 @@
 rm -f git.html
 rm -f git.pdf
 
-pandoc -S -s --toc \
+pandoc -S -s -c style.css --toc \
     --variable title=Git \
     --variable author="Patrick Bucher" \
     git.md -o git.html
