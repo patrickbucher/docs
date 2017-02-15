@@ -1,14 +1,23 @@
 # Git Basics
 
-Create a new Git repository (move into its directory first):
+## Creating a Repository
+
+Create a new Git repository from an existing working directory (move into the working directory first):
 
     git init
 
-Show a repository's state:
+Cloning an existing Git repository from GitHub:
 
-    git status
+    git clone https://github.com/[username]/[repository].git
 
-Add a file to the repository:
+## Making Changes
+
+Display changes in the working directory to be staged:
+
+    git add --dry-run .
+    git add -n .
+
+Add a file to the staging area:
 
     git add [file]
 
@@ -16,11 +25,18 @@ Commit changes to a repository (with a message):
 
     git commit -m "[message]"
 
-Cloning an existing Git repository from GitHub:
+Add and commit changes at the same time:
 
-    git clone https://github.com/[username]/[repository].git
+    git commit --all
+    git commit -a
 
-List a repository's files:
+## Getting Information
+
+Show a repository's state:
+
+    git status
+
+List a repository's---not the working directory's!---files:
 
     git ls-files
 
@@ -28,11 +44,21 @@ Show revisions of a file:
 
     git blame [file]
 
-Show the repository's history of commits (also in one line and with statistics):
+Show the repository's history of commits (also in one line, with statistics and a combination of those with short statistics):
 
     git log
     git log --oneline
     git log --stat
+    git log --shortstat --oneline
+
+Show changes between files in working directory and the repository---or the staging area, if changes have been staged already:
+
+    git diff
+
+Show changes between files in staging area and in the repository:
+
+    git diff --staged
+    git diff --cached
 
 # Configuration (`git config`)
 
@@ -41,7 +67,7 @@ Set global configuration (name and email):
     git config --global [option] [value]
 
     git config --global user.name "Patrick Bucher"
-    git confif --global user.email "patrick.bucher@stud.hslu.ch"
+    git config --global user.email "patrick.bucher@stud.hslu.ch"
 
 Show all configuration:
 

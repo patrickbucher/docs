@@ -15,7 +15,11 @@
 </div>
 <div id="TOC">
 <ul>
-<li><a href="#git-basics">Git Basics</a></li>
+<li><a href="#git-basics">Git Basics</a><ul>
+<li><a href="#creating-a-repository">Creating a Repository</a></li>
+<li><a href="#making-changes">Making Changes</a></li>
+<li><a href="#getting-information">Getting Information</a></li>
+</ul></li>
 <li><a href="#configuration-git-config">Configuration (<code>git config</code>)</a></li>
 <li><a href="#help-git-help">Help (<code>git help</code>)</a></li>
 <li><a href="#miscellaneous">Miscellaneous</a><ul>
@@ -24,30 +28,45 @@
 </ul>
 </div>
 <h1 id="git-basics">Git Basics</h1>
-<p>Create a new Git repository (move into its directory first):</p>
+<h2 id="creating-a-repository">Creating a Repository</h2>
+<p>Create a new Git repository from an existing working directory (move into the working directory first):</p>
 <pre><code>git init</code></pre>
-<p>Show a repository’s state:</p>
-<pre><code>git status</code></pre>
-<p>Add a file to the repository:</p>
+<p>Cloning an existing Git repository from GitHub:</p>
+<pre><code>git clone https://github.com/[username]/[repository].git</code></pre>
+<h2 id="making-changes">Making Changes</h2>
+<p>Display changes in the working directory to be staged:</p>
+<pre><code>git add --dry-run .
+git add -n .</code></pre>
+<p>Add a file to the staging area:</p>
 <pre><code>git add [file]</code></pre>
 <p>Commit changes to a repository (with a message):</p>
 <pre><code>git commit -m &quot;[message]&quot;</code></pre>
-<p>Cloning an existing Git repository from GitHub:</p>
-<pre><code>git clone https://github.com/[username]/[repository].git</code></pre>
-<p>List a repository’s files:</p>
+<p>Add and commit changes at the same time:</p>
+<pre><code>git commit --all
+git commit -a</code></pre>
+<h2 id="getting-information">Getting Information</h2>
+<p>Show a repository’s state:</p>
+<pre><code>git status</code></pre>
+<p>List a repository’s—not the working directory’s!—files:</p>
 <pre><code>git ls-files</code></pre>
 <p>Show revisions of a file:</p>
 <pre><code>git blame [file]</code></pre>
-<p>Show the repository’s history of commits (also in one line and with statistics):</p>
+<p>Show the repository’s history of commits (also in one line, with statistics and a combination of those with short statistics):</p>
 <pre><code>git log
 git log --oneline
-git log --stat</code></pre>
+git log --stat
+git log --shortstat --oneline</code></pre>
+<p>Show changes between files in working directory and the repository—or the staging area, if changes have been staged already:</p>
+<pre><code>git diff</code></pre>
+<p>Show changes between files in staging area and in the repository:</p>
+<pre><code>git diff --staged
+git diff --cached</code></pre>
 <h1 id="configuration-git-config">Configuration (<code>git config</code>)</h1>
 <p>Set global configuration (name and email):</p>
 <pre><code>git config --global [option] [value]
 
 git config --global user.name &quot;Patrick Bucher&quot;
-git confif --global user.email &quot;patrick.bucher@stud.hslu.ch&quot;</code></pre>
+git config --global user.email &quot;patrick.bucher@stud.hslu.ch&quot;</code></pre>
 <p>Show all configuration:</p>
 <pre><code>git config --list</code></pre>
 <p>Show a specific configuration item (name and email):</p>
