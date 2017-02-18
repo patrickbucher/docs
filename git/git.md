@@ -60,6 +60,30 @@ Show changes between files in staging area and in the repository:
     git diff --staged
     git diff --cached
 
+## The Staging Area
+
+These commands not only make changes to the working directory, but to the staging area at the same time.
+
+Remove a file from the staging area:
+
+    git rm [file]
+
+Rename a file in the staging area:
+
+    git move [file]
+
+Stage parts of a file:
+
+    git add -p
+
+Undo staging area changes for a file:
+
+    git reset [file]
+
+Check out a file (replace file in the working directory with the version of its latest commit):
+
+    git checkout -- [file]
+
 # Configuration (`git config`)
 
 Set global configuration (name and email):

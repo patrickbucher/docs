@@ -19,6 +19,7 @@
 <li><a href="#creating-a-repository">Creating a Repository</a></li>
 <li><a href="#making-changes">Making Changes</a></li>
 <li><a href="#getting-information">Getting Information</a></li>
+<li><a href="#the-staging-area">The Staging Area</a></li>
 </ul></li>
 <li><a href="#configuration-git-config">Configuration (<code>git config</code>)</a></li>
 <li><a href="#help-git-help">Help (<code>git help</code>)</a></li>
@@ -61,6 +62,18 @@ git log --shortstat --oneline</code></pre>
 <p>Show changes between files in staging area and in the repository:</p>
 <pre><code>git diff --staged
 git diff --cached</code></pre>
+<h2 id="the-staging-area">The Staging Area</h2>
+<p>These commands not only make changes to the working directory, but to the staging area at the same time.</p>
+<p>Remove a file from the staging area:</p>
+<pre><code>git rm [file]</code></pre>
+<p>Rename a file in the staging area:</p>
+<pre><code>git move [file]</code></pre>
+<p>Stage parts of a file:</p>
+<pre><code>git add -p</code></pre>
+<p>Undo staging area changes for a file:</p>
+<pre><code>git reset [file]</code></pre>
+<p>Check out a file (replace file in the working directory with the version of its latest commit):</p>
+<pre><code>git checkout -- [file]</code></pre>
 <h1 id="configuration-git-config">Configuration (<code>git config</code>)</h1>
 <p>Set global configuration (name and email):</p>
 <pre><code>git config --global [option] [value]
