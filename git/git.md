@@ -30,6 +30,30 @@ Add and commit changes at the same time:
     git commit --all
     git commit -a
 
+### Writing Proper Commit Log Messages
+
+From the discussion section of `git log commit`:
+
+    “Though not required, it’s a good idea to begin the commit
+    message with a single short (less than 50-character) line
+    summarizing the change, followed by a blank line and then a
+    more thorough description.”
+
+Example:
+
+    Adding printf.
+
+    This is to make the output a little more human readable.
+
+    printf is part of BASH, and it works just like C's printf()
+    function.
+
+The first line shows _what_ has been done, the second line shows _why_ it has been done. The third line gives additional (technical) _details_. `git log --oneline` only shows the first line of the commit message (_what_).
+
+The most recent commit message can be improved:
+
+    git commit --amend
+
 ## Getting Information
 
 Show a repository's state:
@@ -44,12 +68,34 @@ Show revisions of a file:
 
     git blame [file]
 
-Show the repository's history of commits (also in one line, with statistics and a combination of those with short statistics):
+### Git's Log
+
+Show the repository's commit history (also in one line, with statistics and a combination of those with short statistics):
 
     git log
     git log --oneline
     git log --stat
     git log --shortstat --oneline
+
+With abbreviated SHA1 IDs (only the first eight characters):
+
+    git log --abbrev-commit
+
+With every commit's parent commit (also with abbreviated SHA1 IDs):
+
+    git log --parents
+
+Show the log in patch and statistics view (and combined):
+
+    git log --patch
+    git log --stat
+    git log --patch-with-stat
+
+Show the commit history of a certain file:
+
+    git log [filename]
+
+### Showing Differences
 
 Show changes between files in working directory and the repository---or the staging area, if changes have been staged already:
 

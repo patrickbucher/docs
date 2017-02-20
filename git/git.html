@@ -17,8 +17,13 @@
 <ul>
 <li><a href="#git-basics">Git Basics</a><ul>
 <li><a href="#creating-a-repository">Creating a Repository</a></li>
-<li><a href="#making-changes">Making Changes</a></li>
-<li><a href="#getting-information">Getting Information</a></li>
+<li><a href="#making-changes">Making Changes</a><ul>
+<li><a href="#writing-proper-commit-log-messages">Writing Proper Commit Log Messages</a></li>
+</ul></li>
+<li><a href="#getting-information">Getting Information</a><ul>
+<li><a href="#gits-log">Git’s Log</a></li>
+<li><a href="#showing-differences">Showing Differences</a></li>
+</ul></li>
 <li><a href="#the-staging-area">The Staging Area</a></li>
 </ul></li>
 <li><a href="#configuration-git-config">Configuration (<code>git config</code>)</a></li>
@@ -45,6 +50,22 @@ git add -n .</code></pre>
 <p>Add and commit changes at the same time:</p>
 <pre><code>git commit --all
 git commit -a</code></pre>
+<h3 id="writing-proper-commit-log-messages">Writing Proper Commit Log Messages</h3>
+<p>From the discussion section of <code>git log commit</code>:</p>
+<pre><code>“Though not required, it’s a good idea to begin the commit
+message with a single short (less than 50-character) line
+summarizing the change, followed by a blank line and then a
+more thorough description.”</code></pre>
+<p>Example:</p>
+<pre><code>Adding printf.
+
+This is to make the output a little more human readable.
+
+printf is part of BASH, and it works just like C&#39;s printf()
+function.</code></pre>
+<p>The first line shows <em>what</em> has been done, the second line shows <em>why</em> it has been done. The third line gives additional (technical) <em>details</em>. <code>git log --oneline</code> only shows the first line of the commit message (<em>what</em>).</p>
+<p>The most recent commit message can be improved:</p>
+<pre><code>git commit --amend</code></pre>
 <h2 id="getting-information">Getting Information</h2>
 <p>Show a repository’s state:</p>
 <pre><code>git status</code></pre>
@@ -52,11 +73,23 @@ git commit -a</code></pre>
 <pre><code>git ls-files</code></pre>
 <p>Show revisions of a file:</p>
 <pre><code>git blame [file]</code></pre>
-<p>Show the repository’s history of commits (also in one line, with statistics and a combination of those with short statistics):</p>
+<h3 id="gits-log">Git’s Log</h3>
+<p>Show the repository’s commit history (also in one line, with statistics and a combination of those with short statistics):</p>
 <pre><code>git log
 git log --oneline
 git log --stat
 git log --shortstat --oneline</code></pre>
+<p>With abbreviated SHA1 IDs (only the first eight characters):</p>
+<pre><code>git log --abbrev-commit</code></pre>
+<p>With every commit’s parent commit (also with abbreviated SHA1 IDs):</p>
+<pre><code>git log --parents</code></pre>
+<p>Show the log in patch and statistics view (and combined):</p>
+<pre><code>git log --patch
+git log --stat
+git log --patch-with-stat</code></pre>
+<p>Show the commit history of a certain file:</p>
+<pre><code>git log [filename]</code></pre>
+<h3 id="showing-differences">Showing Differences</h3>
 <p>Show changes between files in working directory and the repository—or the staging area, if changes have been staged already:</p>
 <pre><code>git diff</code></pre>
 <p>Show changes between files in staging area and in the repository:</p>
