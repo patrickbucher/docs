@@ -15,31 +15,31 @@
 </div>
 <div id="TOC">
 <ul>
-<li><a href="#git-basics">Git Basics</a><ul>
-<li><a href="#creating-a-repository">Creating a Repository</a></li>
-<li><a href="#making-changes">Making Changes</a><ul>
-<li><a href="#writing-proper-commit-log-messages">Writing Proper Commit Log Messages</a></li>
+<li><a href="#git-basics"><span class="toc-section-number">1</span> Git Basics</a><ul>
+<li><a href="#creating-a-repository"><span class="toc-section-number">1.1</span> Creating a Repository</a></li>
+<li><a href="#making-changes"><span class="toc-section-number">1.2</span> Making Changes</a><ul>
+<li><a href="#writing-proper-commit-log-messages"><span class="toc-section-number">1.2.1</span> Writing Proper Commit Log Messages</a></li>
 </ul></li>
-<li><a href="#getting-information">Getting Information</a><ul>
-<li><a href="#gits-log">Git’s Log</a></li>
-<li><a href="#showing-differences">Showing Differences</a></li>
+<li><a href="#getting-information"><span class="toc-section-number">1.3</span> Getting Information</a><ul>
+<li><a href="#gits-log"><span class="toc-section-number">1.3.1</span> Git’s Log</a></li>
+<li><a href="#showing-differences"><span class="toc-section-number">1.3.2</span> Showing Differences</a></li>
 </ul></li>
-<li><a href="#the-staging-area">The Staging Area</a></li>
+<li><a href="#the-staging-area"><span class="toc-section-number">1.4</span> The Staging Area</a></li>
 </ul></li>
-<li><a href="#configuration-git-config">Configuration (<code>git config</code>)</a></li>
-<li><a href="#help-git-help">Help (<code>git help</code>)</a></li>
-<li><a href="#miscellaneous">Miscellaneous</a><ul>
-<li><a href="#switches">Switches</a></li>
+<li><a href="#configuration-git-config"><span class="toc-section-number">2</span> Configuration (<code>git config</code>)</a></li>
+<li><a href="#help-git-help"><span class="toc-section-number">3</span> Help (<code>git help</code>)</a></li>
+<li><a href="#miscellaneous"><span class="toc-section-number">4</span> Miscellaneous</a><ul>
+<li><a href="#switches"><span class="toc-section-number">4.1</span> Switches</a></li>
 </ul></li>
 </ul>
 </div>
-<h1 id="git-basics">Git Basics</h1>
-<h2 id="creating-a-repository">Creating a Repository</h2>
+<h1 id="git-basics"><span class="header-section-number">1</span> Git Basics</h1>
+<h2 id="creating-a-repository"><span class="header-section-number">1.1</span> Creating a Repository</h2>
 <p>Create a new Git repository from an existing working directory (move into the working directory first):</p>
 <pre><code>git init</code></pre>
 <p>Cloning an existing Git repository from GitHub:</p>
 <pre><code>git clone https://github.com/[username]/[repository].git</code></pre>
-<h2 id="making-changes">Making Changes</h2>
+<h2 id="making-changes"><span class="header-section-number">1.2</span> Making Changes</h2>
 <p>Display changes in the working directory to be staged:</p>
 <pre><code>git add --dry-run .
 git add -n .</code></pre>
@@ -50,7 +50,7 @@ git add -n .</code></pre>
 <p>Add and commit changes at the same time:</p>
 <pre><code>git commit --all
 git commit -a</code></pre>
-<h3 id="writing-proper-commit-log-messages">Writing Proper Commit Log Messages</h3>
+<h3 id="writing-proper-commit-log-messages"><span class="header-section-number">1.2.1</span> Writing Proper Commit Log Messages</h3>
 <p>From the discussion section of <code>git log commit</code>:</p>
 <pre><code>“Though not required, it’s a good idea to begin the commit
 message with a single short (less than 50-character) line
@@ -66,14 +66,14 @@ function.</code></pre>
 <p>The first line shows <em>what</em> has been done, the second line shows <em>why</em> it has been done. The third line gives additional (technical) <em>details</em>. <code>git log --oneline</code> only shows the first line of the commit message (<em>what</em>).</p>
 <p>The most recent commit message can be improved:</p>
 <pre><code>git commit --amend</code></pre>
-<h2 id="getting-information">Getting Information</h2>
+<h2 id="getting-information"><span class="header-section-number">1.3</span> Getting Information</h2>
 <p>Show a repository’s state:</p>
 <pre><code>git status</code></pre>
 <p>List a repository’s—not the working directory’s!—files:</p>
 <pre><code>git ls-files</code></pre>
 <p>Show revisions of a file:</p>
 <pre><code>git blame [file]</code></pre>
-<h3 id="gits-log">Git’s Log</h3>
+<h3 id="gits-log"><span class="header-section-number">1.3.1</span> Git’s Log</h3>
 <p>Show the repository’s commit history (also in one line, with statistics and a combination of those with short statistics):</p>
 <pre><code>git log
 git log --oneline
@@ -89,13 +89,13 @@ git log --stat
 git log --patch-with-stat</code></pre>
 <p>Show the commit history of a certain file:</p>
 <pre><code>git log [filename]</code></pre>
-<h3 id="showing-differences">Showing Differences</h3>
+<h3 id="showing-differences"><span class="header-section-number">1.3.2</span> Showing Differences</h3>
 <p>Show changes between files in working directory and the repository—or the staging area, if changes have been staged already:</p>
 <pre><code>git diff</code></pre>
 <p>Show changes between files in staging area and in the repository:</p>
 <pre><code>git diff --staged
 git diff --cached</code></pre>
-<h2 id="the-staging-area">The Staging Area</h2>
+<h2 id="the-staging-area"><span class="header-section-number">1.4</span> The Staging Area</h2>
 <p>These commands not only make changes to the working directory, but to the staging area at the same time.</p>
 <p>Remove a file from the staging area:</p>
 <pre><code>git rm [file]</code></pre>
@@ -107,7 +107,7 @@ git diff --cached</code></pre>
 <pre><code>git reset [file]</code></pre>
 <p>Check out a file (replace file in the working directory with the version of its latest commit):</p>
 <pre><code>git checkout -- [file]</code></pre>
-<h1 id="configuration-git-config">Configuration (<code>git config</code>)</h1>
+<h1 id="configuration-git-config"><span class="header-section-number">2</span> Configuration (<code>git config</code>)</h1>
 <p>Set global configuration (name and email):</p>
 <pre><code>git config --global [option] [value]
 
@@ -120,7 +120,7 @@ git config --global user.email &quot;patrick.bucher@stud.hslu.ch&quot;</code></p
 
 git config user.name
 git config user.email</code></pre>
-<h1 id="help-git-help">Help (<code>git help</code>)</h1>
+<h1 id="help-git-help"><span class="header-section-number">3</span> Help (<code>git help</code>)</h1>
 <p>Show the help page (most important commands):</p>
 <pre><code>git help</code></pre>
 <p>Show all commands (with pager):</p>
@@ -133,14 +133,14 @@ git config user.email</code></pre>
 git help help
 git help glossary
 git help tutorial</code></pre>
-<h1 id="miscellaneous">Miscellaneous</h1>
+<h1 id="miscellaneous"><span class="header-section-number">4</span> Miscellaneous</h1>
 <p>Starting Git GUI (the package <code>tk</code> is required under Linux):</p>
 <pre><code>git gui</code></pre>
 <p>Starting Git GUI to commit changes (<code>citool</code>):</p>
 <pre><code>git citool</code></pre>
 <p>Starting the Git log viewer (<code>gitk</code>):</p>
 <pre><code>gitk</code></pre>
-<h2 id="switches">Switches</h2>
+<h2 id="switches"><span class="header-section-number">4.1</span> Switches</h2>
 <p>Display the installed version of git:</p>
 <pre><code>git --version</code></pre>
 <p>Use a pager (usually <code>less</code>) for the output:</p>

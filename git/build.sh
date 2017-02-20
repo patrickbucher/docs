@@ -1,12 +1,12 @@
 rm -f git.html
 rm -f git.pdf
 
-pandoc -S -s -c style.css --toc \
+pandoc -N -S -s -c style.css --toc \
     --variable title=Git \
     --variable author="Patrick Bucher" \
     git.md -o git.html
 
-pandoc -S -s --toc \
+pandoc -N -S -s --toc \
     --variable title=Git \
     --variable author="Patrick Bucher" \
     --variable papersize=a4 \
