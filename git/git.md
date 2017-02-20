@@ -10,7 +10,7 @@ Cloning an existing Git repository from GitHub:
 
     git clone https://github.com/[username]/[repository].git
 
-## Making Changes
+# Making Changes
 
 Display changes in the working directory to be staged:
 
@@ -30,7 +30,7 @@ Add and commit changes at the same time:
     git commit --all
     git commit -a
 
-### Writing Proper Commit Log Messages
+## Writing Proper Commit Log Messages
 
 From the discussion section of `git log commit`:
 
@@ -54,7 +54,7 @@ The most recent commit message can be improved:
 
     git commit --amend
 
-## Getting Information
+# Getting Information
 
 Show a repository's state:
 
@@ -68,7 +68,7 @@ Show revisions of a file:
 
     git blame [file]
 
-### Git's Log
+## Git's Log
 
 Show the repository's commit history (also in one line, with statistics and a combination of those with short statistics):
 
@@ -95,7 +95,7 @@ Show the commit history of a certain file:
 
     git log [filename]
 
-### Showing Differences
+## Showing Differences
 
 Show changes between files in working directory and the repository---or the staging area, if changes have been staged already:
 
@@ -106,7 +106,7 @@ Show changes between files in staging area and in the repository:
     git diff --staged
     git diff --cached
 
-## The Staging Area
+# The Staging Area
 
 These commands not only make changes to the working directory, but to the staging area at the same time.
 
@@ -129,6 +129,16 @@ Undo staging area changes for a file:
 Check out a file (replace file in the working directory with the version of its latest commit):
 
     git checkout -- [file]
+
+# Going Back in Time
+
+Go back to a certain version of a repository:
+
+    git checkout [SHA1 ID prefix]
+
+Go back to the most recent version of a repository:
+
+    git checkout master
 
 # Configuration (`git config`)
 
