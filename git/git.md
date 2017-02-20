@@ -77,6 +77,19 @@ Show the repository's commit history (also in one line, with statistics and a co
     git log --stat
     git log --shortstat --oneline
 
+By default, the commit history is shown from newest (top) to oldest (bottom). The commit history can be shown in reverse order:
+
+    git log --reverse
+
+Show only the three most recent commits:
+
+    git log -n 3
+    git log -3
+
+Display relative date/time differences:
+
+    git log --relative-date
+
 With abbreviated SHA1 IDs (only the first eight characters):
 
     git log --abbrev-commit
@@ -132,13 +145,30 @@ Check out a file (replace file in the working directory with the version of its 
 
 # Going Back in Time
 
-Go back to a certain version of a repository:
+Go back to a certain version of a repository (by SHA1 ID or tag name):
 
     git checkout [SHA1 ID prefix]
+    git checkout [tag name]
 
 Go back to the most recent version of a repository:
 
     git checkout master
+
+## Tags
+
+Assign a tag to a certain commit with a tag message:
+
+    git tag [tag name] -m "[message]" [SHA1 ID]
+    git tag first_release -m "first released version" 1dk8r4hb
+
+Show tags:
+
+    git tag
+
+Show a tag's details:
+
+    git show [tag name]
+    git show first_release
 
 # Configuration (`git config`)
 

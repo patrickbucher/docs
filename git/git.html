@@ -26,7 +26,9 @@
 <li><a href="#showing-differences"><span class="toc-section-number">3.2</span> Showing Differences</a></li>
 </ul></li>
 <li><a href="#the-staging-area"><span class="toc-section-number">4</span> The Staging Area</a></li>
-<li><a href="#going-back-in-time"><span class="toc-section-number">5</span> Going Back in Time</a></li>
+<li><a href="#going-back-in-time"><span class="toc-section-number">5</span> Going Back in Time</a><ul>
+<li><a href="#tags"><span class="toc-section-number">5.1</span> Tags</a></li>
+</ul></li>
 <li><a href="#configuration-git-config"><span class="toc-section-number">6</span> Configuration (<code>git config</code>)</a></li>
 <li><a href="#help-git-help"><span class="toc-section-number">7</span> Help (<code>git help</code>)</a></li>
 <li><a href="#miscellaneous"><span class="toc-section-number">8</span> Miscellaneous</a><ul>
@@ -80,6 +82,13 @@ function.</code></pre>
 git log --oneline
 git log --stat
 git log --shortstat --oneline</code></pre>
+<p>By default, the commit history is shown from newest (top) to oldest (bottom). The commit history can be shown in reverse order:</p>
+<pre><code>git log --reverse</code></pre>
+<p>Show only the three most recent commits:</p>
+<pre><code>git log -n 3
+git log -3</code></pre>
+<p>Display relative date/time differences:</p>
+<pre><code>git log --relative-date</code></pre>
 <p>With abbreviated SHA1 IDs (only the first eight characters):</p>
 <pre><code>git log --abbrev-commit</code></pre>
 <p>With every commit’s parent commit (also with abbreviated SHA1 IDs):</p>
@@ -109,10 +118,20 @@ git diff --cached</code></pre>
 <p>Check out a file (replace file in the working directory with the version of its latest commit):</p>
 <pre><code>git checkout -- [file]</code></pre>
 <h1 id="going-back-in-time"><span class="header-section-number">5</span> Going Back in Time</h1>
-<p>Go back to a certain version of a repository:</p>
-<pre><code>git checkout [SHA1 ID prefix]</code></pre>
+<p>Go back to a certain version of a repository (by SHA1 ID or tag name):</p>
+<pre><code>git checkout [SHA1 ID prefix]
+git checkout [tag name]</code></pre>
 <p>Go back to the most recent version of a repository:</p>
 <pre><code>git checkout master</code></pre>
+<h2 id="tags"><span class="header-section-number">5.1</span> Tags</h2>
+<p>Assign a tag to a certain commit with a tag message:</p>
+<pre><code>git tag [tag name] -m &quot;[message]&quot; [SHA1 ID]
+git tag first_release -m &quot;first released version&quot; 1dk8r4hb</code></pre>
+<p>Show tags:</p>
+<pre><code>git tag</code></pre>
+<p>Show a tag’s details:</p>
+<pre><code>git show [tag name]
+git show first_release</code></pre>
 <h1 id="configuration-git-config"><span class="header-section-number">6</span> Configuration (<code>git config</code>)</h1>
 <p>Set global configuration (name and email):</p>
 <pre><code>git config --global [option] [value]
