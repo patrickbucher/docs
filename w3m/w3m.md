@@ -1,5 +1,7 @@
 # Movement
 
+- `j`: move cursor one line down
+- `k`: move cursor one line down
 - `[Shift]-j`: scroll one line down
 - `[Shift]-k`: scroll one line up
 - `[Space]` or `[Ctrl]-v`: scroll one page down
@@ -34,6 +36,7 @@
 
 # Misc
 
+- `S`: save current buffer to file
 - `H`: display help
 - `q`: quit (with confirmation)
 - `Q`: quit (without confirmation)
