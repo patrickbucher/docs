@@ -7,7 +7,7 @@
 - `[Space]` or `[Ctrl]-v`: scroll one page down
 - `b` or `[Esc] v`: scroll one page up
 
-## Hyperlinks
+# Hyperlinks
 
 - `[Tab]`: select next link
 - `[Shift]-[Tab]`: select previous link
