@@ -55,7 +55,7 @@ been done. The third line gives additional (technical) _details_. `git log
 
 The most recent commit message can be improved:
 
-    git commit --amend
+    git commit --amend -m "[improved commit message]"
 
 # Getting Information
 
@@ -176,7 +176,11 @@ Show tags:
 Show a tag's details:
 
     git show [tag name]
-    git show first_release
+    geit show first_release
+
+Delete a tag:
+
+    git tag -d [tag name]
 
 # Configuration (`git config`)
 

@@ -68,7 +68,7 @@ printf is part of BASH, and it works just like C&#39;s printf()
 function.</code></pre>
 <p>The first line shows <em>what</em> has been done, the second line shows <em>why</em> it has been done. The third line gives additional (technical) <em>details</em>. <code>git log --oneline</code> only shows the first line of the commit message (<em>what</em>).</p>
 <p>The most recent commit message can be improved:</p>
-<pre><code>git commit --amend</code></pre>
+<pre><code>git commit --amend -m &quot;[improved commit message]&quot;</code></pre>
 <h1 id="getting-information"><span class="header-section-number">3</span> Getting Information</h1>
 <p>Show a repository’s state:</p>
 <pre><code>git status</code></pre>
@@ -131,7 +131,9 @@ git tag first_release -m &quot;first released version&quot; 1dk8r4hb</code></pre
 <pre><code>git tag</code></pre>
 <p>Show a tag’s details:</p>
 <pre><code>git show [tag name]
-git show first_release</code></pre>
+geit show first_release</code></pre>
+<p>Delete a tag:</p>
+<pre><code>git tag -d [tag name]</code></pre>
 <h1 id="configuration-git-config"><span class="header-section-number">6</span> Configuration (<code>git config</code>)</h1>
 <p>Set global configuration (name and email):</p>
 <pre><code>git config --global [option] [value]
