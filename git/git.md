@@ -2,7 +2,8 @@
 
 ## Creating a Repository
 
-Create a new Git repository from an existing working directory (move into the working directory first):
+Create a new Git repository from an existing working directory (move into the
+working directory first):
 
     git init
 
@@ -48,7 +49,9 @@ Example:
     printf is part of BASH, and it works just like C's printf()
     function.
 
-The first line shows _what_ has been done, the second line shows _why_ it has been done. The third line gives additional (technical) _details_. `git log --oneline` only shows the first line of the commit message (_what_).
+The first line shows _what_ has been done, the second line shows _why_ it has
+been done. The third line gives additional (technical) _details_. `git log
+--oneline` only shows the first line of the commit message (_what_).
 
 The most recent commit message can be improved:
 
@@ -70,14 +73,16 @@ Show revisions of a file:
 
 ## Git's Log
 
-Show the repository's commit history (also in one line, with statistics and a combination of those with short statistics):
+Show the repository's commit history (also in one line, with statistics and a
+combination of those with short statistics):
 
     git log
     git log --oneline
     git log --stat
     git log --shortstat --oneline
 
-By default, the commit history is shown from newest (top) to oldest (bottom). The commit history can be shown in reverse order:
+By default, the commit history is shown from newest (top) to oldest (bottom).
+The commit history can be shown in reverse order:
 
     git log --reverse
 
@@ -110,7 +115,8 @@ Show the commit history of a certain file:
 
 ## Showing Differences
 
-Show changes between files in working directory and the repository---or the staging area, if changes have been staged already:
+Show changes between files in working directory and the repository---or the
+staging area, if changes have been staged already:
 
     git diff
 
@@ -121,7 +127,8 @@ Show changes between files in staging area and in the repository:
 
 # The Staging Area
 
-These commands not only make changes to the working directory, but to the staging area at the same time.
+These commands not only make changes to the working directory, but to the
+staging area at the same time.
 
 Remove a file from the staging area:
 
@@ -139,7 +146,8 @@ Undo staging area changes for a file:
 
     git reset [file]
 
-Check out a file (replace file in the working directory with the version of its latest commit):
+Check out a file (replace file in the working directory with the version of its
+latest commit):
 
     git checkout -- [file]
 
@@ -204,7 +212,8 @@ Show all available guides:
 
     git help -g
 
-Getting help on a specific command or read a guide (help itself, the glossary and the tutorial guide):
+Getting help on a specific command or read a guide (help itself, the glossary
+and the tutorial guide):
 
     git help [command/subject]
 

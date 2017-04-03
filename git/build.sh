@@ -12,4 +12,7 @@ pandoc -N -S -s --toc \
     --variable papersize=a4 \
     --variable documentclass=scrartcl \
     --variable fontfamily=times \
+    --variable classoption=11pt \
+    --variable fontfamily=ebgaramond,helvet \
+    --variable lang=en \
     git.md -o git.pdf
