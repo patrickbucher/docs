@@ -1,0 +1,27 @@
+\documentclass[a4paper,11pt]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ebgaramond}
+\usepackage{helvet}
+\usepackage{apacite}
+
+\begin{document}
+
+\title{Titel}
+\subtitle{Untertitel}
+\author{Patrick Bucher}
+\maketitle
+
+\tableofcontents
+
+\section{Titel Stufe 1}
+\subsection{Titel Stufe 2}
+\subsubsection{Titel Stufe 3}
+Das habe ich im Buch \cite[Seite 12-13]{buch} und auf der Webseite \cite{webseite} gelesen.
+
+\bibliography{document.bib}
+\bibliographystyle{apacite}
+
+\end{document}
