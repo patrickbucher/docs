@@ -3,7 +3,7 @@
 input="shell.md"
 title="Shell Cheat Sheet"
 author="Patrick Bucher"
-date="`date +%Y/%m/%d`"
+date="`date +%Y-%m-%d`"
 
 pandoc -s -S --toc -t latex "$input" -o shell.pdf \
     -V title="$title" \

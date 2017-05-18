@@ -52,7 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Shell Cheat Sheet</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">2017/05/18</p>
+<p class="date">2017-05-18</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -102,22 +102,60 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>cd /home/joe</code>: change to directory using a absolute path</li>
 <li><code>cd docs/letters</code>: change to directory using a relative path</li>
 </ul></li>
-<li><code>cp</code>: copy files and directories</li>
-<li><code>dd</code>: convert and copy a file</li>
-<li><code>du</code>: estimate file space usage</li>
-<li><code>ln</code>: make links between files</li>
+<li><code>cp</code>: copy files and directories
+<ul>
+<li><code>cp [source] [destination]</code>: copy source file to destination</li>
+<li><code>-f</code>: force overwrite an existing file</li>
+<li><code>-i</code>: prompt before overwrite</li>
+<li><code>-n</code>: don’t overwrite an existing file</li>
+<li><code>-r</code>: copy a directory recursively</li>
+</ul></li>
+<li><code>dd</code>: convert and copy a file
+<ul>
+<li><code>dd if=[in] of=[out] bs=[n]</code>: copy from in to out, n bytes at at time</li>
+</ul></li>
+<li><code>du</code>: estimate file space usage
+<ul>
+<li><code>-h</code>: print sizes in human readable format</li>
+<li><code>-s</code>: display only a total for each argument</li>
+</ul></li>
+<li><code>ln</code>: make links between files
+<ul>
+<li><code>ln [target] [link name]</code>: create a (hard) link to target</li>
+<li><code>-s</code>: make a symbolic link instead of a hard link</li>
+</ul></li>
 <li><code>ls</code>: list directory contents
 <ul>
-<li><code>ls -l</code> or <code>ll</code>: long version</li>
+<li><code>-a</code>: also display hidden entries (starting with “.”)</li>
+<li><code>-h</code>: print human readable sizes (in combination with <code>-l</code>)</li>
+<li><code>-l</code>: long listing format (<code>ll</code> is short for <code>ls -l</code>)</li>
+<li><code>-r</code>: reverse order</li>
+<li><code>-R</code>: list files recursively</li>
+<li><code>-t</code>: sort by modificaton time, newest first</li>
 </ul></li>
-<li><code>mkdir</code>: make directories</li>
-<li><code>mv</code>: move (rename) files</li>
+<li><code>mkdir</code>: make directories
+<ul>
+<li><code>make foo bar</code>: create the directories “foo” and “bar”</li>
+</ul></li>
+<li><code>mv</code>: move (rename) files
+<ul>
+<li><code>mv [source] [destination]</code></li>
+<li><code>-f</code>: force overwrite an existing file</li>
+<li><code>-i</code>: prompt before overwrite</li>
+<li><code>-n</code>: don’t overwrite an existing file</li>
+</ul></li>
 <li><code>pwd</code>: print name of current/working directory</li>
 <li><code>rm</code>: remove files or directories
 <ul>
-<li><code>rm -r [directory]</code>: delete a directory recursively</li>
+<li><code>-d</code>: remove empty directories</li>
+<li><code>-f</code>: force overwrite an existing file</li>
+<li><code>-i</code>: prompt before every removal</li>
+<li><code>-r</code>: delete a directory recursively</li>
 </ul></li>
-<li><code>touch</code>: change file timestamps</li>
+<li><code>touch</code>: change file timestamps ‒ or create a new file
+<ul>
+<li><code>-c</code>: don’t create a new file</li>
+</ul></li>
 </ul>
 <h3 id="file-attributes">File Attributes</h3>
 <ul>

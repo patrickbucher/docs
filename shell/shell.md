@@ -8,17 +8,41 @@
     - `cd /home/joe`: change to directory using a absolute path
     - `cd docs/letters`: change to directory using a relative path
 - `cp`: copy files and directories
+    - `cp [source] [destination]`: copy source file to destination
+    - `-f`: force overwrite an existing file
+    - `-i`: prompt before overwrite
+    - `-n`: don't overwrite an existing file
+    - `-r`: copy a directory recursively
 - `dd`: convert and copy a file
+    - `dd if=[in] of=[out] bs=[n]`: copy from in to out, n bytes at at time
 - `du`: estimate file space usage
+    - `-h`: print sizes in human readable format
+    - `-s`: display only a total for each argument
 - `ln`: make links between files
+    - `ln [target] [link name]`: create a (hard) link to target
+    - `-s`: make a symbolic link instead of a hard link
 - `ls`: list directory contents
-    - `ls -l` or `ll`: long version
+    - `-a`: also display hidden entries (starting with ".")
+    - `-h`: print human readable sizes (in combination with `-l`)
+    - `-l`: long listing format (`ll` is short for `ls -l`)
+    - `-r`: reverse order
+    - `-R`: list files recursively
+    - `-t`: sort by modificaton time, newest first
 - `mkdir`: make directories
+    - `make foo bar`: create the directories "foo" and "bar"
 - `mv`: move (rename) files
+    - `mv [source] [destination]`
+    - `-f`: force overwrite an existing file
+    - `-i`: prompt before overwrite
+    - `-n`: don't overwrite an existing file
 - `pwd`: print name of current/working directory
 - `rm`: remove files or directories
-    - `rm -r [directory]`: delete a directory recursively
-- `touch`: change file timestamps
+    - `-d`: remove empty directories
+    - `-f`: force overwrite an existing file
+    - `-i`: prompt before every removal
+    - `-r`: delete a directory recursively
+- `touch`: change file timestamps ‒ or create a new file
+    - `-c`: don't create a new file
 
 ### File Attributes
 
