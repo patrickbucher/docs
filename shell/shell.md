@@ -56,24 +56,26 @@
 
 ### Searching Files
 
-- `find`
-- `locate`
-- `updatedb`
+- `find`: search for files in a directory hierarchy
+- `locate`: find files by name
+- `updatedb`: update a database for locate
 
 ### File Transfer
 
-- `ftp`
-- `rsync`
-- `scp`
-- `sftp`
+- `curl`: transfer a URL
+- `ftp`: File Transfer Protocol client
+- `rsync`: a fast, versatile, remote (and local) file-copying tool
+- `scp`: secure copy (remote file copy program)
+- `sftp`: secure file transfer program
+- `wget`: the non-interactive network downloader
 
 ### Archives
 
 - `ar`: create, modify, and extract from archives
-- `tar`
-- `zip`
-- `unrar`
-- `unzip`
+- `tar`: an archiving utility
+- `zip`: package and compress (archive) files
+- `unrar`: unpack RAR archives
+- `unzip`: list, test and extract compressed files in a ZIP archive
 
 ## Text
 
@@ -100,8 +102,8 @@
 
 ### Spelling
 
-- `aspell`
-- `hunspell`
+- `aspell`: interactive spell checker
+- `hunspell`: spell checker, stemmer and morphological analyzer
 
 ### Document Preparation
 
@@ -119,24 +121,20 @@
 
 - `acpi`: show battery status and other ACPI information
 - `ascii`: interpret ASCII characters
-- `chroot`
-- `curl`
+- `chroot`: run command or interactive shell with special root directory
 - `cmp`: compare two files byte by byte
-- `dmesg`
-- `eval`
-- `expr`
+- `dmesg`: print or control the kernel ring buffer
+- `eval`: construct command by concatenating arguments
+- `expr`: evaluate expressions
 - `hexdump`: display file contents in hexadecimal, decimal, octal, or ascii
-- `halt`
-- `history`: 
-- `lspci`
+- `halt`: halt, power-off or reboot the machine
+- `history`: manipulate the history list
+- `lspci`: list all PCI devices
 - `pwgen`: generate pronounceable passwords
-- `rsync`:
-- `shutdown`
-- `scp`
+- `shutdown`: halt, power-off or reboot the machine (see `halt`)
 - `unicode`: interpret unicode characters
-- `wget`
-- `xrandr`
-- `yes`
+- `xrandr`: primitive command line interface to RandR extension
+- `yes`: output a string repeatedly until killed
 
 ### Date and Time
 
@@ -161,7 +159,6 @@
 
 ### Printing
 
-- `lpadmin`
 - `cancel`: cancel jobs
 - `lpr`: print files
 
@@ -193,20 +190,20 @@
 - `make`: GNU make utility to maintain groups of programs
 - `mk`: maintain (make) related files
 - `strip`: discard symbols from object files
-- `valgrind`:
+- `valgrind`: a suite of tools for debugging and profiling programs
 - `yacc`: parser generator
 
 ## System Administration
 
 - `df`: report file system disk space usage
 - `fdisk`: manipulate disk partition table
-- `fschk`
+- `fsck`: check and repair a Linux filesystem
 - `mkfs`: build a Linux filesystem
-- `mount`
+- `mount`: mount a filesystem
 - `su`: run a command with substitute user and group ID
 - `sudo`: execute a command as another user
 - `systemctl`: control the systemd system and service manager
-- `uname`
+- `uname`: print system information
 
 ### Processes
 
@@ -237,15 +234,20 @@
 - `ip`: show/manipulate routing, devices, policy routing and tunnels
 - `ping`: send ICMP ECHO\_REQUEST to network hosts
 
-## Encoding, Deconding, Checksums, Encryption, Decryption
+### Printers
+
+- `lpadmin`: configure cups printers and classes
+
+## Hashing and Crypto
 
 - `base32`: base32 encode/decode data and print to standard output
 - `base64`: base64 encode/decode data and print to standard output
-- `sha1sum`
-- `sha256sum`
-- `sha512sum`
-- `shasum`
-- `sum`
+- `gpg`: OpenPGP encryption and signing tool
+- `md5sum`: compute and check MD5 message digest
+- `sha1sum`: compute and check SHA1 message digest
+- `sha256sum`: compute and check SHA256 message digest
+- `sha512sum`: compute and check SHA512 message digest
+- `sum`: checksum and count the blocks in a file
 
 # Shell Programming
 
