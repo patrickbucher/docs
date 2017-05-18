@@ -6,6 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -20,21 +57,40 @@
 <nav id="TOC">
 <ul>
 <li><a href="#commands">Commands</a><ul>
-<li><a href="#file-handling">File Handling</a></li>
-<li><a href="#process-handling">Process Handling</a></li>
-<li><a href="#string-handling">String Handling</a></li>
-<li><a href="#miscellaneous">Miscellaneous</a></li>
+<li><a href="#files-and-directories">Files and Directories</a><ul>
+<li><a href="#file-attributes">File Attributes</a></li>
+<li><a href="#searching-files">Searching Files</a></li>
+<li><a href="#file-transfer">File Transfer</a></li>
 </ul></li>
-<li><a href="#programming">Programming</a><ul>
+<li><a href="#text">Text</a></li>
+<li><a href="#processes">Processes</a></li>
+<li><a href="#math">Math</a></li>
+<li><a href="#date-and-time">Date and Time</a></li>
+<li><a href="#networking">Networking</a></li>
+<li><a href="#miscellaneous">Miscellaneous</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#shell-scripting">Shell Scripting</a></li>
+<li><a href="#archives">Archives</a></li>
+<li><a href="#printing">Printing</a></li>
+<li><a href="#encoding-deconding-checksums">Encoding, Deconding, Checksums</a></li>
+<li><a href="#scripting-languages">Scripting Languages</a></li>
+<li><a href="#spelling">Spelling</a></li>
+<li><a href="#building-debugging">Building, Debugging</a></li>
+<li><a href="#document-preparation">Document Preparation</a></li>
+<li><a href="#system-administration">System Administration</a><ul>
+<li><a href="#user-administration">User Administration</a></li>
+</ul></li>
+<li><a href="#text-editors">Text Editors</a></li>
+</ul></li>
+<li><a href="#shell-programming">Shell Programming</a><ul>
 <li><a href="#output-redirection">Output Redirection</a></li>
 </ul></li>
 <li><a href="#variables">Variables</a></li>
 </ul>
 </nav>
 <h1 id="commands">Commands</h1>
-<h2 id="file-handling">File Handling</h2>
+<h2 id="files-and-directories">Files and Directories</h2>
 <ul>
-<li><code>cat</code>: concatenate files and print on the standard output</li>
 <li><code>cd</code>: change the working directory
 <ul>
 <li><code>cd</code>: change to home directory</li>
@@ -42,54 +98,230 @@
 <li><code>cd /home/joe</code>: change to directory using a absolute path</li>
 <li><code>cd docs/letters</code>: change to directory using a relative path</li>
 </ul></li>
-<li><code>chmod</code></li>
-<li><code>chown</code></li>
-<li><code>cp</code>: copy a file</li>
-<li><code>ls</code>: list files in a directory
+<li><code>cp</code>: copy files and directories</li>
+<li><code>dd</code>: convert and copy a file</li>
+<li><code>du</code>: estimate file space usage</li>
+<li><code>ln</code>: make links between files</li>
+<li><code>ls</code>: list directory contents
 <ul>
 <li><code>ls -l</code> or <code>ll</code>: long version</li>
 </ul></li>
-<li><code>mv</code>: rename (move) a file</li>
-<li><code>pwd</code>: print the current working directory</li>
-<li><code>rm</code>: remove (delete) a file
+<li><code>mkdir</code>: make directories</li>
+<li><code>mv</code>: move (rename) files</li>
+<li><code>pwd</code>: print name of current/working directory</li>
+<li><code>rm</code>: remove files or directories
 <ul>
 <li><code>rm -r [directory]</code>: delete a directory recursively</li>
 </ul></li>
+<li><code>touch</code>: change file timestamps</li>
 </ul>
-<h2 id="process-handling">Process Handling</h2>
+<h3 id="file-attributes">File Attributes</h3>
 <ul>
-<li><code>kill</code></li>
-<li><code>killall</code></li>
-<li><code>ps</code></li>
-<li><code>top</code></li>
+<li><code>basename</code>: strip directory and suffix from filenames</li>
+<li><code>cleanname</code>: clean a path name</li>
+<li><code>chmod</code>: change file mode bits</li>
+<li><code>chown</code>: change file owner and group</li>
+<li><code>file</code>: determine file type</li>
+<li><code>fsize</code>: print file information</li>
+<li><code>mtime</code>: print file information</li>
 </ul>
-<h2 id="string-handling">String Handling</h2>
+<h3 id="searching-files">Searching Files</h3>
 <ul>
-<li><code>awk</code></li>
-<li><code>grep</code></li>
-<li><code>sed</code></li>
-<li><code>tr</code></li>
+<li><code>find</code></li>
+<li><code>locate</code></li>
+<li><code>updatedb</code></li>
+</ul>
+<h3 id="file-transfer">File Transfer</h3>
+<ul>
+<li><code>ftp</code></li>
+<li><code>rsync</code></li>
+<li><code>scp</code></li>
+<li><code>sftp</code></li>
+</ul>
+<h2 id="text">Text</h2>
+<ul>
+<li><code>cat</code>: concatenate files and print on the standard output</li>
+<li><code>cut</code>: remove sections from each line of files</li>
+<li><code>fmt</code>: simple optimal text formatter</li>
+<li><code>fold</code>: wrap each input line to fit in specified width</li>
+<li><code>diff</code>: compare files line by line</li>
+<li><code>freq</code>: print histogram of character frequencies</li>
+<li><code>grep</code>: print lines matching a pattern</li>
+<li><code>head</code>: output the first part of files</li>
+<li><code>join</code>: join lines of two files on a common field</li>
+<li><code>look</code>: display lines beginning with a given string</li>
+<li><code>read</code>: copies one line from a file to standard output</li>
+<li><code>sed</code>: stream editor for filtering and transforming text</li>
+<li><code>sort</code>: sort lines of text files</li>
+<li><code>split</code>: split a file into pieces</li>
+<li><code>strings</code>: print the strings of printable characters in files</li>
+<li><code>tail</code>: output the last part of files</li>
+<li><code>tee</code>: read from standard input and write to standard output and files</li>
+<li><code>tr</code>: translate or delete characters</li>
+<li><code>wc</code>: print newline, word, and byte counts for each file</li>
+<li><code>uniq</code>: report or omit repeated lines</li>
+</ul>
+<h2 id="processes">Processes</h2>
+<ul>
+<li><code>bg</code>: run jobs in the background</li>
+<li><code>kill</code>: terminate a process</li>
+<li><code>killall</code>: terminate a process by name</li>
+<li><code>nice</code>: run a program with modified scheduling priority</li>
+<li><code>nohup</code>: run a command immune to hangups, with output to a non-tty</li>
+<li><code>ps</code>: report a snapshot of the current processes</li>
+<li><code>top</code>: display Linux processes (interactive)</li>
+</ul>
+<h2 id="math">Math</h2>
+<ul>
+<li><code>bc</code>: an arbitrary precision calculator language (interactive)</li>
+<li><code>dc</code>: reverse-polish desk calculator (interactive)</li>
+<li><code>factor</code>: factor numbers</li>
+<li><code>hoc</code>: interactive floating point language</li>
+<li><code>primes</code>: list prime numbers</li>
+<li><code>rand</code>: generate pseudo-random bytes</li>
+</ul>
+<h2 id="date-and-time">Date and Time</h2>
+<ul>
+<li><code>cal</code>: display a calendar</li>
+<li><code>date</code>: print or set the system date and time</li>
+</ul>
+<h2 id="networking">Networking</h2>
+<ul>
+<li><code>ip</code>: show/manipulate routing, devices, policy routing and tunnels</li>
+<li><code>ping</code>: send ICMP ECHO_REQUEST to network hosts</li>
 </ul>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
-<li><code>apropos</code>: show manpages to a topic</li>
-<li><code>ascii</code>: print asci table</li>
-<li><code>basename</code>:</li>
-<li><code>bc</code>: calculator (interactive command)</li>
-<li><code>cut</code></li>
-<li><code>fmt</code>:</li>
-<li><code>fold</code>:</li>
-<li><code>join</code>:</li>
-<li><code>lpr</code>: print a document</li>
-<li><code>man</code>: read a manpage</li>
-<li><code>pwgen</code>: generate passwords</li>
-<li><code>sh</code>: run a shell</li>
-<li><code>wc</code>: count characters, words and lines</li>
+<li><code>acpi</code>: show battery status and other ACPI information</li>
+<li><code>ascii</code>: interpret ASCII characters</li>
+<li><code>chroot</code></li>
+<li><code>curl</code></li>
+<li><code>cmp</code>: compare two files byte by byte</li>
+<li><code>dmesg</code></li>
+<li><code>eval</code></li>
+<li><code>expr</code></li>
+<li><code>hexdump</code>: display file contents in hexadecimal, decimal, octal, or ascii</li>
+<li><code>halt</code></li>
+<li><code>history</code>:</li>
+<li><code>lspci</code></li>
+<li><code>pwgen</code>: generate pronounceable passwords</li>
+<li><code>rsync</code>:</li>
+<li><code>shutdown</code></li>
+<li><code>scp</code></li>
+<li><code>unicode</code>: interpret unicode characters</li>
+<li><code>wget</code></li>
+<li><code>xrandr</code></li>
+<li><code>yes</code></li>
 </ul>
-<h1 id="programming">Programming</h1>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><code>apropos</code>: search the manual page names and descriptions</li>
+<li><code>man</code>: an interface to the on-line reference manuals</li>
+<li><code>type</code>: write a description of command type</li>
+<li><code>whatis</code>: display one-line manual page descriptions</li>
+</ul>
+<h2 id="shell-scripting">Shell Scripting</h2>
+<ul>
+<li><code>alias</code>: define or display aliases</li>
+<li><code>break</code>: exit from for, while, or until loop</li>
+<li><code>echo</code>: display a line of text</li>
+<li><code>export</code>: set the export attribute for variables</li>
+<li><code>getflags</code>: command-line parsing for shell scripts</li>
+<li><code>printf</code>: format and print data</li>
+<li><code>sleep</code>: delay for a specified amount of time</li>
+<li><code>test</code>: check file types and compare values</li>
+<li><code>xargs</code>: build and execute command lines from standard input</li>
+</ul>
+<h2 id="archives">Archives</h2>
+<ul>
+<li><code>ar</code>: create, modify, and extract from archives</li>
+<li><code>tar</code></li>
+<li><code>zip</code></li>
+<li><code>unrar</code></li>
+<li><code>unzip</code></li>
+</ul>
+<h2 id="printing">Printing</h2>
+<ul>
+<li><code>lpadmin</code></li>
+<li><code>cancel</code>: cancel jobs</li>
+<li><code>lpr</code>: print files</li>
+</ul>
+<h2 id="encoding-deconding-checksums">Encoding, Deconding, Checksums</h2>
+<ul>
+<li><code>base32</code>: base32 encode/decode data and print to standard output</li>
+<li><code>base64</code>: base64 encode/decode data and print to standard output</li>
+<li><code>sha1sum</code></li>
+<li><code>sha256sum</code></li>
+<li><code>sha512sum</code></li>
+<li><code>shasum</code></li>
+<li><code>sum</code></li>
+</ul>
+<h2 id="scripting-languages">Scripting Languages</h2>
+<ul>
+<li><code>awk</code>: pattern-directed scanning and processing language</li>
+<li><code>perl</code>: the Perl language interpreter</li>
+<li><code>python</code>: an interpreted, interactive, object-oriented programming language</li>
+<li><code>sh</code>: shell, the standard command language interpreter</li>
+</ul>
+<h2 id="spelling">Spelling</h2>
+<ul>
+<li><code>aspell</code></li>
+<li><code>hunspell</code></li>
+</ul>
+<h2 id="building-debugging">Building, Debugging</h2>
+<ul>
+<li><code>gcc</code>: GNU project C and C++ compiler</li>
+<li><code>gdb</code>: the GNU Debugger</li>
+<li><code>make</code>: GNU make utility to maintain groups of programs</li>
+<li><code>mk</code>: maintain (make) related files</li>
+<li><code>strip</code>: discard symbols from object files</li>
+<li><code>valgrind</code>:</li>
+<li><code>yacc</code>: parser generator</li>
+</ul>
+<h2 id="document-preparation">Document Preparation</h2>
+<ul>
+<li><code>troff</code>: the troff processor of the groff text formatting system</li>
+</ul>
+<h2 id="system-administration">System Administration</h2>
+<ul>
+<li><code>df</code>: report file system disk space usage</li>
+<li><code>fdisk</code>: manipulate disk partition table</li>
+<li><code>fschk</code></li>
+<li><code>mkfs</code>: build a Linux filesystem</li>
+<li><code>mount</code></li>
+<li><code>su</code>: run a command with substitute user and group ID</li>
+<li><code>sudo</code>: execute a command as another user</li>
+<li><code>systemctl</code>: control the systemd system and service manager</li>
+<li><code>uname</code></li>
+</ul>
+<h3 id="user-administration">User Administration</h3>
+<ul>
+<li><code>groupadd</code>: create a new group</li>
+<li><code>groupdel</code>: delete a group</li>
+<li><code>groupmems</code>: administer members of a users’s primary group</li>
+<li><code>groupmod</code>: modify a group definition on the system</li>
+<li><code>groups</code>: display current group names</li>
+<li><code>id</code>: print real and effective user and group IDs</li>
+<li><code>passwd</code>: change user password</li>
+<li><code>useradd</code>: create a new user or update default new user information</li>
+<li><code>userdel</code>: delete a user account and related files</li>
+<li><code>usermod</code>: modify a user account</li>
+<li><code>users</code>: print the user names of users currently logged in</li>
+</ul>
+<h2 id="text-editors">Text Editors</h2>
+<ul>
+<li><code>ed</code>: line-oriented text editor</li>
+<li><code>emacs</code>: GNU project Emacs editor</li>
+<li><code>vi</code>: screen oriented (visual) display editor based on ex</li>
+<li><code>vim</code>: Vi IMproved, a programmers text editor
+<ul>
+<li><code>vim -p [files]</code>: open multiple files in tabs</li>
+</ul></li>
+</ul>
+<h1 id="shell-programming">Shell Programming</h1>
 <h2 id="output-redirection">Output Redirection</h2>
-<pre><code>wc -l * | sort -n -r
-wc -l &gt;std-out 2&gt;std.err</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wc</span> -l * <span class="kw">|</span> <span class="fu">sort</span> -n -r
+<span class="fu">wc</span> -l <span class="op">&gt;</span>std-out <span class="op">2&gt;</span>std.err</code></pre></div>
 <h1 id="variables">Variables</h1>
 <ul>
 <li><code>$IFS</code>: internal field seperator</li>
