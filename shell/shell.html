@@ -61,26 +61,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#file-attributes">File Attributes</a></li>
 <li><a href="#searching-files">Searching Files</a></li>
 <li><a href="#file-transfer">File Transfer</a></li>
-</ul></li>
-<li><a href="#text">Text</a></li>
-<li><a href="#processes">Processes</a></li>
-<li><a href="#math">Math</a></li>
-<li><a href="#date-and-time">Date and Time</a></li>
-<li><a href="#networking">Networking</a></li>
-<li><a href="#miscellaneous">Miscellaneous</a></li>
-<li><a href="#documentation">Documentation</a></li>
-<li><a href="#shell-scripting">Shell Scripting</a></li>
 <li><a href="#archives">Archives</a></li>
-<li><a href="#printing">Printing</a></li>
-<li><a href="#encoding-deconding-checksums">Encoding, Deconding, Checksums</a></li>
-<li><a href="#scripting-languages">Scripting Languages</a></li>
-<li><a href="#spelling">Spelling</a></li>
-<li><a href="#building-debugging">Building, Debugging</a></li>
-<li><a href="#document-preparation">Document Preparation</a></li>
-<li><a href="#system-administration">System Administration</a><ul>
-<li><a href="#user-administration">User Administration</a></li>
 </ul></li>
+<li><a href="#text">Text</a><ul>
+<li><a href="#spelling">Spelling</a></li>
+<li><a href="#document-preparation">Document Preparation</a></li>
 <li><a href="#text-editors">Text Editors</a></li>
+</ul></li>
+<li><a href="#miscellaneous">Miscellaneous</a><ul>
+<li><a href="#date-and-time">Date and Time</a></li>
+<li><a href="#math">Math</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#printing">Printing</a></li>
+</ul></li>
+<li><a href="#programming">Programming</a><ul>
+<li><a href="#shell-scripting">Shell Scripting</a></li>
+<li><a href="#scripting-languages">Scripting Languages</a></li>
+<li><a href="#building-debugging">Building, Debugging</a></li>
+</ul></li>
+<li><a href="#system-administration">System Administration</a><ul>
+<li><a href="#processes">Processes</a></li>
+<li><a href="#user-administration">User Administration</a></li>
+<li><a href="#networking">Networking</a></li>
+</ul></li>
+<li><a href="#encoding-deconding-checksums-encryption-decryption">Encoding, Deconding, Checksums, Encryption, Decryption</a></li>
 </ul></li>
 <li><a href="#shell-programming">Shell Programming</a><ul>
 <li><a href="#output-redirection">Output Redirection</a></li>
@@ -138,6 +142,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>scp</code></li>
 <li><code>sftp</code></li>
 </ul>
+<h3 id="archives">Archives</h3>
+<ul>
+<li><code>ar</code>: create, modify, and extract from archives</li>
+<li><code>tar</code></li>
+<li><code>zip</code></li>
+<li><code>unrar</code></li>
+<li><code>unzip</code></li>
+</ul>
 <h2 id="text">Text</h2>
 <ul>
 <li><code>cat</code>: concatenate files and print on the standard output</li>
@@ -161,34 +173,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>wc</code>: print newline, word, and byte counts for each file</li>
 <li><code>uniq</code>: report or omit repeated lines</li>
 </ul>
-<h2 id="processes">Processes</h2>
+<h3 id="spelling">Spelling</h3>
 <ul>
-<li><code>bg</code>: run jobs in the background</li>
-<li><code>kill</code>: terminate a process</li>
-<li><code>killall</code>: terminate a process by name</li>
-<li><code>nice</code>: run a program with modified scheduling priority</li>
-<li><code>nohup</code>: run a command immune to hangups, with output to a non-tty</li>
-<li><code>ps</code>: report a snapshot of the current processes</li>
-<li><code>top</code>: display Linux processes (interactive)</li>
+<li><code>aspell</code></li>
+<li><code>hunspell</code></li>
 </ul>
-<h2 id="math">Math</h2>
+<h3 id="document-preparation">Document Preparation</h3>
 <ul>
-<li><code>bc</code>: an arbitrary precision calculator language (interactive)</li>
-<li><code>dc</code>: reverse-polish desk calculator (interactive)</li>
-<li><code>factor</code>: factor numbers</li>
-<li><code>hoc</code>: interactive floating point language</li>
-<li><code>primes</code>: list prime numbers</li>
-<li><code>rand</code>: generate pseudo-random bytes</li>
+<li><code>troff</code>: the troff processor of the groff text formatting system</li>
 </ul>
-<h2 id="date-and-time">Date and Time</h2>
+<h3 id="text-editors">Text Editors</h3>
 <ul>
-<li><code>cal</code>: display a calendar</li>
-<li><code>date</code>: print or set the system date and time</li>
-</ul>
-<h2 id="networking">Networking</h2>
+<li><code>ed</code>: line-oriented text editor</li>
+<li><code>emacs</code>: GNU project Emacs editor</li>
+<li><code>vi</code>: screen oriented (visual) display editor based on ex</li>
+<li><code>vim</code>: Vi IMproved, a programmers text editor
 <ul>
-<li><code>ip</code>: show/manipulate routing, devices, policy routing and tunnels</li>
-<li><code>ping</code>: send ICMP ECHO_REQUEST to network hosts</li>
+<li><code>vim -p [files]</code>: open multiple files in tabs</li>
+</ul></li>
 </ul>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
@@ -213,14 +215,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>xrandr</code></li>
 <li><code>yes</code></li>
 </ul>
-<h2 id="documentation">Documentation</h2>
+<h3 id="date-and-time">Date and Time</h3>
+<ul>
+<li><code>cal</code>: display a calendar</li>
+<li><code>date</code>: print or set the system date and time</li>
+</ul>
+<h3 id="math">Math</h3>
+<ul>
+<li><code>bc</code>: an arbitrary precision calculator language (interactive)</li>
+<li><code>dc</code>: reverse-polish desk calculator (interactive)</li>
+<li><code>factor</code>: factor numbers</li>
+<li><code>hoc</code>: interactive floating point language</li>
+<li><code>primes</code>: list prime numbers</li>
+<li><code>rand</code>: generate pseudo-random bytes</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
 <ul>
 <li><code>apropos</code>: search the manual page names and descriptions</li>
 <li><code>man</code>: an interface to the on-line reference manuals</li>
 <li><code>type</code>: write a description of command type</li>
 <li><code>whatis</code>: display one-line manual page descriptions</li>
 </ul>
-<h2 id="shell-scripting">Shell Scripting</h2>
+<h3 id="printing">Printing</h3>
+<ul>
+<li><code>lpadmin</code></li>
+<li><code>cancel</code>: cancel jobs</li>
+<li><code>lpr</code>: print files</li>
+</ul>
+<h2 id="programming">Programming</h2>
+<h3 id="shell-scripting">Shell Scripting</h3>
 <ul>
 <li><code>alias</code>: define or display aliases</li>
 <li><code>break</code>: exit from for, while, or until loop</li>
@@ -232,43 +255,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>test</code>: check file types and compare values</li>
 <li><code>xargs</code>: build and execute command lines from standard input</li>
 </ul>
-<h2 id="archives">Archives</h2>
-<ul>
-<li><code>ar</code>: create, modify, and extract from archives</li>
-<li><code>tar</code></li>
-<li><code>zip</code></li>
-<li><code>unrar</code></li>
-<li><code>unzip</code></li>
-</ul>
-<h2 id="printing">Printing</h2>
-<ul>
-<li><code>lpadmin</code></li>
-<li><code>cancel</code>: cancel jobs</li>
-<li><code>lpr</code>: print files</li>
-</ul>
-<h2 id="encoding-deconding-checksums">Encoding, Deconding, Checksums</h2>
-<ul>
-<li><code>base32</code>: base32 encode/decode data and print to standard output</li>
-<li><code>base64</code>: base64 encode/decode data and print to standard output</li>
-<li><code>sha1sum</code></li>
-<li><code>sha256sum</code></li>
-<li><code>sha512sum</code></li>
-<li><code>shasum</code></li>
-<li><code>sum</code></li>
-</ul>
-<h2 id="scripting-languages">Scripting Languages</h2>
+<h3 id="scripting-languages">Scripting Languages</h3>
 <ul>
 <li><code>awk</code>: pattern-directed scanning and processing language</li>
 <li><code>perl</code>: the Perl language interpreter</li>
 <li><code>python</code>: an interpreted, interactive, object-oriented programming language</li>
 <li><code>sh</code>: shell, the standard command language interpreter</li>
 </ul>
-<h2 id="spelling">Spelling</h2>
-<ul>
-<li><code>aspell</code></li>
-<li><code>hunspell</code></li>
-</ul>
-<h2 id="building-debugging">Building, Debugging</h2>
+<h3 id="building-debugging">Building, Debugging</h3>
 <ul>
 <li><code>gcc</code>: GNU project C and C++ compiler</li>
 <li><code>gdb</code>: the GNU Debugger</li>
@@ -277,10 +271,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>strip</code>: discard symbols from object files</li>
 <li><code>valgrind</code>:</li>
 <li><code>yacc</code>: parser generator</li>
-</ul>
-<h2 id="document-preparation">Document Preparation</h2>
-<ul>
-<li><code>troff</code>: the troff processor of the groff text formatting system</li>
 </ul>
 <h2 id="system-administration">System Administration</h2>
 <ul>
@@ -293,6 +283,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>sudo</code>: execute a command as another user</li>
 <li><code>systemctl</code>: control the systemd system and service manager</li>
 <li><code>uname</code></li>
+</ul>
+<h3 id="processes">Processes</h3>
+<ul>
+<li><code>bg</code>: run jobs in the background</li>
+<li><code>kill</code>: terminate a process</li>
+<li><code>killall</code>: terminate a process by name</li>
+<li><code>nice</code>: run a program with modified scheduling priority</li>
+<li><code>nohup</code>: run a command immune to hangups, with output to a non-tty</li>
+<li><code>ps</code>: report a snapshot of the current processes</li>
+<li><code>top</code>: display Linux processes (interactive)</li>
 </ul>
 <h3 id="user-administration">User Administration</h3>
 <ul>
@@ -308,15 +308,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>usermod</code>: modify a user account</li>
 <li><code>users</code>: print the user names of users currently logged in</li>
 </ul>
-<h2 id="text-editors">Text Editors</h2>
+<h3 id="networking">Networking</h3>
 <ul>
-<li><code>ed</code>: line-oriented text editor</li>
-<li><code>emacs</code>: GNU project Emacs editor</li>
-<li><code>vi</code>: screen oriented (visual) display editor based on ex</li>
-<li><code>vim</code>: Vi IMproved, a programmers text editor
+<li><code>ip</code>: show/manipulate routing, devices, policy routing and tunnels</li>
+<li><code>ping</code>: send ICMP ECHO_REQUEST to network hosts</li>
+</ul>
+<h2 id="encoding-deconding-checksums-encryption-decryption">Encoding, Deconding, Checksums, Encryption, Decryption</h2>
 <ul>
-<li><code>vim -p [files]</code>: open multiple files in tabs</li>
-</ul></li>
+<li><code>base32</code>: base32 encode/decode data and print to standard output</li>
+<li><code>base64</code>: base64 encode/decode data and print to standard output</li>
+<li><code>sha1sum</code></li>
+<li><code>sha256sum</code></li>
+<li><code>sha512sum</code></li>
+<li><code>shasum</code></li>
+<li><code>sum</code></li>
 </ul>
 <h1 id="shell-programming">Shell Programming</h1>
 <h2 id="output-redirection">Output Redirection</h2>

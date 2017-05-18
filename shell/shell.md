@@ -43,6 +43,14 @@
 - `scp`
 - `sftp`
 
+### Archives
+
+- `ar`: create, modify, and extract from archives
+- `tar`
+- `zip`
+- `unrar`
+- `unzip`
+
 ## Text
 
 - `cat`: concatenate files and print on the standard output
@@ -66,34 +74,22 @@
 - `wc`: print newline, word, and byte counts for each file
 - `uniq`: report or omit repeated lines
 
-## Processes
+### Spelling
 
-- `bg`: run jobs in the background
-- `kill`: terminate a process
-- `killall`: terminate a process by name
-- `nice`: run a program with modified scheduling priority
-- `nohup`: run a command immune to hangups, with output to a non-tty
-- `ps`: report a snapshot of the current processes
-- `top`: display Linux processes (interactive)
+- `aspell`
+- `hunspell`
 
-## Math
+### Document Preparation
 
-- `bc`: an arbitrary precision calculator language (interactive)
-- `dc`: reverse-polish desk calculator (interactive)
-- `factor`: factor numbers
-- `hoc`: interactive floating point language
-- `primes`: list prime numbers
-- `rand`: generate pseudo-random bytes
+- `troff`: the troff processor of the groff text formatting system
 
-## Date and Time
+### Text Editors
 
-- `cal`: display a calendar
-- `date`: print or set the system date and time
-
-## Networking
-
-- `ip`: show/manipulate routing, devices, policy routing and tunnels
-- `ping`: send ICMP ECHO\_REQUEST to network hosts
+- `ed`: line-oriented text editor
+- `emacs`: GNU project Emacs editor
+- `vi`: screen oriented (visual) display editor based on ex
+- `vim`: Vi IMproved, a programmers text editor
+    - `vim -p [files]`: open multiple files in tabs
 
 ## Miscellaneous
 
@@ -118,14 +114,36 @@
 - `xrandr`
 - `yes`
 
-## Documentation
+### Date and Time
+
+- `cal`: display a calendar
+- `date`: print or set the system date and time
+
+### Math
+
+- `bc`: an arbitrary precision calculator language (interactive)
+- `dc`: reverse-polish desk calculator (interactive)
+- `factor`: factor numbers
+- `hoc`: interactive floating point language
+- `primes`: list prime numbers
+- `rand`: generate pseudo-random bytes
+
+### Documentation
 
 - `apropos`: search the manual page names and descriptions
 - `man`: an interface to the on-line reference manuals
 - `type`: write a description of command type
 - `whatis`: display one-line manual page descriptions
 
-## Shell Scripting
+### Printing
+
+- `lpadmin`
+- `cancel`: cancel jobs
+- `lpr`: print files
+
+## Programming
+
+### Shell Scripting
 
 - `alias`: define or display aliases
 - `break`: exit from for, while, or until loop
@@ -137,43 +155,14 @@
 - `test`: check file types and compare values
 - `xargs`: build and execute command lines from standard input
 
-## Archives
-
-- `ar`: create, modify, and extract from archives
-- `tar`
-- `zip`
-- `unrar`
-- `unzip`
-
-## Printing
-
-- `lpadmin`
-- `cancel`: cancel jobs
-- `lpr`: print files
-
-## Encoding, Deconding, Checksums
-
-- `base32`: base32 encode/decode data and print to standard output
-- `base64`: base64 encode/decode data and print to standard output
-- `sha1sum`
-- `sha256sum`
-- `sha512sum`
-- `shasum`
-- `sum`
-
-## Scripting Languages
+### Scripting Languages
 
 - `awk`: pattern-directed scanning and processing language
 - `perl`: the Perl language interpreter
 - `python`: an interpreted, interactive, object-oriented programming language
 - `sh`: shell, the standard command language interpreter
 
-## Spelling
-
-- `aspell`
-- `hunspell`
-
-## Building, Debugging
+### Building, Debugging
 
 - `gcc`: GNU project C and C++ compiler
 - `gdb`: the GNU Debugger
@@ -182,10 +171,6 @@
 - `strip`: discard symbols from object files
 - `valgrind`:
 - `yacc`: parser generator
-
-## Document Preparation
-
-- `troff`: the troff processor of the groff text formatting system
 
 ## System Administration
 
@@ -198,6 +183,16 @@
 - `sudo`: execute a command as another user
 - `systemctl`: control the systemd system and service manager
 - `uname`
+
+### Processes
+
+- `bg`: run jobs in the background
+- `kill`: terminate a process
+- `killall`: terminate a process by name
+- `nice`: run a program with modified scheduling priority
+- `nohup`: run a command immune to hangups, with output to a non-tty
+- `ps`: report a snapshot of the current processes
+- `top`: display Linux processes (interactive)
 
 ### User Administration
 
@@ -213,13 +208,20 @@
 - `usermod`: modify a user account
 - `users`: print the user names of users currently logged in
 
-## Text Editors
+### Networking
 
-- `ed`: line-oriented text editor
-- `emacs`: GNU project Emacs editor
-- `vi`: screen oriented (visual) display editor based on ex
-- `vim`: Vi IMproved, a programmers text editor
-    - `vim -p [files]`: open multiple files in tabs
+- `ip`: show/manipulate routing, devices, policy routing and tunnels
+- `ping`: send ICMP ECHO\_REQUEST to network hosts
+
+## Encoding, Deconding, Checksums, Encryption, Decryption
+
+- `base32`: base32 encode/decode data and print to standard output
+- `base64`: base64 encode/decode data and print to standard output
+- `sha1sum`
+- `sha256sum`
+- `sha512sum`
+- `shasum`
+- `sum`
 
 # Shell Programming
 
