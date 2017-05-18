@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Shell Cheat Sheet</h1>
+<p class="author">Patrick Bucher</p>
+<p class="date">2017/05/18</p>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#commands">Commands</a><ul>
+<li><a href="#file-handling">File Handling</a></li>
+<li><a href="#process-handling">Process Handling</a></li>
+<li><a href="#string-handling">String Handling</a></li>
+<li><a href="#miscellaneous">Miscellaneous</a></li>
+</ul></li>
+<li><a href="#programming">Programming</a><ul>
+<li><a href="#output-redirection">Output Redirection</a></li>
+</ul></li>
+<li><a href="#variables">Variables</a></li>
+</ul>
+</nav>
+<h1 id="commands">Commands</h1>
+<h2 id="file-handling">File Handling</h2>
+<ul>
+<li><code>cat</code>: concatenate files and print on the standard output</li>
+<li><code>cd</code>: change the working directory
+<ul>
+<li><code>cd</code>: change to home directory</li>
+<li><code>cd ..</code>: change to parent directory</li>
+<li><code>cd /home/joe</code>: change to directory using a absolute path</li>
+<li><code>cd docs/letters</code>: change to directory using a relative path</li>
+</ul></li>
+<li><code>chmod</code></li>
+<li><code>chown</code></li>
+<li><code>cp</code>: copy a file</li>
+<li><code>ls</code>: list files in a directory
+<ul>
+<li><code>ls -l</code> or <code>ll</code>: long version</li>
+</ul></li>
+<li><code>mv</code>: rename (move) a file</li>
+<li><code>pwd</code>: print the current working directory</li>
+<li><code>rm</code>: remove (delete) a file
+<ul>
+<li><code>rm -r [directory]</code>: delete a directory recursively</li>
+</ul></li>
+</ul>
+<h2 id="process-handling">Process Handling</h2>
+<ul>
+<li><code>kill</code></li>
+<li><code>killall</code></li>
+<li><code>ps</code></li>
+<li><code>top</code></li>
+</ul>
+<h2 id="string-handling">String Handling</h2>
+<ul>
+<li><code>awk</code></li>
+<li><code>grep</code></li>
+<li><code>sed</code></li>
+<li><code>tr</code></li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li><code>apropos</code>: show manpages to a topic</li>
+<li><code>ascii</code>: print asci table</li>
+<li><code>basename</code>:</li>
+<li><code>bc</code>: calculator (interactive command)</li>
+<li><code>cut</code></li>
+<li><code>fmt</code>:</li>
+<li><code>fold</code>:</li>
+<li><code>join</code>:</li>
+<li><code>lpr</code>: print a document</li>
+<li><code>man</code>: read a manpage</li>
+<li><code>pwgen</code>: generate passwords</li>
+<li><code>sh</code>: run a shell</li>
+<li><code>wc</code>: count characters, words and lines</li>
+</ul>
+<h1 id="programming">Programming</h1>
+<h2 id="output-redirection">Output Redirection</h2>
+<pre><code>wc -l * | sort -n -r
+wc -l &gt;std-out 2&gt;std.err</code></pre>
+<h1 id="variables">Variables</h1>
+<ul>
+<li><code>$IFS</code>: internal field seperator</li>
+</ul>
+</body>
+</html>
