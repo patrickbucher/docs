@@ -52,6 +52,7 @@
 - `chown`: change file owner and group
 - `file`: determine file type
 - `mtime`: print file information
+- `stat`: display file or file system status
 
 ### Searching Files
 
@@ -131,6 +132,7 @@
 - `lspci`: list all PCI devices
 - `pwgen`: generate pronounceable passwords
 - `seq`: print a sequence of numbers
+- `shred`: overwrite a file to hide its contents, and optionally delete it
 - `shutdown`: halt, power-off or reboot the machine (see `halt`)
 - `sl`: cure your bad habit of mistyping
 - `unicode`: interpret unicode characters
@@ -237,13 +239,38 @@
 
 - `lpadmin`: configure cups printers and classes
 
-## Hashing and Crypto
+## Checksums/Hashing
 
 - `base32`: base32 encode/decode data and print to standard output
 - `base64`: base64 encode/decode data and print to standard output
-- `gpg`: OpenPGP encryption and signing tool
 - `md5sum`: compute and check MD5 message digest
 - `sha1sum`: compute and check SHA1 message digest
 - `sha256sum`: compute and check SHA256 message digest
 - `sha512sum`: compute and check SHA512 message digest
 - `sum`: checksum and count the blocks in a file
+
+## GNU Privacy Guard
+
+- `gpg`: OpenPGP encryption and signing tool
+
+### Encryption, Descryption, Signing
+
+- `-d|--decrypt`: decrypt an encrypted message
+- `-r|--recipient`: define recipient (public key to be used for encryption)
+- `-e|--encrypt`: encrypt a message asymetrically
+- `-c|--symmetric`: encrypt a message with a symmetric cipher (using a passphrase)
+- `-s|--sign`: sign a message
+
+### Key Management
+
+- `--gen-key|--generate-key`: generate a new key pair
+- `-k|--list-keys`: list public keys
+- `-k --keyid-format SHORT`: list public keys and print short key ids
+- `-K|--list-secret-keys`: list private keys
+- `--search-keys` search the keyserver for the given names
+- `--recv-keys`: import the keys with the given key IDs from a keyserver
+- `--send-keys`: send the keys with the given key IDs to a keyserver
+- `--import`: add the given key to the keyring
+- `--export`: exports the given public key
+- `--export-secret-keys`: exports the given secret key
+- `--armor`: create ASCII armored output (in contrast to default binary output)

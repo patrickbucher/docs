@@ -48,7 +48,11 @@
 <li><a href="#networking">Networking</a></li>
 <li><a href="#printers">Printers</a></li>
 </ul></li>
-<li><a href="#hashing-and-crypto">Hashing and Crypto</a></li>
+<li><a href="#checksumshashing">Checksums/Hashing</a></li>
+<li><a href="#gnu-privacy-guard">GNU Privacy Guard</a><ul>
+<li><a href="#encryption-descryption-signing">Encryption, Descryption, Signing</a></li>
+<li><a href="#key-management">Key Management</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -125,6 +129,7 @@
 <li><code>chown</code>: change file owner and group</li>
 <li><code>file</code>: determine file type</li>
 <li><code>mtime</code>: print file information</li>
+<li><code>stat</code>: display file or file system status</li>
 </ul>
 <h3 id="searching-files">Searching Files</h3>
 <ul>
@@ -206,6 +211,7 @@
 <li><code>lspci</code>: list all PCI devices</li>
 <li><code>pwgen</code>: generate pronounceable passwords</li>
 <li><code>seq</code>: print a sequence of numbers</li>
+<li><code>shred</code>: overwrite a file to hide its contents, and optionally delete it</li>
 <li><code>shutdown</code>: halt, power-off or reboot the machine (see <code>halt</code>)</li>
 <li><code>sl</code>: cure your bad habit of mistyping</li>
 <li><code>unicode</code>: interpret unicode characters</li>
@@ -311,16 +317,41 @@
 <ul>
 <li><code>lpadmin</code>: configure cups printers and classes</li>
 </ul>
-<h2 id="hashing-and-crypto">Hashing and Crypto</h2>
+<h2 id="checksumshashing">Checksums/Hashing</h2>
 <ul>
 <li><code>base32</code>: base32 encode/decode data and print to standard output</li>
 <li><code>base64</code>: base64 encode/decode data and print to standard output</li>
-<li><code>gpg</code>: OpenPGP encryption and signing tool</li>
 <li><code>md5sum</code>: compute and check MD5 message digest</li>
 <li><code>sha1sum</code>: compute and check SHA1 message digest</li>
 <li><code>sha256sum</code>: compute and check SHA256 message digest</li>
 <li><code>sha512sum</code>: compute and check SHA512 message digest</li>
 <li><code>sum</code>: checksum and count the blocks in a file</li>
+</ul>
+<h2 id="gnu-privacy-guard">GNU Privacy Guard</h2>
+<ul>
+<li><code>gpg</code>: OpenPGP encryption and signing tool</li>
+</ul>
+<h3 id="encryption-descryption-signing">Encryption, Descryption, Signing</h3>
+<ul>
+<li><code>-d|--decrypt</code>: decrypt an encrypted message</li>
+<li><code>-r|--recipient</code>: define recipient (public key to be used for encryption)</li>
+<li><code>-e|--encrypt</code>: encrypt a message asymetrically</li>
+<li><code>-c|--symmetric</code>: encrypt a message with a symmetric cipher (using a passphrase)</li>
+<li><code>-s|--sign</code>: sign a message</li>
+</ul>
+<h3 id="key-management">Key Management</h3>
+<ul>
+<li><code>--gen-key|--generate-key</code>: generate a new key pair</li>
+<li><code>-k|--list-keys</code>: list public keys</li>
+<li><code>-k --keyid-format SHORT</code>: list public keys and print short key ids</li>
+<li><code>-K|--list-secret-keys</code>: list private keys</li>
+<li><code>--search-keys</code> search the keyserver for the given names</li>
+<li><code>--recv-keys</code>: import the keys with the given key IDs from a keyserver</li>
+<li><code>--send-keys</code>: send the keys with the given key IDs to a keyserver</li>
+<li><code>--import</code>: add the given key to the keyring</li>
+<li><code>--export</code>: exports the given public key</li>
+<li><code>--export-secret-keys</code>: exports the given secret key</li>
+<li><code>--armor</code>: create ASCII armored output (in contrast to default binary output)</li>
 </ul>
 </body>
 </html>
