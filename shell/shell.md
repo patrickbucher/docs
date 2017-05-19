@@ -51,7 +51,6 @@
 - `chmod`: change file mode bits
 - `chown`: change file owner and group
 - `file`: determine file type
-- `fsize`: print file information
 - `mtime`: print file information
 
 ### Searching Files
@@ -131,7 +130,9 @@
 - `history`: manipulate the history list
 - `lspci`: list all PCI devices
 - `pwgen`: generate pronounceable passwords
+- `seq`: print a sequence of numbers
 - `shutdown`: halt, power-off or reboot the machine (see `halt`)
+- `sl`: cure your bad habit of mistyping
 - `unicode`: interpret unicode characters
 - `xrandr`: primitive command line interface to RandR extension
 - `yes`: output a string repeatedly until killed
@@ -190,8 +191,6 @@
 - `make`: GNU make utility to maintain groups of programs
 - `mk`: maintain (make) related files
 - `strip`: discard symbols from object files
-- `valgrind`: a suite of tools for debugging and profiling programs
-- `yacc`: parser generator
 
 ## System Administration
 
@@ -248,16 +247,3 @@
 - `sha256sum`: compute and check SHA256 message digest
 - `sha512sum`: compute and check SHA512 message digest
 - `sum`: checksum and count the blocks in a file
-
-# Shell Programming
-
-## Output Redirection
-
-```bash
-wc -l * | sort -n -r
-wc -l >std-out 2>std.err
-```
-
-# Variables
-
-- `$IFS`: internal field seperator

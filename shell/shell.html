@@ -6,43 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-  </style>
   <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -52,7 +15,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Shell Cheat Sheet</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">2017-05-18</p>
+<p class="date">2017-05-19</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -87,10 +50,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#hashing-and-crypto">Hashing and Crypto</a></li>
 </ul></li>
-<li><a href="#shell-programming">Shell Programming</a><ul>
-<li><a href="#output-redirection">Output Redirection</a></li>
-</ul></li>
-<li><a href="#variables">Variables</a></li>
 </ul>
 </nav>
 <h1 id="commands">Commands</h1>
@@ -165,7 +124,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>chmod</code>: change file mode bits</li>
 <li><code>chown</code>: change file owner and group</li>
 <li><code>file</code>: determine file type</li>
-<li><code>fsize</code>: print file information</li>
 <li><code>mtime</code>: print file information</li>
 </ul>
 <h3 id="searching-files">Searching Files</h3>
@@ -247,7 +205,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>history</code>: manipulate the history list</li>
 <li><code>lspci</code>: list all PCI devices</li>
 <li><code>pwgen</code>: generate pronounceable passwords</li>
+<li><code>seq</code>: print a sequence of numbers</li>
 <li><code>shutdown</code>: halt, power-off or reboot the machine (see <code>halt</code>)</li>
+<li><code>sl</code>: cure your bad habit of mistyping</li>
 <li><code>unicode</code>: interpret unicode characters</li>
 <li><code>xrandr</code>: primitive command line interface to RandR extension</li>
 <li><code>yes</code>: output a string repeatedly until killed</li>
@@ -305,8 +265,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>make</code>: GNU make utility to maintain groups of programs</li>
 <li><code>mk</code>: maintain (make) related files</li>
 <li><code>strip</code>: discard symbols from object files</li>
-<li><code>valgrind</code>: a suite of tools for debugging and profiling programs</li>
-<li><code>yacc</code>: parser generator</li>
 </ul>
 <h2 id="system-administration">System Administration</h2>
 <ul>
@@ -363,14 +321,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>sha256sum</code>: compute and check SHA256 message digest</li>
 <li><code>sha512sum</code>: compute and check SHA512 message digest</li>
 <li><code>sum</code>: checksum and count the blocks in a file</li>
-</ul>
-<h1 id="shell-programming">Shell Programming</h1>
-<h2 id="output-redirection">Output Redirection</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wc</span> -l * <span class="kw">|</span> <span class="fu">sort</span> -n -r
-<span class="fu">wc</span> -l <span class="op">&gt;</span>std-out <span class="op">2&gt;</span>std.err</code></pre></div>
-<h1 id="variables">Variables</h1>
-<ul>
-<li><code>$IFS</code>: internal field seperator</li>
 </ul>
 </body>
 </html>
