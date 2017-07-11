@@ -1,6 +1,10 @@
+# Preparation
+
 Prepare the USB stick:
 
     dd if=archlinux-2017.07.01-x86_64.iso of=/dev/sdb bs=4096
+
+# Installation
 
 Set Swiss German keyboard layout:
 
@@ -13,6 +17,8 @@ Connect to the WiFi network:
 Update the system clock:
 
     timedatectl set-ntp true
+
+## Partitioning
 
 Find the block device (`mmcblk0` in case of the _acer_ laptop's SSD card):
 
@@ -118,6 +124,8 @@ Create the startup configuration file under `/boot/loader/entries/arch.conf`:
     initrd  /initramfs-linux.img
     options root=PARTUUID=[partition UUID] rw
 
+Don't write the PARTUUID within double quotes!
+
 Find out partition UUID:
 
     blkid | grep mmcblk0p3 | egrep -o 'PARTUUID="(.+[^"])"'
@@ -137,6 +145,36 @@ Leave and umount recursively:
     exit
     umount -R /mnt
 
-Reboot:
+Shutdown:
 
-    reboot
+    shutdown -h now
+
+# Configuration
+
+## WiFi
+
+Connect to WiFi and store profile:
+
+    wifi-menu -o
+
+Enable and start the `netctl-auto` service:
+
+    systemctl enable netctl-auto@wlp2s0.service
+    systemctl start netctl-auto@wlp2s0.service
+
+## User
+
+Add a user:
+
+    useradd -m paedubucher
+    passwd paedubucher
+
+## Font
+
+Install terminus:
+
+    pacman -S terminus-font
+
+Use it as the system's default font in `/etc/vconsole.conf`
+
+    FONT=ter-v16n
