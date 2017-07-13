@@ -204,7 +204,7 @@ GTK theme and theme switcher:
 
     pacman -S gtk-chtheme lxappearance gtk-engine-aurora
 
-# mutt
+## mutt
 
     pacman -S mutt
 
@@ -218,3 +218,9 @@ Encrypt it:
 
     mkdir .mutt
     cp /usr/share/doc/mutt/samples/gpg.rc .mutt/gpg.rc
+
+## ntp
+
+    pacman -S ntp
+    systemctl enable ntpd.service
+    systemctl start ntpd.service
