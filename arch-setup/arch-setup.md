@@ -178,3 +178,43 @@ Install terminus:
 Use it as the system's default font in `/etc/vconsole.conf`
 
     FONT=ter-v16n
+
+## Xorg
+
+Xorg for Intel graphics card:
+
+    pacman -S xorg-server xf86-video-intel xorg-startx xorg-xset xorg-xsetroot
+
+Libraries for dwm, dmenu and st:
+
+    pacman -S libxft libxinerama
+
+Touchpad:
+
+    pacman -S xf86-input-synaptics
+
+## alsa
+
+    pacman -S alsa-tools alsa-utils
+    alsaloop init
+
+## misc
+
+GTK theme and theme switcher:
+
+    pacman -S gtk-chtheme lxappearance gtk-engine-aurora
+
+# mutt
+
+    pacman -S mutt
+
+Create a file `.my-pwds`:
+
+    set my_pw_personal="[SECRET]"
+
+Encrypt it:
+
+    gpg -e .my-pwds > .my-pwds.gpg
+
+    mkdir .mutt
+    cp /usr/share/doc/mutt/samples/gpg.rc .mutt/gpg.rc
