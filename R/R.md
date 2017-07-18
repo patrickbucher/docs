@@ -114,7 +114,7 @@ calculated automatically:
 
     seq(from = 1, to = 10, length.out = 4) # 1 4 7 10
 
-Make a sequence with a specific length and step size, but ommit the upper
+Make a sequence with a specific length and step size, but omit the upper
 boundry:
 
     seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9
@@ -172,12 +172,12 @@ Access multiple elements:
     v[c(1, 3, 5)] # 10 30 50
     v[1:3] # 10 20 30
 
-Ommit the element at a certain index:
+Omit the element at a certain index:
 
     v[-1] # 20 30 40 50
     v[-length(v)] # 10 20 30 40
 
-Ommit multiple elements:
+Omit multiple elements:
 
     v[-c(1, 2, 3)] # 40 50
 
