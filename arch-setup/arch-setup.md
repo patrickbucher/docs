@@ -104,9 +104,9 @@ Set the hostname in `/etc/hostname`
 
     rumpelkiste
 
-Install `intel-ucode`, `dialog`, `iw` and `wpa_supplicant`:
+Install additional packages for WiFi:
 
-    pacman -S iw wpa_supplicant dialog intel-ucode
+    pacman -S iw wpa_supplicant dialog intel-ucode wpa_actiond
 
 Set the root password:
 
@@ -156,6 +156,7 @@ Shutdown:
 Connect to WiFi and store profile:
 
     wifi-menu -o
+    netctl enable wlp2s0-frzbxpdb
 
 Enable and start the `netctl-auto` service:
 
@@ -183,11 +184,15 @@ Use it as the system's default font in `/etc/vconsole.conf`
 
 Xorg for Intel graphics card:
 
-    pacman -S xorg-server xf86-video-intel xorg-startx xorg-xset xorg-xsetroot
+    pacman -S xorg-server xf86-video-intel xorg-xinit xorg-xset xorg-xsetroot
 
-Libraries for dwm, dmenu and st:
+Packages for compilation:
 
-    pacman -S libxft libxinerama
+    pacman -S make gcc pkgconfig
+
+Libraries for dwm, dmenu, slock and st:
+
+    pacman -S libxft libxinerama libxrandr
 
 Touchpad:
 
@@ -197,6 +202,11 @@ Touchpad:
 
     pacman -S alsa-tools alsa-utils
     alsaloop init
+
+If this causes an error, then probably HDMI is the default sound card. Create
+the file `/etc/modprobe.d/alsa.conf` with the content:
+
+    options snd-hda-intel index=1,0
 
 ## misc
 

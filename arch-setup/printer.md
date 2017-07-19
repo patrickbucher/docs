@@ -8,7 +8,7 @@ Install, enable and start cups:
 
 Avahi:
 
-    pacman -S nss-mdnsj
+    pacman -S nss-mdns
     systemctl enable avahi-daemon.service
     systemctl start avahi-daemon.service
 
