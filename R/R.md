@@ -324,3 +324,95 @@ rules apply):
     m[1,] = m[2,] # overwrite the first row using the values of the second row
     m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the "corners" to -1
 
+### Operations and Algebra
+
+Transpose a matrix ($$ A^T $$ is the transposed matrix of $$ A $$):
+
+    A <- matrix(1:9, ncol = 3)
+
+    1   4   7
+    2   5   8
+    3   6   9
+
+    t(A)
+
+    1   2   3
+    4   5   6
+    7   8   9
+
+Create an identity matrix of size $$ n $$ ($$ I_n $$):
+
+    I <- diag(x = 3)
+
+    1   0   0
+    0   1   0
+    0   0   1
+
+Scalar multiplication of a matrix:
+
+    A <- rbind(1:3, 4:6)
+
+    1   2   3
+    4   5   6
+
+    A * 2
+
+    2   4   6
+    8  10  12
+
+Addition and substraction of matrices:
+
+    A <- matrix(1:4, ncol = 2)
+    B <- matrix(5:8, ncol = 2)
+
+    A + B
+
+    1   3       5   7       6  10
+            +           =   
+    2   4       6   8       8  12
+
+    B - A
+
+    5   7       1   3       4   4
+            +           =
+    6   8       2   4       4   4
+
+Two matrices, $$ A(m,n) $$ and $$ B(p,q) $$ can be multiplied if $$ n = p $$
+holds true (first matrix' cols = second matrix' rows), resulting in a matrix
+with $$ m $$ rows and $$ q $$ cols:
+
+    A <- matrix(c(2,6,5,1,2,4), ncol = 3) # n = 3
+    B <- matrix(c(3,-1,1,-3,1,5), nrow = 3) # p = 3
+
+    A %*% B
+
+    x        B = 3  -3
+                -1   1
+                 1   5
+    A = 
+    2   5   2  | 3   9| = AxB
+    6   1   4  |21   3|
+
+$$ A^{-1} $$ is the inverse of a matrix $$ A $$. $$ A $$ multiplied by $$ A^{-1}
+$$ results in the identity matrix:
+
+    A <- matrix(3,4,1,2), ncol = 2)
+
+    3   1
+    4   2
+
+    solve(A)
+
+     1  -0.5
+    -2   1.5
+
+    A %*% solve(A) # check the result: is it the identity matrix?
+
+    1   0
+    0   1
+
+Summary:
+
+- inverse matrix: $$ A^{-1} $$, `solve(A)`
+- transposed matrix: $$ A^T $$, `t(A)`
+- identity matrix: $$ I_n $$, `diag(x = n)`
