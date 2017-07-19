@@ -416,3 +416,27 @@ Summary:
 - inverse matrix: $$ A^{-1} $$, `solve(A)`
 - transposed matrix: $$ A^T $$, `t(A)`
 - identity matrix: $$ I_n $$, `diag(x = n)`
+
+## Multidimensional Arrays
+
+Define arrays of different dimension:
+
+    array(data = 1:24) # vector 1 2 3 ... 24, 1 dimension
+    array(data = 1:24, dim = c(24)) # same with explicit dimension
+    array(data = 1:24, dim = c(4, 6)) # a 4x6 matrix, 2 dimensions
+    array(data = 1:24, dim = c(2, 3, 4)) # a 2x3x4 "cube", 3 dimensions
+
+The dimension `(2, 3, 4)` stands for 2 rows, 3 cols and 4 layers. The product of
+the elements in the dimension vector must be equal to the length of the data
+vector.
+
+Accessing parts of a multidimensional array:
+
+    AR <- array(1:24, c(2, 3, 4))
+    AR[1,,] # access the first row
+    AR[,2,] # access the second column
+    AR[,,3] # access the third layer
+
+    AR[1,,c(1, 2)] # first row of first and second layer
+
+For arrays, the same assignment rules of vectors and matrices also apply.
