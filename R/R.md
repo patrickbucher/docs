@@ -326,7 +326,7 @@ rules apply):
 
 ### Operations and Algebra
 
-Transpose a matrix ($ A^T $ is the transposed matrix of $ A $):
+Transpose a matrix ($A^T$ is the transposed matrix of $A$):
 
     A <- matrix(1:9, ncol = 3)
 
@@ -340,7 +340,7 @@ Transpose a matrix ($ A^T $ is the transposed matrix of $ A $):
     4   5   6
     7   8   9
 
-Create an identity matrix of size $ n $ ($ I_n $):
+Create an identity matrix of size $n$ ($I_n$):
 
     I <- diag(x = 3)
 
@@ -377,9 +377,9 @@ Addition and substraction of matrices:
             +           =
     6   8       2   4       4   4
 
-Two matrices, $ A(m,n) $ and $ B(p,q) $ can be multiplied if $ n = p $
-holds true (first matrix' cols = second matrix' rows), resulting in a matrix
-with $ m $ rows and $ q $ cols:
+Two matrices, $A(m,n)$ and $B(p,q)$, can be multiplied if $n = p$ holds true
+(first matrix' cols = second matrix' rows), resulting in a matrix with $m$ rows
+and $q$ cols:
 
     A <- matrix(c(2,6,5,1,2,4), ncol = 3) # n = 3
     B <- matrix(c(3,-1,1,-3,1,5), nrow = 3) # p = 3
@@ -393,8 +393,7 @@ with $ m $ rows and $ q $ cols:
     2   5   2  | 3   9| = AxB
     6   1   4  |21   3|
 
-$ A^{-1} $ is the inverse of a matrix $ A $. $ A $ multiplied by $ A^{-1}
-$ results in the identity matrix:
+$A^{-1}$ is the inverse of a matrix $A$. $A$ multiplied by $A^{-1}$ results in the identity matrix:
 
     A <- matrix(3,4,1,2), ncol = 2)
 
@@ -413,9 +412,9 @@ $ results in the identity matrix:
 
 Summary:
 
-- inverse matrix: $ A^{-1} $, `solve(A)`
-- transposed matrix: $ A^T $, `t(A)`
-- identity matrix: $ I_n $, `diag(x = n)`
+- inverse matrix: $A^{-1}$, `solve(A)`
+- transposed matrix: $A^T$, `t(A)`
+- identity matrix: $I_n$, `diag(x = n)`
 
 ## Multidimensional Arrays
 

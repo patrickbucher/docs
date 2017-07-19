@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<nav id="TOC">
+<ul>
+<li><a href="#r">R</a><ul>
+<li><a href="#environment">Environment</a><ul>
+<li><a href="#sessions">Sessions</a></li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#help">Help</a></li>
+</ul></li>
+<li><a href="#language-basics">Language Basics</a></li>
+<li><a href="#calculations">Calculations</a></li>
+<li><a href="#vectors">Vectors</a><ul>
+<li><a href="#sequences">Sequences</a></li>
+<li><a href="#repetitions">Repetitions</a></li>
+<li><a href="#sorting">Sorting</a></li>
+<li><a href="#accessing-elements">Accessing Elements</a></li>
+<li><a href="#arithmetic-on-vectors">Arithmetic on Vectors</a></li>
+</ul></li>
+<li><a href="#matrices">Matrices</a><ul>
+<li><a href="#operations-and-algebra">Operations and Algebra</a></li>
+</ul></li>
+<li><a href="#multidimensional-arrays">Multidimensional Arrays</a></li>
+<li><a href="#logical-values">Logical Values</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="r">R</h1>
+<h2 id="environment">Environment</h2>
+<p>Set a custom prompt (<code>R&gt;</code>):</p>
+<pre><code>options(prompt = &quot;R&gt; &quot;)</code></pre>
+<p>List variables, objects and user-defined functions of the current session:</p>
+<pre><code>ls()</code></pre>
+<p>Leave R:</p>
+<pre><code>q()</code></pre>
+<h3 id="sessions">Sessions</h3>
+<p>Find out and set the current working directory:</p>
+<pre><code>getwd()
+setwd(&quot;~/my-workspace&quot;)</code></pre>
+<p>Save the current session:</p>
+<pre><code>save.image(&quot;my-session.RData&quot;)</code></pre>
+<p>Load a stored session:</p>
+<pre><code>load(&quot;my-session.RData&quot;)</code></pre>
+<h3 id="packages">Packages</h3>
+<p>Install a new package (<code>MASS</code>, for example):</p>
+<pre><code>library(&quot;MASS&quot;)</code></pre>
+<p>Update installed packages:</p>
+<pre><code>update.packages()</code></pre>
+<h3 id="help">Help</h3>
+<p>Get help for a specific keyword (the <code>mean</code> function, for example):</p>
+<pre><code>help(&quot;mean&quot;)
+?mean # shortcut</code></pre>
+<p>Search for a help topic (<code>random</code>, for example):</p>
+<pre><code>help.search(&quot;random&quot;)
+??&quot;random&quot; # shortcut</code></pre>
+<h2 id="language-basics">Language Basics</h2>
+<p>Comments, starting with <code>#</code> to the end of the line:</p>
+<pre><code>1 + 1 # calculates one plus one, which is two</code></pre>
+<p>Exponential notation:</p>
+<pre><code>1e3 # 1 * 10^3 = 1000
+1e-3 # 1 * 10^(-3) = 0.001</code></pre>
+<p>Assignments:</p>
+<pre><code>a &lt;- 17
+b = 42</code></pre>
+<h2 id="calculations">Calculations</h2>
+<p>Basic arithmetic:</p>
+<pre><code>3 + 5 # 8
+5 - 2 # 3
+2 * 3 # 6
+9 / 3 # 3
+2 ^ 3 # 8 (2 to the power of 3)
+sqrt(16) # 4</code></pre>
+<p>Logarithms:</p>
+<pre><code>log(x = 8, base = 2) # 3, because 2^3 = 8
+log(8, 2) # same but shorter</code></pre>
+<p>Euler’s number as an exponantial function:</p>
+<pre><code>exp(1) # 2.718282</code></pre>
+<p>The <code>log()</code> function uses Euler’s number as the default base (natural logarithm):</p>
+<pre><code>log(100) # 4.60517
+log(x = 100, base = exp(1)) # same with an explicit base</code></pre>
+<p>The <code>exp()</code> function is the reverse function of <code>log()</code>:</p>
+<pre><code>log(exp(23)) # 23</code></pre>
+<h2 id="vectors">Vectors</h2>
+<p>Make a vector from individual elements:</p>
+<pre><code>c(1, 2, 3) # 1 2 3</code></pre>
+<h3 id="sequences">Sequences</h3>
+<p>Make a sequence from one to ten:</p>
+<pre><code>seq(from = 1, to = 10, by = 1)
+1:10 # same but shorter (default step = 1)</code></pre>
+<p>Make a sequence with a specific length instead of step size, which will be calculated automatically:</p>
+<pre><code>seq(from = 1, to = 10, length.out = 4) # 1 4 7 10</code></pre>
+<p>Make a sequence with a specific length and step size, but omit the upper boundry:</p>
+<pre><code>seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9</code></pre>
+<h3 id="repetitions">Repetitions</h3>
+<p>Repeat a number:</p>
+<pre><code>rep(x = 1, times = 3) # 1 1 1
+rep(1, 3) # same but shorter</code></pre>
+<p>Repeat a sequence:</p>
+<pre><code>rep(c(1, 2, 3), 2) # 1 2 3 1 2 3
+rep(1:3, 2), # same but shorter</code></pre>
+<p>Repeat items instead of the whole sequence:</p>
+<pre><code>rep(1:3, each = 2) # 1 1 2 2 3 3</code></pre>
+<p>Repeat using <code>eech</code> and <code>times</code> combined:</p>
+<pre><code>rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2</code></pre>
+<h3 id="sorting">Sorting</h3>
+<p>Sort (in ascending order):</p>
+<pre><code>sort(3:-3) # -3 -2 -1 0 1 2 3</code></pre>
+<p>Sort (in descending order):</p>
+<pre><code>sort(1:5, decreasing = TRUE) # 5 4 3 2 1</code></pre>
+<p>Reverse the order of a vector’s elements:</p>
+<pre><code>rev(1:5) # 5 4 3 2 1</code></pre>
+<h3 id="accessing-elements">Accessing Elements</h3>
+<p>For the following examples, the vector <code>v</code> is used:</p>
+<pre><code>v &lt;- seq(from = 10, to = 50, by = 10) # 10 20 30 40 50 </code></pre>
+<p>Access the first element (the first index is 1):</p>
+<pre><code>v[1] # 10</code></pre>
+<p>Access the last element (the last index is the vector’s length):</p>
+<pre><code>v[length(v)] # 50</code></pre>
+<p>Access multiple elements:</p>
+<pre><code>v[c(1, 3, 5)] # 10 30 50
+v[1:3] # 10 20 30</code></pre>
+<p>Omit the element at a certain index:</p>
+<pre><code>v[-1] # 20 30 40 50
+v[-length(v)] # 10 20 30 40</code></pre>
+<p>Omit multiple elements:</p>
+<pre><code>v[-c(1, 2, 3)] # 40 50</code></pre>
+<p>Overwrite vector elements:</p>
+<pre><code>v[1] = 11 # v = 11 20 30 40 50
+v[c(2, 3)] = c(22, 33) # v = 11 22 33 40 50
+v[c(4, 5)] = 44 # v = 11 22 33 44 44, 44 was used twice!
+v[1:4] = c(1, 2) # v = 1 2 1 2 44</code></pre>
+<p>The vector on the left hand side must either have:</p>
+<ul>
+<li>the same size as the vector on the right hand side, or</li>
+<li>a size multiple times as big as the vector on the right hand side.</li>
+</ul>
+<h3 id="arithmetic-on-vectors">Arithmetic on Vectors</h3>
+<p>Multiply every item of the vector by 2:</p>
+<pre><code>1:6 * 2 # 2 4 6 8 10 12</code></pre>
+<p>Multiply the items of the vector by 1 and -1, respectively:</p>
+<pre><code>1:6 * c(1,-1) # 1 -2 3 -4 5 -6</code></pre>
+<p>For the vector’s sizes, the same rule applies as stated above.</p>
+<p>Calculate the sum of a vector:</p>
+<pre><code>sum(1, 2, 3, 4) # 1+2+3+4=10
+sum(1:100) # 5050</code></pre>
+<p>Calculate the product of a vector:</p>
+<pre><code>prod(1, 2, 3, 4) # 1*2*3*4=4!=24
+prod(1:4) # same but shorter</code></pre>
+<h2 id="matrices">Matrices</h2>
+<p>Create a 2x2 matrix:</p>
+<pre><code>matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)</code></pre>
+<p>Either <code>nrow</code> or <code>ncol</code> can be omitted:</p>
+<pre><code>matrix(1:16, nrow = 4) # 4x4 matrix (16 items)
+matrix(1:25, ncol = 5) # 5x5 matrix (25 items)</code></pre>
+<p>If both <code>nrow</code> and <code>ncol</code> are omitted, a one-row matrix will be created:</p>
+<pre><code>matrix(1:10) # 1x10 matrix (10 items)</code></pre>
+<p>By default, the matrix is filled up by column:</p>
+<pre><code>matrix(1:6, ncol = 2)
+
+1   4
+2   5
+3   6</code></pre>
+<p>This behaviour can be changed using the <code>byrow</code> parameter:</p>
+<pre><code>matrix(1:6, ncol = 2, byrow = TRUE)
+
+1   2
+3   4
+5   6</code></pre>
+<p>Matrices can be built up from vectors of same lengths:</p>
+<pre><code>rbind(1:3, 4:6) # by row
+
+1   2   3
+4   5   6
+
+cbind(1:3, 4:6) # by column
+
+1   4
+2   4
+3   6</code></pre>
+<p>Find out the dimensions of a matrix:</p>
+<pre><code>m &lt;- matrix(1:12, nrow = 3, ncol = 4)
+
+1   4   7   10
+2   5   8   11
+3   6   9   12
+
+dim(m) # 3 4 (a vector)
+dim(m)[1] # 3, number of rows
+nrow(m) # same but shorter
+dim(m)[2] # 4, number of cols
+ncol(m) # same but shorter</code></pre>
+<p>Access a matrix element:</p>
+<pre><code>m &lt;- matrix(1:6, ncol = 3)
+
+1   3   5
+2   4   6
+
+m[1,2] # 3 [row, col]</code></pre>
+<p>Access a whole row or column (returns a vector):</p>
+<pre><code>m[1,] # 1 3 5, first row
+m[,2] # 3 4, second column</code></pre>
+<p>Rows and columns can be accessed using vectors:</p>
+<pre><code>m[1:2,] # rows 1 and 2
+m[,c(1,3)] # cols 1 and 3</code></pre>
+<p>This makes it possible to select parts of a matrix:</p>
+<pre><code>m &lt;- matrix(1:9, ncol = 3)
+
+1   4   7
+2   5   8
+3   6   9
+
+m[1:2, c(1,3)] # rows 1 and 2, cols 1 and 3
+
+1   7
+2   8</code></pre>
+<p>Access the diagonal values as a vector:</p>
+<pre><code>diag(m) # 1 5 9</code></pre>
+<p>Omit parts of a matrix:</p>
+<pre><code>m[-1,] # omit the first row
+m[,-2] # omit the second column
+m[-(2:3), -c(1,4)] # omit rows 2 to 3, columns 1 and 4</code></pre>
+<p>Matrix rows and columns can be overwritten like any vector (the same length rules apply):</p>
+<pre><code>m[1,] = 6 # set every value in the first row to 6
+m[1:2, 2:3 = 7] # the values in the sub-matrix [1,2] to [2,3] are set to 7
+m[,2] = c(1,2) # the values in the second column are set to 1, 2, 1, 2 etc.
+m[1,] = m[2,] # overwrite the first row using the values of the second row
+m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the &quot;corners&quot; to -1</code></pre>
+<h3 id="operations-and-algebra">Operations and Algebra</h3>
+<p>Transpose a matrix (<span class="math inline"><em>A</em><sup><em>T</em></sup></span> is the transposed matrix of <span class="math inline"><em>A</em></span>):</p>
+<pre><code>A &lt;- matrix(1:9, ncol = 3)
+
+1   4   7
+2   5   8
+3   6   9
+
+t(A)
+
+1   2   3
+4   5   6
+7   8   9</code></pre>
+<p>Create an identity matrix of size <span class="math inline"><em>n</em></span> (<span class="math inline"><em>I</em><sub><em>n</em></sub></span>):</p>
+<pre><code>I &lt;- diag(x = 3)
+
+1   0   0
+0   1   0
+0   0   1</code></pre>
+<p>Scalar multiplication of a matrix:</p>
+<pre><code>A &lt;- rbind(1:3, 4:6)
+
+1   2   3
+4   5   6
+
+A * 2
+
+2   4   6
+8  10  12</code></pre>
+<p>Addition and substraction of matrices:</p>
+<pre><code>A &lt;- matrix(1:4, ncol = 2)
+B &lt;- matrix(5:8, ncol = 2)
+
+A + B
+
+1   3       5   7       6  10
+        +           =   
+2   4       6   8       8  12
+
+B - A
+
+5   7       1   3       4   4
+        +           =
+6   8       2   4       4   4</code></pre>
+<p>Two matrices, <span class="math inline"><em>A</em>(<em>m</em>, <em>n</em>)</span> and <span class="math inline"><em>B</em>(<em>p</em>, <em>q</em>)</span>, can be multiplied if <span class="math inline"><em>n</em> = <em>p</em></span> holds true (first matrix’ cols = second matrix’ rows), resulting in a matrix with <span class="math inline"><em>m</em></span> rows and <span class="math inline"><em>q</em></span> cols:</p>
+<pre><code>A &lt;- matrix(c(2,6,5,1,2,4), ncol = 3) # n = 3
+B &lt;- matrix(c(3,-1,1,-3,1,5), nrow = 3) # p = 3
+
+A %*% B
+
+x        B = 3  -3
+            -1   1
+             1   5
+A = 
+2   5   2  | 3   9| = AxB
+6   1   4  |21   3|</code></pre>
+<p><span class="math inline"><em>A</em><sup>−1</sup></span> is the inverse of a matrix <span class="math inline"><em>A</em></span>. <span class="math inline"><em>A</em></span> multiplied by <span class="math inline"><em>A</em><sup>−1</sup></span> results in the identity matrix:</p>
+<pre><code>A &lt;- matrix(3,4,1,2), ncol = 2)
+
+3   1
+4   2
+
+solve(A)
+
+ 1  -0.5
+-2   1.5
+
+A %*% solve(A) # check the result: is it the identity matrix?
+
+1   0
+0   1</code></pre>
+<p>Summary:</p>
+<ul>
+<li>inverse matrix: <span class="math inline"><em>A</em><sup>−1</sup></span>, <code>solve(A)</code></li>
+<li>transposed matrix: <span class="math inline"><em>A</em><sup><em>T</em></sup></span>, <code>t(A)</code></li>
+<li>identity matrix: <span class="math inline"><em>I</em><sub><em>n</em></sub></span>, <code>diag(x = n)</code></li>
+</ul>
+<h2 id="multidimensional-arrays">Multidimensional Arrays</h2>
+<p>Define arrays of different dimension:</p>
+<pre><code>array(data = 1:24) # vector 1 2 3 ... 24, 1 dimension
+array(data = 1:24, dim = c(24)) # same with explicit dimension
+array(data = 1:24, dim = c(4, 6)) # a 4x6 matrix, 2 dimensions
+array(data = 1:24, dim = c(2, 3, 4)) # a 2x3x4 &quot;cube&quot;, 3 dimensions</code></pre>
+<p>The dimension <code>(2, 3, 4)</code> stands for 2 rows, 3 cols and 4 layers. The product of the elements in the dimension vector must be equal to the length of the data vector.</p>
+<p>Accessing parts of a multidimensional array:</p>
+<pre><code>AR &lt;- array(1:24, c(2, 3, 4))
+AR[1,,] # access the first row
+AR[,2,] # access the second column
+AR[,,3] # access the third layer
+
+AR[1,,c(1, 2)] # first row of first and second layer</code></pre>
+<p>For arrays, the same assignment rules of vectors and matrices also apply.</p>
+<h2 id="logical-values">Logical Values</h2>
+<p>Boolean values:</p>
+<pre><code>TRUE
+T # shorter for TRUE
+FALSE
+F # shorter for FALSE</code></pre>
+<p>Logical operations:</p>
+<pre><code>6 == 3 * 2 # equal to, TRUE
+10 != 5 * 2 # not equal to, FALSE
+7 &gt; 5 # greater than, TRUE
+8 &lt; 3 # less than, FALSE
+8 &gt;= 4 * 2 # greater than or equal to, TRUE
+7 &lt;= 3 * 3 # less than or equal to, FALSE</code></pre>
+<p><code>TRUE</code> and <code>FALSE</code> represent <code>1</code> and <code>0</code>, respectively:</p>
+<pre><code>1 == TRUE # TRUE
+0 == FALSE # TRUE
+2 == TRUE # FALSE</code></pre>
+<p>Logical operations can be applied to vectors, matrices and arrays, applying the operator on every element and returning a vector consisting of <code>TRUE</code> and <code>FALSE</code>:</p>
+<pre><code>1:3 == seq(from = 1, to = 3) # TRUE TRUE TRUE
+1:3 == c(1, 2, 4) # TRUE TRUE FALSE</code></pre>
+<p>Like assignments, comparisons can be performed on vectors of different lenghts (according to the same rules, a shorter right hand side vector will be recycled):</p>
+<pre><code>1:4 &gt; 2:3 # 1&gt;2, 2&gt;3, 3&gt;2, 4&gt;3; evaluates to FALSE FALSE FALSE TRUE</code></pre>
+<p>Check if at least one element evaluates to <code>TRUE</code>:</p>
+<pre><code>any(1:3 &gt; 2) # TRUE, 3 is bigger than 2</code></pre>
+<p>Check if all elements evaluate to <code>TRUE</code>:</p>
+<pre><code>all(10:20 &gt;= 11) # FALSE, 10 is smaller than 11</code></pre>
+</body>
+</html>

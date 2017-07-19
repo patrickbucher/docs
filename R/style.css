@@ -1,0 +1,31 @@
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    min-width: 30em;
+    font-family: sans-serif;
+    font-size:; 16px;
+    color: #333;
+    background-color: #eee;
+}
+
+pre {
+    background-color: #ddd;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+code {
+    background-color: #ddd;
+    font-size: 110%;
+    border-radius: 5px;
+    padding: 0.25em;
+}
+
+pre>code {
+    border-radius: 0;
+    padding: 0;
+}
+
+p, li {
+    line-height: 130%;
+}
