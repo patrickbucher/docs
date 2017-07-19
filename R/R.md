@@ -214,3 +214,113 @@ Calculate the product of a vector:
 
     prod(1, 2, 3, 4) # 1*2*3*4=4!=24
     prod(1:4) # same but shorter
+
+## Matrices
+
+Create a 2x2 matrix:
+
+    matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)
+
+Either `nrow` or `ncol` can be omitted:
+
+    matrix(1:16, nrow = 4) # 4x4 matrix (16 items)
+    matrix(1:25, ncol = 5) # 5x5 matrix (25 items)
+
+If both `nrow` and `ncol` are omitted, a one-row matrix will be created:
+
+    matrix(1:10) # 1x10 matrix (10 items)
+
+By default, the  matrix is filled up by column:
+
+    matrix(1:6, ncol = 2)
+
+    1   4
+    2   5
+    3   6
+
+This behaviour can be changed using the `byrow` parameter:
+
+    matrix(1:6, ncol = 2, byrow = TRUE)
+
+    1   2
+    3   4
+    5   6
+
+Matrices can be built up from vectors of same lengths:
+
+    rbind(1:3, 4:6) # by row
+
+    1   2   3
+    4   5   6
+
+    cbind(1:3, 4:6) # by column
+
+    1   4
+    2   4
+    3   6
+
+Find out the dimensions of a matrix:
+
+    m <- matrix(1:12, nrow = 3, ncol = 4)
+
+    1   4   7   10
+    2   5   8   11
+    3   6   9   12
+
+    dim(m) # 3 4 (a vector)
+    dim(m)[1] # 3, number of rows
+    nrow(m) # same but shorter
+    dim(m)[2] # 4, number of cols
+    ncol(m) # same but shorter
+
+Access a matrix element:
+
+    m <- matrix(1:6, ncol = 3)
+
+    1   3   5
+    2   4   6
+
+    m[1,2] # 3 [row, col]
+
+Access a whole row or column (returns a vector):
+
+    m[1,] # 1 3 5, first row
+    m[,2] # 3 4, second column
+
+Rows and columns can be accessed using vectors:
+
+    m[1:2,] # rows 1 and 2
+    m[,c(1,3)] # cols 1 and 3
+
+This makes it possible to select parts of a matrix:
+
+    m <- matrix(1:9, ncol = 3)
+
+    1   4   7
+    2   5   8
+    3   6   9
+
+    m[1:2, c(1,3)] # rows 1 and 2, cols 1 and 3
+
+    1   7
+    2   8
+
+Access the diagonal values as a vector:
+
+    diag(m) # 1 5 9
+
+Omit parts of a matrix:
+
+    m[-1,] # omit the first row
+    m[,-2] # omit the second column
+    m[-(2:3), -c(1,4)] # omit rows 2 to 3, columns 1 and 4
+
+Matrix rows and columns can be overwritten like any vector (the same length
+rules apply):
+
+    m[1,] = 6 # set every value in the first row to 6
+    m[1:2, 2:3 = 7] # the values in the sub-matrix [1,2] to [2,3] are set to 7
+    m[,2] = c(1,2) # the values in the second column are set to 1, 2, 1, 2 etc.
+    m[1,] = m[2,] # overwrite the first row using the values of the second row
+    m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the "corners" to -1
+
