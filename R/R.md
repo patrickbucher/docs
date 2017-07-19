@@ -440,3 +440,48 @@ Accessing parts of a multidimensional array:
     AR[1,,c(1, 2)] # first row of first and second layer
 
 For arrays, the same assignment rules of vectors and matrices also apply.
+
+## Logical Values
+
+Boolean values:
+
+    TRUE
+    T # shorter for TRUE
+    FALSE
+    F # shorter for FALSE
+
+Logical operations:
+
+    6 == 3 * 2 # equal to, TRUE
+    10 != 5 * 2 # not equal to, FALSE
+    7 > 5 # greater than, TRUE
+    8 < 3 # less than, FALSE
+    8 >= 4 * 2 # greater than or equal to, TRUE
+    7 <= 3 * 3 # less than or equal to, FALSE
+
+`TRUE` and `FALSE` represent `1` and `0`, respectively:
+
+    1 == TRUE # TRUE
+    0 == FALSE # TRUE
+    2 == TRUE # FALSE
+
+Logical operations can be applied to vectors, matrices and arrays, applying the
+operator on every element and returning a vector consisting of `TRUE` and
+`FALSE`:
+
+    1:3 == seq(from = 1, to = 3) # TRUE TRUE TRUE
+    1:3 == c(1, 2, 4) # TRUE TRUE FALSE
+
+Like assignments, comparisons can be performed on vectors of different lenghts
+(according to the same rules, a shorter right hand side vector will be
+recycled):
+
+    1:4 > 2:3 # 1>2, 2>3, 3>2, 4>3; evaluates to FALSE FALSE FALSE TRUE
+
+Check if at least one element evaluates to `TRUE`:
+
+    any(1:3 > 2) # TRUE, 3 is bigger than 2
+
+Check if all elements evaluate to `TRUE`:
+
+    all(10:20 >= 11) # FALSE, 10 is smaller than 11
