@@ -214,6 +214,10 @@ GTK theme and theme switcher:
 
     pacman -S gtk-chtheme lxappearance gtk-engine-aurora
 
+Initialize `pacman` file name databaes:
+
+    pacman -Fy
+
 ## mutt
 
     pacman -S mutt
@@ -275,3 +279,9 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
     cupsenable samsung
     cupsaccept samsung
     lpoptions -d samsung
+
+## Pinentry
+
+Make sure to use the curses version of `pinentry`:
+
+    ln -fs /usr/bin/pinentry-ncurses /usr/bin/pinentry
