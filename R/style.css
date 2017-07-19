@@ -29,3 +29,7 @@ pre>code {
 p, li {
     line-height: 130%;
 }
+
+.math {
+    font-family: serif;
+}
