@@ -77,6 +77,7 @@ Basic arithmetic:
     9 / 3 # 3
     2 ^ 3 # 8 (2 to the power of 3)
     sqrt(16) # 4
+    13 %% 5 # 3 (modulus, the remainder of 13 divided by 5)
 
 Logarithms:
 
@@ -190,8 +191,11 @@ Overwrite vector elements:
 
 The vector on the left hand side must either have:
 
-- the same size as the vector on the right hand side, or
-- a size multiple times as big as the vector on the right hand side.
+1. the same size as the vector on the right hand side, or
+2. a size multiple times as big as the vector on the right hand side.
+
+In the second case, the shorter vector is _recycled_, i.e. used repeatedly to
+fill up to the length of the longer vector.
 
 ### Arithmetic on Vectors
 
@@ -464,6 +468,9 @@ Logical operations:
     0 == FALSE # TRUE
     2 == TRUE # FALSE
 
+    T + T + T # 3
+    F - 4*T + 3*T # 0 - 4 + 3 = -1
+
 Logical operations can be applied to vectors, matrices and arrays, applying the
 operator on every element and returning a vector consisting of `TRUE` and
 `FALSE`:
@@ -484,3 +491,206 @@ Check if at least one element evaluates to `TRUE`:
 Check if all elements evaluate to `TRUE`:
 
     all(10:20 >= 11) # FALSE, 10 is smaller than 11
+
+### Logical Operations
+
+Compare boolean values using double operators:
+
+    TRUE && TRUE # logical AND, returns TRUE
+    FALSE || TRUE # logical OR, returns FALSE
+    !TRUE # logical NOT, returns FALSE
+
+Compare elements of a vector (or a matrix, or an array of higher dimensions)
+using single operators:
+
+    c(T, F, F) & c(T, T, F) # TRUE FALSE FALSE
+    c(T, T, T) | c(T, T, F) # TRUE TRUE FALSE
+
+Single operators have the same behaviour as double operators when applied to
+scalar values rather than vectors. Double operators applied to vectors will only
+apply to the first elements of the vectors involved:
+
+    TRUE & FALSE # FALSE
+    FALSE | TRUE # TRUE
+
+    c(T, F, F) && c(T, T, T) # TRUE
+    c(F, T, T) || c(F, T, T) # FALSE
+
+### Element Selection
+
+Select elements of a vector (or a matrix, or an array) using logical flags:
+
+    v <- 1:5 # 1 2 3 4 5
+    v[c(T, T, F, T, F)] # using a "flag" vector, returns 1 2 4
+    v[v >= 3] # using a condition, returns 3 4 5
+
+Select every other element using vector recycling:
+
+    v <- 1:10
+    v[c(1,0)] # 1 3 5 7 9
+
+Select all leap years of a range of years:
+
+    y <- 1987:2017
+    y[y %% 4 == 0 & (y %% 100 != 0 | y %% 400 == 0)]
+    # 1988 1992 1996 2000 2004 2008 2012 2016
+
+Set all negative values to zero:
+
+    v <- -3:3 # -3 -2 -1 0 1 2 3
+    v[v < 0] = 0 # 0 0 0 0 1 2 3
+
+Find out the indices of items matching a condition using the `which()` function:
+
+    v <- 3:8 # 3 4 5 6 7 8
+    which(x = (v %% 2 == 0)) # indices of even numbers: 2 4 6
+
+The resulting vector can be used to invert the selection:
+
+    v[-which(x = (v %% 2 == 0))] # indices of odd numbers: 1 3 5 
+
+By default, `which()` treatens matrices just like vectors:
+
+    m <- matrix(2:10, ncol = 3)
+
+    2   5   8
+    3   6   9
+    4   7  10
+
+    which(x = (m %% 2 == 1)) ## odd element's indices: 2 4 6 8
+
+To get row/col coordinates, use the `arr.ind` flag:
+
+    which(x = (m %% 2 == 1), arr.ind = TRUE)
+
+    row col
+      2   1
+      1   2
+      3   2
+      2   3
+
+## Strings
+
+Store a simple string:
+
+    s <- "This is a simple string!"
+
+Find out the length of a string:
+
+    nchar("foobar") # 6
+    length("foobar") # 1, a string is considered a vector of length 1
+
+Compare strings:
+
+    "foo" == "foo" # TRUE
+    "foo" == "bar" # FALSE
+    "bar" == c("foo", "bar", "qux") # FALSE TRUE FALSE
+
+Compare strings using alphabetic order:
+
+    "Anna" > "Berti" # TRUE
+
+Uppercase strings are considered bigger than lowercase string:
+
+    "A" > "a" # TRUE
+    "B" <= "b" # FALSE
+
+This distinction only applies to alphabetically equivalent strings:
+
+   "A" > "z" # FALSE
+
+Almost all characters can be used within a string. Double quotes and backslashes
+have to be escaped using a backslash:
+
+    "He said: \"a backslash: \\...\"" # He said: "a backslash: \..."
+
+Other escape sequences are:
+
+    \n  line break
+    \t  tab
+    \b  backspace
+
+For a complete list of escape sequences, type `?Quotes`.
+
+### Concatenation
+
+Strings can be concatenated:
+
+    cat("hello", "world") # prints "hello world"
+    paste("hello", "world") # returns "hello world"
+
+The separator (a space character, by default) can be defined:
+
+    cat("foo", "bar", "qux", sep="---") # "foo---bar---qux"
+    cat("foo", "bar", "qux", sep="") # "foobarqux
+
+Numbers are automatically converted to strings (_coercion_):
+
+    numbers <- 5:1
+    cat("Countdown:", numbers) # Countdown: 5 4 3 2 1
+    cat(2, "times", 3, "is", 2 * 3) # 2 times 3 is 6
+    cat("is", 5, "bigger than", 7, 5 > 7) # is 5 bigger than 7 FALSE
+
+### Substrings and Replacements
+
+Extract a substring (using 1-based inclusive indices):
+
+    substr(x = "this is", start = 1, stop = 4) # "this"
+
+Substrings can be replaced by other strings of the same length:
+
+    s <- "this is cool"
+    substr(x = s, start = 1, stop = 4) <- "that" # "that is cool"
+
+Replacements are done more effectively using `sub()` (replaces the first
+occurence) and `gsub()` (replaces all occurences):
+
+    s <- "foo too"
+    sub(pattern = "oo", x = s, replacement = "u") # fu too
+    gsub(pattern = "oo", x = s, replacement = "u") # fu tu
+
+## Factors
+
+Factors are a special kind of vectors for storing categorial data, similar to
+enumerations in Java or C. Next to the value, factors also store a level:
+
+    colors <- factor(c("red", "green", "blue"))
+
+When a factor is subsetted, _some_ of the values but _all_ of the levels stay:
+
+    colors[1:2]
+
+    red green
+    Levels: blue red green
+
+Factors allow ordering:
+
+    weekdays <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", Sun")
+    workdays <- c("Mon", "Tue", "Wed", "Thu", "Fri")
+    factor(x = workdays, levels = weekdays, ordered = TRUE)
+
+    Mon Tue Wed Thu Fri
+    Levels: Mon < Tue < Wed < Thu < Fri < Sat < Sun
+
+### Cutting
+
+The `cut()` function can be used to break up data points on a continuum into
+discrete intervals:
+
+    weights <- c(72, 83, 61, 119, 88, 155)
+    w.breaks <- c(0, 70, 90, 120, 200)
+    cut(x = weights, breaks = w.breaks)
+
+    (70,90]   (70,90]   (0,70]    (90,120]  (70,90]   (120,200]
+    Levels: (0,70] (70,90] (90,120] (120,200]
+
+`(70,90]` means: from 70 exclusive to 90 inclusive. Use the parameter `right =
+FALSE` for inclusive/exclusive intervals (`[70,90)`).
+
+The intervals can be named using labels:
+
+    w.labels <- c("low", "normal", "high", "obese")
+    cut(x = weights, breaks = w.breaks, labels = w.labels)
+
+    normal normal low high normal obese
+    Levels: low normal high obese
