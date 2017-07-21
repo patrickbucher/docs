@@ -1,6 +1,4 @@
-# R
-
-## Environment
+# Environment
 
 Set a custom prompt (`R> `):
 
@@ -14,7 +12,7 @@ Leave R:
 
     q()
 
-### Sessions
+## Sessions
 
 Find out and set the current working directory:
 
@@ -29,7 +27,7 @@ Load a stored session:
 
     load("my-session.RData")
 
-### Packages
+## Packages
 
 Install a new package (`MASS`, for example):
 
@@ -39,7 +37,7 @@ Update installed packages:
 
     update.packages()
 
-### Help
+## Help
 
 Get help for a specific keyword (the `mean` function, for example):
 
@@ -51,7 +49,7 @@ Search for a help topic (`random`, for example):
     help.search("random")
     ??"random" # shortcut
 
-## Language Basics
+# Language Basics
 
 Comments, starting with `#` to the end of the line:
 
@@ -67,7 +65,7 @@ Assignments:
     a <- 17
     b = 42
 
-## Calculations
+# Calculations
 
 Basic arithmetic:
 
@@ -97,13 +95,13 @@ The `exp()` function is the reverse function of `log()`:
 
     log(exp(23)) # 23
 
-## Vectors
+# Vectors
 
 Make a vector from individual elements:
 
     c(1, 2, 3) # 1 2 3
 
-### Sequences
+## Sequences
 
 Make a sequence from one to ten:
 
@@ -120,7 +118,7 @@ boundry:
 
     seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9
 
-### Repetitions
+## Repetitions
 
 Repeat a number:
 
@@ -140,7 +138,7 @@ Repeat using `eech` and `times` combined:
 
     rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2
 
-### Sorting
+## Sorting
 
 Sort (in ascending order):
 
@@ -154,7 +152,7 @@ Reverse the order of a vector's elements:
 
     rev(1:5) # 5 4 3 2 1
 
-### Accessing Elements
+## Accessing Elements
 
 For the following examples, the vector `v` is used:
 
@@ -197,7 +195,7 @@ The vector on the left hand side must either have:
 In the second case, the shorter vector is _recycled_, i.e. used repeatedly to
 fill up to the length of the longer vector.
 
-### Arithmetic on Vectors
+## Arithmetic on Vectors
 
 Multiply every item of the vector by 2:
 
@@ -219,7 +217,7 @@ Calculate the product of a vector:
     prod(1, 2, 3, 4) # 1*2*3*4=4!=24
     prod(1:4) # same but shorter
 
-## Matrices
+# Matrices
 
 Create a 2x2 matrix:
 
@@ -328,7 +326,7 @@ rules apply):
     m[1,] = m[2,] # overwrite the first row using the values of the second row
     m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the "corners" to -1
 
-### Operations and Algebra
+## Operations and Algebra
 
 Transpose a matrix ($A^T$ is the transposed matrix of $A$):
 
@@ -420,7 +418,7 @@ Summary:
 - transposed matrix: $A^T$, `t(A)`
 - identity matrix: $I_n$, `diag(x = n)`
 
-## Multidimensional Arrays
+# Multidimensional Arrays
 
 Define arrays of different dimension:
 
@@ -444,7 +442,7 @@ Accessing parts of a multidimensional array:
 
 For arrays, the same assignment rules of vectors and matrices also apply.
 
-## Logical Values
+# Logical Values
 
 Boolean values:
 
@@ -492,7 +490,7 @@ Check if all elements evaluate to `TRUE`:
 
     all(10:20 >= 11) # FALSE, 10 is smaller than 11
 
-### Logical Operations
+## Logical Operations
 
 Compare boolean values using double operators:
 
@@ -516,7 +514,7 @@ apply to the first elements of the vectors involved:
     c(T, F, F) && c(T, T, T) # TRUE
     c(F, T, T) || c(F, T, T) # FALSE
 
-### Element Selection
+## Element Selection
 
 Select elements of a vector (or a matrix, or an array) using logical flags:
 
@@ -569,7 +567,7 @@ To get row/col coordinates, use the `arr.ind` flag:
       3   2
       2   3
 
-## Strings
+# Strings
 
 Store a simple string:
 
@@ -612,7 +610,7 @@ Other escape sequences are:
 
 For a complete list of escape sequences, type `?Quotes`.
 
-### Concatenation
+## Concatenation
 
 Strings can be concatenated:
 
@@ -631,7 +629,7 @@ Numbers are automatically converted to strings (_coercion_):
     cat(2, "times", 3, "is", 2 * 3) # 2 times 3 is 6
     cat("is", 5, "bigger than", 7, 5 > 7) # is 5 bigger than 7 FALSE
 
-### Substrings and Replacements
+## Substrings and Replacements
 
 Extract a substring (using 1-based inclusive indices):
 
@@ -649,7 +647,7 @@ occurence) and `gsub()` (replaces all occurences):
     sub(pattern = "oo", x = s, replacement = "u") # fu too
     gsub(pattern = "oo", x = s, replacement = "u") # fu tu
 
-## Factors
+# Factors
 
 Factors are a special kind of vectors for storing categorial data, similar to
 enumerations in Java or C. Next to the value, factors also store a level:
@@ -672,7 +670,7 @@ Factors allow ordering:
     Mon Tue Wed Thu Fri
     Levels: Mon < Tue < Wed < Thu < Fri < Sat < Sun
 
-### Cutting
+## Cutting
 
 The `cut()` function can be used to break up data points on a continuum into
 discrete intervals:
@@ -694,3 +692,54 @@ The intervals can be named using labels:
 
     normal normal low high normal obese
     Levels: low normal high obese
+
+# Special Values
+
+## Infinity
+
+Infinity is not a number, but a concept describing a number higher than the
+highest representable number, which is platform dependent:
+
+    12800 ^ 75 # 1.098368e+308
+    12900 ^ 75 # Inf
+
+There is positive and negative infinity:
+
+    Inf > 10e24 # TRUE
+    -Inf < -10e24 # TRUE
+
+Arithmetic operations involving infinity always result in (positive or negative)
+infinity:
+
+    10e24 - Inf # -Inf
+    2 * Inf == Inf # TRUE
+    Inf + Inf - 2 * -Inf == 0 # FALSE
+
+Expressions can be tested for finity/infinity:
+
+    is.finite(12800^75) # TRUE (on my machine)
+    is.infinite(12900^75) # TRUE (ditto)
+    is.finite(5 / 0) # FALSE
+
+## Not a Number
+
+Some expressions cannot be represented as a number:
+
+    0 / 0 # NaN
+    -Inf + Inf # NaN
+    Inf / Inf # NaN
+
+`NaN` is not considered finite:
+
+    is.finite(NaN) # FALSE
+
+Expressions can be tested if they are "not a number":
+
+    is.nan(NaN) # TRUE
+    is.nan(134) # FALSE
+    is.nan(5 / 0) # FALSE, it's a number considered infinite
+    is.nan(0 / 0) # TRUE
+    is.nan(sqrt(-1)) # TRUE
+
+    !is.nan(13.7) # TRUE
+    !is.nan(13000 ^ 75) # TRUE, it's a infinite number (on my machine)

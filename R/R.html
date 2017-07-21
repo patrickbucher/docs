@@ -12,9 +12,14 @@
   <![endif]-->
 </head>
 <body>
+<header>
+<h1 class="title">R</h1>
+<p class="subtitle">A Personal Summary</p>
+<p class="author">Patrick Bucher</p>
+<p class="date">21.07.2017</p>
+</header>
 <nav id="TOC">
 <ul>
-<li><a href="#r">R</a><ul>
 <li><a href="#environment">Environment</a><ul>
 <li><a href="#sessions">Sessions</a></li>
 <li><a href="#packages">Packages</a></li>
@@ -44,18 +49,20 @@
 <li><a href="#factors">Factors</a><ul>
 <li><a href="#cutting">Cutting</a></li>
 </ul></li>
+<li><a href="#special-values">Special Values</a><ul>
+<li><a href="#infinity">Infinity</a></li>
+<li><a href="#not-a-number">Not a Number</a></li>
 </ul></li>
 </ul>
 </nav>
-<h1 id="r">R</h1>
-<h2 id="environment">Environment</h2>
+<h1 id="environment">Environment</h1>
 <p>Set a custom prompt (<code>R&gt;</code>):</p>
 <pre><code>options(prompt = &quot;R&gt; &quot;)</code></pre>
 <p>List variables, objects and user-defined functions of the current session:</p>
 <pre><code>ls()</code></pre>
 <p>Leave R:</p>
 <pre><code>q()</code></pre>
-<h3 id="sessions">Sessions</h3>
+<h2 id="sessions">Sessions</h2>
 <p>Find out and set the current working directory:</p>
 <pre><code>getwd()
 setwd(&quot;~/my-workspace&quot;)</code></pre>
@@ -63,19 +70,19 @@ setwd(&quot;~/my-workspace&quot;)</code></pre>
 <pre><code>save.image(&quot;my-session.RData&quot;)</code></pre>
 <p>Load a stored session:</p>
 <pre><code>load(&quot;my-session.RData&quot;)</code></pre>
-<h3 id="packages">Packages</h3>
+<h2 id="packages">Packages</h2>
 <p>Install a new package (<code>MASS</code>, for example):</p>
 <pre><code>library(&quot;MASS&quot;)</code></pre>
 <p>Update installed packages:</p>
 <pre><code>update.packages()</code></pre>
-<h3 id="help">Help</h3>
+<h2 id="help">Help</h2>
 <p>Get help for a specific keyword (the <code>mean</code> function, for example):</p>
 <pre><code>help(&quot;mean&quot;)
 ?mean # shortcut</code></pre>
 <p>Search for a help topic (<code>random</code>, for example):</p>
 <pre><code>help.search(&quot;random&quot;)
 ??&quot;random&quot; # shortcut</code></pre>
-<h2 id="language-basics">Language Basics</h2>
+<h1 id="language-basics">Language Basics</h1>
 <p>Comments, starting with <code>#</code> to the end of the line:</p>
 <pre><code>1 + 1 # calculates one plus one, which is two</code></pre>
 <p>Exponential notation:</p>
@@ -84,7 +91,7 @@ setwd(&quot;~/my-workspace&quot;)</code></pre>
 <p>Assignments:</p>
 <pre><code>a &lt;- 17
 b = 42</code></pre>
-<h2 id="calculations">Calculations</h2>
+<h1 id="calculations">Calculations</h1>
 <p>Basic arithmetic:</p>
 <pre><code>3 + 5 # 8
 5 - 2 # 3
@@ -103,10 +110,10 @@ log(8, 2) # same but shorter</code></pre>
 log(x = 100, base = exp(1)) # same with an explicit base</code></pre>
 <p>The <code>exp()</code> function is the reverse function of <code>log()</code>:</p>
 <pre><code>log(exp(23)) # 23</code></pre>
-<h2 id="vectors">Vectors</h2>
+<h1 id="vectors">Vectors</h1>
 <p>Make a vector from individual elements:</p>
 <pre><code>c(1, 2, 3) # 1 2 3</code></pre>
-<h3 id="sequences">Sequences</h3>
+<h2 id="sequences">Sequences</h2>
 <p>Make a sequence from one to ten:</p>
 <pre><code>seq(from = 1, to = 10, by = 1)
 1:10 # same but shorter (default step = 1)</code></pre>
@@ -114,7 +121,7 @@ log(x = 100, base = exp(1)) # same with an explicit base</code></pre>
 <pre><code>seq(from = 1, to = 10, length.out = 4) # 1 4 7 10</code></pre>
 <p>Make a sequence with a specific length and step size, but omit the upper boundry:</p>
 <pre><code>seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9</code></pre>
-<h3 id="repetitions">Repetitions</h3>
+<h2 id="repetitions">Repetitions</h2>
 <p>Repeat a number:</p>
 <pre><code>rep(x = 1, times = 3) # 1 1 1
 rep(1, 3) # same but shorter</code></pre>
@@ -125,14 +132,14 @@ rep(1:3, 2), # same but shorter</code></pre>
 <pre><code>rep(1:3, each = 2) # 1 1 2 2 3 3</code></pre>
 <p>Repeat using <code>eech</code> and <code>times</code> combined:</p>
 <pre><code>rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2</code></pre>
-<h3 id="sorting">Sorting</h3>
+<h2 id="sorting">Sorting</h2>
 <p>Sort (in ascending order):</p>
 <pre><code>sort(3:-3) # -3 -2 -1 0 1 2 3</code></pre>
 <p>Sort (in descending order):</p>
 <pre><code>sort(1:5, decreasing = TRUE) # 5 4 3 2 1</code></pre>
 <p>Reverse the order of a vector’s elements:</p>
 <pre><code>rev(1:5) # 5 4 3 2 1</code></pre>
-<h3 id="accessing-elements">Accessing Elements</h3>
+<h2 id="accessing-elements">Accessing Elements</h2>
 <p>For the following examples, the vector <code>v</code> is used:</p>
 <pre><code>v &lt;- seq(from = 10, to = 50, by = 10) # 10 20 30 40 50 </code></pre>
 <p>Access the first element (the first index is 1):</p>
@@ -158,7 +165,7 @@ v[1:4] = c(1, 2) # v = 1 2 1 2 44</code></pre>
 <li>a size multiple times as big as the vector on the right hand side.</li>
 </ol>
 <p>In the second case, the shorter vector is <em>recycled</em>, i.e. used repeatedly to fill up to the length of the longer vector.</p>
-<h3 id="arithmetic-on-vectors">Arithmetic on Vectors</h3>
+<h2 id="arithmetic-on-vectors">Arithmetic on Vectors</h2>
 <p>Multiply every item of the vector by 2:</p>
 <pre><code>1:6 * 2 # 2 4 6 8 10 12</code></pre>
 <p>Multiply the items of the vector by 1 and -1, respectively:</p>
@@ -170,7 +177,7 @@ sum(1:100) # 5050</code></pre>
 <p>Calculate the product of a vector:</p>
 <pre><code>prod(1, 2, 3, 4) # 1*2*3*4=4!=24
 prod(1:4) # same but shorter</code></pre>
-<h2 id="matrices">Matrices</h2>
+<h1 id="matrices">Matrices</h1>
 <p>Create a 2x2 matrix:</p>
 <pre><code>matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)</code></pre>
 <p>Either <code>nrow</code> or <code>ncol</code> can be omitted:</p>
@@ -249,7 +256,7 @@ m[1:2, 2:3 = 7] # the values in the sub-matrix [1,2] to [2,3] are set to 7
 m[,2] = c(1,2) # the values in the second column are set to 1, 2, 1, 2 etc.
 m[1,] = m[2,] # overwrite the first row using the values of the second row
 m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the &quot;corners&quot; to -1</code></pre>
-<h3 id="operations-and-algebra">Operations and Algebra</h3>
+<h2 id="operations-and-algebra">Operations and Algebra</h2>
 <p>Transpose a matrix (<span class="math inline"><em>A</em><sup><em>T</em></sup></span> is the transposed matrix of <span class="math inline"><em>A</em></span>):</p>
 <pre><code>A &lt;- matrix(1:9, ncol = 3)
 
@@ -326,7 +333,7 @@ A %*% solve(A) # check the result: is it the identity matrix?
 <li>transposed matrix: <span class="math inline"><em>A</em><sup><em>T</em></sup></span>, <code>t(A)</code></li>
 <li>identity matrix: <span class="math inline"><em>I</em><sub><em>n</em></sub></span>, <code>diag(x = n)</code></li>
 </ul>
-<h2 id="multidimensional-arrays">Multidimensional Arrays</h2>
+<h1 id="multidimensional-arrays">Multidimensional Arrays</h1>
 <p>Define arrays of different dimension:</p>
 <pre><code>array(data = 1:24) # vector 1 2 3 ... 24, 1 dimension
 array(data = 1:24, dim = c(24)) # same with explicit dimension
@@ -341,7 +348,7 @@ AR[,,3] # access the third layer
 
 AR[1,,c(1, 2)] # first row of first and second layer</code></pre>
 <p>For arrays, the same assignment rules of vectors and matrices also apply.</p>
-<h2 id="logical-values">Logical Values</h2>
+<h1 id="logical-values">Logical Values</h1>
 <p>Boolean values:</p>
 <pre><code>TRUE
 T # shorter for TRUE
@@ -370,7 +377,7 @@ F - 4*T + 3*T # 0 - 4 + 3 = -1</code></pre>
 <pre><code>any(1:3 &gt; 2) # TRUE, 3 is bigger than 2</code></pre>
 <p>Check if all elements evaluate to <code>TRUE</code>:</p>
 <pre><code>all(10:20 &gt;= 11) # FALSE, 10 is smaller than 11</code></pre>
-<h3 id="logical-operations">Logical Operations</h3>
+<h2 id="logical-operations">Logical Operations</h2>
 <p>Compare boolean values using double operators:</p>
 <pre><code>TRUE &amp;&amp; TRUE # logical AND, returns TRUE
 FALSE || TRUE # logical OR, returns FALSE
@@ -384,7 +391,7 @@ FALSE | TRUE # TRUE
 
 c(T, F, F) &amp;&amp; c(T, T, T) # TRUE
 c(F, T, T) || c(F, T, T) # FALSE</code></pre>
-<h3 id="element-selection">Element Selection</h3>
+<h2 id="element-selection">Element Selection</h2>
 <p>Select elements of a vector (or a matrix, or an array) using logical flags:</p>
 <pre><code>v &lt;- 1:5 # 1 2 3 4 5
 v[c(T, T, F, T, F)] # using a &quot;flag&quot; vector, returns 1 2 4
@@ -420,7 +427,7 @@ row col
   1   2
   3   2
   2   3</code></pre>
-<h2 id="strings">Strings</h2>
+<h1 id="strings">Strings</h1>
 <p>Store a simple string:</p>
 <pre><code>s &lt;- &quot;This is a simple string!&quot;</code></pre>
 <p>Find out the length of a string:</p>
@@ -444,7 +451,7 @@ length(&quot;foobar&quot;) # 1, a string is considered a vector of length 1</cod
 \t  tab
 \b  backspace</code></pre>
 <p>For a complete list of escape sequences, type <code>?Quotes</code>.</p>
-<h3 id="concatenation">Concatenation</h3>
+<h2 id="concatenation">Concatenation</h2>
 <p>Strings can be concatenated:</p>
 <pre><code>cat(&quot;hello&quot;, &quot;world&quot;) # prints &quot;hello world&quot;
 paste(&quot;hello&quot;, &quot;world&quot;) # returns &quot;hello world&quot;</code></pre>
@@ -456,7 +463,7 @@ cat(&quot;foo&quot;, &quot;bar&quot;, &quot;qux&quot;, sep=&quot;&quot;) # &quot
 cat(&quot;Countdown:&quot;, numbers) # Countdown: 5 4 3 2 1
 cat(2, &quot;times&quot;, 3, &quot;is&quot;, 2 * 3) # 2 times 3 is 6
 cat(&quot;is&quot;, 5, &quot;bigger than&quot;, 7, 5 &gt; 7) # is 5 bigger than 7 FALSE</code></pre>
-<h3 id="substrings-and-replacements">Substrings and Replacements</h3>
+<h2 id="substrings-and-replacements">Substrings and Replacements</h2>
 <p>Extract a substring (using 1-based inclusive indices):</p>
 <pre><code>substr(x = &quot;this is&quot;, start = 1, stop = 4) # &quot;this&quot;</code></pre>
 <p>Substrings can be replaced by other strings of the same length:</p>
@@ -466,7 +473,7 @@ substr(x = s, start = 1, stop = 4) &lt;- &quot;that&quot; # &quot;that is cool&q
 <pre><code>s &lt;- &quot;foo too&quot;
 sub(pattern = &quot;oo&quot;, x = s, replacement = &quot;u&quot;) # fu too
 gsub(pattern = &quot;oo&quot;, x = s, replacement = &quot;u&quot;) # fu tu</code></pre>
-<h2 id="factors">Factors</h2>
+<h1 id="factors">Factors</h1>
 <p>Factors are a special kind of vectors for storing categorial data, similar to enumerations in Java or C. Next to the value, factors also store a level:</p>
 <pre><code>colors &lt;- factor(c(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;))</code></pre>
 <p>When a factor is subsetted, <em>some</em> of the values but <em>all</em> of the levels stay:</p>
@@ -481,7 +488,7 @@ factor(x = workdays, levels = weekdays, ordered = TRUE)
 
 Mon Tue Wed Thu Fri
 Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
-<h3 id="cutting">Cutting</h3>
+<h2 id="cutting">Cutting</h2>
 <p>The <code>cut()</code> function can be used to break up data points on a continuum into discrete intervals:</p>
 <pre><code>weights &lt;- c(72, 83, 61, 119, 88, 155)
 w.breaks &lt;- c(0, 70, 90, 120, 200)
@@ -496,5 +503,37 @@ cut(x = weights, breaks = w.breaks, labels = w.labels)
 
 normal normal low high normal obese
 Levels: low normal high obese</code></pre>
+<h1 id="special-values">Special Values</h1>
+<h2 id="infinity">Infinity</h2>
+<p>Infinity is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent:</p>
+<pre><code>12800 ^ 75 # 1.098368e+308
+12900 ^ 75 # Inf</code></pre>
+<p>There is positive and negative infinity:</p>
+<pre><code>Inf &gt; 10e24 # TRUE
+-Inf &lt; -10e24 # TRUE</code></pre>
+<p>Arithmetic operations involving infinity always result in (positive or negative) infinity:</p>
+<pre><code>10e24 - Inf # -Inf
+2 * Inf == Inf # TRUE
+Inf + Inf - 2 * -Inf == 0 # FALSE</code></pre>
+<p>Expressions can be tested for finity/infinity:</p>
+<pre><code>is.finite(12800^75) # TRUE (on my machine)
+is.infinite(12900^75) # TRUE (ditto)
+is.finite(5 / 0) # FALSE</code></pre>
+<h2 id="not-a-number">Not a Number</h2>
+<p>Some expressions cannot be represented as a number:</p>
+<pre><code>0 / 0 # NaN
+-Inf + Inf # NaN
+Inf / Inf # NaN</code></pre>
+<p><code>NaN</code> is not considered finite:</p>
+<pre><code>is.finite(NaN) # FALSE</code></pre>
+<p>Expressions can be tested if they are “not a number”:</p>
+<pre><code>is.nan(NaN) # TRUE
+is.nan(134) # FALSE
+is.nan(5 / 0) # FALSE, it&#39;s a number considered infinite
+is.nan(0 / 0) # TRUE
+is.nan(sqrt(-1)) # TRUE
+
+!is.nan(13.7) # TRUE
+!is.nan(13000 ^ 75) # TRUE, it&#39;s a infinite number (on my machine)</code></pre>
 </body>
 </html>
