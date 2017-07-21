@@ -326,6 +326,19 @@ rules apply):
     m[1,] = m[2,] # overwrite the first row using the values of the second row
     m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the "corners" to -1
 
+Name the dimensions of a matrix:
+
+    m <- (1:4, ncol = 2, dimnames = list(c("R1", "R2"), c("C1", "C2")))
+
+       C1   C2
+    R1  1   3
+    R2  2   4
+
+Dimension names can also be provided after the creation:
+
+    m <- (1:4, ncol = 2)
+    dimension(m) <- list(c("R1", "R2"), c("C1", "C2"))
+
 ## Operations and Algebra
 
 Transpose a matrix ($A^T$ is the transposed matrix of $A$):
@@ -771,3 +784,83 @@ resulting type.
 `NULL` dominates in combination with `Inf`, `NaN` and `NA`:
 
     NULL + Inf - NaN + 3 * NA # numeric(0)
+
+# Objects
+
+## Attributes
+
+Every object can store additional attributes:
+
+    o <- 42
+    o.description = "The answer to everything"
+
+Show the attributes of an object:
+
+    m <- matrix(1:4, ncol = 2)
+    attributes(m)
+
+    $dim
+    2 2
+
+Access an attribute:
+
+    attributes(m)$dim # 2 2
+    attr(x = m, which = "dim") # same using a string
+
+Some attributes have their own function:
+
+    dim(m) # 2 2
+
+## Classes
+
+Find out the class of an object:
+
+    class(c(1, 2, 3)) # "numeric"
+    class("foo") # "character"
+    class(matrix(1:4)) # "matrix"
+    class(array(1:100)) # "array"
+    class(factor(c("R", "G", "B"))) # "factor"
+    class(5 > 3) # "logical"
+    class(length(c(1, 2, 3))) # "integer"
+
+Some objects have multiple classes due to ineritance:
+
+    bits <- factor(x = c(1, 0, 0, 1, 0), levels = c(0, 1), ordered = TRUE)
+    class(bits) # "ordered" "factor"
+
+Objects can be checked whether or not they are of a certain class:
+
+    is.numeric(3) # TRUE
+    is.character("abc") # TRUE
+    is.matrix(matrix(1:4)) # TRUE
+    is.array(array(1:100)) # TRUE
+    is.factor(factor(c(1, 0, 1, 1, 0))) # TRUE
+    is.logical(5 > 3) # TRUE
+    is.integer(length(1:3)) # TRUE
+    is.vector(1:3) # TRUE
+
+Convert explicitly from one type to another (coercion):
+
+    as.numeric("12") # 12
+    as.numeric("1.2e5") # 12000
+    as.character(13) # "13"
+    as.numeric("howdy!") # NA
+    as.logical(0) # FALSE
+    as.logical(as.numeric(c("1", "0", "0", "1"))) # TRUE FALSE FALSE TRUE
+
+    m <- matrix(1:4, ncol = 2)
+    as.vector(m) # 1 2 3 4
+
+    a <- array(1:8, dim = c(2, 2, 2))
+    as.matrix(a)
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+
+    as.vector(a) # 1 2 3 4 5 6 7 8
