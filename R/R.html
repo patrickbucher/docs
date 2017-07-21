@@ -14,7 +14,6 @@
 <body>
 <header>
 <h1 class="title">R</h1>
-<p class="subtitle">A Personal Summary</p>
 <p class="author">Patrick Bucher</p>
 <p class="date">21.07.2017</p>
 </header>
@@ -52,6 +51,7 @@
 <li><a href="#special-values">Special Values</a><ul>
 <li><a href="#infinity">Infinity</a></li>
 <li><a href="#not-a-number">Not a Number</a></li>
+<li><a href="#null">NULL</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -505,10 +505,10 @@ normal normal low high normal obese
 Levels: low normal high obese</code></pre>
 <h1 id="special-values">Special Values</h1>
 <h2 id="infinity">Infinity</h2>
-<p>Infinity is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent:</p>
+<p>Infinity (<code>Inf</code>) is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent::</p>
 <pre><code>12800 ^ 75 # 1.098368e+308
 12900 ^ 75 # Inf</code></pre>
-<p>There is positive and negative infinity:</p>
+<p>There is positive and negative infinity (<code>-Inf</code>):</p>
 <pre><code>Inf &gt; 10e24 # TRUE
 -Inf &lt; -10e24 # TRUE</code></pre>
 <p>Arithmetic operations involving infinity always result in (positive or negative) infinity:</p>
@@ -520,7 +520,7 @@ Inf + Inf - 2 * -Inf == 0 # FALSE</code></pre>
 is.infinite(12900^75) # TRUE (ditto)
 is.finite(5 / 0) # FALSE</code></pre>
 <h2 id="not-a-number">Not a Number</h2>
-<p>Some expressions cannot be represented as a number:</p>
+<p>Some expressions cannot be represented as a number. They are represented as <code>NaN</code>:</p>
 <pre><code>0 / 0 # NaN
 -Inf + Inf # NaN
 Inf / Inf # NaN</code></pre>
@@ -535,5 +535,21 @@ is.nan(sqrt(-1)) # TRUE
 
 !is.nan(13.7) # TRUE
 !is.nan(13000 ^ 75) # TRUE, it&#39;s a infinite number (on my machine)</code></pre>
+<h2 id="null">NULL</h2>
+<p><code>NULL</code> stands for emptiness – in contrast to <code>NA</code>, which stands for a missing entry. As opposed to <code>NA</code>, <code>NULL</code> cannot be part of a vector:</p>
+<pre><code>v &lt;- c(1, 2, NULL, 4) # 1 2 4
+length(v) # 3, not 4
+c(NULL, NULL, NULL) # NULL</code></pre>
+<p><code>NULL</code> values can be detected:</p>
+<pre><code>foo &lt;- NULL
+is.null(foo) # TRUE
+
+bar &lt;- &quot;hello&quot;
+is.null(bar) # FALSE</code></pre>
+<p><code>NULL</code> can be used in arithmetic expressions with the effect of returning the resulting type.</p>
+<pre><code>17 + NULL # numeric(0)
+NULL &gt;= 5 # logical(0)</code></pre>
+<p><code>NULL</code> dominates in combination with <code>Inf</code>, <code>NaN</code> and <code>NA</code>:</p>
+<pre><code>NULL + Inf - NaN + 3 * NA # numeric(0)</code></pre>
 </body>
 </html>

@@ -697,13 +697,13 @@ The intervals can be named using labels:
 
 ## Infinity
 
-Infinity is not a number, but a concept describing a number higher than the
-highest representable number, which is platform dependent:
+Infinity (`Inf`) is not a number, but a concept describing a number higher than
+the highest representable number, which is platform dependent::
 
     12800 ^ 75 # 1.098368e+308
     12900 ^ 75 # Inf
 
-There is positive and negative infinity:
+There is positive and negative infinity (`-Inf`):
 
     Inf > 10e24 # TRUE
     -Inf < -10e24 # TRUE
@@ -723,7 +723,8 @@ Expressions can be tested for finity/infinity:
 
 ## Not a Number
 
-Some expressions cannot be represented as a number:
+Some expressions cannot be represented as a number. They are represented as
+`NaN`:
 
     0 / 0 # NaN
     -Inf + Inf # NaN
@@ -743,3 +744,30 @@ Expressions can be tested if they are "not a number":
 
     !is.nan(13.7) # TRUE
     !is.nan(13000 ^ 75) # TRUE, it's a infinite number (on my machine)
+
+## NULL
+
+`NULL` stands for emptiness -- in contrast to `NA`, which stands for a missing
+entry. As opposed to `NA`, `NULL` cannot be part of a vector:
+
+    v <- c(1, 2, NULL, 4) # 1 2 4
+    length(v) # 3, not 4
+    c(NULL, NULL, NULL) # NULL
+
+`NULL` values can be detected:
+
+    foo <- NULL
+    is.null(foo) # TRUE
+
+    bar <- "hello"
+    is.null(bar) # FALSE
+
+`NULL` can be used in arithmetic expressions with the effect of returning the
+resulting type.
+
+    17 + NULL # numeric(0)
+    NULL >= 5 # logical(0)
+
+`NULL` dominates in combination with `Inf`, `NaN` and `NA`:
+
+    NULL + Inf - NaN + 3 * NA # numeric(0)

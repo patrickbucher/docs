@@ -18,7 +18,7 @@ code {
     background-color: #ddd;
     font-size: 110%;
     border-radius: 5px;
-    padding: 0.25em;
+    padding: 0.25em 0.5em;
 }
 
 pre>code {
@@ -26,8 +26,12 @@ pre>code {
     padding: 0;
 }
 
-p, li {
+p {
     line-height: 130%;
+}
+
+li {
+    margin: 0.5em 0;
 }
 
 .math {
