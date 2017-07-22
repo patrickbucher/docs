@@ -1,6 +1,4 @@
-# R
-
-## Environment
+# Environment
 
 Set a custom prompt (`R> `):
 
@@ -14,7 +12,7 @@ Leave R:
 
     q()
 
-### Sessions
+## Sessions
 
 Find out and set the current working directory:
 
@@ -29,7 +27,7 @@ Load a stored session:
 
     load("my-session.RData")
 
-### Packages
+## Packages
 
 Install a new package (`MASS`, for example):
 
@@ -39,7 +37,7 @@ Update installed packages:
 
     update.packages()
 
-### Help
+## Help
 
 Get help for a specific keyword (the `mean` function, for example):
 
@@ -51,7 +49,7 @@ Search for a help topic (`random`, for example):
     help.search("random")
     ??"random" # shortcut
 
-## Language Basics
+# Language Basics
 
 Comments, starting with `#` to the end of the line:
 
@@ -67,7 +65,7 @@ Assignments:
     a <- 17
     b = 42
 
-## Calculations
+# Calculations
 
 Basic arithmetic:
 
@@ -77,6 +75,7 @@ Basic arithmetic:
     9 / 3 # 3
     2 ^ 3 # 8 (2 to the power of 3)
     sqrt(16) # 4
+    13 %% 5 # 3 (modulus, the remainder of 13 divided by 5)
 
 Logarithms:
 
@@ -96,13 +95,13 @@ The `exp()` function is the reverse function of `log()`:
 
     log(exp(23)) # 23
 
-## Vectors
+# Vectors
 
 Make a vector from individual elements:
 
     c(1, 2, 3) # 1 2 3
 
-### Sequences
+## Sequences
 
 Make a sequence from one to ten:
 
@@ -119,7 +118,7 @@ boundry:
 
     seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9
 
-### Repetitions
+## Repetitions
 
 Repeat a number:
 
@@ -139,7 +138,7 @@ Repeat using `eech` and `times` combined:
 
     rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2
 
-### Sorting
+## Sorting
 
 Sort (in ascending order):
 
@@ -153,7 +152,7 @@ Reverse the order of a vector's elements:
 
     rev(1:5) # 5 4 3 2 1
 
-### Accessing Elements
+## Accessing Elements
 
 For the following examples, the vector `v` is used:
 
@@ -190,10 +189,13 @@ Overwrite vector elements:
 
 The vector on the left hand side must either have:
 
-- the same size as the vector on the right hand side, or
-- a size multiple times as big as the vector on the right hand side.
+1. the same size as the vector on the right hand side, or
+2. a size multiple times as big as the vector on the right hand side.
 
-### Arithmetic on Vectors
+In the second case, the shorter vector is _recycled_, i.e. used repeatedly to
+fill up to the length of the longer vector.
+
+## Arithmetic on Vectors
 
 Multiply every item of the vector by 2:
 
@@ -215,7 +217,7 @@ Calculate the product of a vector:
     prod(1, 2, 3, 4) # 1*2*3*4=4!=24
     prod(1:4) # same but shorter
 
-## Matrices
+# Matrices
 
 Create a 2x2 matrix:
 
@@ -324,7 +326,20 @@ rules apply):
     m[1,] = m[2,] # overwrite the first row using the values of the second row
     m[c(1, nrow(m)), c(1, ncol(m))] = -1 # set the values in the "corners" to -1
 
-### Operations and Algebra
+Name the dimensions of a matrix:
+
+    m <- (1:4, ncol = 2, dimnames = list(c("R1", "R2"), c("C1", "C2")))
+
+       C1   C2
+    R1  1   3
+    R2  2   4
+
+Dimension names can also be provided after the creation:
+
+    m <- (1:4, ncol = 2)
+    dimension(m) <- list(c("R1", "R2"), c("C1", "C2"))
+
+## Operations and Algebra
 
 Transpose a matrix ($A^T$ is the transposed matrix of $A$):
 
@@ -416,7 +431,7 @@ Summary:
 - transposed matrix: $A^T$, `t(A)`
 - identity matrix: $I_n$, `diag(x = n)`
 
-## Multidimensional Arrays
+# Multidimensional Arrays
 
 Define arrays of different dimension:
 
@@ -440,7 +455,7 @@ Accessing parts of a multidimensional array:
 
 For arrays, the same assignment rules of vectors and matrices also apply.
 
-## Logical Values
+# Logical Values
 
 Boolean values:
 
@@ -464,6 +479,9 @@ Logical operations:
     0 == FALSE # TRUE
     2 == TRUE # FALSE
 
+    T + T + T # 3
+    F - 4*T + 3*T # 0 - 4 + 3 = -1
+
 Logical operations can be applied to vectors, matrices and arrays, applying the
 operator on every element and returning a vector consisting of `TRUE` and
 `FALSE`:
@@ -484,3 +502,365 @@ Check if at least one element evaluates to `TRUE`:
 Check if all elements evaluate to `TRUE`:
 
     all(10:20 >= 11) # FALSE, 10 is smaller than 11
+
+## Logical Operations
+
+Compare boolean values using double operators:
+
+    TRUE && TRUE # logical AND, returns TRUE
+    FALSE || TRUE # logical OR, returns FALSE
+    !TRUE # logical NOT, returns FALSE
+
+Compare elements of a vector (or a matrix, or an array of higher dimensions)
+using single operators:
+
+    c(T, F, F) & c(T, T, F) # TRUE FALSE FALSE
+    c(T, T, T) | c(T, T, F) # TRUE TRUE FALSE
+
+Single operators have the same behaviour as double operators when applied to
+scalar values rather than vectors. Double operators applied to vectors will only
+apply to the first elements of the vectors involved:
+
+    TRUE & FALSE # FALSE
+    FALSE | TRUE # TRUE
+
+    c(T, F, F) && c(T, T, T) # TRUE
+    c(F, T, T) || c(F, T, T) # FALSE
+
+## Element Selection
+
+Select elements of a vector (or a matrix, or an array) using logical flags:
+
+    v <- 1:5 # 1 2 3 4 5
+    v[c(T, T, F, T, F)] # using a "flag" vector, returns 1 2 4
+    v[v >= 3] # using a condition, returns 3 4 5
+
+Select every other element using vector recycling:
+
+    v <- 1:10
+    v[c(1,0)] # 1 3 5 7 9
+
+Select all leap years of a range of years:
+
+    y <- 1987:2017
+    y[y %% 4 == 0 & (y %% 100 != 0 | y %% 400 == 0)]
+    # 1988 1992 1996 2000 2004 2008 2012 2016
+
+Set all negative values to zero:
+
+    v <- -3:3 # -3 -2 -1 0 1 2 3
+    v[v < 0] = 0 # 0 0 0 0 1 2 3
+
+Find out the indices of items matching a condition using the `which()` function:
+
+    v <- 3:8 # 3 4 5 6 7 8
+    which(x = (v %% 2 == 0)) # indices of even numbers: 2 4 6
+
+The resulting vector can be used to invert the selection:
+
+    v[-which(x = (v %% 2 == 0))] # indices of odd numbers: 1 3 5 
+
+By default, `which()` treatens matrices just like vectors:
+
+    m <- matrix(2:10, ncol = 3)
+
+    2   5   8
+    3   6   9
+    4   7  10
+
+    which(x = (m %% 2 == 1)) ## odd element's indices: 2 4 6 8
+
+To get row/col coordinates, use the `arr.ind` flag:
+
+    which(x = (m %% 2 == 1), arr.ind = TRUE)
+
+    row col
+      2   1
+      1   2
+      3   2
+      2   3
+
+# Strings
+
+Store a simple string:
+
+    s <- "This is a simple string!"
+
+Find out the length of a string:
+
+    nchar("foobar") # 6
+    length("foobar") # 1, a string is considered a vector of length 1
+
+Compare strings:
+
+    "foo" == "foo" # TRUE
+    "foo" == "bar" # FALSE
+    "bar" == c("foo", "bar", "qux") # FALSE TRUE FALSE
+
+Compare strings using alphabetic order:
+
+    "Anna" > "Berti" # TRUE
+
+Uppercase strings are considered bigger than lowercase string:
+
+    "A" > "a" # TRUE
+    "B" <= "b" # FALSE
+
+This distinction only applies to alphabetically equivalent strings:
+
+   "A" > "z" # FALSE
+
+Almost all characters can be used within a string. Double quotes and backslashes
+have to be escaped using a backslash:
+
+    "He said: \"a backslash: \\...\"" # He said: "a backslash: \..."
+
+Other escape sequences are:
+
+    \n  line break
+    \t  tab
+    \b  backspace
+
+For a complete list of escape sequences, type `?Quotes`.
+
+## Concatenation
+
+Strings can be concatenated:
+
+    cat("hello", "world") # prints "hello world"
+    paste("hello", "world") # returns "hello world"
+
+The separator (a space character, by default) can be defined:
+
+    cat("foo", "bar", "qux", sep="---") # "foo---bar---qux"
+    cat("foo", "bar", "qux", sep="") # "foobarqux
+
+Numbers are automatically converted to strings (_coercion_):
+
+    numbers <- 5:1
+    cat("Countdown:", numbers) # Countdown: 5 4 3 2 1
+    cat(2, "times", 3, "is", 2 * 3) # 2 times 3 is 6
+    cat("is", 5, "bigger than", 7, 5 > 7) # is 5 bigger than 7 FALSE
+
+## Substrings and Replacements
+
+Extract a substring (using 1-based inclusive indices):
+
+    substr(x = "this is", start = 1, stop = 4) # "this"
+
+Substrings can be replaced by other strings of the same length:
+
+    s <- "this is cool"
+    substr(x = s, start = 1, stop = 4) <- "that" # "that is cool"
+
+Replacements are done more effectively using `sub()` (replaces the first
+occurence) and `gsub()` (replaces all occurences):
+
+    s <- "foo too"
+    sub(pattern = "oo", x = s, replacement = "u") # fu too
+    gsub(pattern = "oo", x = s, replacement = "u") # fu tu
+
+# Factors
+
+Factors are a special kind of vectors for storing categorial data, similar to
+enumerations in Java or C. Next to the value, factors also store a level:
+
+    colors <- factor(c("red", "green", "blue"))
+
+When a factor is subsetted, _some_ of the values but _all_ of the levels stay:
+
+    colors[1:2]
+
+    red green
+    Levels: blue red green
+
+Factors allow ordering:
+
+    weekdays <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", Sun")
+    workdays <- c("Mon", "Tue", "Wed", "Thu", "Fri")
+    factor(x = workdays, levels = weekdays, ordered = TRUE)
+
+    Mon Tue Wed Thu Fri
+    Levels: Mon < Tue < Wed < Thu < Fri < Sat < Sun
+
+## Cutting
+
+The `cut()` function can be used to break up data points on a continuum into
+discrete intervals:
+
+    weights <- c(72, 83, 61, 119, 88, 155)
+    w.breaks <- c(0, 70, 90, 120, 200)
+    cut(x = weights, breaks = w.breaks)
+
+    (70,90]   (70,90]   (0,70]    (90,120]  (70,90]   (120,200]
+    Levels: (0,70] (70,90] (90,120] (120,200]
+
+`(70,90]` means: from 70 exclusive to 90 inclusive. Use the parameter `right =
+FALSE` for inclusive/exclusive intervals (`[70,90)`).
+
+The intervals can be named using labels:
+
+    w.labels <- c("low", "normal", "high", "obese")
+    cut(x = weights, breaks = w.breaks, labels = w.labels)
+
+    normal normal low high normal obese
+    Levels: low normal high obese
+
+# Special Values
+
+## Infinity
+
+Infinity (`Inf`) is not a number, but a concept describing a number higher than
+the highest representable number, which is platform dependent::
+
+    12800 ^ 75 # 1.098368e+308
+    12900 ^ 75 # Inf
+
+There is positive and negative infinity (`-Inf`):
+
+    Inf > 10e24 # TRUE
+    -Inf < -10e24 # TRUE
+
+Arithmetic operations involving infinity always result in (positive or negative)
+infinity:
+
+    10e24 - Inf # -Inf
+    2 * Inf == Inf # TRUE
+    Inf + Inf - 2 * -Inf == 0 # FALSE
+
+Expressions can be tested for finity/infinity:
+
+    is.finite(12800^75) # TRUE (on my machine)
+    is.infinite(12900^75) # TRUE (ditto)
+    is.finite(5 / 0) # FALSE
+
+## Not a Number
+
+Some expressions cannot be represented as a number. They are represented as
+`NaN`:
+
+    0 / 0 # NaN
+    -Inf + Inf # NaN
+    Inf / Inf # NaN
+
+`NaN` is not considered finite:
+
+    is.finite(NaN) # FALSE
+
+Expressions can be tested if they are "not a number":
+
+    is.nan(NaN) # TRUE
+    is.nan(134) # FALSE
+    is.nan(5 / 0) # FALSE, it's a number considered infinite
+    is.nan(0 / 0) # TRUE
+    is.nan(sqrt(-1)) # TRUE
+
+    !is.nan(13.7) # TRUE
+    !is.nan(13000 ^ 75) # TRUE, it's a infinite number (on my machine)
+
+## NULL
+
+`NULL` stands for emptiness -- in contrast to `NA`, which stands for a missing
+entry. As opposed to `NA`, `NULL` cannot be part of a vector:
+
+    v <- c(1, 2, NULL, 4) # 1 2 4
+    length(v) # 3, not 4
+    c(NULL, NULL, NULL) # NULL
+
+`NULL` values can be detected:
+
+    foo <- NULL
+    is.null(foo) # TRUE
+
+    bar <- "hello"
+    is.null(bar) # FALSE
+
+`NULL` can be used in arithmetic expressions with the effect of returning the
+resulting type.
+
+    17 + NULL # numeric(0)
+    NULL >= 5 # logical(0)
+
+`NULL` dominates in combination with `Inf`, `NaN` and `NA`:
+
+    NULL + Inf - NaN + 3 * NA # numeric(0)
+
+# Objects
+
+## Attributes
+
+Every object can store additional attributes:
+
+    o <- 42
+    o.description = "The answer to everything"
+
+Show the attributes of an object:
+
+    m <- matrix(1:4, ncol = 2)
+    attributes(m)
+
+    $dim
+    2 2
+
+Access an attribute:
+
+    attributes(m)$dim # 2 2
+    attr(x = m, which = "dim") # same using a string
+
+Some attributes have their own function:
+
+    dim(m) # 2 2
+
+## Classes
+
+Find out the class of an object:
+
+    class(c(1, 2, 3)) # "numeric"
+    class("foo") # "character"
+    class(matrix(1:4)) # "matrix"
+    class(array(1:100)) # "array"
+    class(factor(c("R", "G", "B"))) # "factor"
+    class(5 > 3) # "logical"
+    class(length(c(1, 2, 3))) # "integer"
+
+Some objects have multiple classes due to ineritance:
+
+    bits <- factor(x = c(1, 0, 0, 1, 0), levels = c(0, 1), ordered = TRUE)
+    class(bits) # "ordered" "factor"
+
+Objects can be checked whether or not they are of a certain class:
+
+    is.numeric(3) # TRUE
+    is.character("abc") # TRUE
+    is.matrix(matrix(1:4)) # TRUE
+    is.array(array(1:100)) # TRUE
+    is.factor(factor(c(1, 0, 1, 1, 0))) # TRUE
+    is.logical(5 > 3) # TRUE
+    is.integer(length(1:3)) # TRUE
+    is.vector(1:3) # TRUE
+
+Convert explicitly from one type to another (coercion):
+
+    as.numeric("12") # 12
+    as.numeric("1.2e5") # 12000
+    as.character(13) # "13"
+    as.numeric("howdy!") # NA
+    as.logical(0) # FALSE
+    as.logical(as.numeric(c("1", "0", "0", "1"))) # TRUE FALSE FALSE TRUE
+
+    m <- matrix(1:4, ncol = 2)
+    as.vector(m) # 1 2 3 4
+
+    a <- array(1:8, dim = c(2, 2, 2))
+    as.matrix(a)
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+
+    as.vector(a) # 1 2 3 4 5 6 7 8

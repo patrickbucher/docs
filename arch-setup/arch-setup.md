@@ -214,6 +214,10 @@ GTK theme and theme switcher:
 
     pacman -S gtk-chtheme lxappearance gtk-engine-aurora
 
+Initialize `pacman` file name databaes:
+
+    pacman -Fy
+
 ## mutt
 
     pacman -S mutt
@@ -234,3 +238,50 @@ Encrypt it:
     pacman -S ntp
     systemctl enable ntpd.service
     systemctl start ntpd.service
+
+## Boot Order
+
+On a multiboot system, make sure that the Windows Boot Manager is not on the
+first position:
+
+    pacman -S efibootmgr
+    pacman -o 3,7,0 # 3 is USB stick, 7 internal HDD, 0 Windows Boot Manager
+
+## Printer
+
+Install, enable and start cups:
+
+    pacman -S cups cups-filters ghostscript
+    systemctl enable org.cups.cupsd.service
+    systemctl start org.cups.cupsd.service
+
+Avahi:
+
+    pacman -S nss-mdns
+    systemctl enable avahi-daemon.service
+    systemctl start avahi-daemon.service
+
+edit /etc/nsswitch.conf, add:
+
+    mdns_minimal [NOTFOUND=return]
+
+before
+
+    resolve ...
+
+download driver for Samsung M262x 282x from openprinting.org and copy it to:
+
+    /usr/share/cups/model/samsung.ppd
+
+Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
+
+    lpadmin -p samsung -E -v 'dnssd://samsung._printer._tcp.local/' -m samsung.ppd
+    cupsenable samsung
+    cupsaccept samsung
+    lpoptions -d samsung
+
+## Pinentry
+
+Make sure to use the curses version of `pinentry`:
+
+    ln -fs /usr/bin/pinentry-ncurses /usr/bin/pinentry
