@@ -967,7 +967,7 @@ Example 2:
         xlim = c(40, 100), ylim = c(150, 200))
     points(fw, fh, pch = "♀", col = "red")
     points(mw, mh, pch = "♂", col = "blue")
-    legend(x = "topleft", legend = c("Female", "Men"),
+    legend(x = "topleft", legend = c("Female", "Male"),
         pch = c("♀","♂"), col = c("red", "blue"))
 ```
 
