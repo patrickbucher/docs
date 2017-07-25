@@ -6,6 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -15,58 +52,62 @@
 <header>
 <h1 class="title">R</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">21.07.2017</p>
+<p class="date">25.07.2017</p>
 </header>
 <nav id="TOC">
 <ul>
-<li><a href="#environment">Environment</a><ul>
-<li><a href="#sessions">Sessions</a></li>
-<li><a href="#packages">Packages</a></li>
-<li><a href="#help">Help</a></li>
+<li><a href="#environment"><span class="toc-section-number">1</span> Environment</a><ul>
+<li><a href="#sessions"><span class="toc-section-number">1.1</span> Sessions</a></li>
+<li><a href="#packages"><span class="toc-section-number">1.2</span> Packages</a></li>
+<li><a href="#help"><span class="toc-section-number">1.3</span> Help</a></li>
 </ul></li>
-<li><a href="#language-basics">Language Basics</a></li>
-<li><a href="#calculations">Calculations</a></li>
-<li><a href="#vectors">Vectors</a><ul>
-<li><a href="#sequences">Sequences</a></li>
-<li><a href="#repetitions">Repetitions</a></li>
-<li><a href="#sorting">Sorting</a></li>
-<li><a href="#accessing-elements">Accessing Elements</a></li>
-<li><a href="#arithmetic-on-vectors">Arithmetic on Vectors</a></li>
+<li><a href="#language-basics"><span class="toc-section-number">2</span> Language Basics</a></li>
+<li><a href="#calculations"><span class="toc-section-number">3</span> Calculations</a></li>
+<li><a href="#vectors"><span class="toc-section-number">4</span> Vectors</a><ul>
+<li><a href="#sequences"><span class="toc-section-number">4.1</span> Sequences</a></li>
+<li><a href="#repetitions"><span class="toc-section-number">4.2</span> Repetitions</a></li>
+<li><a href="#sorting"><span class="toc-section-number">4.3</span> Sorting</a></li>
+<li><a href="#accessing-elements"><span class="toc-section-number">4.4</span> Accessing Elements</a></li>
+<li><a href="#arithmetic-on-vectors"><span class="toc-section-number">4.5</span> Arithmetic on Vectors</a></li>
 </ul></li>
-<li><a href="#matrices">Matrices</a><ul>
-<li><a href="#operations-and-algebra">Operations and Algebra</a></li>
+<li><a href="#matrices"><span class="toc-section-number">5</span> Matrices</a><ul>
+<li><a href="#operations-and-algebra"><span class="toc-section-number">5.1</span> Operations and Algebra</a></li>
 </ul></li>
-<li><a href="#multidimensional-arrays">Multidimensional Arrays</a></li>
-<li><a href="#logical-values">Logical Values</a><ul>
-<li><a href="#logical-operations">Logical Operations</a></li>
-<li><a href="#element-selection">Element Selection</a></li>
+<li><a href="#multidimensional-arrays"><span class="toc-section-number">6</span> Multidimensional Arrays</a></li>
+<li><a href="#logical-values"><span class="toc-section-number">7</span> Logical Values</a><ul>
+<li><a href="#logical-operations"><span class="toc-section-number">7.1</span> Logical Operations</a></li>
+<li><a href="#element-selection"><span class="toc-section-number">7.2</span> Element Selection</a></li>
 </ul></li>
-<li><a href="#strings">Strings</a><ul>
-<li><a href="#concatenation">Concatenation</a></li>
-<li><a href="#substrings-and-replacements">Substrings and Replacements</a></li>
+<li><a href="#strings"><span class="toc-section-number">8</span> Strings</a><ul>
+<li><a href="#concatenation"><span class="toc-section-number">8.1</span> Concatenation</a></li>
+<li><a href="#substrings-and-replacements"><span class="toc-section-number">8.2</span> Substrings and Replacements</a></li>
 </ul></li>
-<li><a href="#factors">Factors</a><ul>
-<li><a href="#cutting">Cutting</a></li>
+<li><a href="#factors"><span class="toc-section-number">9</span> Factors</a><ul>
+<li><a href="#cutting"><span class="toc-section-number">9.1</span> Cutting</a></li>
 </ul></li>
-<li><a href="#special-values">Special Values</a><ul>
-<li><a href="#infinity">Infinity</a></li>
-<li><a href="#not-a-number">Not a Number</a></li>
-<li><a href="#null">NULL</a></li>
+<li><a href="#special-values"><span class="toc-section-number">10</span> Special Values</a><ul>
+<li><a href="#infinity"><span class="toc-section-number">10.1</span> Infinity</a></li>
+<li><a href="#not-a-number"><span class="toc-section-number">10.2</span> Not a Number</a></li>
+<li><a href="#null"><span class="toc-section-number">10.3</span> NULL</a></li>
 </ul></li>
-<li><a href="#objects">Objects</a><ul>
-<li><a href="#attributes">Attributes</a></li>
-<li><a href="#classes">Classes</a></li>
+<li><a href="#objects"><span class="toc-section-number">11</span> Objects</a><ul>
+<li><a href="#attributes"><span class="toc-section-number">11.1</span> Attributes</a></li>
+<li><a href="#classes"><span class="toc-section-number">11.2</span> Classes</a></li>
+</ul></li>
+<li><a href="#plotting"><span class="toc-section-number">12</span> Plotting</a><ul>
+<li><a href="#additional-elements"><span class="toc-section-number">12.1</span> Additional Elements</a></li>
+<li><a href="#plotting-examples"><span class="toc-section-number">12.2</span> Plotting Examples</a></li>
 </ul></li>
 </ul>
 </nav>
-<h1 id="environment">Environment</h1>
+<h1 id="environment"><span class="header-section-number">1</span> Environment</h1>
 <p>Set a custom prompt (<code>R&gt;</code>):</p>
 <pre><code>options(prompt = &quot;R&gt; &quot;)</code></pre>
 <p>List variables, objects and user-defined functions of the current session:</p>
 <pre><code>ls()</code></pre>
 <p>Leave R:</p>
 <pre><code>q()</code></pre>
-<h2 id="sessions">Sessions</h2>
+<h2 id="sessions"><span class="header-section-number">1.1</span> Sessions</h2>
 <p>Find out and set the current working directory:</p>
 <pre><code>getwd()
 setwd(&quot;~/my-workspace&quot;)</code></pre>
@@ -74,19 +115,19 @@ setwd(&quot;~/my-workspace&quot;)</code></pre>
 <pre><code>save.image(&quot;my-session.RData&quot;)</code></pre>
 <p>Load a stored session:</p>
 <pre><code>load(&quot;my-session.RData&quot;)</code></pre>
-<h2 id="packages">Packages</h2>
+<h2 id="packages"><span class="header-section-number">1.2</span> Packages</h2>
 <p>Install a new package (<code>MASS</code>, for example):</p>
 <pre><code>library(&quot;MASS&quot;)</code></pre>
 <p>Update installed packages:</p>
 <pre><code>update.packages()</code></pre>
-<h2 id="help">Help</h2>
+<h2 id="help"><span class="header-section-number">1.3</span> Help</h2>
 <p>Get help for a specific keyword (the <code>mean</code> function, for example):</p>
 <pre><code>help(&quot;mean&quot;)
 ?mean # shortcut</code></pre>
 <p>Search for a help topic (<code>random</code>, for example):</p>
 <pre><code>help.search(&quot;random&quot;)
 ??&quot;random&quot; # shortcut</code></pre>
-<h1 id="language-basics">Language Basics</h1>
+<h1 id="language-basics"><span class="header-section-number">2</span> Language Basics</h1>
 <p>Comments, starting with <code>#</code> to the end of the line:</p>
 <pre><code>1 + 1 # calculates one plus one, which is two</code></pre>
 <p>Exponential notation:</p>
@@ -95,7 +136,7 @@ setwd(&quot;~/my-workspace&quot;)</code></pre>
 <p>Assignments:</p>
 <pre><code>a &lt;- 17
 b = 42</code></pre>
-<h1 id="calculations">Calculations</h1>
+<h1 id="calculations"><span class="header-section-number">3</span> Calculations</h1>
 <p>Basic arithmetic:</p>
 <pre><code>3 + 5 # 8
 5 - 2 # 3
@@ -114,10 +155,10 @@ log(8, 2) # same but shorter</code></pre>
 log(x = 100, base = exp(1)) # same with an explicit base</code></pre>
 <p>The <code>exp()</code> function is the reverse function of <code>log()</code>:</p>
 <pre><code>log(exp(23)) # 23</code></pre>
-<h1 id="vectors">Vectors</h1>
+<h1 id="vectors"><span class="header-section-number">4</span> Vectors</h1>
 <p>Make a vector from individual elements:</p>
 <pre><code>c(1, 2, 3) # 1 2 3</code></pre>
-<h2 id="sequences">Sequences</h2>
+<h2 id="sequences"><span class="header-section-number">4.1</span> Sequences</h2>
 <p>Make a sequence from one to ten:</p>
 <pre><code>seq(from = 1, to = 10, by = 1)
 1:10 # same but shorter (default step = 1)</code></pre>
@@ -125,7 +166,7 @@ log(x = 100, base = exp(1)) # same with an explicit base</code></pre>
 <pre><code>seq(from = 1, to = 10, length.out = 4) # 1 4 7 10</code></pre>
 <p>Make a sequence with a specific length and step size, but omit the upper boundry:</p>
 <pre><code>seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9</code></pre>
-<h2 id="repetitions">Repetitions</h2>
+<h2 id="repetitions"><span class="header-section-number">4.2</span> Repetitions</h2>
 <p>Repeat a number:</p>
 <pre><code>rep(x = 1, times = 3) # 1 1 1
 rep(1, 3) # same but shorter</code></pre>
@@ -136,14 +177,14 @@ rep(1:3, 2), # same but shorter</code></pre>
 <pre><code>rep(1:3, each = 2) # 1 1 2 2 3 3</code></pre>
 <p>Repeat using <code>eech</code> and <code>times</code> combined:</p>
 <pre><code>rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2</code></pre>
-<h2 id="sorting">Sorting</h2>
+<h2 id="sorting"><span class="header-section-number">4.3</span> Sorting</h2>
 <p>Sort (in ascending order):</p>
 <pre><code>sort(3:-3) # -3 -2 -1 0 1 2 3</code></pre>
 <p>Sort (in descending order):</p>
 <pre><code>sort(1:5, decreasing = TRUE) # 5 4 3 2 1</code></pre>
 <p>Reverse the order of a vector’s elements:</p>
 <pre><code>rev(1:5) # 5 4 3 2 1</code></pre>
-<h2 id="accessing-elements">Accessing Elements</h2>
+<h2 id="accessing-elements"><span class="header-section-number">4.4</span> Accessing Elements</h2>
 <p>For the following examples, the vector <code>v</code> is used:</p>
 <pre><code>v &lt;- seq(from = 10, to = 50, by = 10) # 10 20 30 40 50 </code></pre>
 <p>Access the first element (the first index is 1):</p>
@@ -169,7 +210,7 @@ v[1:4] = c(1, 2) # v = 1 2 1 2 44</code></pre>
 <li>a size multiple times as big as the vector on the right hand side.</li>
 </ol>
 <p>In the second case, the shorter vector is <em>recycled</em>, i.e. used repeatedly to fill up to the length of the longer vector.</p>
-<h2 id="arithmetic-on-vectors">Arithmetic on Vectors</h2>
+<h2 id="arithmetic-on-vectors"><span class="header-section-number">4.5</span> Arithmetic on Vectors</h2>
 <p>Multiply every item of the vector by 2:</p>
 <pre><code>1:6 * 2 # 2 4 6 8 10 12</code></pre>
 <p>Multiply the items of the vector by 1 and -1, respectively:</p>
@@ -181,7 +222,7 @@ sum(1:100) # 5050</code></pre>
 <p>Calculate the product of a vector:</p>
 <pre><code>prod(1, 2, 3, 4) # 1*2*3*4=4!=24
 prod(1:4) # same but shorter</code></pre>
-<h1 id="matrices">Matrices</h1>
+<h1 id="matrices"><span class="header-section-number">5</span> Matrices</h1>
 <p>Create a 2x2 matrix:</p>
 <pre><code>matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)</code></pre>
 <p>Either <code>nrow</code> or <code>ncol</code> can be omitted:</p>
@@ -269,7 +310,7 @@ R2  2   4</code></pre>
 <p>Dimension names can also be provided after the creation:</p>
 <pre><code>m &lt;- (1:4, ncol = 2)
 dimension(m) &lt;- list(c(&quot;R1&quot;, &quot;R2&quot;), c(&quot;C1&quot;, &quot;C2&quot;))</code></pre>
-<h2 id="operations-and-algebra">Operations and Algebra</h2>
+<h2 id="operations-and-algebra"><span class="header-section-number">5.1</span> Operations and Algebra</h2>
 <p>Transpose a matrix (<span class="math inline"><em>A</em><sup><em>T</em></sup></span> is the transposed matrix of <span class="math inline"><em>A</em></span>):</p>
 <pre><code>A &lt;- matrix(1:9, ncol = 3)
 
@@ -346,7 +387,7 @@ A %*% solve(A) # check the result: is it the identity matrix?
 <li>transposed matrix: <span class="math inline"><em>A</em><sup><em>T</em></sup></span>, <code>t(A)</code></li>
 <li>identity matrix: <span class="math inline"><em>I</em><sub><em>n</em></sub></span>, <code>diag(x = n)</code></li>
 </ul>
-<h1 id="multidimensional-arrays">Multidimensional Arrays</h1>
+<h1 id="multidimensional-arrays"><span class="header-section-number">6</span> Multidimensional Arrays</h1>
 <p>Define arrays of different dimension:</p>
 <pre><code>array(data = 1:24) # vector 1 2 3 ... 24, 1 dimension
 array(data = 1:24, dim = c(24)) # same with explicit dimension
@@ -361,7 +402,7 @@ AR[,,3] # access the third layer
 
 AR[1,,c(1, 2)] # first row of first and second layer</code></pre>
 <p>For arrays, the same assignment rules of vectors and matrices also apply.</p>
-<h1 id="logical-values">Logical Values</h1>
+<h1 id="logical-values"><span class="header-section-number">7</span> Logical Values</h1>
 <p>Boolean values:</p>
 <pre><code>TRUE
 T # shorter for TRUE
@@ -390,7 +431,7 @@ F - 4*T + 3*T # 0 - 4 + 3 = -1</code></pre>
 <pre><code>any(1:3 &gt; 2) # TRUE, 3 is bigger than 2</code></pre>
 <p>Check if all elements evaluate to <code>TRUE</code>:</p>
 <pre><code>all(10:20 &gt;= 11) # FALSE, 10 is smaller than 11</code></pre>
-<h2 id="logical-operations">Logical Operations</h2>
+<h2 id="logical-operations"><span class="header-section-number">7.1</span> Logical Operations</h2>
 <p>Compare boolean values using double operators:</p>
 <pre><code>TRUE &amp;&amp; TRUE # logical AND, returns TRUE
 FALSE || TRUE # logical OR, returns FALSE
@@ -404,7 +445,7 @@ FALSE | TRUE # TRUE
 
 c(T, F, F) &amp;&amp; c(T, T, T) # TRUE
 c(F, T, T) || c(F, T, T) # FALSE</code></pre>
-<h2 id="element-selection">Element Selection</h2>
+<h2 id="element-selection"><span class="header-section-number">7.2</span> Element Selection</h2>
 <p>Select elements of a vector (or a matrix, or an array) using logical flags:</p>
 <pre><code>v &lt;- 1:5 # 1 2 3 4 5
 v[c(T, T, F, T, F)] # using a &quot;flag&quot; vector, returns 1 2 4
@@ -440,7 +481,7 @@ row col
   1   2
   3   2
   2   3</code></pre>
-<h1 id="strings">Strings</h1>
+<h1 id="strings"><span class="header-section-number">8</span> Strings</h1>
 <p>Store a simple string:</p>
 <pre><code>s &lt;- &quot;This is a simple string!&quot;</code></pre>
 <p>Find out the length of a string:</p>
@@ -464,7 +505,7 @@ length(&quot;foobar&quot;) # 1, a string is considered a vector of length 1</cod
 \t  tab
 \b  backspace</code></pre>
 <p>For a complete list of escape sequences, type <code>?Quotes</code>.</p>
-<h2 id="concatenation">Concatenation</h2>
+<h2 id="concatenation"><span class="header-section-number">8.1</span> Concatenation</h2>
 <p>Strings can be concatenated:</p>
 <pre><code>cat(&quot;hello&quot;, &quot;world&quot;) # prints &quot;hello world&quot;
 paste(&quot;hello&quot;, &quot;world&quot;) # returns &quot;hello world&quot;</code></pre>
@@ -476,7 +517,7 @@ cat(&quot;foo&quot;, &quot;bar&quot;, &quot;qux&quot;, sep=&quot;&quot;) # &quot
 cat(&quot;Countdown:&quot;, numbers) # Countdown: 5 4 3 2 1
 cat(2, &quot;times&quot;, 3, &quot;is&quot;, 2 * 3) # 2 times 3 is 6
 cat(&quot;is&quot;, 5, &quot;bigger than&quot;, 7, 5 &gt; 7) # is 5 bigger than 7 FALSE</code></pre>
-<h2 id="substrings-and-replacements">Substrings and Replacements</h2>
+<h2 id="substrings-and-replacements"><span class="header-section-number">8.2</span> Substrings and Replacements</h2>
 <p>Extract a substring (using 1-based inclusive indices):</p>
 <pre><code>substr(x = &quot;this is&quot;, start = 1, stop = 4) # &quot;this&quot;</code></pre>
 <p>Substrings can be replaced by other strings of the same length:</p>
@@ -486,7 +527,7 @@ substr(x = s, start = 1, stop = 4) &lt;- &quot;that&quot; # &quot;that is cool&q
 <pre><code>s &lt;- &quot;foo too&quot;
 sub(pattern = &quot;oo&quot;, x = s, replacement = &quot;u&quot;) # fu too
 gsub(pattern = &quot;oo&quot;, x = s, replacement = &quot;u&quot;) # fu tu</code></pre>
-<h1 id="factors">Factors</h1>
+<h1 id="factors"><span class="header-section-number">9</span> Factors</h1>
 <p>Factors are a special kind of vectors for storing categorial data, similar to enumerations in Java or C. Next to the value, factors also store a level:</p>
 <pre><code>colors &lt;- factor(c(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;))</code></pre>
 <p>When a factor is subsetted, <em>some</em> of the values but <em>all</em> of the levels stay:</p>
@@ -501,7 +542,7 @@ factor(x = workdays, levels = weekdays, ordered = TRUE)
 
 Mon Tue Wed Thu Fri
 Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
-<h2 id="cutting">Cutting</h2>
+<h2 id="cutting"><span class="header-section-number">9.1</span> Cutting</h2>
 <p>The <code>cut()</code> function can be used to break up data points on a continuum into discrete intervals:</p>
 <pre><code>weights &lt;- c(72, 83, 61, 119, 88, 155)
 w.breaks &lt;- c(0, 70, 90, 120, 200)
@@ -516,8 +557,8 @@ cut(x = weights, breaks = w.breaks, labels = w.labels)
 
 normal normal low high normal obese
 Levels: low normal high obese</code></pre>
-<h1 id="special-values">Special Values</h1>
-<h2 id="infinity">Infinity</h2>
+<h1 id="special-values"><span class="header-section-number">10</span> Special Values</h1>
+<h2 id="infinity"><span class="header-section-number">10.1</span> Infinity</h2>
 <p>Infinity (<code>Inf</code>) is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent::</p>
 <pre><code>12800 ^ 75 # 1.098368e+308
 12900 ^ 75 # Inf</code></pre>
@@ -532,7 +573,7 @@ Inf + Inf - 2 * -Inf == 0 # FALSE</code></pre>
 <pre><code>is.finite(12800^75) # TRUE (on my machine)
 is.infinite(12900^75) # TRUE (ditto)
 is.finite(5 / 0) # FALSE</code></pre>
-<h2 id="not-a-number">Not a Number</h2>
+<h2 id="not-a-number"><span class="header-section-number">10.2</span> Not a Number</h2>
 <p>Some expressions cannot be represented as a number. They are represented as <code>NaN</code>:</p>
 <pre><code>0 / 0 # NaN
 -Inf + Inf # NaN
@@ -548,7 +589,7 @@ is.nan(sqrt(-1)) # TRUE
 
 !is.nan(13.7) # TRUE
 !is.nan(13000 ^ 75) # TRUE, it&#39;s a infinite number (on my machine)</code></pre>
-<h2 id="null">NULL</h2>
+<h2 id="null"><span class="header-section-number">10.3</span> NULL</h2>
 <p><code>NULL</code> stands for emptiness – in contrast to <code>NA</code>, which stands for a missing entry. As opposed to <code>NA</code>, <code>NULL</code> cannot be part of a vector:</p>
 <pre><code>v &lt;- c(1, 2, NULL, 4) # 1 2 4
 length(v) # 3, not 4
@@ -564,8 +605,8 @@ is.null(bar) # FALSE</code></pre>
 NULL &gt;= 5 # logical(0)</code></pre>
 <p><code>NULL</code> dominates in combination with <code>Inf</code>, <code>NaN</code> and <code>NA</code>:</p>
 <pre><code>NULL + Inf - NaN + 3 * NA # numeric(0)</code></pre>
-<h1 id="objects">Objects</h1>
-<h2 id="attributes">Attributes</h2>
+<h1 id="objects"><span class="header-section-number">11</span> Objects</h1>
+<h2 id="attributes"><span class="header-section-number">11.1</span> Attributes</h2>
 <p>Every object can store additional attributes:</p>
 <pre><code>o &lt;- 42
 o.description = &quot;The answer to everything&quot;</code></pre>
@@ -580,7 +621,7 @@ $dim
 attr(x = m, which = &quot;dim&quot;) # same using a string</code></pre>
 <p>Some attributes have their own function:</p>
 <pre><code>dim(m) # 2 2</code></pre>
-<h2 id="classes">Classes</h2>
+<h2 id="classes"><span class="header-section-number">11.2</span> Classes</h2>
 <p>Find out the class of an object:</p>
 <pre><code>class(c(1, 2, 3)) # &quot;numeric&quot;
 class(&quot;foo&quot;) # &quot;character&quot;
@@ -625,5 +666,95 @@ as.matrix(a)
 8
 
 as.vector(a) # 1 2 3 4 5 6 7 8</code></pre>
+<h1 id="plotting"><span class="header-section-number">12</span> Plotting</h1>
+<p>Simple plots can be drawn using two vectors of x and y coordinates of the same length:</p>
+<pre><code>x &lt;- c(3, 2, 7, 8)
+y &lt;- c(2, 5, 6, 1)
+plot(x, y)</code></pre>
+<p>When using matrices for plotting, the first column holds the x values, and the second column holds the y values:</p>
+<pre><code>m &lt;- matrix(1:4, ncol = 2)
+
+1   3   # point (1;3)
+2   4   # point (2;4)
+
+plot(m)</code></pre>
+<p>When using a single vector for plotting, each value serves as the x and the y coordinate at the same time:</p>
+<pre><code>plot(1:3) # plots (1;1), (2;2), (3;3)</code></pre>
+<p>Plots can be (optically) enhanced using various options:</p>
+<ul>
+<li><code>type</code>: the plotting style, a single character
+<ul>
+<li><code>&quot;p&quot;</code>: points</li>
+<li><code>&quot;l&quot;</code>: lines</li>
+<li><code>&quot;b&quot;</code>: both (points and lines)</li>
+<li><code>&quot;c&quot;</code>: empty points joined by lines</li>
+<li><code>&quot;o&quot;</code>: overplotted points and lines</li>
+<li><code>&quot;s&quot;</code>: stair steps (lower Riemann areas)</li>
+<li><code>&quot;S&quot;</code>: stair steps (upper Riemann areas)</li>
+<li><code>&quot;n&quot;</code>: none</li>
+</ul></li>
+<li><code>main</code>: the main title of the plot, characters</li>
+<li><code>xlab</code>, <code>ylab</code>: labels for the x and y axis, characters</li>
+<li><code>pch</code>: the character to be used to draw the dots, either a number from 1 to 25 (pre-defined styles) or any single character</li>
+<li><code>cex</code>: character expansion, stretches the point by the given factor, a number</li>
+<li><code>lty</code>: the line type (<code>&quot;solid&quot;</code>, <code>&quot;dotted&quot;</code> or <code>&quot;dashed&quot;</code>)</li>
+<li><code>lwd</code>: the line width, a number</li>
+<li><code>xlim</code>, <code>ylim</code>: horizontal and vertical ranges as vectors (<code>c(lower, upper)</code>)</li>
+<li><code>col</code>: the color for the dots/lines, either a color name, a number (from 1 to</li>
+</ul>
+<ol start="8" type="1">
+<li>or a hex code (like <code>#ffffff</code> for white)</li>
+</ol>
+<h2 id="additional-elements"><span class="header-section-number">12.1</span> Additional Elements</h2>
+<p>Calling the <code>plot()</code> function always creates a new output and removes the old one. Elements can be added to an existing plot using these functions:</p>
+<pre><code>lines(x = c(1, 3, 2), y = c(3, 1, 2))
+# plots a line connecting P(1;3), P(3;1) and P(2;2)
+
+points(x = c(1, 3, 2), y = c(3, 1, 2))
+# plots the points P(1;3), P(3;1) and P(2;2)
+
+text(x = 5, y = 3, &quot;Nothing&quot;) # the text &quot;Nothing&quot; centered around P(5;3)
+
+arrows(x0 = 1, y0 = 2, x1 = 4, y1 = 7)
+# draws an arrow pointing from P(1;2) to P(4;7)
+
+abline(a = 2, b = 3) # line with the slope 2 and y intercept 3 (P(0;3), that is)
+
+abline(h = 2) # a horizontal line on y = 2
+abline(v = 1) # a vertical line on x = 1
+
+segments(x0 = c(1, 4), y0 = c(1, 1), x1 = c(1, 4), y1 = c(5, 5))
+# two vertical lines from P(1;1) to P(1;5) and from P(4;1) to P(4;5)
+
+legend(x = &quot;bottomleft&quot;, legend = c(&quot;Male&quot;, &quot;Female&quot;), pch = c(&quot;+&quot;, &quot;x&quot;))
+# a legend on the bottom left position (+: Male, x: Female)</code></pre>
+<h2 id="plotting-examples"><span class="header-section-number">12.2</span> Plotting Examples</h2>
+<p>Example 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">13</span>), <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)
+    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">13</span>), <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)
+    x0 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>)
+    y0 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.5</span>, <span class="dv">10</span>, <span class="fl">12.5</span>, <span class="fl">12.5</span>, <span class="dv">10</span>, <span class="fl">7.5</span>)
+    x1 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)
+    y1 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.5</span>, <span class="dv">10</span>, <span class="fl">10.5</span>, <span class="fl">10.5</span>, <span class="dv">10</span>, <span class="fl">9.5</span>)
+    <span class="kw">arrows</span>(x0, y0, x1, y1)
+    <span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="st">&quot;SOMETHING</span><span class="ch">\n</span><span class="st">PROFOUND&quot;</span>)</code></pre></div>
+<figure>
+<img src="pic/07-demo1.png" alt="Example 1: Various Drawing Features" /><figcaption>Example 1: Various Drawing Features</figcaption>
+</figure>
+<p>Example 2:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    fw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">55</span>, <span class="dv">42</span>, <span class="dv">58</span>, <span class="dv">67</span>)
+    fh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">161</span>, <span class="dv">154</span>, <span class="dv">170</span>, <span class="dv">178</span>)
+    mw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">85</span>, <span class="dv">75</span>, <span class="dv">93</span>, <span class="dv">63</span>, <span class="dv">75</span>, <span class="dv">89</span>)
+    mh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">185</span>, <span class="dv">174</span>, <span class="dv">188</span>, <span class="dv">178</span>, <span class="dv">167</span>, <span class="dv">181</span>)
+    <span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">main =</span> <span class="st">&quot;Female/Male: Height by Weight&quot;</span>,
+        <span class="dt">xlab =</span> <span class="st">&quot;Weight (kg)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Height (cm)&quot;</span>,
+        <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">100</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">200</span>))
+    <span class="kw">points</span>(fw, fh, <span class="dt">pch =</span> <span class="st">&quot;♀&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
+    <span class="kw">points</span>(mw, mh, <span class="dt">pch =</span> <span class="st">&quot;♂&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
+    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Men&quot;</span>),
+        <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;♀&quot;</span>,<span class="st">&quot;♂&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<figure>
+<img src="pic/07-demo2.png" alt="Example 2: Colored Graph with Legend" /><figcaption>Example 2: Colored Graph with Legend</figcaption>
+</figure>
 </body>
 </html>

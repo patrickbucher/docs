@@ -864,3 +864,111 @@ Convert explicitly from one type to another (coercion):
     8
 
     as.vector(a) # 1 2 3 4 5 6 7 8
+
+# Plotting
+
+Simple plots can be drawn using two vectors of x and y coordinates of the same
+length:
+
+    x <- c(3, 2, 7, 8)
+    y <- c(2, 5, 6, 1)
+    plot(x, y)
+
+When using matrices for plotting, the first column holds the x values, and the
+second column holds the y values:
+
+    m <- matrix(1:4, ncol = 2)
+
+    1   3   # point (1;3)
+    2   4   # point (2;4)
+
+    plot(m)
+
+When using a single vector for plotting, each value serves as the x and the y
+coordinate at the same time:
+
+    plot(1:3) # plots (1;1), (2;2), (3;3)
+
+Plots can be (optically) enhanced using various options:
+
+- `type`: the plotting style, a single character
+    - `"p"`: points
+    - `"l"`: lines
+    - `"b"`: both (points and lines)
+    - `"c"`: empty points joined by lines
+    - `"o"`: overplotted points and lines
+    - `"s"`: stair steps (lower Riemann areas)
+    - `"S"`: stair steps (upper Riemann areas)
+    - `"n"`: none
+- `main`: the main title of the plot, characters
+- `xlab`, `ylab`: labels for the x and y axis, characters
+- `pch`: the character to be used to draw the dots, either a number from 1 to 25
+  (pre-defined styles) or any single character
+- `cex`: character expansion, stretches the point by the given factor, a number
+- `lty`: the line type (`"solid"`, `"dotted"` or `"dashed"`)
+- `lwd`: the line width, a number
+- `xlim`, `ylim`: horizontal and vertical ranges as vectors (`c(lower, upper)`)
+- `col`: the color for the dots/lines, either a color name, a number (from 1 to
+  8) or a hex code (like `#ffffff` for white)
+
+## Additional Elements
+
+Calling the `plot()` function always creates a new output and removes the old
+one. Elements can be added to an existing plot using these functions:
+
+    lines(x = c(1, 3, 2), y = c(3, 1, 2))
+    # plots a line connecting P(1;3), P(3;1) and P(2;2)
+
+    points(x = c(1, 3, 2), y = c(3, 1, 2))
+    # plots the points P(1;3), P(3;1) and P(2;2)
+
+    text(x = 5, y = 3, "Nothing") # the text "Nothing" centered around P(5;3)
+
+    arrows(x0 = 1, y0 = 2, x1 = 4, y1 = 7)
+    # draws an arrow pointing from P(1;2) to P(4;7)
+
+    abline(a = 2, b = 3) # line with the slope 2 and y intercept 3 (P(0;3), that is)
+
+    abline(h = 2) # a horizontal line on y = 2
+    abline(v = 1) # a vertical line on x = 1
+
+    segments(x0 = c(1, 4), y0 = c(1, 1), x1 = c(1, 4), y1 = c(5, 5))
+    # two vertical lines from P(1;1) to P(1;5) and from P(4;1) to P(4;5)
+
+    legend(x = "bottomleft", legend = c("Male", "Female"), pch = c("+", "x"))
+    # a legend on the bottom left position (+: Male, x: Female)
+
+## Plotting Examples
+
+Example 1:
+
+```R
+    plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
+    abline(v = c(-3,3), h = c(7,13), lty = "dashed", col = "grey", lwd = 3)
+    x0 = c(-2.5, -2.5, -2.5, 2.5, 2.5, 2.5)
+    y0 = c(7.5, 10, 12.5, 12.5, 10, 7.5)
+    x1 = c(-1, -1, -1, 1, 1, 1)
+    y1 = c(9.5, 10, 10.5, 10.5, 10, 9.5)
+    arrows(x0, y0, x1, y1)
+    text(x = 0, y = 10, "SOMETHING\nPROFOUND")
+```
+
+![Example 1: Various Drawing Features](pic/07-demo1.png) 
+
+Example 2:
+
+```R
+    fw <- c(55, 42, 58, 67)
+    fh <- c(161, 154, 170, 178)
+    mw <- c(85, 75, 93, 63, 75, 89)
+    mh <- c(185, 174, 188, 178, 167, 181)
+    plot(x = c(), main = "Female/Male: Height by Weight",
+        xlab = "Weight (kg)", ylab = "Height (cm)",
+        xlim = c(40, 100), ylim = c(150, 200))
+    points(fw, fh, pch = "♀", col = "red")
+    points(mw, mh, pch = "♂", col = "blue")
+    legend(x = "topleft", legend = c("Female", "Men"),
+        pch = c("♀","♂"), col = c("red", "blue"))
+```
+
+![Example 2: Colored Graph with Legend](pic/07-demo2.png)
