@@ -706,6 +706,63 @@ The intervals can be named using labels:
     normal normal low high normal obese
     Levels: low normal high obese
 
+# Lists
+
+Lists can contain elements of different data types, including other lists,
+matrices etc.
+
+Create a list containing three different sized vectors of different types:
+
+    l <- list(c("a", "b", "c"), c(1:5), c(TRUE, FALSE)) 
+
+To acces list elements, use double square brackets:
+
+    l[[1]] # the vector "a" "b" "c"
+    l[[2]] # the vector 1 2 3 4 5
+    l[[3]] # the vector TRUE FALSE
+
+    l[[1]] <- c("X", "Y") # overwrite the first element
+
+    l[[3]][2] # the second vector element of the third list item (FALSE)
+
+To access multiple elements at once, use list slicing rather than double square
+brackets:
+
+    l[c(2,3)] # the vectors 1 2 3 4 5 and TRUE FALSE
+
+List elements can be named:
+
+    names(l) <- c("chars", "numbers", "logicals")
+
+List elements can also be named upon initialization:
+
+    l <- list(chars = c("a", "b", "c"), numbers = 1:5, logicals = c(T, F))
+    names(l) # "chars" "numbers" "logicals"
+
+To access list elements by name (rather than index), use dollar notation:
+
+    l$chars # "a" "b" "c"
+    l$numbers # 1 2 3 4 5
+    l$logicals # TRUE FALSE
+
+    l$chars[1] # "a"
+    l$numbers[5] # 5
+    l$logicals[2] # FALSE
+
+Lists can also be nested:
+
+    foo <- list(char = "A", num = 1, logical = TRUE)
+    bar <- list(char = "z", num = 9, logical = FALSE)
+
+    l <- list(first = foo, second = bar)
+
+    l$first$char # "A"
+    l$second$logical # FALSE
+
+# Data Frames
+
+TODO
+
 # Special Values
 
 ## Infinity
