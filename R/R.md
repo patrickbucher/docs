@@ -30,6 +30,10 @@ Load a stored session:
 ## Packages
 
 Install a new package (`MASS`, for example):
+    
+    install.packages("MASS")
+
+Load the installed `MASS` library:
 
     library("MASS")
 
