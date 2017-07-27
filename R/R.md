@@ -834,6 +834,10 @@ New columns can also made up using values of existing columns:
 Rows can be selected using logical expressions:
 
     a[a$mammal == TRUE, 1] # selects the first mammal of the data frame
+
+To select multiple columns, a vector of names can be used:
+
+    a[1:2,c("species", "mammal")] # columns species and mammal of row 1 and 2
     
 # Special Values
 

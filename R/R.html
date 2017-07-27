@@ -637,6 +637,8 @@ a &lt;- cbind(a, area)</code></pre>
 a$toes = a$legs * a$toesPerFoot</code></pre>
 <p>Rows can be selected using logical expressions:</p>
 <pre><code>a[a$mammal == TRUE, 1] # selects the first mammal of the data frame</code></pre>
+<p>To select multiple columns, a vector of names can be used:</p>
+<pre><code>a[1:2,c(&quot;species&quot;, &quot;mammal&quot;)] # columns species and mammal of row 1 and 2</code></pre>
 <h1 id="special-values"><span class="header-section-number">12</span> Special Values</h1>
 <h2 id="infinity"><span class="header-section-number">12.1</span> Infinity</h2>
 <p>Infinity (<code>Inf</code>) is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent::</p>
