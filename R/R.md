@@ -749,6 +749,10 @@ To access list elements by name (rather than index), use dollar notation:
     l$numbers[5] # 5
     l$logicals[2] # FALSE
 
+An element can be added to the list by assignment:
+
+    l$newElement <- c("new", "character", "vector")
+
 Lists can also be nested:
 
     foo <- list(char = "A", num = 1, logical = TRUE)
@@ -761,8 +765,56 @@ Lists can also be nested:
 
 # Data Frames
 
-TODO
+A data frame is a special kind of list with the restriction that the members
+must be all vectors of equal length. (Shorter vectors will be recycled, if
+possible).
 
+Create a data frame:
+
+    s <- c("cow", "spider", "whale")
+    l <- c(4, 8, 0)
+    m <- c(T, F, T)
+    animals <- data.frame(species = s, legs = l, mammal = m)
+
+Output (a table with named columns and numbered rows):
+
+      species legs mammal
+    1     cow    4   TRUE
+    2  spider    8  FALSE
+    3   whale    0   TRUE
+
+Elements can be accessed like matrices using row and column indices:
+
+    animals[3][1] # whale
+    animals[,2] # 4 8 0
+    animals[c(1,3),1] # cow whale
+
+Since the element vectors of a data frame are named, they can be accessed using
+that name:
+
+    animals$species # cow spider whale
+    animals$species[2] # spider
+
+The dimensions of a data frame can be explored using the same functions as for
+matrices:
+
+    nrow(animals) # 3
+    ncol(animals) # 3
+    dim(animals) # 3 3
+
+String values are treated as factors by default. This can be prevented upon
+creation:
+
+    data.frame(species = s, legs = l, mammal = m, stringsAsFactors = FALSE)
+
+If certain (but not all) non-numeric colums should be factors, they have to be
+created as factors in the first place:
+
+    s <- c("cow", "spider", "whale")
+    l <- c(4, 8, 0)
+    m <- factor(T, F, T)
+    a <- data.frame(species= s, legs = l, mammal = m, stringsAsFactors = F)
+    
 # Special Values
 
 ## Infinity

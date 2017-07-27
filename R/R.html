@@ -52,7 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">R</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">26.07.2017</p>
+<p class="date">27.07.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -586,6 +586,8 @@ l$logicals # TRUE FALSE
 l$chars[1] # &quot;a&quot;
 l$numbers[5] # 5
 l$logicals[2] # FALSE</code></pre>
+<p>An element can be added to the list by assignment:</p>
+<pre><code>l$newElement &lt;- c(&quot;new&quot;, &quot;character&quot;, &quot;vector&quot;)</code></pre>
 <p>Lists can also be nested:</p>
 <pre><code>foo &lt;- list(char = &quot;A&quot;, num = 1, logical = TRUE)
 bar &lt;- list(char = &quot;z&quot;, num = 9, logical = FALSE)
@@ -595,7 +597,35 @@ l &lt;- list(first = foo, second = bar)
 l$first$char # &quot;A&quot;
 l$second$logical # FALSE</code></pre>
 <h1 id="data-frames"><span class="header-section-number">11</span> Data Frames</h1>
-<p>TODO</p>
+<p>A data frame is a special kind of list with the restriction that the members must be all vectors of equal length. (Shorter vectors will be recycled, if possible).</p>
+<p>Create a data frame:</p>
+<pre><code>s &lt;- c(&quot;cow&quot;, &quot;spider&quot;, &quot;whale&quot;)
+l &lt;- c(4, 8, 0)
+m &lt;- c(T, F, T)
+animals &lt;- data.frame(species = s, legs = l, mammal = m)</code></pre>
+<p>Output (a table with named columns and numbered rows):</p>
+<pre><code>  species legs mammal
+1     cow    4   TRUE
+2  spider    8  FALSE
+3   whale    0   TRUE</code></pre>
+<p>Elements can be accessed like matrices using row and column indices:</p>
+<pre><code>animals[3][1] # whale
+animals[,2] # 4 8 0
+animals[c(1,3),1] # cow whale</code></pre>
+<p>Since the element vectors of a data frame are named, they can be accessed using that name:</p>
+<pre><code>animals$species # cow spider whale
+animals$species[2] # spider</code></pre>
+<p>The dimensions of a data frame can be explored using the same functions as for matrices:</p>
+<pre><code>nrow(animals) # 3
+ncol(animals) # 3
+dim(animals) # 3 3</code></pre>
+<p>String values are treated as factors by default. This can be prevented upon creation:</p>
+<pre><code>data.frame(species = s, legs = l, mammal = m, stringsAsFactors = FALSE)</code></pre>
+<p>If certain (but not all) non-numeric colums should be factors, they have to be created as factors in the first place:</p>
+<pre><code>s &lt;- c(&quot;cow&quot;, &quot;spider&quot;, &quot;whale&quot;)
+l &lt;- c(4, 8, 0)
+m &lt;- factor(T, F, T)
+a &lt;- data.frame(species= s, legs = l, mammal = m, stringsAsFactors = F)</code></pre>
 <h1 id="special-values"><span class="header-section-number">12</span> Special Values</h1>
 <h2 id="infinity"><span class="header-section-number">12.1</span> Infinity</h2>
 <p>Infinity (<code>Inf</code>) is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent::</p>
