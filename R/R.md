@@ -710,6 +710,139 @@ The intervals can be named using labels:
     normal normal low high normal obese
     Levels: low normal high obese
 
+# Lists
+
+Lists can contain elements of different data types, including other lists,
+matrices etc.
+
+Create a list containing three different sized vectors of different types:
+
+    l <- list(c("a", "b", "c"), c(1:5), c(TRUE, FALSE)) 
+
+To acces list elements, use double square brackets:
+
+    l[[1]] # the vector "a" "b" "c"
+    l[[2]] # the vector 1 2 3 4 5
+    l[[3]] # the vector TRUE FALSE
+
+    l[[1]] <- c("X", "Y") # overwrite the first element
+
+    l[[3]][2] # the second vector element of the third list item (FALSE)
+
+To access multiple elements at once, use list slicing rather than double square
+brackets:
+
+    l[c(2,3)] # the vectors 1 2 3 4 5 and TRUE FALSE
+
+List elements can be named:
+
+    names(l) <- c("chars", "numbers", "logicals")
+
+List elements can also be named upon initialization:
+
+    l <- list(chars = c("a", "b", "c"), numbers = 1:5, logicals = c(T, F))
+    names(l) # "chars" "numbers" "logicals"
+
+To access list elements by name (rather than index), use dollar notation:
+
+    l$chars # "a" "b" "c"
+    l$numbers # 1 2 3 4 5
+    l$logicals # TRUE FALSE
+
+    l$chars[1] # "a"
+    l$numbers[5] # 5
+    l$logicals[2] # FALSE
+
+An element can be added to the list by assignment:
+
+    l$newElement <- c("new", "character", "vector")
+
+Lists can also be nested:
+
+    foo <- list(char = "A", num = 1, logical = TRUE)
+    bar <- list(char = "z", num = 9, logical = FALSE)
+
+    l <- list(first = foo, second = bar)
+
+    l$first$char # "A"
+    l$second$logical # FALSE
+
+# Data Frames
+
+A data frame is a special kind of list with the restriction that the members
+must be all vectors of equal length. (Shorter vectors will be recycled, if
+possible).
+
+Create a data frame:
+
+    s <- c("cow", "spider", "whale")
+    l <- c(4, 8, 0)
+    m <- c(T, F, T)
+    animals <- data.frame(species = s, legs = l, mammal = m)
+
+Output (a table with named columns and numbered rows):
+
+      species legs mammal
+    1     cow    4   TRUE
+    2  spider    8  FALSE
+    3   whale    0   TRUE
+
+Elements can be accessed like matrices using row and column indices:
+
+    animals[3][1] # whale
+    animals[,2] # 4 8 0
+    animals[c(1,3),1] # cow whale
+
+Since the element vectors of a data frame are named, they can be accessed using
+that name:
+
+    animals$species # cow spider whale
+    animals$species[2] # spider
+
+The dimensions of a data frame can be explored using the same functions as for
+matrices:
+
+    nrow(animals) # 3
+    ncol(animals) # 3
+    dim(animals) # 3 3
+
+String values are treated as factors by default. This can be prevented upon
+creation:
+
+    a <- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)
+
+If certain (but not all) non-numeric colums should be factors, they have to be
+created as factors in the first place:
+
+    s <- c("cow", "spider", "whale")
+    l <- c(4, 8, 0)
+    m <- factor(c(T, F, T))
+    a <- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)
+
+Rows can be added to a data frame by creating a new data frame of similar
+structure and adding it to the existing data frame:
+
+    bird <- data.frame(species = "bird", legs = 2, mammal = FALSE)
+    a <- rbind(a, bird)
+
+Columns can be added to a data frame by creating a new vector and adding it:
+
+    area <- c("land", "land", "sea", "air")
+    a <- cbind(a, area)
+
+New columns can also made up using values of existing columns:
+
+    a$toesPerFoot = c(0, 0, 0, 3)
+    a$toes = a$legs * a$toesPerFoot
+
+Rows can be selected using logical expressions:
+
+    a[a$mammal == TRUE, 1] # selects the first mammal of the data frame
+
+To select multiple columns, a vector of names can be used:
+
+    a[1:2,c("species", "mammal")] # columns species and mammal of row 1 and 2
+    
 # Special Values
 
 ## Infinity

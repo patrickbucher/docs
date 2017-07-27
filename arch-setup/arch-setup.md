@@ -285,3 +285,21 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
 Make sure to use the curses version of `pinentry`:
 
     ln -fs /usr/bin/pinentry-ncurses /usr/bin/pinentry
+
+## Docker
+
+Install docker:
+
+    pacman -S docker
+
+Start and enable the docker service:
+
+    systemctl enable docker.service
+    systemctl start docker.service
+
+Create a special docker user and add it to the docker group:
+
+    adduser -m docker
+    usermod -a -G docker docker
+
+Logout and login again.
