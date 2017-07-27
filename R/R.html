@@ -620,12 +620,23 @@ animals$species[2] # spider</code></pre>
 ncol(animals) # 3
 dim(animals) # 3 3</code></pre>
 <p>String values are treated as factors by default. This can be prevented upon creation:</p>
-<pre><code>data.frame(species = s, legs = l, mammal = m, stringsAsFactors = FALSE)</code></pre>
+<pre><code>a &lt;- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)</code></pre>
 <p>If certain (but not all) non-numeric colums should be factors, they have to be created as factors in the first place:</p>
 <pre><code>s &lt;- c(&quot;cow&quot;, &quot;spider&quot;, &quot;whale&quot;)
 l &lt;- c(4, 8, 0)
-m &lt;- factor(T, F, T)
-a &lt;- data.frame(species= s, legs = l, mammal = m, stringsAsFactors = F)</code></pre>
+m &lt;- factor(c(T, F, T))
+a &lt;- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)</code></pre>
+<p>Rows can be added to a data frame by creating a new data frame of similar structure and adding it to the existing data frame:</p>
+<pre><code>bird &lt;- data.frame(species = &quot;bird&quot;, legs = 2, mammal = FALSE)
+a &lt;- rbind(a, bird)</code></pre>
+<p>Columns can be added to a data frame by creating a new vector and adding it:</p>
+<pre><code>area &lt;- c(&quot;land&quot;, &quot;land&quot;, &quot;sea&quot;, &quot;air&quot;)
+a &lt;- cbind(a, area)</code></pre>
+<p>New columns can also made up using values of existing columns:</p>
+<pre><code>a$toesPerFoot = c(0, 0, 0, 3)
+a$toes = a$legs * a$toesPerFoot</code></pre>
+<p>Rows can be selected using logical expressions:</p>
+<pre><code>a[a$mammal == TRUE, 1] # selects the first mammal of the data frame</code></pre>
 <h1 id="special-values"><span class="header-section-number">12</span> Special Values</h1>
 <h2 id="infinity"><span class="header-section-number">12.1</span> Infinity</h2>
 <p>Infinity (<code>Inf</code>) is not a number, but a concept describing a number higher than the highest representable number, which is platform dependent::</p>

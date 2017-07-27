@@ -805,15 +805,35 @@ matrices:
 String values are treated as factors by default. This can be prevented upon
 creation:
 
-    data.frame(species = s, legs = l, mammal = m, stringsAsFactors = FALSE)
+    a <- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)
 
 If certain (but not all) non-numeric colums should be factors, they have to be
 created as factors in the first place:
 
     s <- c("cow", "spider", "whale")
     l <- c(4, 8, 0)
-    m <- factor(T, F, T)
-    a <- data.frame(species= s, legs = l, mammal = m, stringsAsFactors = F)
+    m <- factor(c(T, F, T))
+    a <- data.frame(species = s, legs = l, mammal = m, stringsAsFactors = F)
+
+Rows can be added to a data frame by creating a new data frame of similar
+structure and adding it to the existing data frame:
+
+    bird <- data.frame(species = "bird", legs = 2, mammal = FALSE)
+    a <- rbind(a, bird)
+
+Columns can be added to a data frame by creating a new vector and adding it:
+
+    area <- c("land", "land", "sea", "air")
+    a <- cbind(a, area)
+
+New columns can also made up using values of existing columns:
+
+    a$toesPerFoot = c(0, 0, 0, 3)
+    a$toes = a$legs * a$toesPerFoot
+
+Rows can be selected using logical expressions:
+
+    a[a$mammal == TRUE, 1] # selects the first mammal of the data frame
     
 # Special Values
 
