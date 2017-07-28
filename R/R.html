@@ -113,7 +113,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#programming"><span class="toc-section-number">2</span> Programming</a><ul>
-<li><a href="#conditions"><span class="toc-section-number">2.1</span> Conditions</a></li>
+<li><a href="#conditions"><span class="toc-section-number">2.1</span> Conditions</a><ul>
+<li><a href="#if-else-if-else"><span class="toc-section-number">2.1.1</span> If, Else If, Else</a></li>
+<li><a href="#switch-case"><span class="toc-section-number">2.1.2</span> Switch-Case</a></li>
+</ul></li>
 <li><a href="#loops"><span class="toc-section-number">2.2</span> Loops</a><ul>
 <li><a href="#for-loops"><span class="toc-section-number">2.2.1</span> For Loops</a></li>
 <li><a href="#while-loops"><span class="toc-section-number">2.2.2</span> While Loops</a></li>
@@ -1019,82 +1022,91 @@ dput(x = m, file = &quot;matrix.txt&quot;)</code></pre>
 <pre><code>m &lt;- dget(file = &quot;matrix.txt&quot;)</code></pre>
 <h1 id="programming"><span class="header-section-number">2</span> Programming</h1>
 <h2 id="conditions"><span class="header-section-number">2.1</span> Conditions</h2>
+<h3 id="if-else-if-else"><span class="header-section-number">2.1.1</span> If, Else If, Else</h3>
 <p>Simple <code>if</code>-<code>else if</code>-<code>else</code> conditions:</p>
-<p>r &lt;- sample(1:10, 1) # random number from 1 to 10</p>
-<p>if (r &gt; 6) { print(“big”) } else if (r &lt; 4) { print(“small”) } else { print(“medium”) }</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span>) <span class="co"># random number from 1 to 10</span>
+
+<span class="cf">if</span> (r <span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>) {
+   <span class="kw">print</span>(<span class="st">&quot;big&quot;</span>)
+} <span class="cf">else</span> <span class="cf">if</span> (r <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>) {
+   <span class="kw">print</span>(<span class="st">&quot;small&quot;</span>)
+} <span class="cf">else</span> {
+   <span class="kw">print</span>(<span class="st">&quot;medium&quot;</span>)
+}</code></pre></div>
 <p>Combined logical conditions:</p>
-<pre><code>year &lt;- sample(c(1900:2100), 1) # a random year from 1900 to 2100
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">year &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1900</span><span class="op">:</span><span class="dv">2100</span>), <span class="dv">1</span>) <span class="co"># a random year from 1900 to 2100</span>
 
-if (year %% 4 == 0 &amp;&amp; (year %% 100 != 0 || year %% 400 == 0)) {
-    cat(year, &quot;is a leap year&quot;)
-} else {
-    cat(year, &quot;is not a leap year&quot;)
-}</code></pre>
+<span class="cf">if</span> (year <span class="op">%%</span><span class="st"> </span><span class="dv">4</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>(year <span class="op">%%</span><span class="st"> </span><span class="dv">100</span> <span class="op">!=</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>year <span class="op">%%</span><span class="st"> </span><span class="dv">400</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {
+    <span class="kw">cat</span>(year, <span class="st">&quot;is a leap year&quot;</span>)
+} <span class="cf">else</span> {
+    <span class="kw">cat</span>(year, <span class="st">&quot;is not a leap year&quot;</span>)
+}</code></pre></div>
 <p>Apply conditions to a series of numbers:</p>
-<pre><code>x &lt;- sample(1:10, 5) # 5 numbers from 1 to 10
-y &lt;- sample(0:2, replace = TRUE, 5) # 5 numbers from 0 to 2
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>) <span class="co"># 5 numbers from 1 to 10</span>
+y &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dv">5</span>) <span class="co"># 5 numbers from 0 to 2</span>
 
-q &lt;- ifelse(test = (y != 0), yes = (x / y), no = NA)
-# divide x by y if y is not equal to y, otherwhise return NA</code></pre>
+q &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="dt">test =</span> (y <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">yes =</span> (x <span class="op">/</span><span class="st"> </span>y), <span class="dt">no =</span> <span class="ot">NA</span>)
+<span class="co"># divide x by y if y is not equal to y, otherwhise return NA</span></code></pre></div>
+<h3 id="switch-case"><span class="header-section-number">2.1.2</span> Switch-Case</h3>
 <p>Switch-case in R is implemented as a function:</p>
-<pre><code>animal &lt;- sample(c(&quot;Spider&quot;, &quot;Cow&quot;, &quot;Bird&quot;), 1)
-legs &lt;- switch(EXPR = animal, Spider = 8, Cow = 4, Bird = 2)
-cat(animal, legs) # prints either &quot;Spider 8&quot;, &quot;Cow 4&quot; or &quot;Bird 2&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">animal &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Spider&quot;</span>, <span class="st">&quot;Cow&quot;</span>, <span class="st">&quot;Bird&quot;</span>), <span class="dv">1</span>)
+legs &lt;-<span class="st"> </span><span class="cf">switch</span>(<span class="dt">EXPR =</span> animal, <span class="dt">Spider =</span> <span class="dv">8</span>, <span class="dt">Cow =</span> <span class="dv">4</span>, <span class="dt">Bird =</span> <span class="dv">2</span>)
+<span class="kw">cat</span>(animal, legs) <span class="co"># prints either &quot;Spider 8&quot;, &quot;Cow 4&quot; or &quot;Bird 2&quot;</span></code></pre></div>
 <h2 id="loops"><span class="header-section-number">2.2</span> Loops</h2>
 <h3 id="for-loops"><span class="header-section-number">2.2.1</span> For Loops</h3>
 <p>Loop over the elements of a vector (by value):</p>
-<pre><code>abc &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-for (i in abc) {
-    print(i)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> abc) {
+    <span class="kw">print</span>(i)
 }
-# prints &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<span class="co"># prints &quot;A&quot; &quot;B&quot; &quot;C&quot;</span></code></pre></div>
 <p>Loop over the elements of a vector (by index):</p>
-<pre><code>abc &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-for (i in 1:length(abc)) {
-    print(abc[i])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(abc)) {
+    <span class="kw">print</span>(abc[i])
 }
-# prints &quot;A&quot; &quot;B&quot; &quot;C&quot;, too</code></pre>
+<span class="co"># prints &quot;A&quot; &quot;B&quot; &quot;C&quot;, too</span></code></pre></div>
 <p>Nested loops (implementing the “Bubble Sort” algorithm):</p>
-<pre><code>x &lt;- sample(1:10, 10)
-print(x)
-for (i in 1:length(x)) {
-    for (j in 1:length(x)) {
-        if (x[i] &lt; x[j]) {
-            tmp &lt;- x[i]
-            x[i] &lt;- x[j]
-            x[j] &lt;- tmp
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">10</span>)
+<span class="kw">print</span>(x)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {
+    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {
+        <span class="cf">if</span> (x[i] <span class="op">&lt;</span><span class="st"> </span>x[j]) {
+            tmp &lt;-<span class="st"> </span>x[i]
+            x[i] &lt;-<span class="st"> </span>x[j]
+            x[j] &lt;-<span class="st"> </span>tmp
         }
     }
-}</code></pre>
+}</code></pre></div>
 <h3 id="while-loops"><span class="header-section-number">2.2.2</span> While Loops</h3>
 <p>Loop as long as a condition holds true:</p>
-<pre><code>x &lt;- 3
-while (x &gt; 0) {
-    print(x)
-    x &lt;- x - 1
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">3</span>
+<span class="cf">while</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">print</span>(x)
+    x &lt;-<span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 }
-# prints 3 2 1</code></pre>
+<span class="co"># prints 3 2 1</span></code></pre></div>
 <p>Use a loop to get input from the user:</p>
-<pre><code>number = 0
-while (number &lt;= 0) {
-    input = readline(prompt = &quot;Enter a positive number: &quot;)
-    number = as.numeric(input)
-} </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">number =<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span> (number <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) {
+    input =<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Enter a positive number: &quot;</span>)
+    number =<span class="st"> </span><span class="kw">as.numeric</span>(input)
+} </code></pre></div>
 <h3 id="implicit-looping"><span class="header-section-number">2.2.3</span> Implicit Looping</h3>
 <p>Apply a function to the columns or rows of a matrix (define the dimension the function should be applied to using the <code>MARGIN</code> parameter):</p>
-<pre><code>m &lt;- matrix(data = sample(1:16, 16), ncol = 2)
-rowSums = apply(X = m, MARGIN = 1, FUN = sum)
-colSums = apply(X = m, MARGIN = 2, FUN = sum)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dv">16</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)
+rowSums =<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> m, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="dt">FUN =</span> sum)
+colSums =<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> m, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> sum)</code></pre></div>
 <p>Create a random matrix, sum up its rows and put the result in a new matrix:</p>
-<pre><code>numbers &lt;- sample(1:8, 8)
-m &lt;- matrix(data = numbers, ncol = 2, dimnames = list(1:4, c(&quot;A&quot;,&quot;B&quot;)))
-rowSums &lt;- apply(X = m, MARGIN = 1, FUN = sum)
-colums &lt;- cbind(m, rowSums)
-m2 &lt;- matrix(columns, ncol = 3, dimnames = list(1:4, c(&quot;A&quot;, &quot;B&quot;, &quot;Sum&quot;)))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dv">8</span>)
+m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> numbers, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)))
+rowSums &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> m, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="dt">FUN =</span> sum)
+colums &lt;-<span class="st"> </span><span class="kw">cbind</span>(m, rowSums)
+m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(columns, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;Sum&quot;</span>)))</code></pre></div>
 <p>Apply a function to every member of a list:</p>
-<pre><code>l &lt;- list(&quot;a&quot;, 13, TRUE)
-lapply(X = l, FUN = is.numeric) # returns a list (FALSE TRUE FALSE)
-sapply(X = l, FUN = is.numeric) # returns a vector (FALSE TRUE FALSE)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">13</span>, <span class="ot">TRUE</span>)
+<span class="kw">lapply</span>(<span class="dt">X =</span> l, <span class="dt">FUN =</span> is.numeric) <span class="co"># returns a list (FALSE TRUE FALSE)</span>
+<span class="kw">sapply</span>(<span class="dt">X =</span> l, <span class="dt">FUN =</span> is.numeric) <span class="co"># returns a vector (FALSE TRUE FALSE)</span></code></pre></div>
 <h3 id="leave-a-loop"><span class="header-section-number">2.2.4</span> Leave a Loop</h3>
 <p>A loop can be left prematurely using the <code>break</code> keyword (a binary search to guess a secret number):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">min =<span class="st"> </span><span class="dv">1</span>
