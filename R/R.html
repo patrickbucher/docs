@@ -245,7 +245,7 @@ rep(1, 3) # same but shorter</code></pre>
 rep(1:3, 2), # same but shorter</code></pre>
 <p>Repeat items instead of the whole sequence:</p>
 <pre><code>rep(1:3, each = 2) # 1 1 2 2 3 3</code></pre>
-<p>Repeat using <code>eech</code> and <code>times</code> combined:</p>
+<p>Repeat using <code>each</code> and <code>times</code> combined:</p>
 <pre><code>rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2</code></pre>
 <h3 id="sorting"><span class="header-section-number">1.3.3</span> Sorting</h3>
 <p>Sort (in ascending order):</p>
@@ -1200,7 +1200,7 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
 }
 <span class="kw">average</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dv">100</span>))</code></pre></div>
 <p>Functions can also defined <em>ad hoc</em>, so called disposable functions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(x) { x <span class="op">**</span><span class="st"> </span><span class="dv">2</span> })
-    <span class="co"># squares all the numbers from 1 to 10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(x) { x <span class="op">**</span><span class="st"> </span><span class="dv">2</span> })
+<span class="co"># squares all the numbers from 1 to 10</span></code></pre></div>
 </body>
 </html>

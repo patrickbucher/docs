@@ -1,2 +1,3 @@
 pandoc R.md --toc -N -S -s -c style.css -t html5 -V title="Programming and Statistics with R" -V author="Patrick Bucher" -V date=$(date +'%d.%m.%Y') -o R.html
 pandoc R.md --toc -N -S -s -c style.css -t epub -V title="Programming and Statistics with R" -V author="Patrick Bucher" -V date=$(date +'%d.%m.%Y') -o R.epub
+pandoc R.md --latex-engine=xelatex --toc -N -S -s -c style.css -t latex -V title="Programming and Statistics with R" -V author="Patrick Bucher" -V date=$(date +'%d.%m.%Y') -V documentclass=scrbook -V classoption=11pt -V papersize=a4 -V mainfont='Droid Serif' -V sansfont='Droid Sans' -V monofont='Fira Mono' -o R.pdf

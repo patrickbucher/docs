@@ -213,7 +213,7 @@ Repeat items instead of the whole sequence:
 
     rep(1:3, each = 2) # 1 1 2 2 3 3
 
-Repeat using `eech` and `times` combined:
+Repeat using `each` and `times` combined:
 
     rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2
 
@@ -1652,6 +1652,6 @@ average(sample(1:10, replace = TRUE, 100))
 Functions can also defined _ad hoc_, so called disposable functions:
 
 ```R
-    sapply(1:10, FUN = function(x) { x ** 2 })
-    # squares all the numbers from 1 to 10
+sapply(1:10, FUN = function(x) { x ** 2 })
+# squares all the numbers from 1 to 10
 ```
