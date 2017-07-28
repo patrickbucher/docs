@@ -1376,3 +1376,189 @@ Retreive a formerly stored object from a file:
     m <- dget(file = "matrix.txt")
 
 # Programming
+
+## Conditions
+
+Simple `if`-`else if`-`else` conditions:
+
+   r <- sample(1:10, 1) # random number from 1 to 10
+
+   if (r > 6) {
+       print("big")
+   } else if (r < 4) {
+       print("small")
+   } else {
+       print("medium")
+   }
+
+Combined logical conditions:
+
+    year <- sample(c(1900:2100), 1) # a random year from 1900 to 2100
+
+    if (year %% 4 == 0 && (year %% 100 != 0 || year %% 400 == 0)) {
+        cat(year, "is a leap year")
+    } else {
+        cat(year, "is not a leap year")
+    }
+
+Apply conditions to a series of numbers:
+
+    x <- sample(1:10, 5) # 5 numbers from 1 to 10
+    y <- sample(0:2, replace = TRUE, 5) # 5 numbers from 0 to 2
+
+    q <- ifelse(test = (y != 0), yes = (x / y), no = NA)
+    # divide x by y if y is not equal to y, otherwhise return NA
+
+Switch-case in R is implemented as a function:
+
+    animal <- sample(c("Spider", "Cow", "Bird"), 1)
+    legs <- switch(EXPR = animal, Spider = 8, Cow = 4, Bird = 2)
+    cat(animal, legs) # prints either "Spider 8", "Cow 4" or "Bird 2"
+
+## Loops
+
+### For Loops
+
+Loop over the elements of a vector (by value):
+
+    abc <- c("A", "B", "C")
+    for (i in abc) {
+        print(i)
+    }
+    # prints "A" "B" "C"
+
+Loop over the elements of a vector (by index):
+
+    abc <- c("A", "B", "C")
+    for (i in 1:length(abc)) {
+        print(abc[i])
+    }
+    # prints "A" "B" "C", too
+
+Nested loops (implementing the "Bubble Sort" algorithm):
+
+    x <- sample(1:10, 10)
+    print(x)
+    for (i in 1:length(x)) {
+        for (j in 1:length(x)) {
+            if (x[i] < x[j]) {
+                tmp <- x[i]
+                x[i] <- x[j]
+                x[j] <- tmp
+            }
+        }
+    }
+
+### While Loops
+
+Loop as long as a condition holds true:
+
+    x <- 3
+    while (x > 0) {
+        print(x)
+        x <- x - 1
+    }
+    # prints 3 2 1
+
+Use a loop to get input from the user:
+
+    number = 0
+    while (number <= 0) {
+        input = readline(prompt = "Enter a positive number: ")
+        number = as.numeric(input)
+    } 
+
+### Implicit Looping
+
+Apply a function to the columns or rows of a matrix (define the dimension the
+function should be applied to using the `MARGIN` parameter):
+
+    m <- matrix(data = sample(1:16, 16), ncol = 2)
+    rowSums = apply(X = m, MARGIN = 1, FUN = sum)
+    colSums = apply(X = m, MARGIN = 2, FUN = sum)
+
+Create a random matrix, sum up its rows and put the result in a new matrix:
+
+    numbers <- sample(1:8, 8)
+    m <- matrix(data = numbers, ncol = 2, dimnames = list(1:4, c("A","B")))
+    rowSums <- apply(X = m, MARGIN = 1, FUN = sum)
+    colums <- cbind(m, rowSums)
+    m2 <- matrix(columns, ncol = 3, dimnames = list(1:4, c("A", "B", "Sum")))
+
+Apply a function to every member of a list:
+
+    l <- list("a", 13, TRUE)
+    lapply(X = l, FUN = is.numeric) # returns a list (FALSE TRUE FALSE)
+    sapply(X = l, FUN = is.numeric) # returns a vector (FALSE TRUE FALSE)
+
+### Leave a Loop
+
+A loop can be left prematurely using the `break` keyword (a binary search to
+guess a secret number):
+
+```R
+min = 1
+max = 100
+secret = sample(min:max, 1)
+print(paste("don't tell: the secret number is", secret))
+
+guess = 0
+tries = 0
+while (TRUE) {
+    guess = as.integer((min + max) / 2)
+    print(paste("guessed", guess))
+    tries <- tries + 1
+    if (guess == secret) {
+        print("right")
+        print(paste("found the secret after", tries, "attempts"))
+        break
+    } else {
+        print("wrong")
+        if (guess > secret) {
+            max = guess
+        } else {
+            min = guess
+        }
+    }
+}
+```
+
+### Skip a Loop Item
+
+A loop item can be skipped using the `next` keyword (a loop that performs
+divisions only on non-zero divisors):
+
+```R
+n <- 10
+dividends = sample(1:100, n)
+divisors = sample(0:3, replace = TRUE, n)
+
+for (i in 1:n) {
+    if (divisors[i] == 0) {
+        next
+    }
+    q <- dividends[i] / divisors[i]
+    print(paste(dividends[i], "/", divisors[i], "=", q))
+}
+```
+
+### Repeat
+
+Instead of writing `while(TRUE)`, an endless loop can be defined using the
+`repeat` keyword (such a loop can only be ended using `break`):
+
+```R
+print("CC: CrappyCalculator")
+repeat {
+    i <- trimws(readline("Enter '+' for addition or 'q' to quit: "))
+    if (i == "q") {
+        break
+    }
+    if (i != "+") {
+        next
+    }
+    a <- as.numeric(readline("Enter a number: "))
+    b <- as.numeric(readline("Enter another number: "))
+    print(paste(a, "+", b, "is", a + b))
+}
+```

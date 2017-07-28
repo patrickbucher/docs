@@ -112,7 +112,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#writing-files"><span class="toc-section-number">1.15.3</span> Writing Files</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#programming"><span class="toc-section-number">2</span> Programming</a></li>
+<li><a href="#programming"><span class="toc-section-number">2</span> Programming</a><ul>
+<li><a href="#conditions"><span class="toc-section-number">2.1</span> Conditions</a></li>
+<li><a href="#loops"><span class="toc-section-number">2.2</span> Loops</a><ul>
+<li><a href="#for-loops"><span class="toc-section-number">2.2.1</span> For Loops</a></li>
+<li><a href="#while-loops"><span class="toc-section-number">2.2.2</span> While Loops</a></li>
+<li><a href="#implicit-looping"><span class="toc-section-number">2.2.3</span> Implicit Looping</a></li>
+<li><a href="#leave-a-loop"><span class="toc-section-number">2.2.4</span> Leave a Loop</a></li>
+<li><a href="#skip-a-loop-item"><span class="toc-section-number">2.2.5</span> Skip a Loop Item</a></li>
+<li><a href="#repeat"><span class="toc-section-number">2.2.6</span> Repeat</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
 <h1 id="basics"><span class="header-section-number">1</span> Basics</h1>
@@ -1008,5 +1018,136 @@ dput(x = m, file = &quot;matrix.txt&quot;)</code></pre>
 <p>Retreive a formerly stored object from a file:</p>
 <pre><code>m &lt;- dget(file = &quot;matrix.txt&quot;)</code></pre>
 <h1 id="programming"><span class="header-section-number">2</span> Programming</h1>
+<h2 id="conditions"><span class="header-section-number">2.1</span> Conditions</h2>
+<p>Simple <code>if</code>-<code>else if</code>-<code>else</code> conditions:</p>
+<p>r &lt;- sample(1:10, 1) # random number from 1 to 10</p>
+<p>if (r &gt; 6) { print(“big”) } else if (r &lt; 4) { print(“small”) } else { print(“medium”) }</p>
+<p>Combined logical conditions:</p>
+<pre><code>year &lt;- sample(c(1900:2100), 1) # a random year from 1900 to 2100
+
+if (year %% 4 == 0 &amp;&amp; (year %% 100 != 0 || year %% 400 == 0)) {
+    cat(year, &quot;is a leap year&quot;)
+} else {
+    cat(year, &quot;is not a leap year&quot;)
+}</code></pre>
+<p>Apply conditions to a series of numbers:</p>
+<pre><code>x &lt;- sample(1:10, 5) # 5 numbers from 1 to 10
+y &lt;- sample(0:2, replace = TRUE, 5) # 5 numbers from 0 to 2
+
+q &lt;- ifelse(test = (y != 0), yes = (x / y), no = NA)
+# divide x by y if y is not equal to y, otherwhise return NA</code></pre>
+<p>Switch-case in R is implemented as a function:</p>
+<pre><code>animal &lt;- sample(c(&quot;Spider&quot;, &quot;Cow&quot;, &quot;Bird&quot;), 1)
+legs &lt;- switch(EXPR = animal, Spider = 8, Cow = 4, Bird = 2)
+cat(animal, legs) # prints either &quot;Spider 8&quot;, &quot;Cow 4&quot; or &quot;Bird 2&quot;</code></pre>
+<h2 id="loops"><span class="header-section-number">2.2</span> Loops</h2>
+<h3 id="for-loops"><span class="header-section-number">2.2.1</span> For Loops</h3>
+<p>Loop over the elements of a vector (by value):</p>
+<pre><code>abc &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+for (i in abc) {
+    print(i)
+}
+# prints &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<p>Loop over the elements of a vector (by index):</p>
+<pre><code>abc &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+for (i in 1:length(abc)) {
+    print(abc[i])
+}
+# prints &quot;A&quot; &quot;B&quot; &quot;C&quot;, too</code></pre>
+<p>Nested loops (implementing the “Bubble Sort” algorithm):</p>
+<pre><code>x &lt;- sample(1:10, 10)
+print(x)
+for (i in 1:length(x)) {
+    for (j in 1:length(x)) {
+        if (x[i] &lt; x[j]) {
+            tmp &lt;- x[i]
+            x[i] &lt;- x[j]
+            x[j] &lt;- tmp
+        }
+    }
+}</code></pre>
+<h3 id="while-loops"><span class="header-section-number">2.2.2</span> While Loops</h3>
+<p>Loop as long as a condition holds true:</p>
+<pre><code>x &lt;- 3
+while (x &gt; 0) {
+    print(x)
+    x &lt;- x - 1
+}
+# prints 3 2 1</code></pre>
+<p>Use a loop to get input from the user:</p>
+<pre><code>number = 0
+while (number &lt;= 0) {
+    input = readline(prompt = &quot;Enter a positive number: &quot;)
+    number = as.numeric(input)
+} </code></pre>
+<h3 id="implicit-looping"><span class="header-section-number">2.2.3</span> Implicit Looping</h3>
+<p>Apply a function to the columns or rows of a matrix (define the dimension the function should be applied to using the <code>MARGIN</code> parameter):</p>
+<pre><code>m &lt;- matrix(data = sample(1:16, 16), ncol = 2)
+rowSums = apply(X = m, MARGIN = 1, FUN = sum)
+colSums = apply(X = m, MARGIN = 2, FUN = sum)</code></pre>
+<p>Create a random matrix, sum up its rows and put the result in a new matrix:</p>
+<pre><code>numbers &lt;- sample(1:8, 8)
+m &lt;- matrix(data = numbers, ncol = 2, dimnames = list(1:4, c(&quot;A&quot;,&quot;B&quot;)))
+rowSums &lt;- apply(X = m, MARGIN = 1, FUN = sum)
+colums &lt;- cbind(m, rowSums)
+m2 &lt;- matrix(columns, ncol = 3, dimnames = list(1:4, c(&quot;A&quot;, &quot;B&quot;, &quot;Sum&quot;)))</code></pre>
+<p>Apply a function to every member of a list:</p>
+<pre><code>l &lt;- list(&quot;a&quot;, 13, TRUE)
+lapply(X = l, FUN = is.numeric) # returns a list (FALSE TRUE FALSE)
+sapply(X = l, FUN = is.numeric) # returns a vector (FALSE TRUE FALSE)</code></pre>
+<h3 id="leave-a-loop"><span class="header-section-number">2.2.4</span> Leave a Loop</h3>
+<p>A loop can be left prematurely using the <code>break</code> keyword (a binary search to guess a secret number):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">min =<span class="st"> </span><span class="dv">1</span>
+max =<span class="st"> </span><span class="dv">100</span>
+secret =<span class="st"> </span><span class="kw">sample</span>(min<span class="op">:</span>max, <span class="dv">1</span>)
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;don&#39;t tell: the secret number is&quot;</span>, secret))
+
+guess =<span class="st"> </span><span class="dv">0</span>
+tries =<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span> (<span class="ot">TRUE</span>) {
+    guess =<span class="st"> </span><span class="kw">as.integer</span>((min <span class="op">+</span><span class="st"> </span>max) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
+    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;guessed&quot;</span>, guess))
+    tries &lt;-<span class="st"> </span>tries <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+    <span class="cf">if</span> (guess <span class="op">==</span><span class="st"> </span>secret) {
+        <span class="kw">print</span>(<span class="st">&quot;right&quot;</span>)
+        <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;found the secret after&quot;</span>, tries, <span class="st">&quot;attempts&quot;</span>))
+        <span class="cf">break</span>
+    } <span class="cf">else</span> {
+        <span class="kw">print</span>(<span class="st">&quot;wrong&quot;</span>)
+        <span class="cf">if</span> (guess <span class="op">&gt;</span><span class="st"> </span>secret) {
+            max =<span class="st"> </span>guess
+        } <span class="cf">else</span> {
+            min =<span class="st"> </span>guess
+        }
+    }
+}</code></pre></div>
+<h3 id="skip-a-loop-item"><span class="header-section-number">2.2.5</span> Skip a Loop Item</h3>
+<p>A loop item can be skipped using the <code>next</code> keyword (a loop that performs divisions only on non-zero divisors):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">10</span>
+dividends =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, n)
+divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, n)
+
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+    <span class="cf">if</span> (divisors[i] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="cf">next</span>
+    }
+    q &lt;-<span class="st"> </span>dividends[i] <span class="op">/</span><span class="st"> </span>divisors[i]
+    <span class="kw">print</span>(<span class="kw">paste</span>(dividends[i], <span class="st">&quot;/&quot;</span>, divisors[i], <span class="st">&quot;=&quot;</span>, q))
+}</code></pre></div>
+<h3 id="repeat"><span class="header-section-number">2.2.6</span> Repeat</h3>
+<p>Instead of writing <code>while(TRUE)</code>, an endless loop can be defined using the <code>repeat</code> keyword (such a loop can only be ended using <code>break</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;CC: CrappyCalculator&quot;</span>)
+<span class="cf">repeat</span> {
+    i &lt;-<span class="st"> </span><span class="kw">trimws</span>(<span class="kw">readline</span>(<span class="st">&quot;Enter &#39;+&#39; for addition or &#39;q&#39; to quit: &quot;</span>))
+    <span class="cf">if</span> (i <span class="op">==</span><span class="st"> &quot;q&quot;</span>) {
+        <span class="cf">break</span>
+    }
+    <span class="cf">if</span> (i <span class="op">!=</span><span class="st"> &quot;+&quot;</span>) {
+        <span class="cf">next</span>
+    }
+    a &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">readline</span>(<span class="st">&quot;Enter a number: &quot;</span>))
+    b &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">readline</span>(<span class="st">&quot;Enter another number: &quot;</span>))
+    <span class="kw">print</span>(<span class="kw">paste</span>(a, <span class="st">&quot;+&quot;</span>, b, <span class="st">&quot;is&quot;</span>, a <span class="op">+</span><span class="st"> </span>b))
+}</code></pre></div>
 </body>
 </html>
