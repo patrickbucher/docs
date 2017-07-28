@@ -38,3 +38,11 @@ li {
 .math {
     font-family: serif;
 }
+
+figure {
+    margin-bottom: 2em;
+}
+
+figcaption {
+    margin: 0.5em 0;
+}

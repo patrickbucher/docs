@@ -1116,7 +1116,7 @@ For SVG output, parameters such as the font and the background can be defined:
 
 ## Plotting Examples
 
-Example 1:
+### Example 1: Drawing Features
 
 ```R
 plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
@@ -1131,7 +1131,7 @@ text(x = 0, y = 10, "SOMETHING\nPROFOUND")
 
 ![Example 1: Various Drawing Features](pic/07-demo1.png) 
 
-Example 2:
+### Example 2: Colored Graph and Legend
 
 ```R
 fw <- c(55, 42, 58, 67)
@@ -1148,6 +1148,38 @@ legend(x = "topleft", legend = c("Female", "Male"),
 ```
 
 ![Example 2: Colored Graph with Legend](pic/07-demo2.png)
+
+### Example 3: Law of Large Numbers
+
+```R
+nTosses <- 500
+
+# toss the coin, get head ("H") or tails ("T")
+tosses <- sample(c('H', 'T'), size = nTosses, replace = TRUE)
+
+v <- rep(0, length(tosses))
+heads <- data.frame(tossNumber = v, headCount = v, headRatio = v)
+
+for (n in 1:length(v)) {
+  h <- 0
+  for (i in 1:n) {
+    if (tosses[i] == 'H') {
+      h <- h + 1
+    }
+  }
+  heads$tossNumber[n] = n
+  heads$headCount[n] = h
+  heads$headRatio[n] = heads$headCount[n] / n
+}
+
+plot(x = c(), type = "l", xlim = c(0, nTosses), ylim = c(0,1),
+    main = "Coin Tosses", xlab = "Toss Number", ylab = "Heads Ratio")
+abline(h = 0.5, col = "red")
+lines(x = heads$tossNumber, y = heads$headRatio)
+axis(side = 2, at = c(0.5))
+```
+
+![Example 3: Coin Tosses: Law of Large Numbers](pic/coins.png)
 
 # Pre-Installed Data Sets
 
