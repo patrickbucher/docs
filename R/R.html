@@ -98,7 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#plotting"><span class="toc-section-number">14</span> Plotting</a><ul>
 <li><a href="#additional-elements"><span class="toc-section-number">14.1</span> Additional Elements</a></li>
-<li><a href="#write-plot-output-to-files"><span class="toc-section-number">14.2</span> Write Plot Output to Files</a></li>
+<li><a href="#saving-plots-to-files"><span class="toc-section-number">14.2</span> Saving Plots to Files</a></li>
 <li><a href="#plotting-examples"><span class="toc-section-number">14.3</span> Plotting Examples</a></li>
 </ul></li>
 <li><a href="#pre-installed-data-sets"><span class="toc-section-number">15</span> Pre-Installed Data Sets</a></li>
@@ -823,8 +823,20 @@ segments(x0 = c(1, 4), y0 = c(1, 1), x1 = c(1, 4), y1 = c(5, 5))
 
 legend(x = &quot;bottomleft&quot;, legend = c(&quot;Male&quot;, &quot;Female&quot;), pch = c(&quot;+&quot;, &quot;x&quot;))
 # a legend on the bottom left position (+: Male, x: Female)</code></pre>
-<h2 id="write-plot-output-to-files"><span class="header-section-number">14.2</span> Write Plot Output to Files</h2>
-<p>TODO</p>
+<h2 id="saving-plots-to-files"><span class="header-section-number">14.2</span> Saving Plots to Files</h2>
+<p>Plots can be saved to files. Various formats are supported, for example PNG, JPEG, TIFF, BMP, PDF and EPS (postscript). Plotting to a screen is a special case of plotting: it draws directly on the screen device. Files are handled as devices, too..</p>
+<p>In order to save a plot to a file, just open the file device, do the plots and close the device:</p>
+<pre><code>png(filename = &quot;plot.png&quot;)
+plot(1:10, 2:11)
+dev.off()</code></pre>
+<p>The dimensions are 480x480 pixels by default, but can be overwritten:</p>
+<pre><code>png(filename = &quot;plot.png&quot;, width = 800, height = 600)</code></pre>
+<p>Other units than pixels can be used when providing the DPI resolution:</p>
+<pre><code>png(filename = &quot;plot.png&quot;, width = 9, height = 8, units = &quot;cm&quot;, res = 300)</code></pre>
+<p>For postscript and PDF output, the default unit is inches – and the filename parameter is called <code>file</code>:</p>
+<pre><code>pdf(file = &quot;plot.pdf&quot;, width = 8, height = 6)</code></pre>
+<p>For SVG output, parameters such as the font and the background can be defined:</p>
+<pre><code>svg(filename = &quot;plot.svg&quot;, family = &quot;serif&quot;, bg = &quot;grey&quot;)</code></pre>
 <h2 id="plotting-examples"><span class="header-section-number">14.3</span> Plotting Examples</h2>
 <p>Example 1:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">13</span>), <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)
@@ -920,5 +932,10 @@ people &lt;- data.frame(person = names, sex = sex, age = age)</code></pre>
 <p>Write the data frame to a CSV file:</p>
 <pre><code>write.csv(x = people, file = &quot;people.csv&quot;, row.names = TRUE)</code></pre>
 <p>The argument <code>row.names</code> adds an unnamed column with a row counter to the output.</p>
+<p>Store any single object in a file:</p>
+<pre><code>m &lt;- matrix(1:64, ncol = 8) # 8x8 matrix
+dput(x = m, file = &quot;matrix.txt&quot;)</code></pre>
+<p>Retreive a formerly stored object from a file:</p>
+<pre><code>m &lt;- dget(file = &quot;matrix.txt&quot;)</code></pre>
 </body>
 </html>

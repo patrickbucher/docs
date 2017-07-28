@@ -1083,9 +1083,36 @@ one. Elements can be added to an existing plot using these functions:
     legend(x = "bottomleft", legend = c("Male", "Female"), pch = c("+", "x"))
     # a legend on the bottom left position (+: Male, x: Female)
 
-## Write Plot Output to Files
+## Saving Plots to Files
 
-TODO
+Plots can be saved to files. Various formats are supported, for example PNG,
+JPEG, TIFF, BMP, PDF and EPS (postscript). Plotting to a screen is a special
+case of plotting: it draws directly on the screen device. Files are handled as
+devices, too..
+
+In order to save a plot to a file, just open the file device, do the plots and
+close the device:
+
+    png(filename = "plot.png")
+    plot(1:10, 2:11)
+    dev.off()
+
+The dimensions are 480x480 pixels by default, but can be overwritten:
+
+    png(filename = "plot.png", width = 800, height = 600)
+
+Other units than pixels can be used when providing the DPI resolution:
+
+    png(filename = "plot.png", width = 9, height = 8, units = "cm", res = 300)
+
+For postscript and PDF output, the default unit is inches -- and the filename
+parameter is called `file`:
+
+    pdf(file = "plot.pdf", width = 8, height = 6)
+
+For SVG output, parameters such as the font and the background can be defined:
+
+    svg(filename = "plot.svg", family = "serif", bg = "grey")
 
 ## Plotting Examples
 
@@ -1241,3 +1268,12 @@ Write the data frame to a CSV file:
 
 The argument `row.names` adds an unnamed column with a row counter to the
 output.
+
+Store any single object in a file:
+
+    m <- matrix(1:64, ncol = 8) # 8x8 matrix
+    dput(x = m, file = "matrix.txt")
+
+Retreive a formerly stored object from a file:
+
+    m <- dget(file = "matrix.txt")
