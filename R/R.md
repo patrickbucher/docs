@@ -1,4 +1,6 @@
-# Environment
+# Basics
+
+## Environment
 
 Set a custom prompt (`R> `):
 
@@ -8,11 +10,42 @@ List variables, objects and user-defined functions of the current session:
 
     ls()
 
+Remove an item from the current session:
+
+    ls() # nothing
+    foo <- "bar"
+    ls() # "foo"
+
+    rm(foo)
+    ls() # nothing
+
+Empty the current session:
+
+    rm(list = ls())
+
 Leave R:
 
     q()
 
-## Sessions
+### Scoping
+
+List environments:
+
+    search() # ".GlobalEnv" "tools:rstudio" ... "package:base"
+
+When refering to a symbol (a variable, object, functin etc.), R searches through
+the environments listed by `search()` from left to right.
+
+Determine the environment in which an object lives:
+
+    environment(seq) # <environment: namespace:base>
+    environment(plot) # <environment: namespace:graphics>
+
+List the content of an environment:
+
+    ls("package:graphics")
+
+### Sessions
 
 Find out and set the current working directory:
 
@@ -27,7 +60,7 @@ Load a stored session:
 
     load("my-session.RData")
 
-## Packages
+### Packages
 
 Install a new package (`MASS`, for example):
     
@@ -49,7 +82,7 @@ Uninstall a package (using default library paths):
 
     remove.packages("MASS", .libPaths())
 
-## Help
+### Help
 
 Get help for a specific keyword (the `mean` function, for example):
 
@@ -61,7 +94,7 @@ Search for a help topic (`random`, for example):
     help.search("random")
     ??"random" # shortcut
 
-# Language Basics
+## Language Basics
 
 Comments, starting with `#` to the end of the line:
 
@@ -77,7 +110,7 @@ Assignments:
     a <- 17
     b = 42
 
-# Calculations
+### Calculations
 
 Basic arithmetic:
 
@@ -107,13 +140,45 @@ The `exp()` function is the reverse function of `log()`:
 
     log(exp(23)) # 23
 
-# Vectors
+### Argument Matching
+
+Exact matching (fully spell out all the parameters):
+
+    matrix(data=1:16, ncol=4, nrow=4, byrow=TRUE, dimnames=list(1:4, 1:4))
+
+Partial matching (abbreviate the parameter names):
+
+    matrix(dat=1:16, nc=4, nr=4, byr=TRUE, dim=list(1:4, 1:4))
+
+Positional matching (rely solely on the argument order, which can be found out
+using the `args()` function -- `args(matrix)`):
+
+    matrix(1:16, 4, 4, TRUE, list(1:4, 1:4))
+
+Mixed matching (don't name most common arguments but special ones):
+
+    matrix(1:16, ncol=4, byrow=TRUE, dimnames=list(1:4, 1:4))
+    matrix(1:16, nc=4, byr=TRUE, dim=list(1:4, 1:4))
+
+A lot of R functions have the parameter `x`, which is usually not explicitly
+named upon invocation.
+
+Some function accept variadic arguments, represented by an ellipsis (`...`). Any
+argument not matching a named parameter will be matched to the variadic
+parameter:
+
+    args(cat)
+    # function (..., file="", sep=" ", fill=FALSE, labels=NULL, append=FALSE)
+
+    cat("foo", "bar", sep="-", "qux") # foo-bar-qux
+
+## Vectors
 
 Make a vector from individual elements:
 
     c(1, 2, 3) # 1 2 3
 
-## Sequences
+### Sequences
 
 Make a sequence from one to ten:
 
@@ -130,7 +195,7 @@ boundry:
 
     seq(from = 1, by = 2, length.out = 5) # 1 3 5 7 9
 
-## Repetitions
+### Repetitions
 
 Repeat a number:
 
@@ -150,7 +215,7 @@ Repeat using `eech` and `times` combined:
 
     rep(1:2, each = 2, times = 2) # 1 1 2 2 1 1 2 2
 
-## Sorting
+### Sorting
 
 Sort (in ascending order):
 
@@ -164,7 +229,7 @@ Reverse the order of a vector's elements:
 
     rev(1:5) # 5 4 3 2 1
 
-## Accessing Elements
+### Accessing Elements
 
 For the following examples, the vector `v` is used:
 
@@ -207,7 +272,7 @@ The vector on the left hand side must either have:
 In the second case, the shorter vector is _recycled_, i.e. used repeatedly to
 fill up to the length of the longer vector.
 
-## Arithmetic on Vectors
+### Arithmetic on Vectors
 
 Multiply every item of the vector by 2:
 
@@ -229,7 +294,7 @@ Calculate the product of a vector:
     prod(1, 2, 3, 4) # 1*2*3*4=4!=24
     prod(1:4) # same but shorter
 
-# Matrices
+## Matrices
 
 Create a 2x2 matrix:
 
@@ -351,7 +416,7 @@ Dimension names can also be provided after the creation:
     m <- (1:4, ncol = 2)
     dimension(m) <- list(c("R1", "R2"), c("C1", "C2"))
 
-## Operations and Algebra
+### Operations and Algebra
 
 Transpose a matrix ($A^T$ is the transposed matrix of $A$):
 
@@ -443,7 +508,7 @@ Summary:
 - transposed matrix: $A^T$, `t(A)`
 - identity matrix: $I_n$, `diag(x = n)`
 
-# Multidimensional Arrays
+## Multidimensional Arrays
 
 Define arrays of different dimension:
 
@@ -467,7 +532,7 @@ Accessing parts of a multidimensional array:
 
 For arrays, the same assignment rules of vectors and matrices also apply.
 
-# Logical Values
+## Logical Values
 
 Boolean values:
 
@@ -515,7 +580,7 @@ Check if all elements evaluate to `TRUE`:
 
     all(10:20 >= 11) # FALSE, 10 is smaller than 11
 
-## Logical Operations
+### Logical Operations
 
 Compare boolean values using double operators:
 
@@ -539,7 +604,7 @@ apply to the first elements of the vectors involved:
     c(T, F, F) && c(T, T, T) # TRUE
     c(F, T, T) || c(F, T, T) # FALSE
 
-## Element Selection
+### Element Selection
 
 Select elements of a vector (or a matrix, or an array) using logical flags:
 
@@ -592,7 +657,7 @@ To get row/col coordinates, use the `arr.ind` flag:
       3   2
       2   3
 
-# Strings
+## Strings
 
 Store a simple string:
 
@@ -635,7 +700,7 @@ Other escape sequences are:
 
 For a complete list of escape sequences, type `?Quotes`.
 
-## Concatenation
+### Concatenation
 
 Strings can be concatenated:
 
@@ -654,7 +719,7 @@ Numbers are automatically converted to strings (_coercion_):
     cat(2, "times", 3, "is", 2 * 3) # 2 times 3 is 6
     cat("is", 5, "bigger than", 7, 5 > 7) # is 5 bigger than 7 FALSE
 
-## Substrings and Replacements
+### Substrings and Replacements
 
 Extract a substring (using 1-based inclusive indices):
 
@@ -672,7 +737,7 @@ occurence) and `gsub()` (replaces all occurences):
     sub(pattern = "oo", x = s, replacement = "u") # fu too
     gsub(pattern = "oo", x = s, replacement = "u") # fu tu
 
-# Factors
+## Factors
 
 Factors are a special kind of vectors for storing categorial data, similar to
 enumerations in Java or C. Next to the value, factors also store a level:
@@ -695,7 +760,7 @@ Factors allow ordering:
     Mon Tue Wed Thu Fri
     Levels: Mon < Tue < Wed < Thu < Fri < Sat < Sun
 
-## Cutting
+### Cutting
 
 The `cut()` function can be used to break up data points on a continuum into
 discrete intervals:
@@ -718,7 +783,7 @@ The intervals can be named using labels:
     normal normal low high normal obese
     Levels: low normal high obese
 
-# Lists
+## Lists
 
 Lists can contain elements of different data types, including other lists,
 matrices etc.
@@ -775,7 +840,7 @@ Lists can also be nested:
     l$first$char # "A"
     l$second$logical # FALSE
 
-# Data Frames
+## Data Frames
 
 A data frame is a special kind of list with the restriction that the members
 must be all vectors of equal length. (Shorter vectors will be recycled, if
@@ -851,9 +916,9 @@ To select multiple columns, a vector of names can be used:
 
     a[1:2,c("species", "mammal")] # columns species and mammal of row 1 and 2
     
-# Special Values
+## Special Values
 
-## Infinity
+### Infinity
 
 Infinity (`Inf`) is not a number, but a concept describing a number higher than
 the highest representable number, which is platform dependent::
@@ -879,7 +944,7 @@ Expressions can be tested for finity/infinity:
     is.infinite(12900^75) # TRUE (ditto)
     is.finite(5 / 0) # FALSE
 
-## Not a Number
+### Not a Number
 
 Some expressions cannot be represented as a number. They are represented as
 `NaN`:
@@ -903,7 +968,7 @@ Expressions can be tested if they are "not a number":
     !is.nan(13.7) # TRUE
     !is.nan(13000 ^ 75) # TRUE, it's a infinite number (on my machine)
 
-## NULL
+### NULL
 
 `NULL` stands for emptiness -- in contrast to `NA`, which stands for a missing
 entry. As opposed to `NA`, `NULL` cannot be part of a vector:
@@ -930,9 +995,9 @@ resulting type.
 
     NULL + Inf - NaN + 3 * NA # numeric(0)
 
-# Objects
+## Objects
 
-## Attributes
+### Attributes
 
 Every object can store additional attributes:
 
@@ -956,7 +1021,7 @@ Some attributes have their own function:
 
     dim(m) # 2 2
 
-## Classes
+### Classes
 
 Find out the class of an object:
 
@@ -1010,7 +1075,7 @@ Convert explicitly from one type to another (coercion):
 
     as.vector(a) # 1 2 3 4 5 6 7 8
 
-# Plotting
+## Plotting
 
 Simple plots can be drawn using two vectors of x and y coordinates of the same
 length:
@@ -1056,7 +1121,7 @@ Plots can be (optically) enhanced using various options:
 - `col`: the color for the dots/lines, either a color name, a number (from 1 to
   8) or a hex code (like `#ffffff` for white)
 
-## Additional Elements
+### Additional Elements
 
 Calling the `plot()` function always creates a new output and removes the old
 one. Elements can be added to an existing plot using these functions:
@@ -1083,7 +1148,7 @@ one. Elements can be added to an existing plot using these functions:
     legend(x = "bottomleft", legend = c("Male", "Female"), pch = c("+", "x"))
     # a legend on the bottom left position (+: Male, x: Female)
 
-## Saving Plots to Files
+### Saving Plots to Files
 
 Plots can be saved to files. Various formats are supported, for example PNG,
 JPEG, TIFF, BMP, PDF and EPS (postscript). Plotting to a screen is a special
@@ -1114,9 +1179,9 @@ For SVG output, parameters such as the font and the background can be defined:
 
     svg(filename = "plot.svg", family = "serif", bg = "grey")
 
-## Plotting Examples
+### Plotting Examples
 
-### Example 1: Drawing Features
+#### Example 1: Drawing Features
 
 ```R
 plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
@@ -1131,7 +1196,7 @@ text(x = 0, y = 10, "SOMETHING\nPROFOUND")
 
 ![Example 1: Various Drawing Features](pic/07-demo1.png) 
 
-### Example 2: Colored Graph and Legend
+#### Example 2: Colored Graph and Legend
 
 ```R
 fw <- c(55, 42, 58, 67)
@@ -1149,12 +1214,12 @@ legend(x = "topleft", legend = c("Female", "Male"),
 
 ![Example 2: Colored Graph with Legend](pic/07-demo2.png)
 
-### Example 3: Law of Large Numbers
+#### Example 3: Law of Large Numbers
 
 ```R
 nTosses <- 500
 
-# toss the coin, get head ("H") or tails ("T")
+## toss the coin, get head ("H") or tails ("T")
 tosses <- sample(c('H', 'T'), size = nTosses, replace = TRUE)
 
 v <- rep(0, length(tosses))
@@ -1181,7 +1246,7 @@ axis(side = 2, at = c(0.5))
 
 ![Example 3: Coin Tosses: Law of Large Numbers](pic/coins.png)
 
-# Pre-Installed Data Sets
+## Pre-Installed Data Sets
 
 R comes with of pre-installed data sets, which can be listed:
 
@@ -1206,9 +1271,9 @@ Now the `ice.river` data set can be accessed and explored like any variable.
 A good resource for free statistical example data is the [Journal of Statistics
 Education (JSE)](https://ww2.amstat.org/publications/jse/jse_data_archive.htm).
 
-# Working with Files
+## Working with Files
 
-## Reading Text Files
+### Reading Text Files
 
 Sample file (`table.txt`):
 
@@ -1260,7 +1325,7 @@ Files can also be read directly from the web:
 
     forbes500 <- read.table(file = "http://forbes.com/assets/filthy-rich-people.txt")
 
-## Reading CSV Files
+### Reading CSV Files
 
 Sample file (`table.csv`):
 
@@ -1281,7 +1346,7 @@ value, so make sure to define the `sep` parameter accordingly:
     animals <- read.csv(file = "table.csv", header = TRUE,
         stringsAsFactors = TRUE, sep = ';')
 
-## Writing Files
+### Writing Files
 
 Sample data frame:
 
@@ -1309,3 +1374,5 @@ Store any single object in a file:
 Retreive a formerly stored object from a file:
 
     m <- dget(file = "matrix.txt")
+
+# Programming
