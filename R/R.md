@@ -1592,3 +1592,66 @@ repeat {
     print(paste(a, "+", b, "is", a + b))
 }
 ```
+
+## Functions
+
+A recursive function to calculate Fibonacci numbers:
+
+```R
+fib <- function(n) {
+    if (n == 1 || n == 2) {
+        return(1)
+    } else {
+        return(fib(n - 2) + fib(n - 1))
+    }
+}
+```
+
+If return is left away, the last object created in the lexical environment will
+be returned (this function works exactly like the one above):
+
+```R
+fib <- function(n) {
+    if (n == 1 || n == 2) {
+        1
+    } else {
+        fib(n - 2) + fib(n - 1)
+    }
+}
+```
+
+The variadic arguments `...` first have to be converted into a vector or list in
+order to work with them:
+
+```R
+numberOfArguments <- function(...) {
+    args <- c(...)
+    return(length(args))
+}
+numberOfArguments(1, 2, 3)
+numberOfArguments(1:10)
+```
+
+Function definitions can be nested within other functions:
+
+```R
+average <- function(...) {
+    args = c(...)
+    sum <- function(x) {
+        s <- 0
+        for (i in x) {
+            s <- s + i
+        }
+        return(s)
+    }
+    return(sum(args) / length(args))
+}
+average(sample(1:10, replace = TRUE, 100))
+``` 
+
+Functions can also defined _ad hoc_, so called disposable functions:
+
+```R
+    sapply(1:10, FUN = function(x) { x ** 2 })
+    # squares all the numbers from 1 to 10
+```

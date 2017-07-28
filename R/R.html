@@ -125,6 +125,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#skip-a-loop-item"><span class="toc-section-number">2.2.5</span> Skip a Loop Item</a></li>
 <li><a href="#repeat"><span class="toc-section-number">2.2.6</span> Repeat</a></li>
 </ul></li>
+<li><a href="#functions"><span class="toc-section-number">2.3</span> Functions</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1161,5 +1162,45 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
     b &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">readline</span>(<span class="st">&quot;Enter another number: &quot;</span>))
     <span class="kw">print</span>(<span class="kw">paste</span>(a, <span class="st">&quot;+&quot;</span>, b, <span class="st">&quot;is&quot;</span>, a <span class="op">+</span><span class="st"> </span>b))
 }</code></pre></div>
+<h2 id="functions"><span class="header-section-number">2.3</span> Functions</h2>
+<p>A recursive function to calculate Fibonacci numbers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+    <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span><span class="st"> </span>n <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {
+        <span class="kw">return</span>(<span class="dv">1</span>)
+    } <span class="cf">else</span> {
+        <span class="kw">return</span>(<span class="kw">fib</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+    }
+}</code></pre></div>
+<p>If return is left away, the last object created in the lexical environment will be returned (this function works exactly like the one above):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+    <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span><span class="st"> </span>n <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {
+        <span class="dv">1</span>
+    } <span class="cf">else</span> {
+        <span class="kw">fib</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+    }
+}</code></pre></div>
+<p>The variadic arguments <code>...</code> first have to be converted into a vector or list in order to work with them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numberOfArguments &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
+    args &lt;-<span class="st"> </span><span class="kw">c</span>(...)
+    <span class="kw">return</span>(<span class="kw">length</span>(args))
+}
+<span class="kw">numberOfArguments</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">numberOfArguments</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<p>Function definitions can be nested within other functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">average &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
+    args =<span class="st"> </span><span class="kw">c</span>(...)
+    sum &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+        s &lt;-<span class="st"> </span><span class="dv">0</span>
+        <span class="cf">for</span> (i <span class="cf">in</span> x) {
+            s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>i
+        }
+        <span class="kw">return</span>(s)
+    }
+    <span class="kw">return</span>(<span class="kw">sum</span>(args) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(args))
+}
+<span class="kw">average</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dv">100</span>))</code></pre></div>
+<p>Functions can also defined <em>ad hoc</em>, so called disposable functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(x) { x <span class="op">**</span><span class="st"> </span><span class="dv">2</span> })
+    <span class="co"># squares all the numbers from 1 to 10</span></code></pre></div>
 </body>
 </html>
