@@ -33,6 +33,10 @@ Install a new package (`MASS`, for example):
     
     install.packages("MASS")
 
+List installed packages:
+
+    installed.packages()
+
 Load the installed `MASS` library:
 
     library("MASS")
@@ -40,6 +44,10 @@ Load the installed `MASS` library:
 Update installed packages:
 
     update.packages()
+
+Uninstall a package (using default library paths):
+
+    remove.packages("MASS", .libPaths())
 
 ## Help
 
@@ -1075,19 +1083,23 @@ one. Elements can be added to an existing plot using these functions:
     legend(x = "bottomleft", legend = c("Male", "Female"), pch = c("+", "x"))
     # a legend on the bottom left position (+: Male, x: Female)
 
+## Write Plot Output to Files
+
+TODO
+
 ## Plotting Examples
 
 Example 1:
 
 ```R
-    plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
-    abline(v = c(-3,3), h = c(7,13), lty = "dashed", col = "grey", lwd = 3)
-    x0 = c(-2.5, -2.5, -2.5, 2.5, 2.5, 2.5)
-    y0 = c(7.5, 10, 12.5, 12.5, 10, 7.5)
-    x1 = c(-1, -1, -1, 1, 1, 1)
-    y1 = c(9.5, 10, 10.5, 10.5, 10, 9.5)
-    arrows(x0, y0, x1, y1)
-    text(x = 0, y = 10, "SOMETHING\nPROFOUND")
+plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
+abline(v = c(-3,3), h = c(7,13), lty = "dashed", col = "grey", lwd = 3)
+x0 = c(-2.5, -2.5, -2.5, 2.5, 2.5, 2.5)
+y0 = c(7.5, 10, 12.5, 12.5, 10, 7.5)
+x1 = c(-1, -1, -1, 1, 1, 1)
+y1 = c(9.5, 10, 10.5, 10.5, 10, 9.5)
+arrows(x0, y0, x1, y1)
+text(x = 0, y = 10, "SOMETHING\nPROFOUND")
 ```
 
 ![Example 1: Various Drawing Features](pic/07-demo1.png) 
@@ -1095,17 +1107,137 @@ Example 1:
 Example 2:
 
 ```R
-    fw <- c(55, 42, 58, 67)
-    fh <- c(161, 154, 170, 178)
-    mw <- c(85, 75, 93, 63, 75, 89)
-    mh <- c(185, 174, 188, 178, 167, 181)
-    plot(x = c(), main = "Female/Male: Height by Weight",
-        xlab = "Weight (kg)", ylab = "Height (cm)",
-        xlim = c(40, 100), ylim = c(150, 200))
-    points(fw, fh, pch = "♀", col = "red")
-    points(mw, mh, pch = "♂", col = "blue")
-    legend(x = "topleft", legend = c("Female", "Male"),
-        pch = c("♀","♂"), col = c("red", "blue"))
+fw <- c(55, 42, 58, 67)
+fh <- c(161, 154, 170, 178)
+mw <- c(85, 75, 93, 63, 75, 89)
+mh <- c(185, 174, 188, 178, 167, 181)
+plot(x = c(), main = "Female/Male: Height by Weight",
+    xlab = "Weight (kg)", ylab = "Height (cm)",
+    xlim = c(40, 100), ylim = c(150, 200))
+points(fw, fh, pch = "♀", col = "red")
+points(mw, mh, pch = "♂", col = "blue")
+legend(x = "topleft", legend = c("Female", "Male"),
+    pch = c("♀","♂"), col = c("red", "blue"))
 ```
 
 ![Example 2: Colored Graph with Legend](pic/07-demo2.png)
+
+# Pre-Installed Data Sets
+
+R comes with of pre-installed data sets, which can be listed:
+
+    library(help = "datasets")
+
+To get more information about one of the data sets listed, just use the help
+function:
+
+    ?Titanic # Survival of passengers on the Titanic
+
+Other data sets can be installed just like packages, for example the `tseries`
+package:
+
+    install.packages("tseries")
+
+Load the `ice.river` data set into the current workspace:
+
+    data(ice.river)
+
+Now the `ice.river` data set can be accessed and explored like any variable.
+
+A good resource for free statistical example data is the [Journal of Statistics
+Education (JSE)](https://ww2.amstat.org/publications/jse/jse_data_archive.htm).
+
+# Working with Files
+
+## Reading Text Files
+
+Sample file (`table.txt`):
+
+    species mammal legs area
+    cow TRUE 4 land
+    spider FALSE  8 land
+    whale TRUE N/A sea
+    bird TRUE 2 air
+
+Read tabular data from a file (`table.txt`):
+
+    animals <- read.table(file = "table.txt", header = TRUE, sep = " ",
+        na.strings = "N/A", stringsAsFactors = FALSE)
+
+Parameters:
+
+- `file`: the (absolute or relative) file name
+- `header`: whether or not the first line should be read as a header
+- `sep`: the seperator (here: one space, use `""` for any amount of whitespace)
+- `na.strings`: define which strings (either a single string or a vector of
+  strings) should be recognized as `NA` values
+- `stringsAsFactors`: whether or not string columns should be interpreted as
+  factors (same parameter as for `data.frame`)
+
+If _some_ of the non-numeric columns should be interpreted as factors, simply
+overwrite them, providing optional levels (in case some possible values are
+missing in the data set):
+
+    animals$area = factor(animals$area)
+    animals$area = factor(animals$area, levels = c("air", "land", "sea")
+
+Either use an absolute file path or make sure to change your working directory:
+
+    getwd() # "C:/Users/patrick.bucher/Documents/R"
+    setwd("tables") # relative path (absolute paths are also possible)
+    getwd() # "C:/Users/patrick.bucher/Documents/R/tables"
+
+List all files in the current working directory (for more information type
+`?list.files` and `?list.dirs`):
+
+    list.files()
+
+Files can also be choosen interactively, returning the absolute path of the file
+selected:
+
+    myFile <- file.choose()
+
+Files can also be read directly from the web:
+
+    forbes500 <- read.table(file = "http://forbes.com/assets/filthy-rich-people.txt")
+
+## Reading CSV Files
+
+Sample file (`table.csv`):
+
+    species,mammal,legs,area
+    cow,TRUE,4,land
+    wolf spider,FALSE,8,land
+    whale,TRUE,N/A,sea
+    guinea pig,TRUE,4,land
+    
+Read the data from a CSV file (with the comma as the default seperator):
+
+    animals <- read.csv(file = "table.csv", header = TRUE,
+        stringsAsFactors = TRUE)
+
+CSV files often use the semicolon (`;`) or the tab (`\t`) as the seperator
+value, so make sure to define the `sep` parameter accordingly:
+
+    animals <- read.csv(file = "table.csv", header = TRUE,
+        stringsAsFactors = TRUE, sep = ';')
+
+## Writing Files
+
+Sample data frame:
+
+    names <- c("Sepp", "Max", "Uschi")
+    sex <- factor("M", "M", "F")
+    age <- c(42, 50, 61)
+    people <- data.frame(person = names, sex = sex, age = age)
+
+Write the data frame to a tabular text file:
+
+    write.table(x = people, file = "people.txt")
+
+Write the data frame to a CSV file:
+
+    write.csv(x = people, file = "people.csv", row.names = TRUE)
+
+The argument `row.names` adds an unnamed column with a row counter to the
+output.

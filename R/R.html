@@ -52,7 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">R</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">27.07.2017</p>
+<p class="date">28.07.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -98,7 +98,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#plotting"><span class="toc-section-number">14</span> Plotting</a><ul>
 <li><a href="#additional-elements"><span class="toc-section-number">14.1</span> Additional Elements</a></li>
-<li><a href="#plotting-examples"><span class="toc-section-number">14.2</span> Plotting Examples</a></li>
+<li><a href="#write-plot-output-to-files"><span class="toc-section-number">14.2</span> Write Plot Output to Files</a></li>
+<li><a href="#plotting-examples"><span class="toc-section-number">14.3</span> Plotting Examples</a></li>
+</ul></li>
+<li><a href="#pre-installed-data-sets"><span class="toc-section-number">15</span> Pre-Installed Data Sets</a></li>
+<li><a href="#working-with-files"><span class="toc-section-number">16</span> Working with Files</a><ul>
+<li><a href="#reading-text-files"><span class="toc-section-number">16.1</span> Reading Text Files</a></li>
+<li><a href="#reading-csv-files"><span class="toc-section-number">16.2</span> Reading CSV Files</a></li>
+<li><a href="#writing-files"><span class="toc-section-number">16.3</span> Writing Files</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -120,10 +127,14 @@ setwd(&quot;~/my-workspace&quot;)</code></pre>
 <h2 id="packages"><span class="header-section-number">1.2</span> Packages</h2>
 <p>Install a new package (<code>MASS</code>, for example):</p>
 <pre><code>install.packages(&quot;MASS&quot;)</code></pre>
+<p>List installed packages:</p>
+<pre><code>installed.packages()</code></pre>
 <p>Load the installed <code>MASS</code> library:</p>
 <pre><code>library(&quot;MASS&quot;)</code></pre>
 <p>Update installed packages:</p>
 <pre><code>update.packages()</code></pre>
+<p>Uninstall a package (using default library paths):</p>
+<pre><code>remove.packages(&quot;MASS&quot;, .libPaths())</code></pre>
 <h2 id="help"><span class="header-section-number">1.3</span> Help</h2>
 <p>Get help for a specific keyword (the <code>mean</code> function, for example):</p>
 <pre><code>help(&quot;mean&quot;)
@@ -812,33 +823,102 @@ segments(x0 = c(1, 4), y0 = c(1, 1), x1 = c(1, 4), y1 = c(5, 5))
 
 legend(x = &quot;bottomleft&quot;, legend = c(&quot;Male&quot;, &quot;Female&quot;), pch = c(&quot;+&quot;, &quot;x&quot;))
 # a legend on the bottom left position (+: Male, x: Female)</code></pre>
-<h2 id="plotting-examples"><span class="header-section-number">14.2</span> Plotting Examples</h2>
+<h2 id="write-plot-output-to-files"><span class="header-section-number">14.2</span> Write Plot Output to Files</h2>
+<p>TODO</p>
+<h2 id="plotting-examples"><span class="header-section-number">14.3</span> Plotting Examples</h2>
 <p>Example 1:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">13</span>), <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)
-    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">13</span>), <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)
-    x0 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>)
-    y0 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.5</span>, <span class="dv">10</span>, <span class="fl">12.5</span>, <span class="fl">12.5</span>, <span class="dv">10</span>, <span class="fl">7.5</span>)
-    x1 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)
-    y1 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.5</span>, <span class="dv">10</span>, <span class="fl">10.5</span>, <span class="fl">10.5</span>, <span class="dv">10</span>, <span class="fl">9.5</span>)
-    <span class="kw">arrows</span>(x0, y0, x1, y1)
-    <span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="st">&quot;SOMETHING</span><span class="ch">\n</span><span class="st">PROFOUND&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">13</span>), <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">13</span>), <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)
+x0 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>)
+y0 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.5</span>, <span class="dv">10</span>, <span class="fl">12.5</span>, <span class="fl">12.5</span>, <span class="dv">10</span>, <span class="fl">7.5</span>)
+x1 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)
+y1 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.5</span>, <span class="dv">10</span>, <span class="fl">10.5</span>, <span class="fl">10.5</span>, <span class="dv">10</span>, <span class="fl">9.5</span>)
+<span class="kw">arrows</span>(x0, y0, x1, y1)
+<span class="kw">text</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="st">&quot;SOMETHING</span><span class="ch">\n</span><span class="st">PROFOUND&quot;</span>)</code></pre></div>
 <figure>
 <img src="pic/07-demo1.png" alt="Example 1: Various Drawing Features" /><figcaption>Example 1: Various Drawing Features</figcaption>
 </figure>
 <p>Example 2:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    fw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">55</span>, <span class="dv">42</span>, <span class="dv">58</span>, <span class="dv">67</span>)
-    fh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">161</span>, <span class="dv">154</span>, <span class="dv">170</span>, <span class="dv">178</span>)
-    mw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">85</span>, <span class="dv">75</span>, <span class="dv">93</span>, <span class="dv">63</span>, <span class="dv">75</span>, <span class="dv">89</span>)
-    mh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">185</span>, <span class="dv">174</span>, <span class="dv">188</span>, <span class="dv">178</span>, <span class="dv">167</span>, <span class="dv">181</span>)
-    <span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">main =</span> <span class="st">&quot;Female/Male: Height by Weight&quot;</span>,
-        <span class="dt">xlab =</span> <span class="st">&quot;Weight (kg)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Height (cm)&quot;</span>,
-        <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">100</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">200</span>))
-    <span class="kw">points</span>(fw, fh, <span class="dt">pch =</span> <span class="st">&quot;♀&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-    <span class="kw">points</span>(mw, mh, <span class="dt">pch =</span> <span class="st">&quot;♂&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
-    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),
-        <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;♀&quot;</span>,<span class="st">&quot;♂&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">55</span>, <span class="dv">42</span>, <span class="dv">58</span>, <span class="dv">67</span>)
+fh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">161</span>, <span class="dv">154</span>, <span class="dv">170</span>, <span class="dv">178</span>)
+mw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">85</span>, <span class="dv">75</span>, <span class="dv">93</span>, <span class="dv">63</span>, <span class="dv">75</span>, <span class="dv">89</span>)
+mh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">185</span>, <span class="dv">174</span>, <span class="dv">188</span>, <span class="dv">178</span>, <span class="dv">167</span>, <span class="dv">181</span>)
+<span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">main =</span> <span class="st">&quot;Female/Male: Height by Weight&quot;</span>,
+    <span class="dt">xlab =</span> <span class="st">&quot;Weight (kg)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Height (cm)&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">100</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">200</span>))
+<span class="kw">points</span>(fw, fh, <span class="dt">pch =</span> <span class="st">&quot;♀&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
+<span class="kw">points</span>(mw, mh, <span class="dt">pch =</span> <span class="st">&quot;♂&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
+<span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),
+    <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;♀&quot;</span>,<span class="st">&quot;♂&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</code></pre></div>
 <figure>
 <img src="pic/07-demo2.png" alt="Example 2: Colored Graph with Legend" /><figcaption>Example 2: Colored Graph with Legend</figcaption>
 </figure>
+<h1 id="pre-installed-data-sets"><span class="header-section-number">15</span> Pre-Installed Data Sets</h1>
+<p>R comes with of pre-installed data sets, which can be listed:</p>
+<pre><code>library(help = &quot;datasets&quot;)</code></pre>
+<p>To get more information about one of the data sets listed, just use the help function:</p>
+<pre><code>?Titanic # Survival of passengers on the Titanic</code></pre>
+<p>Other data sets can be installed just like packages, for example the <code>tseries</code> package:</p>
+<pre><code>install.packages(&quot;tseries&quot;)</code></pre>
+<p>Load the <code>ice.river</code> data set into the current workspace:</p>
+<pre><code>data(ice.river)</code></pre>
+<p>Now the <code>ice.river</code> data set can be accessed and explored like any variable.</p>
+<p>A good resource for free statistical example data is the <a href="https://ww2.amstat.org/publications/jse/jse_data_archive.htm">Journal of Statistics Education (JSE)</a>.</p>
+<h1 id="working-with-files"><span class="header-section-number">16</span> Working with Files</h1>
+<h2 id="reading-text-files"><span class="header-section-number">16.1</span> Reading Text Files</h2>
+<p>Sample file (<code>table.txt</code>):</p>
+<pre><code>species mammal legs area
+cow TRUE 4 land
+spider FALSE  8 land
+whale TRUE N/A sea
+bird TRUE 2 air</code></pre>
+<p>Read tabular data from a file (<code>table.txt</code>):</p>
+<pre><code>animals &lt;- read.table(file = &quot;table.txt&quot;, header = TRUE, sep = &quot; &quot;,
+    na.strings = &quot;N/A&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><code>file</code>: the (absolute or relative) file name</li>
+<li><code>header</code>: whether or not the first line should be read as a header</li>
+<li><code>sep</code>: the seperator (here: one space, use <code>&quot;&quot;</code> for any amount of whitespace)</li>
+<li><code>na.strings</code>: define which strings (either a single string or a vector of strings) should be recognized as <code>NA</code> values</li>
+<li><code>stringsAsFactors</code>: whether or not string columns should be interpreted as factors (same parameter as for <code>data.frame</code>)</li>
+</ul>
+<p>If <em>some</em> of the non-numeric columns should be interpreted as factors, simply overwrite them, providing optional levels (in case some possible values are missing in the data set):</p>
+<pre><code>animals$area = factor(animals$area)
+animals$area = factor(animals$area, levels = c(&quot;air&quot;, &quot;land&quot;, &quot;sea&quot;)</code></pre>
+<p>Either use an absolute file path or make sure to change your working directory:</p>
+<pre><code>getwd() # &quot;C:/Users/patrick.bucher/Documents/R&quot;
+setwd(&quot;tables&quot;) # relative path (absolute paths are also possible)
+getwd() # &quot;C:/Users/patrick.bucher/Documents/R/tables&quot;</code></pre>
+<p>List all files in the current working directory (for more information type <code>?list.files</code> and <code>?list.dirs</code>):</p>
+<pre><code>list.files()</code></pre>
+<p>Files can also be choosen interactively, returning the absolute path of the file selected:</p>
+<pre><code>myFile &lt;- file.choose()</code></pre>
+<p>Files can also be read directly from the web:</p>
+<pre><code>forbes500 &lt;- read.table(file = &quot;http://forbes.com/assets/filthy-rich-people.txt&quot;)</code></pre>
+<h2 id="reading-csv-files"><span class="header-section-number">16.2</span> Reading CSV Files</h2>
+<p>Sample file (<code>table.csv</code>):</p>
+<pre><code>species,mammal,legs,area
+cow,TRUE,4,land
+wolf spider,FALSE,8,land
+whale,TRUE,N/A,sea
+guinea pig,TRUE,4,land</code></pre>
+<p>Read the data from a CSV file (with the comma as the default seperator):</p>
+<pre><code>animals &lt;- read.csv(file = &quot;table.csv&quot;, header = TRUE,
+    stringsAsFactors = TRUE)</code></pre>
+<p>CSV files often use the semicolon (<code>;</code>) or the tab (<code>\t</code>) as the seperator value, so make sure to define the <code>sep</code> parameter accordingly:</p>
+<pre><code>animals &lt;- read.csv(file = &quot;table.csv&quot;, header = TRUE,
+    stringsAsFactors = TRUE, sep = &#39;;&#39;)</code></pre>
+<h2 id="writing-files"><span class="header-section-number">16.3</span> Writing Files</h2>
+<p>Sample data frame:</p>
+<pre><code>names &lt;- c(&quot;Sepp&quot;, &quot;Max&quot;, &quot;Uschi&quot;)
+sex &lt;- factor(&quot;M&quot;, &quot;M&quot;, &quot;F&quot;)
+age &lt;- c(42, 50, 61)
+people &lt;- data.frame(person = names, sex = sex, age = age)</code></pre>
+<p>Write the data frame to a tabular text file:</p>
+<pre><code>write.table(x = people, file = &quot;people.txt&quot;)</code></pre>
+<p>Write the data frame to a CSV file:</p>
+<pre><code>write.csv(x = people, file = &quot;people.csv&quot;, row.names = TRUE)</code></pre>
+<p>The argument <code>row.names</code> adds an unnamed column with a row counter to the output.</p>
 </body>
 </html>
