@@ -47,6 +47,39 @@ List the content of an environment:
 
     ls("package:graphics")
 
+When a package is no longer used, it can be detached in order to clean up the
+namespace:
+
+```R
+search() # ".GlobalEnv" "package:stats" "package:graphics" etc.
+library("MASS")
+search() # ".GlobalEnv" "package:MASS" "package:stats" etc.
+detach("package:MASS", detach = TRUE)
+search() # ".GlobalEnv" "package:stats" "package:graphics" etc.
+```
+
+For easier lookup, objects can be attached:
+
+```R
+person <- data.frame(name = "Patrick", age = 30)
+person.name # "Patrick"
+person.age # 30
+
+name # Error: object 'name' not found
+age # Error: object 'age' not found
+
+attach(person)
+name # "Patrick"
+age # 30
+
+detach(person)
+name # Error: object 'name' not found
+age # Error: object 'age' not found
+```
+
+In order to keep the namespace clean, attaching objects to the namespace
+("mounting") should be avoided.
+
 ### Sessions
 
 Find out and set the current working directory:
@@ -1377,6 +1410,66 @@ Retreive a formerly stored object from a file:
 
     m <- dget(file = "matrix.txt")
 
+## Timing
+
+Pause the program execution for a given amount of time (in seconds):
+
+```R
+for (i in 1:10) {
+    print(i)
+    Sys.sleep(0.5)
+}
+```
+
+Display a textual progress bar:
+
+```R
+from <- 1
+to <- 10
+prog <- txtProgressBar(min = from, max = to, char = "#", style = 3)
+cat("counting from", from, "to", to, "\n")
+for (i in from:to) {
+    setTxtProgressBar(prog, value = i)
+    Sys.sleep(0.5)
+}
+close(prog)
+```
+
+Get the current date and time:
+
+```R
+Sys.time() # returns current date time
+Sys.Date() # returns current date
+```
+
+Format date and time:
+
+```R
+format(Sys.time(), "%d.%m.%Y %H:%M") # 30.07.2017 17:41
+format(Sys.time(), "%s") # 1501429298, UNIX timestamp
+```
+
+Measure execution time (difference between two times):
+
+```R
+start <- Sys.time()
+Sys.sleep(1.23)
+end <- Sys.time()
+diff <- end - start # diff is of type "difftime"
+as.numeric(diff, units = "secs") # time difference in seconds, around 1.23
+```
+
+Measure duration of a function call (similar to the UNIX command `time`):
+
+```R
+system.time(sqrt(mean(1:1e9)))
+```
+
+Output:
+
+     user  system elapsed
+    1.504   0.233   1.738
+
 # Programming
 
 ## Conditions
@@ -1654,6 +1747,30 @@ Functions can also defined _ad hoc_, so called disposable functions:
 ```R
 sapply(1:10, FUN = function(x) { x ** 2 })
 # squares all the numbers from 1 to 10
+```
+
+When defining a function with a name already used (such as `sum`), the
+new user-defined function hides the original function:
+
+```R
+sum(1:10) # calls the original function
+
+sum <- function(...) {
+    print("this sum function is user-defined")
+    total <- 0
+    for (i in c(...)) {
+        total <- total + i
+    }
+    return(total)
+}
+
+sum(1:10) # calls the user-defined function
+```
+
+The original function can be accessed using a package qualifier:
+
+```R
+base::sum(1:10) # calls the original function
 ```
 
 ## Warnings and Exceptions

@@ -111,6 +111,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#reading-csv-files"><span class="toc-section-number">1.15.2</span> Reading CSV Files</a></li>
 <li><a href="#writing-files"><span class="toc-section-number">1.15.3</span> Writing Files</a></li>
 </ul></li>
+<li><a href="#timing"><span class="toc-section-number">1.16</span> Timing</a></li>
 </ul></li>
 <li><a href="#programming"><span class="toc-section-number">2</span> Programming</a><ul>
 <li><a href="#conditions"><span class="toc-section-number">2.1</span> Conditions</a><ul>
@@ -156,6 +157,28 @@ ls() # nothing</code></pre>
 environment(plot) # &lt;environment: namespace:graphics&gt;</code></pre>
 <p>List the content of an environment:</p>
 <pre><code>ls(&quot;package:graphics&quot;)</code></pre>
+<p>When a package is no longer used, it can be detached in order to clean up the namespace:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>() <span class="co"># &quot;.GlobalEnv&quot; &quot;package:stats&quot; &quot;package:graphics&quot; etc.</span>
+<span class="kw">library</span>(<span class="st">&quot;MASS&quot;</span>)
+<span class="kw">search</span>() <span class="co"># &quot;.GlobalEnv&quot; &quot;package:MASS&quot; &quot;package:stats&quot; etc.</span>
+<span class="kw">detach</span>(<span class="st">&quot;package:MASS&quot;</span>, <span class="dt">detach =</span> <span class="ot">TRUE</span>)
+<span class="kw">search</span>() <span class="co"># &quot;.GlobalEnv&quot; &quot;package:stats&quot; &quot;package:graphics&quot; etc.</span></code></pre></div>
+<p>For easier lookup, objects can be attached:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">person &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="st">&quot;Patrick&quot;</span>, <span class="dt">age =</span> <span class="dv">30</span>)
+person.name <span class="co"># &quot;Patrick&quot;</span>
+person.age <span class="co"># 30</span>
+
+name <span class="co"># Error: object &#39;name&#39; not found</span>
+age <span class="co"># Error: object &#39;age&#39; not found</span>
+
+<span class="kw">attach</span>(person)
+name <span class="co"># &quot;Patrick&quot;</span>
+age <span class="co"># 30</span>
+
+<span class="kw">detach</span>(person)
+name <span class="co"># Error: object &#39;name&#39; not found</span>
+age <span class="co"># Error: object &#39;age&#39; not found</span></code></pre></div>
+<p>In order to keep the namespace clean, attaching objects to the namespace (“mounting”) should be avoided.</p>
 <h3 id="sessions"><span class="header-section-number">1.1.2</span> Sessions</h3>
 <p>Find out and set the current working directory:</p>
 <pre><code>getwd()
@@ -1022,6 +1045,39 @@ people &lt;- data.frame(person = names, sex = sex, age = age)</code></pre>
 dput(x = m, file = &quot;matrix.txt&quot;)</code></pre>
 <p>Retreive a formerly stored object from a file:</p>
 <pre><code>m &lt;- dget(file = &quot;matrix.txt&quot;)</code></pre>
+<h2 id="timing"><span class="header-section-number">1.16</span> Timing</h2>
+<p>Pause the program execution for a given amount of time (in seconds):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    <span class="kw">print</span>(i)
+    <span class="kw">Sys.sleep</span>(<span class="fl">0.5</span>)
+}</code></pre></div>
+<p>Display a textual progress bar:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">from &lt;-<span class="st"> </span><span class="dv">1</span>
+to &lt;-<span class="st"> </span><span class="dv">10</span>
+prog &lt;-<span class="st"> </span><span class="kw">txtProgressBar</span>(<span class="dt">min =</span> from, <span class="dt">max =</span> to, <span class="dt">char =</span> <span class="st">&quot;#&quot;</span>, <span class="dt">style =</span> <span class="dv">3</span>)
+<span class="kw">cat</span>(<span class="st">&quot;counting from&quot;</span>, from, <span class="st">&quot;to&quot;</span>, to, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> from<span class="op">:</span>to) {
+    <span class="kw">setTxtProgressBar</span>(prog, <span class="dt">value =</span> i)
+    <span class="kw">Sys.sleep</span>(<span class="fl">0.5</span>)
+}
+<span class="kw">close</span>(prog)</code></pre></div>
+<p>Get the current date and time:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>() <span class="co"># returns current date time</span>
+<span class="kw">Sys.Date</span>() <span class="co"># returns current date</span></code></pre></div>
+<p>Format date and time:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%d.%m.%Y %H:%M&quot;</span>) <span class="co"># 30.07.2017 17:41</span>
+<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%s&quot;</span>) <span class="co"># 1501429298, UNIX timestamp</span></code></pre></div>
+<p>Measure execution time (difference between two times):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<span class="kw">Sys.sleep</span>(<span class="fl">1.23</span>)
+end &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+diff &lt;-<span class="st"> </span>end <span class="op">-</span><span class="st"> </span>start <span class="co"># diff is of type &quot;difftime&quot;</span>
+<span class="kw">as.numeric</span>(diff, <span class="dt">units =</span> <span class="st">&quot;secs&quot;</span>) <span class="co"># time difference in seconds, around 1.23</span></code></pre></div>
+<p>Measure duration of a function call (similar to the UNIX command <code>time</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">sqrt</span>(<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="fl">1e9</span>)))</code></pre></div>
+<p>Output:</p>
+<pre><code> user  system elapsed
+1.504   0.233   1.738</code></pre>
 <h1 id="programming"><span class="header-section-number">2</span> Programming</h1>
 <h2 id="conditions"><span class="header-section-number">2.1</span> Conditions</h2>
 <h3 id="if-else-if-else"><span class="header-section-number">2.1.1</span> If, Else If, Else</h3>
@@ -1203,6 +1259,21 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
 <p>Functions can also defined <em>ad hoc</em>, so called disposable functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(x) { x <span class="op">**</span><span class="st"> </span><span class="dv">2</span> })
 <span class="co"># squares all the numbers from 1 to 10</span></code></pre></div>
+<p>When defining a function with a name already used (such as <code>sum</code>), the new user-defined function hides the original function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># calls the original function</span>
+
+sum &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
+    <span class="kw">print</span>(<span class="st">&quot;this sum function is user-defined&quot;</span>)
+    total &lt;-<span class="st"> </span><span class="dv">0</span>
+    <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(...)) {
+        total &lt;-<span class="st"> </span>total <span class="op">+</span><span class="st"> </span>i
+    }
+    <span class="kw">return</span>(total)
+}
+
+<span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># calls the user-defined function</span></code></pre></div>
+<p>The original function can be accessed using a package qualifier:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base<span class="op">::</span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># calls the original function</span></code></pre></div>
 <h2 id="warnings-and-exceptions"><span class="header-section-number">2.4</span> Warnings and Exceptions</h2>
 <p>Throw a warning or an exception:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saveDivide &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
