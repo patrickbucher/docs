@@ -1663,9 +1663,11 @@ Throw a warning or an exception:
 ```R
 saveDivide <- function(x, y) {
     if (x == 0) {
+        # throw a warning message
         warning("zero value can't be divided")
     }
     if (y == 0) {
+        # throw an exception, halts the execution
         stop("can't divide by zero")
     }
     return(x / y)
@@ -1693,3 +1695,48 @@ Suppress a warning:
 sqrt(-1): # returns NaN, arning: "NaNs produced"
 suppressWarning(sqrt(-1)) # just returns NaN
 ```
+
+Advanced error handling with `tryCatch` (using the `saveDivide(x, y)` function
+from above):
+
+```R
+dividends = sample(0:3, 4)
+divisors = sample(0:3, 4)
+
+for (c in 1:4) {
+    a = dividends[c]
+    b = divisors[c]
+    cat("try to divide", a, "by", b, "\n")
+
+    result <- tryCatch({
+        # try part
+        saveDivide(a, b)
+    }, warning = function(warning) {
+        # catch part (for warnings)
+        return(0)
+    }, error = function(error) {
+        # catch part (for errors)
+        return(NA)
+    }, finally = {
+        # finally part (for cleanup)
+        cat("division", a, "by", b, "done\n") 
+    })
+
+    cat("result:", result, "\n")
+}
+```
+
+Example output:
+
+    try to divide 2 by 2
+    division 2 by 2 done
+    result: 1
+    try to divide 1 by 3
+    division 1 by 3 done
+    result: 0.3333333
+    try to divide 3 by 1
+    division 3 by 1 done
+    result: 3
+    try to divide 0 by 0
+    division 0 by 0 done
+    result: 0

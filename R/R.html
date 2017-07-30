@@ -1207,9 +1207,11 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
 <p>Throw a warning or an exception:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saveDivide &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
     <span class="cf">if</span> (x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="co"># throw a warning message</span>
         <span class="kw">warning</span>(<span class="st">&quot;zero value can&#39;t be divided&quot;</span>)
     }
     <span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="co"># throw an exception, halts the execution</span>
         <span class="kw">stop</span>(<span class="st">&quot;can&#39;t divide by zero&quot;</span>)
     }
     <span class="kw">return</span>(x <span class="op">/</span><span class="st"> </span>y)
@@ -1228,5 +1230,43 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
 <p>Suppress a warning:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">:</span><span class="st"> </span><span class="co"># returns NaN, arning: &quot;NaNs produced&quot;</span>
 <span class="kw">suppressWarning</span>(<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)) <span class="co"># just returns NaN</span></code></pre></div>
+<p>Advanced error handling with <code>tryCatch</code> (using the <code>saveDivide(x, y)</code> function from above):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dividends =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)
+divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)
+
+<span class="cf">for</span> (c <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {
+    a =<span class="st"> </span>dividends[c]
+    b =<span class="st"> </span>divisors[c]
+    <span class="kw">cat</span>(<span class="st">&quot;try to divide&quot;</span>, a, <span class="st">&quot;by&quot;</span>, b, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+    result &lt;-<span class="st"> </span><span class="kw">tryCatch</span>({
+        <span class="co"># try part</span>
+        <span class="kw">saveDivide</span>(a, b)
+    }, <span class="dt">warning =</span> <span class="cf">function</span>(warning) {
+        <span class="co"># catch part (for warnings)</span>
+        <span class="kw">return</span>(<span class="dv">0</span>)
+    }, <span class="dt">error =</span> <span class="cf">function</span>(error) {
+        <span class="co"># catch part (for errors)</span>
+        <span class="kw">return</span>(<span class="ot">NA</span>)
+    }, <span class="dt">finally =</span> {
+        <span class="co"># finally part (for cleanup)</span>
+        <span class="kw">cat</span>(<span class="st">&quot;division&quot;</span>, a, <span class="st">&quot;by&quot;</span>, b, <span class="st">&quot;done</span><span class="ch">\n</span><span class="st">&quot;</span>) 
+    })
+
+    <span class="kw">cat</span>(<span class="st">&quot;result:&quot;</span>, result, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}</code></pre></div>
+<p>Example output:</p>
+<pre><code>try to divide 2 by 2
+division 2 by 2 done
+result: 1
+try to divide 1 by 3
+division 1 by 3 done
+result: 0.3333333
+try to divide 3 by 1
+division 3 by 1 done
+result: 3
+try to divide 0 by 0
+division 0 by 0 done
+result: 0</code></pre>
 </body>
 </html>
