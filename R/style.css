@@ -13,6 +13,7 @@ pre {
     background-color: #ddd;
     border-radius: 5px;
     padding: 0.5em;
+    border: 1px solid #bbb;
 }
 
 code {
