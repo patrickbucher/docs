@@ -1655,3 +1655,41 @@ Functions can also defined _ad hoc_, so called disposable functions:
 sapply(1:10, FUN = function(x) { x ** 2 })
 # squares all the numbers from 1 to 10
 ```
+
+## Warnings and Exceptions
+
+Throw a warning or an exception:
+
+```R
+saveDivide <- function(x, y) {
+    if (x == 0) {
+        warning("zero value can't be divided")
+    }
+    if (y == 0) {
+        stop("can't divide by zero")
+    }
+    return(x / y)
+}
+
+saveDivide(0, 2) # causes warning
+saveDivide(2, 0) # causes exception, halts execution
+print("done") # this won't be executed
+```
+
+Catch an error (`silent = TRUE` suppresses the original error message):
+
+```R
+x <- try(saveDivide(2, 0), silent = TRUE)
+if ("try-error" == attr(x, "class")) {
+    print("division failed")
+} else {
+    print(x)
+}
+```
+
+Suppress a warning:
+
+```R
+sqrt(-1): # returns NaN, arning: "NaNs produced"
+suppressWarning(sqrt(-1)) # just returns NaN
+```

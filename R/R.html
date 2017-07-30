@@ -44,6 +44,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -52,7 +53,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Programming and Statistics with R</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">28.07.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -126,6 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#repeat"><span class="toc-section-number">2.2.6</span> Repeat</a></li>
 </ul></li>
 <li><a href="#functions"><span class="toc-section-number">2.3</span> Functions</a></li>
+<li><a href="#warnings-and-exceptions"><span class="toc-section-number">2.4</span> Warnings and Exceptions</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1202,5 +1203,30 @@ divisors =<span class="st"> </span><span class="kw">sample</span>(<span class="d
 <p>Functions can also defined <em>ad hoc</em>, so called disposable functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(x) { x <span class="op">**</span><span class="st"> </span><span class="dv">2</span> })
 <span class="co"># squares all the numbers from 1 to 10</span></code></pre></div>
+<h2 id="warnings-and-exceptions"><span class="header-section-number">2.4</span> Warnings and Exceptions</h2>
+<p>Throw a warning or an exception:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saveDivide &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
+    <span class="cf">if</span> (x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="kw">warning</span>(<span class="st">&quot;zero value can&#39;t be divided&quot;</span>)
+    }
+    <span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="kw">stop</span>(<span class="st">&quot;can&#39;t divide by zero&quot;</span>)
+    }
+    <span class="kw">return</span>(x <span class="op">/</span><span class="st"> </span>y)
+}
+
+<span class="kw">saveDivide</span>(<span class="dv">0</span>, <span class="dv">2</span>) <span class="co"># causes warning</span>
+<span class="kw">saveDivide</span>(<span class="dv">2</span>, <span class="dv">0</span>) <span class="co"># causes exception, halts execution</span>
+<span class="kw">print</span>(<span class="st">&quot;done&quot;</span>) <span class="co"># this won&#39;t be executed</span></code></pre></div>
+<p>Catch an error (<code>silent = TRUE</code> suppresses the original error message):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">try</span>(<span class="kw">saveDivide</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="dt">silent =</span> <span class="ot">TRUE</span>)
+<span class="cf">if</span> (<span class="st">&quot;try-error&quot;</span> <span class="op">==</span><span class="st"> </span><span class="kw">attr</span>(x, <span class="st">&quot;class&quot;</span>)) {
+    <span class="kw">print</span>(<span class="st">&quot;division failed&quot;</span>)
+} <span class="cf">else</span> {
+    <span class="kw">print</span>(x)
+}</code></pre></div>
+<p>Suppress a warning:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">:</span><span class="st"> </span><span class="co"># returns NaN, arning: &quot;NaNs produced&quot;</span>
+<span class="kw">suppressWarning</span>(<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)) <span class="co"># just returns NaN</span></code></pre></div>
 </body>
 </html>
