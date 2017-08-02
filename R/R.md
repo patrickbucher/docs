@@ -1857,3 +1857,103 @@ Example output:
     try to divide 0 by 0
     division 0 by 0 done
     result: 0
+
+# Statistics
+
+## Basic Terms
+
+- raw data: records or observations that make up a sample
+- numeric variables
+    - continuous: weight of a person, distance between two points
+    - discrete: number of coin tosses, population of a village
+- categorial variables
+    - nominal (unranked categories): color, nationality
+    - ordinal (ranked categories): level (low, medium, high)
+- univariate data: only one dimension (weight, length, duration etc.)
+- multivariate data: more than one dimension (latitude/longitude, x/y position,
+  weight/height)
+- parameter: characteristic of a population
+    - true mean $\mu$
+- statistic: characteristic of a sample (drawn from the population)
+    - sample mean <span style="text-decoration: overline">$x$</span>
+
+## Summary Statistics
+
+### Mean, Median, Mode
+
+Calculate the mean (arithmetic average) and median (the middle value for a set
+with odd length or the mean of the two middle values for a set with an even
+length, respectively):
+
+```R
+data <- c(1,1,1,2,2,3,3,3,3,4,4,4,4,5,5,6,7,8,8,9)
+
+mean(data) # 4.15
+median(data) # 4
+```
+
+Calculate the mode (most common value(s) in a set):
+
+```R
+mode <- function(v) {
+    # convert values to a table (containing the values and the number of
+    # occurences for each value))
+    t <- table(v)
+
+    # select the table entries with the biggest number of occurences
+    m <- t[t == max(t)]
+
+    # return the value with the most occurences as a number
+    return(as.numeric(names(m)))
+}
+mode(data) # 3 4 (the most common values, both occur four times)
+```
+
+Apply summarizing functions on a data frame, grouped by an index (see
+`?chickwts`, for details):
+
+```R
+tapply(X = chickwts$weight, INDEX = chickwts$feed, FUN = mean)
+tapply(X = chickwts$weight, INDEX = chickwts$feed, FUN = median)
+```
+
+### Quantiles, Percentiles
+
+Calculate the quantile of a vector (0% minimum, 50% median, 100% maximum):
+
+```R
+# 100 random numbers from 1 to 10
+s <- sample(x = 1:10, replace = TRUE, size = 100) 
+
+quantile(s) # default quantiles: 0%, 25%, 50%, 75% and 100%
+quantile(s, prob = c(0, 0.5, 1)) # just 0%, 50% and 100%
+quantile(s, prob = seq(from = 0, to = 1, by = 0.1)) # 0%, 10% etcetera
+```
+
+Output: 
+
+      0%   25%   50%   75%  100% 
+    1.00  3.00  6.00  8.25 10.00 
+
+     0%  50% 100% 
+      1    6   10 
+
+     0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
+    1.0  2.0  2.8  3.0  5.0  6.0  7.0  8.0  9.0 10.0 10.0 
+
+From this output, information can be obtained, such as:
+
+- 25% of all the values in the sample are below 3
+- 0% of all values in the sample are below or equal to 1.0 (not a single value)
+- 100% of all values in the sample are below or equal to 10.0 (all values)
+
+Obtaining the "five-number summary":
+
+```R
+summary(sample(x = 1:10, replace = TRUE, size = 100))
+```
+
+Output:
+
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    1.00    3.00    6.00    5.66    8.00   10.00

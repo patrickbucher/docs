@@ -44,7 +44,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -53,6 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Programming and Statistics with R</h1>
 <p class="author">Patrick Bucher</p>
+<p class="date">02.08.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -128,6 +128,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#functions"><span class="toc-section-number">2.3</span> Functions</a></li>
 <li><a href="#warnings-and-exceptions"><span class="toc-section-number">2.4</span> Warnings and Exceptions</a></li>
+</ul></li>
+<li><a href="#statistics"><span class="toc-section-number">3</span> Statistics</a><ul>
+<li><a href="#basic-terms"><span class="toc-section-number">3.1</span> Basic Terms</a></li>
+<li><a href="#summary-statistics"><span class="toc-section-number">3.2</span> Summary Statistics</a><ul>
+<li><a href="#mean-median-mode"><span class="toc-section-number">3.2.1</span> Mean, Median, Mode</a></li>
+<li><a href="#quantiles-percentiles"><span class="toc-section-number">3.2.2</span> Quantiles, Percentiles</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -1339,5 +1346,81 @@ result: 3
 try to divide 0 by 0
 division 0 by 0 done
 result: 0</code></pre>
+<h1 id="statistics"><span class="header-section-number">3</span> Statistics</h1>
+<h2 id="basic-terms"><span class="header-section-number">3.1</span> Basic Terms</h2>
+<ul>
+<li>raw data: records or observations that make up a sample</li>
+<li>numeric variables
+<ul>
+<li>continuous: weight of a person, distance between two points</li>
+<li>discrete: number of coin tosses, population of a village</li>
+</ul></li>
+<li>categorial variables
+<ul>
+<li>nominal (unranked categories): color, nationality</li>
+<li>ordinal (ranked categories): level (low, medium, high)</li>
+</ul></li>
+<li>univariate data: only one dimension (weight, length, duration etc.)</li>
+<li>multivariate data: more than one dimension (latitude/longitude, x/y position, weight/height)</li>
+<li>parameter: characteristic of a population
+<ul>
+<li>true mean <span class="math inline"><em>μ</em></span></li>
+</ul></li>
+<li>statistic: characteristic of a sample (drawn from the population)
+<ul>
+<li>sample mean <span style="text-decoration: overline"><span class="math inline"><em>x</em></span></span></li>
+</ul></li>
+</ul>
+<h2 id="summary-statistics"><span class="header-section-number">3.2</span> Summary Statistics</h2>
+<h3 id="mean-median-mode"><span class="header-section-number">3.2.1</span> Mean, Median, Mode</h3>
+<p>Calculate the mean (arithmetic average) and median (the middle value for a set with odd length or the mean of the two middle values for a set with an even length, respectively):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">9</span>)
+
+<span class="kw">mean</span>(data) <span class="co"># 4.15</span>
+<span class="kw">median</span>(data) <span class="co"># 4</span></code></pre></div>
+<p>Calculate the mode (most common value(s) in a set):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mode &lt;-<span class="st"> </span><span class="cf">function</span>(v) {
+    <span class="co"># convert values to a table (containing the values and the number of</span>
+    <span class="co"># occurences for each value))</span>
+    t &lt;-<span class="st"> </span><span class="kw">table</span>(v)
+
+    <span class="co"># select the table entries with the biggest number of occurences</span>
+    m &lt;-<span class="st"> </span>t[t <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(t)]
+
+    <span class="co"># return the value with the most occurences as a number</span>
+    <span class="kw">return</span>(<span class="kw">as.numeric</span>(<span class="kw">names</span>(m)))
+}
+<span class="kw">mode</span>(data) <span class="co"># 3 4 (the most common values, both occur four times)</span></code></pre></div>
+<p>Apply summarizing functions on a data frame, grouped by an index (see <code>?chickwts</code>, for details):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(<span class="dt">X =</span> chickwts<span class="op">$</span>weight, <span class="dt">INDEX =</span> chickwts<span class="op">$</span>feed, <span class="dt">FUN =</span> mean)
+<span class="kw">tapply</span>(<span class="dt">X =</span> chickwts<span class="op">$</span>weight, <span class="dt">INDEX =</span> chickwts<span class="op">$</span>feed, <span class="dt">FUN =</span> median)</code></pre></div>
+<h3 id="quantiles-percentiles"><span class="header-section-number">3.2.2</span> Quantiles, Percentiles</h3>
+<p>Calculate the quantile of a vector (0% minimum, 50% median, 100% maximum):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 100 random numbers from 1 to 10</span>
+s &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">100</span>) 
+
+<span class="kw">quantile</span>(s) <span class="co"># default quantiles: 0%, 25%, 50%, 75% and 100%</span>
+<span class="kw">quantile</span>(s, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)) <span class="co"># just 0%, 50% and 100%</span>
+<span class="kw">quantile</span>(s, <span class="dt">prob =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)) <span class="co"># 0%, 10% etcetera</span></code></pre></div>
+<p>Output:</p>
+<pre><code>  0%   25%   50%   75%  100% 
+1.00  3.00  6.00  8.25 10.00 
+
+ 0%  50% 100% 
+  1    6   10 
+
+ 0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
+1.0  2.0  2.8  3.0  5.0  6.0  7.0  8.0  9.0 10.0 10.0 </code></pre>
+<p>From this output, information can be obtained, such as:</p>
+<ul>
+<li>25% of all the values in the sample are below 3</li>
+<li>0% of all values in the sample are below or equal to 1.0 (not a single value)</li>
+<li>100% of all values in the sample are below or equal to 10.0 (all values)</li>
+</ul>
+<p>Obtaining the “five-number summary”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">sample</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">100</span>))</code></pre></div>
+<p>Output:</p>
+<pre><code>Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+1.00    3.00    6.00    5.66    8.00   10.00</code></pre>
 </body>
 </html>
