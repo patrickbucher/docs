@@ -800,9 +800,13 @@ Factors allow ordering:
 The `cut()` function can be used to break up data points on a continuum into
 discrete intervals:
 
-    weights <- c(72, 83, 61, 119, 88, 155)
-    w.breaks <- c(0, 70, 90, 120, 200)
-    cut(x = weights, breaks = w.breaks)
+```R
+weights <- c(72, 83, 61, 119, 88, 155)
+w.breaks <- c(0, 70, 90, 120, 200)
+cut(x = weights, breaks = w.breaks)
+```
+
+Output:
 
     (70,90]   (70,90]   (0,70]    (90,120]  (70,90]   (120,200]
     Levels: (0,70] (70,90] (90,120] (120,200]
@@ -812,11 +816,38 @@ FALSE` for inclusive/exclusive intervals (`[70,90)`).
 
 The intervals can be named using labels:
 
-    w.labels <- c("low", "normal", "high", "obese")
-    cut(x = weights, breaks = w.breaks, labels = w.labels)
+```R
+w.labels <- c("low", "normal", "high", "obese")
+cut(x = weights, breaks = w.breaks, labels = w.labels)
+```
+
+Output:
 
     normal normal low high normal obese
     Levels: low normal high obese
+
+### Splitting
+
+Split the data up into a list grouped by the factor:
+
+```R
+segments <- cut(x = weights, breaks = w.breaks, labels = w.labels)
+groups <- split(x = weights, f = segments)
+```
+
+Output:
+
+    $low
+    [1] 61
+
+    $normal
+    [1] 72 83 88
+
+    $high
+    [1] 119
+
+    $obese
+    [1] 155
 
 ## Lists
 
@@ -1957,3 +1988,63 @@ Output:
 
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     1.00    3.00    6.00    5.66    8.00   10.00
+
+### Spread
+
+Observations with different characteristics could have similar or equal means
+and medians:
+
+```R
+a <- c(1,2,3,10,11,12,19,20,21)
+b <- c(7,8,9,10,11,12,13,14,15)
+
+mean(a) # 11
+mean(b) # 11
+median(a) # 11
+median(b) # 11
+```
+
+The degree of spread of numeric observations can be measured with variance
+(average squared distance) and the standard deviation (the square root of the
+variance):
+
+```R
+var(a) # 61.5
+var(b) # 7.5
+
+sd(a) # 7.842194, same as sqrt(var(a))
+sd(b) # 2.738613, same as sqrt(var(b))
+```
+
+The interquartile range measures the width of the "middle 50%" of the data :
+
+```R
+as.numeric(quantile(a, 0.75) - quantile(a, 0.25)) # 16
+IQR(a) # same, but shorter
+
+as.numeric(quantile(b, 0.75) - quantile(b, 0.25)) # 4
+IQR(b) # 4
+```
+
+### Covariance and Correlation
+
+Two variables can be more or less related to each other:
+
+```R
+height <- c(170, 168, 181, 188, 195, 182, 157, 175, 177, 183)
+weight <- c(82, 67, 95, 112, 100, 82, 63, 90, 67, 75)
+plot(height, weight)
+```
+
+![Weight by Height](pic/weight-by-height.png)
+
+Calculate the covariance (how much two variables "change together") and the
+correlation (identify the direction and strength of the covariance):
+
+```R
+cov(height, weight) # 128.3556, positive linear relationship
+cor(height, weight) # 0.7424948, strong correlation, close to one
+```
+
+If the points in the plot would align to a straight line, the correlation would
+be exactly 1.

@@ -52,7 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Programming and Statistics with R</h1>
 <p class="author">Patrick Bucher</p>
-<p class="date">02.08.2017</p>
+<p class="date">03.08.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -88,6 +88,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#factors"><span class="toc-section-number">1.8</span> Factors</a><ul>
 <li><a href="#cutting"><span class="toc-section-number">1.8.1</span> Cutting</a></li>
+<li><a href="#splitting"><span class="toc-section-number">1.8.2</span> Splitting</a></li>
 </ul></li>
 <li><a href="#lists"><span class="toc-section-number">1.9</span> Lists</a></li>
 <li><a href="#data-frames"><span class="toc-section-number">1.10</span> Data Frames</a></li>
@@ -134,6 +135,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#summary-statistics"><span class="toc-section-number">3.2</span> Summary Statistics</a><ul>
 <li><a href="#mean-median-mode"><span class="toc-section-number">3.2.1</span> Mean, Median, Mode</a></li>
 <li><a href="#quantiles-percentiles"><span class="toc-section-number">3.2.2</span> Quantiles, Percentiles</a></li>
+<li><a href="#spread"><span class="toc-section-number">3.2.3</span> Spread</a></li>
+<li><a href="#covariance-and-correlation"><span class="toc-section-number">3.2.4</span> Covariance and Correlation</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -645,19 +648,35 @@ Mon Tue Wed Thu Fri
 Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
 <h3 id="cutting"><span class="header-section-number">1.8.1</span> Cutting</h3>
 <p>The <code>cut()</code> function can be used to break up data points on a continuum into discrete intervals:</p>
-<pre><code>weights &lt;- c(72, 83, 61, 119, 88, 155)
-w.breaks &lt;- c(0, 70, 90, 120, 200)
-cut(x = weights, breaks = w.breaks)
-
-(70,90]   (70,90]   (0,70]    (90,120]  (70,90]   (120,200]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">72</span>, <span class="dv">83</span>, <span class="dv">61</span>, <span class="dv">119</span>, <span class="dv">88</span>, <span class="dv">155</span>)
+w.breaks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">70</span>, <span class="dv">90</span>, <span class="dv">120</span>, <span class="dv">200</span>)
+<span class="kw">cut</span>(<span class="dt">x =</span> weights, <span class="dt">breaks =</span> w.breaks)</code></pre></div>
+<p>Output:</p>
+<pre><code>(70,90]   (70,90]   (0,70]    (90,120]  (70,90]   (120,200]
 Levels: (0,70] (70,90] (90,120] (120,200]</code></pre>
 <p><code>(70,90]</code> means: from 70 exclusive to 90 inclusive. Use the parameter <code>right = FALSE</code> for inclusive/exclusive intervals (<code>[70,90)</code>).</p>
 <p>The intervals can be named using labels:</p>
-<pre><code>w.labels &lt;- c(&quot;low&quot;, &quot;normal&quot;, &quot;high&quot;, &quot;obese&quot;)
-cut(x = weights, breaks = w.breaks, labels = w.labels)
-
-normal normal low high normal obese
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">w.labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;normal&quot;</span>, <span class="st">&quot;high&quot;</span>, <span class="st">&quot;obese&quot;</span>)
+<span class="kw">cut</span>(<span class="dt">x =</span> weights, <span class="dt">breaks =</span> w.breaks, <span class="dt">labels =</span> w.labels)</code></pre></div>
+<p>Output:</p>
+<pre><code>normal normal low high normal obese
 Levels: low normal high obese</code></pre>
+<h3 id="splitting"><span class="header-section-number">1.8.2</span> Splitting</h3>
+<p>Split the data up into a list grouped by the factor:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">segments &lt;-<span class="st"> </span><span class="kw">cut</span>(<span class="dt">x =</span> weights, <span class="dt">breaks =</span> w.breaks, <span class="dt">labels =</span> w.labels)
+groups &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="dt">x =</span> weights, <span class="dt">f =</span> segments)</code></pre></div>
+<p>Output:</p>
+<pre><code>$low
+[1] 61
+
+$normal
+[1] 72 83 88
+
+$high
+[1] 119
+
+$obese
+[1] 155</code></pre>
 <h2 id="lists"><span class="header-section-number">1.9</span> Lists</h2>
 <p>Lists can contain elements of different data types, including other lists, matrices etc.</p>
 <p>Create a list containing three different sized vectors of different types:</p>
@@ -1422,5 +1441,38 @@ s &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">
 <p>Output:</p>
 <pre><code>Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 1.00    3.00    6.00    5.66    8.00   10.00</code></pre>
+<h3 id="spread"><span class="header-section-number">3.2.3</span> Spread</h3>
+<p>Observations with different characteristics could have similar or equal means and medians:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">19</span>,<span class="dv">20</span>,<span class="dv">21</span>)
+b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>)
+
+<span class="kw">mean</span>(a) <span class="co"># 11</span>
+<span class="kw">mean</span>(b) <span class="co"># 11</span>
+<span class="kw">median</span>(a) <span class="co"># 11</span>
+<span class="kw">median</span>(b) <span class="co"># 11</span></code></pre></div>
+<p>The degree of spread of numeric observations can be measured with variance (average squared distance) and the standard deviation (the square root of the variance):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(a) <span class="co"># 61.5</span>
+<span class="kw">var</span>(b) <span class="co"># 7.5</span>
+
+<span class="kw">sd</span>(a) <span class="co"># 7.842194, same as sqrt(var(a))</span>
+<span class="kw">sd</span>(b) <span class="co"># 2.738613, same as sqrt(var(b))</span></code></pre></div>
+<p>The interquartile range measures the width of the “middle 50%” of the data :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.numeric</span>(<span class="kw">quantile</span>(a, <span class="fl">0.75</span>) <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(a, <span class="fl">0.25</span>)) <span class="co"># 16</span>
+<span class="kw">IQR</span>(a) <span class="co"># same, but shorter</span>
+
+<span class="kw">as.numeric</span>(<span class="kw">quantile</span>(b, <span class="fl">0.75</span>) <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(b, <span class="fl">0.25</span>)) <span class="co"># 4</span>
+<span class="kw">IQR</span>(b) <span class="co"># 4</span></code></pre></div>
+<h3 id="covariance-and-correlation"><span class="header-section-number">3.2.4</span> Covariance and Correlation</h3>
+<p>Two variables can be more or less related to each other:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">170</span>, <span class="dv">168</span>, <span class="dv">181</span>, <span class="dv">188</span>, <span class="dv">195</span>, <span class="dv">182</span>, <span class="dv">157</span>, <span class="dv">175</span>, <span class="dv">177</span>, <span class="dv">183</span>)
+weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">82</span>, <span class="dv">67</span>, <span class="dv">95</span>, <span class="dv">112</span>, <span class="dv">100</span>, <span class="dv">82</span>, <span class="dv">63</span>, <span class="dv">90</span>, <span class="dv">67</span>, <span class="dv">75</span>)
+<span class="kw">plot</span>(height, weight)</code></pre></div>
+<figure>
+<img src="pic/weight-by-height.png" alt="Weight by Height" /><figcaption>Weight by Height</figcaption>
+</figure>
+<p>Calculate the covariance (how much two variables “change together”) and the correlation (identify the direction and strength of the covariance):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cov</span>(height, weight) <span class="co"># 128.3556, positive linear relationship</span>
+<span class="kw">cor</span>(height, weight) <span class="co"># 0.7424948, strong correlation, close to one</span></code></pre></div>
+<p>If the points in the plot would align to a straight line, the correlation would be exactly 1.</p>
 </body>
 </html>
