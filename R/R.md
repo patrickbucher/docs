@@ -2048,3 +2048,25 @@ cor(height, weight) # 0.7424948, strong correlation, close to one
 
 If the points in the plot would align to a straight line, the correlation would
 be exactly 1.
+
+## Probability Distributions
+
+### Mass Functions (for Discrete Variables)
+
+Bernoulli Distribution: $p^x (1-p)^{1-x}$
+
+Binomial Distribution: $\frac{x!}{n!-(x-n)!} p^x (1-p)^{n-x}$
+
+```R
+# TODO: examples
+dbinom
+pbinom
+qbinom
+rbinom
+```
+
+Poisson Distribution: $\frac{\lambda^x e^{-\lambda}}{x!}$
+
+### Density Functions (for Continuous Variables)
+
+...

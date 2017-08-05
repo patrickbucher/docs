@@ -44,6 +44,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="-V title='Programming and Statistics with R' -V author='Patrick Bucher'">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -51,8 +52,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 <header>
 <h1 class="title">Programming and Statistics with R</h1>
-<p class="author">Patrick Bucher</p>
-<p class="date">03.08.2017</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -137,6 +136,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#quantiles-percentiles"><span class="toc-section-number">3.2.2</span> Quantiles, Percentiles</a></li>
 <li><a href="#spread"><span class="toc-section-number">3.2.3</span> Spread</a></li>
 <li><a href="#covariance-and-correlation"><span class="toc-section-number">3.2.4</span> Covariance and Correlation</a></li>
+</ul></li>
+<li><a href="#probability-distributions"><span class="toc-section-number">3.3</span> Probability Distributions</a><ul>
+<li><a href="#mass-functions-for-discrete-variables"><span class="toc-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</a></li>
+<li><a href="#density-functions-for-continuous-variables"><span class="toc-section-number">3.3.2</span> Density Functions (for Continuous Variables)</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1474,5 +1477,17 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cov</span>(height, weight) <span class="co"># 128.3556, positive linear relationship</span>
 <span class="kw">cor</span>(height, weight) <span class="co"># 0.7424948, strong correlation, close to one</span></code></pre></div>
 <p>If the points in the plot would align to a straight line, the correlation would be exactly 1.</p>
+<h2 id="probability-distributions"><span class="header-section-number">3.3</span> Probability Distributions</h2>
+<h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</h3>
+<p>Bernoulli Distribution: <span class="math inline"><em>p</em><sup><em>x</em></sup>(1 − <em>p</em>)<sup>1 − <em>x</em></sup></span></p>
+<p>Binomial Distribution: <span class="math inline">$\frac{x!}{n!-(x-n)!} p^x (1-p)^{n-x}$</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span><span class="al">TODO</span><span class="co">: examples</span>
+dbinom
+pbinom
+qbinom
+rbinom</code></pre></div>
+<p>Poisson Distribution: <span class="math inline">$\frac{\lambda^x e^{-\lambda}}{x!}$</span></p>
+<h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.3.2</span> Density Functions (for Continuous Variables)</h3>
+<p>…</p>
 </body>
 </html>
