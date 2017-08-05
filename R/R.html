@@ -1478,16 +1478,41 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <span class="kw">cor</span>(height, weight) <span class="co"># 0.7424948, strong correlation, close to one</span></code></pre></div>
 <p>If the points in the plot would align to a straight line, the correlation would be exactly 1.</p>
 <h2 id="probability-distributions"><span class="header-section-number">3.3</span> Probability Distributions</h2>
+<p>R offers four types of functions for probability distributions, using a one-letter prefix:</p>
+<ul>
+<li>‘d’ functions: providing specific probability values</li>
+<li>‘p’ functions: providing cumulative probability values</li>
+<li>‘q’ functions: providing quantiles (reverse function of the ‘p’ function)</li>
+<li>‘r’ functions: providing random values</li>
+</ul>
 <h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</h3>
-<p>Bernoulli Distribution: <span class="math inline"><em>p</em><sup><em>x</em></sup>(1 − <em>p</em>)<sup>1 − <em>x</em></sup></span></p>
-<p>Binomial Distribution: <span class="math inline">$\frac{x!}{n!-(x-n)!} p^x (1-p)^{n-x}$</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span><span class="al">TODO</span><span class="co">: examples</span>
-dbinom
-pbinom
-qbinom
-rbinom</code></pre></div>
-<p>Poisson Distribution: <span class="math inline">$\frac{\lambda^x e^{-\lambda}}{x!}$</span></p>
+<p>Binomial distribution: The probability of getting <span class="math inline"><em>n</em></span> out of <span class="math inline"><em>x</em></span> when <span class="math inline"><em>p</em>(<em>n</em>)</span> is given. Roll a die (probability of <span class="math inline">1/6</span> of getting a certain value):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting the desired value 5 times (x) when rolling a die 10 times (size)</span>
+<span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 0.01302381</span>
+
+<span class="co"># getting the desired value up to five times</span>
+<span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 0.9975618</span>
+<span class="kw">pbinom</span>(<span class="dt">x=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># same, using the cumulative function</span>
+
+<span class="co"># how many desired values to get with a given probability of 50%</span>
+<span class="kw">qbinom</span>(<span class="dt">p=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 2</span>
+
+<span class="co"># do 5 (n) random experiments with 10 (size) die rolls</span>
+<span class="co"># see how many desired values you get</span>
+<span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 3 1 0 1 3 (for example)</span></code></pre></div>
+<p>Poisson distribution:</p>
+<p>Geometric distribution:</p>
+<p>Negative binomial distribution:</p>
+<p>Hypergeometric distribution:</p>
+<p>Multinomial distribution:</p>
 <h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.3.2</span> Density Functions (for Continuous Variables)</h3>
-<p>…</p>
+<p>Uniform distribution:</p>
+<p>Normal distribution:</p>
+<p>Student’s t distribution:</p>
+<p>Exponential distribution:</p>
+<p>Chi-squared distribution:</p>
+<p>F distribution:</p>
+<p>Gamma distribution:</p>
+<p>Beta distribution:</p>
 </body>
 </html>

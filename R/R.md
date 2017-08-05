@@ -2051,22 +2051,59 @@ be exactly 1.
 
 ## Probability Distributions
 
+R offers four types of functions for probability distributions, using a
+one-letter prefix:
+
+- 'd' functions: providing specific probability values
+- 'p' functions: providing cumulative probability values
+- 'q' functions: providing quantiles (reverse function of the 'p' function)
+- 'r' functions: providing random values
+
 ### Mass Functions (for Discrete Variables)
 
-Bernoulli Distribution: $p^x (1-p)^{1-x}$
-
-Binomial Distribution: $\frac{x!}{n!-(x-n)!} p^x (1-p)^{n-x}$
+Binomial distribution: The probability of getting $n$ out of $x$ when $p(n)$ is
+given. Roll a die (probability of $1/6$ of getting a certain value):
 
 ```R
-# TODO: examples
-dbinom
-pbinom
-qbinom
-rbinom
+# getting the desired value 5 times (x) when rolling a die 10 times (size)
+dbinom(x=5, size=10, prob=1/6) # 0.01302381
+
+# getting the desired value up to five times
+sum(dbinom(x=0:5, size=10, prob=1/6) # 0.9975618
+pbinom(x=5, size=10, prob=1/6) # same, using the cumulative function
+
+# how many desired values to get with a given probability of 50%
+qbinom(p=0.5, size=10, prob=1/6) # 2
+
+# do 5 (n) random experiments with 10 (size) die rolls
+# see how many desired values you get
+rbinom(n=5, size=10, prob=1/6) # 3 1 0 1 3 (for example)
 ```
 
-Poisson Distribution: $\frac{\lambda^x e^{-\lambda}}{x!}$
+Poisson distribution:
+
+Geometric distribution:
+
+Negative binomial distribution:
+
+Hypergeometric distribution:
+
+Multinomial distribution:
 
 ### Density Functions (for Continuous Variables)
 
-...
+Uniform distribution:
+
+Normal distribution:
+
+Student's t distribution:
+
+Exponential distribution:
+
+Chi-squared distribution:
+
+F distribution:
+
+Gamma distribution:
+
+Beta distribution:
