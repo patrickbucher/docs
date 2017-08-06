@@ -103,8 +103,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#plotting"><span class="toc-section-number">1.13</span> Plotting</a><ul>
 <li><a href="#additional-elements"><span class="toc-section-number">1.13.1</span> Additional Elements</a></li>
-<li><a href="#saving-plots-to-files"><span class="toc-section-number">1.13.2</span> Saving Plots to Files</a></li>
-<li><a href="#plotting-examples"><span class="toc-section-number">1.13.3</span> Plotting Examples</a></li>
+<li><a href="#todo-barplots"><span class="toc-section-number">1.13.2</span> TODO: Barplots</a></li>
+<li><a href="#todo-pie-charts"><span class="toc-section-number">1.13.3</span> TODO: Pie Charts</a></li>
+<li><a href="#todo-histograms"><span class="toc-section-number">1.13.4</span> TODO: Histograms</a></li>
+<li><a href="#todo-box-and-whisker-plots"><span class="toc-section-number">1.13.5</span> TODO: Box-and-Whisker Plots</a></li>
+<li><a href="#todo-scatterplots"><span class="toc-section-number">1.13.6</span> TODO: Scatterplots</a></li>
+<li><a href="#saving-plots-to-files"><span class="toc-section-number">1.13.7</span> Saving Plots to Files</a></li>
+<li><a href="#plotting-examples"><span class="toc-section-number">1.13.8</span> Plotting Examples</a></li>
 </ul></li>
 <li><a href="#pre-installed-data-sets"><span class="toc-section-number">1.14</span> Pre-Installed Data Sets</a></li>
 <li><a href="#working-with-files"><span class="toc-section-number">1.15</span> Working with Files</a><ul>
@@ -138,9 +143,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#spread"><span class="toc-section-number">3.2.3</span> Spread</a></li>
 <li><a href="#covariance-and-correlation"><span class="toc-section-number">3.2.4</span> Covariance and Correlation</a></li>
 </ul></li>
-<li><a href="#probability-distributions"><span class="toc-section-number">3.3</span> Probability Distributions</a><ul>
-<li><a href="#mass-functions-for-discrete-variables"><span class="toc-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</a></li>
-<li><a href="#density-functions-for-continuous-variables"><span class="toc-section-number">3.3.2</span> Density Functions (for Continuous Variables)</a></li>
+<li><a href="#todo-probability"><span class="toc-section-number">3.3</span> TODO: Probability</a></li>
+<li><a href="#probability-distributions"><span class="toc-section-number">3.4</span> Probability Distributions</a><ul>
+<li><a href="#mass-functions-for-discrete-variables"><span class="toc-section-number">3.4.1</span> Mass Functions (for Discrete Variables)</a></li>
+<li><a href="#density-functions-for-continuous-variables"><span class="toc-section-number">3.4.2</span> Density Functions (for Continuous Variables)</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -932,7 +938,12 @@ segments(x0 = c(1, 4), y0 = c(1, 1), x1 = c(1, 4), y1 = c(5, 5))
 
 legend(x = &quot;bottomleft&quot;, legend = c(&quot;Male&quot;, &quot;Female&quot;), pch = c(&quot;+&quot;, &quot;x&quot;))
 # a legend on the bottom left position (+: Male, x: Female)</code></pre>
-<h3 id="saving-plots-to-files"><span class="header-section-number">1.13.2</span> Saving Plots to Files</h3>
+<h3 id="todo-barplots"><span class="header-section-number">1.13.2</span> TODO: Barplots</h3>
+<h3 id="todo-pie-charts"><span class="header-section-number">1.13.3</span> TODO: Pie Charts</h3>
+<h3 id="todo-histograms"><span class="header-section-number">1.13.4</span> TODO: Histograms</h3>
+<h3 id="todo-box-and-whisker-plots"><span class="header-section-number">1.13.5</span> TODO: Box-and-Whisker Plots</h3>
+<h3 id="todo-scatterplots"><span class="header-section-number">1.13.6</span> TODO: Scatterplots</h3>
+<h3 id="saving-plots-to-files"><span class="header-section-number">1.13.7</span> Saving Plots to Files</h3>
 <p>Plots can be saved to files. Various formats are supported, for example PNG, JPEG, TIFF, BMP, PDF and EPS (postscript). Plotting to a screen is a special case of plotting: it draws directly on the screen device. Files are handled as devices, too..</p>
 <p>In order to save a plot to a file, just open the file device, do the plots and close the device:</p>
 <pre><code>png(filename = &quot;plot.png&quot;)
@@ -946,8 +957,8 @@ dev.off()</code></pre>
 <pre><code>pdf(file = &quot;plot.pdf&quot;, width = 8, height = 6)</code></pre>
 <p>For SVG output, parameters such as the font and the background can be defined:</p>
 <pre><code>svg(filename = &quot;plot.svg&quot;, family = &quot;serif&quot;, bg = &quot;grey&quot;)</code></pre>
-<h3 id="plotting-examples"><span class="header-section-number">1.13.3</span> Plotting Examples</h3>
-<h4 id="example-1-drawing-features"><span class="header-section-number">1.13.3.1</span> Example 1: Drawing Features</h4>
+<h3 id="plotting-examples"><span class="header-section-number">1.13.8</span> Plotting Examples</h3>
+<h4 id="example-1-drawing-features"><span class="header-section-number">1.13.8.1</span> Example 1: Drawing Features</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">13</span>), <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">13</span>), <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)
 x0 =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>)
@@ -959,7 +970,7 @@ y1 =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.5</spa
 <figure>
 <img src="pic/07-demo1.png" alt="Example 1: Various Drawing Features" /><figcaption>Example 1: Various Drawing Features</figcaption>
 </figure>
-<h4 id="example-2-colored-graph-and-legend"><span class="header-section-number">1.13.3.2</span> Example 2: Colored Graph and Legend</h4>
+<h4 id="example-2-colored-graph-and-legend"><span class="header-section-number">1.13.8.2</span> Example 2: Colored Graph and Legend</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">55</span>, <span class="dv">42</span>, <span class="dv">58</span>, <span class="dv">67</span>)
 fh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">161</span>, <span class="dv">154</span>, <span class="dv">170</span>, <span class="dv">178</span>)
 mw &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">85</span>, <span class="dv">75</span>, <span class="dv">93</span>, <span class="dv">63</span>, <span class="dv">75</span>, <span class="dv">89</span>)
@@ -974,7 +985,7 @@ mh &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">185<
 <figure>
 <img src="pic/07-demo2.png" alt="Example 2: Colored Graph with Legend" /><figcaption>Example 2: Colored Graph with Legend</figcaption>
 </figure>
-<h4 id="example-3-law-of-large-numbers"><span class="header-section-number">1.13.3.3</span> Example 3: Law of Large Numbers</h4>
+<h4 id="example-3-law-of-large-numbers"><span class="header-section-number">1.13.8.3</span> Example 3: Law of Large Numbers</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nTosses &lt;-<span class="st"> </span><span class="dv">500</span>
 
 ## toss the coin, get head (&quot;H&quot;) or tails (&quot;T&quot;)
@@ -1478,7 +1489,8 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cov</span>(height, weight) <span class="co"># 128.3556, positive linear relationship</span>
 <span class="kw">cor</span>(height, weight) <span class="co"># 0.7424948, strong correlation, close to one</span></code></pre></div>
 <p>If the points in the plot would align to a straight line, the correlation would be exactly 1.</p>
-<h2 id="probability-distributions"><span class="header-section-number">3.3</span> Probability Distributions</h2>
+<h2 id="todo-probability"><span class="header-section-number">3.3</span> TODO: Probability</h2>
+<h2 id="probability-distributions"><span class="header-section-number">3.4</span> Probability Distributions</h2>
 <p>R offers four types of functions for probability distributions, using a one-letter prefix:</p>
 <ul>
 <li>‘d’ functions: providing specific probability values</li>
@@ -1486,8 +1498,8 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <li>‘q’ functions: providing quantiles (reverse function of the ‘p’ function)</li>
 <li>‘r’ functions: providing random values</li>
 </ul>
-<h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</h3>
-<h4 id="binomial-distribution"><span class="header-section-number">3.3.1.1</span> Binomial distribution</h4>
+<h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.4.1</span> Mass Functions (for Discrete Variables)</h3>
+<h4 id="binomial-distribution"><span class="header-section-number">3.4.1.1</span> Binomial distribution</h4>
 <p>The probability of getting <span class="math inline"><em>n</em></span> out of <span class="math inline"><em>x</em></span> when <span class="math inline"><em>p</em>(<em>n</em>)</span> is given.</p>
 <p>Example: Roll a die (probability of <span class="math inline">1/6</span> of getting a certain value):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting the desired value 5 times (x) when rolling a die 10 times (size)</span>
@@ -1502,7 +1514,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 
 <span class="co"># amount of desired values after 10 die rolls (run n=5 random experiments)</span>
 <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 3 1 0 1 3 (for example)</span></code></pre></div>
-<h4 id="poisson-distribution"><span class="header-section-number">3.3.1.2</span> Poisson distribution</h4>
+<h4 id="poisson-distribution"><span class="header-section-number">3.4.1.2</span> Poisson distribution</h4>
 <p>The probability of making <span class="math inline"><em>x</em></span> observations when, on average, there are <span class="math inline"><em>λ</em></span> observations.</p>
 <p>Example: Probability of getting a certain amount of defects in a production series:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the probability of getting 10 defects (for an average of 7 defects)</span>
@@ -1516,7 +1528,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 
 <span class="co"># how many defects every product will have (run n=10 random experiments)</span>
 <span class="kw">rpois</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">lambda=</span><span class="dv">7</span>) <span class="co"># 9 6 9 7 4 4 5 8 9 9 (for example)</span></code></pre></div>
-<h4 id="geometric-distribution"><span class="header-section-number">3.3.1.3</span> Geometric distribution</h4>
+<h4 id="geometric-distribution"><span class="header-section-number">3.4.1.3</span> Geometric distribution</h4>
 <p>The numbers of failures to expect before the first success.</p>
 <p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), expecting head, calculating the probability of first getting <span class="math inline"><em>x</em></span> times tails:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting three tails before getting one head</span>
@@ -1530,7 +1542,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 
 <span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
 <span class="kw">rgeom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 1 0 0 2 1 0 0 0 0 4 (for example)</span></code></pre></div>
-<h4 id="negative-binomial-distribution"><span class="header-section-number">3.3.1.4</span> Negative binomial distribution</h4>
+<h4 id="negative-binomial-distribution"><span class="header-section-number">3.4.1.4</span> Negative binomial distribution</h4>
 <p>Generalized version of the geometric distribution with an additional size parameter.</p>
 <p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), calculate the chance of getting a specific number of tails (<span class="math inline"><em>x</em></span>) before a specific number of heads:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># one failure (x=1) before the first (size=1) success</span>
@@ -1550,7 +1562,7 @@ TH is one ouf those four, hence <span class="dv">1</span><span class="op">/</spa
 
 <span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
 <span class="kw">rnbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0 0 0 1 1 1 0 0 0 0 (for example)</span></code></pre></div>
-<h4 id="hypergeometric-distribution"><span class="header-section-number">3.3.1.5</span> Hypergeometric distribution</h4>
+<h4 id="hypergeometric-distribution"><span class="header-section-number">3.4.1.5</span> Hypergeometric distribution</h4>
 <p>Sampling without replacement, when events have an impact on the probabilities of upcoming events.</p>
 <p>Example: A urn is filled <span class="math inline"><em>m</em> = 10</span> white and <span class="math inline"><em>n</em> = 90</span> black balls (<span class="math inline"><em>m</em> + <em>n</em> = 100</span> balls):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># x: number of white balls drawn (whitout replacement)</span>
@@ -1569,7 +1581,7 @@ TH is one ouf those four, hence <span class="dv">1</span><span class="op">/</spa
 
 <span class="co"># how many white balls expected to be drawn (run nn=10 experiments)</span>
 <span class="kw">rhyper</span>(<span class="dt">nn=</span><span class="dv">10</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 2 1 1 1 2 2 1 0 1 0</span></code></pre></div>
-<h4 id="multinomial-distribution"><span class="header-section-number">3.3.1.6</span> Multinomial distribution</h4>
+<h4 id="multinomial-distribution"><span class="header-section-number">3.4.1.6</span> Multinomial distribution</h4>
 <p>Generalized version of the binomial distribution. A success can happen in more than one category at each trial.</p>
 <p>Example: Throw a rigged coin with a heavier heads side, see how probable a certain outcome is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rigged coin, head twice as probable as tails</span>
@@ -1587,8 +1599,8 @@ outcome &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv"
 <pre><code>      [,1] [,2] [,3] [,4] [,5]
  [1,]    7    8    6    8    8
  [2,]    2    1    3    1    1</code></pre>
-<h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.3.2</span> Density Functions (for Continuous Variables)</h3>
-<h4 id="uniform-distribution"><span class="header-section-number">3.3.2.1</span> Uniform distribution</h4>
+<h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.4.2</span> Density Functions (for Continuous Variables)</h3>
+<h4 id="uniform-distribution"><span class="header-section-number">3.4.2.1</span> Uniform distribution</h4>
 <p>The uniform distribution has a constant value between a defined interval and the value zero outside that interval. The width (the interval) and the height (the value within the interval) multiply to 1.</p>
 <p>Example: A machine cuts off pieces between 2.9 and 3.1 centimeters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the piece is cut off at exactly 3 cm length</span>
@@ -1648,15 +1660,36 @@ b &lt;-<span class="st"> </span><span class="fl">3.1</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">min=</span><span class="fl">2.9</span>, <span class="dt">max=</span><span class="fl">3.1</span>)
 <span class="kw">round</span>(l, <span class="dt">digits=</span><span class="dv">3</span>)
 <span class="co"># 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)</span></code></pre></div>
-<p>TODO:</p>
+<p>Other densitiy distributions and functions ([TODO: explain normal, student’s t and exponential in detail]):</p>
 <ul>
-<li>Normal distribution</li>
-<li>Student’s t distribution</li>
-<li>Exponential distribution</li>
-<li>Chi-squared distribution</li>
-<li>F distribution</li>
-<li>Gamma distribution</li>
-<li>Beta distribution</li>
+<li>Normal distribution: bell-shaped distribution curve, also known as “Gaussian”
+<ul>
+<li>Functions: <code>dnorm</code>, <code>pnorm</code>, <code>qnorm</code> and <code>rnorm</code></li>
+</ul></li>
+<li>Student’s t distribution: bell-shaped distribution curve for samples (rather than populations)
+<ul>
+<li>Functions: <code>dt</code>, <code>pt</code>, <code>qt</code> and <code>rt</code></li>
+</ul></li>
+<li>Exponential distribution: for random variables from <span class="math inline">0</span> to <span class="math inline">∞</span>
+<ul>
+<li>Functions: <code>dexp</code>, <code>pexp</code>, <code>qexp</code> and <code>rexp</code></li>
+</ul></li>
+<li>Chi-squared distribution: models sums of squared normal variates
+<ul>
+<li>Functions: <code>dchisq</code>, <code>pchisq</code>, <code>qchisq</code> and <code>rchisq</code></li>
+</ul></li>
+<li>F distribution: models rations of two chi-squared random variables
+<ul>
+<li>Functions: <code>df</code>, <code>pf</code>, <code>qf</code> and <code>rf</code></li>
+</ul></li>
+<li>Gamma distribution: generalization of exponential and chi-squared distributions
+<ul>
+<li>Functions: <code>dgamma</code>, <code>pgamma</code>, <code>qgamma</code> and <code>rgamma</code></li>
+</ul></li>
+<li>Beta distribution: for Bayesian modeling
+<ul>
+<li>Functions: <code>dbeta</code>, <code>pbeta</code>, <code>qbeta</code> and <code>rbeta</code></li>
+</ul></li>
 </ul>
 </body>
 </html>

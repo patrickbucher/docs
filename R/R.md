@@ -1250,6 +1250,16 @@ one. Elements can be added to an existing plot using these functions:
     legend(x = "bottomleft", legend = c("Male", "Female"), pch = c("+", "x"))
     # a legend on the bottom left position (+: Male, x: Female)
 
+### TODO: Barplots
+
+### TODO: Pie Charts
+
+### TODO: Histograms
+
+### TODO: Box-and-Whisker Plots
+
+### TODO: Scatterplots
+
 ### Saving Plots to Files
 
 Plots can be saved to files. Various formats are supported, for example PNG,
@@ -2085,6 +2095,8 @@ cor(height, weight) # 0.7424948, strong correlation, close to one
 If the points in the plot would align to a straight line, the correlation would
 be exactly 1.
 
+## TODO: Probability
+
 ## Probability Distributions
 
 R offers four types of functions for probability distributions, using a
@@ -2331,12 +2343,21 @@ round(l, digits=3)
 # 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)
 ```
 
-TODO:
+Other densitiy distributions and functions ([TODO: explain normal, student's t
+and exponential in detail]):
 
-- Normal distribution
-- Student's t distribution
-- Exponential distribution
-- Chi-squared distribution
-- F distribution
-- Gamma distribution
-- Beta distribution
+- Normal distribution: bell-shaped distribution curve, also known as "Gaussian"
+    - Functions: `dnorm`, `pnorm`, `qnorm` and `rnorm`
+- Student's t distribution: bell-shaped distribution curve for samples (rather
+  than populations)
+    - Functions: `dt`, `pt`, `qt` and `rt`
+- Exponential distribution:  for random variables from $0$ to $∞$
+    - Functions: `dexp`, `pexp`, `qexp` and `rexp`
+- Chi-squared distribution: models sums of squared normal variates
+    - Functions: `dchisq`, `pchisq`, `qchisq` and `rchisq`
+- F distribution: models rations of two chi-squared random variables
+    - Functions: `df`, `pf`, `qf` and `rf`
+- Gamma distribution: generalization of exponential and chi-squared distributions
+    - Functions: `dgamma`, `pgamma`, `qgamma` and `rgamma`
+- Beta distribution: for Bayesian modeling
+    - Functions: `dbeta`, `pbeta`, `qbeta` and `rbeta`
