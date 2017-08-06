@@ -2245,18 +2245,98 @@ Output of the matrix:
 
 ### Density Functions (for Continuous Variables)
 
-Uniform distribution:
+#### Uniform distribution
 
-Normal distribution:
+The uniform distribution has a constant value between a defined interval and the
+value zero outside that interval. The width (the interval) and the height (the
+value within the interval) multiply to 1.
 
-Student's t distribution:
+Example: A machine cuts off pieces between 2.9 and 3.1 centimeters.
 
-Exponential distribution:
+```R
+# the piece is cut off at exactly 3 cm length
+dunif(x=3, min=2.9, max=3.1) # 5
+``` 
 
-Chi-squared distribution:
+The result 5 is not a probability, of course, but the function value. In order
+to calculate the probability, the area of an interval must be calculated:
 
-F distribution:
+```R
+# the interval of possible outcomes
+a <- 2.9
+b <- 3.1
 
-Gamma distribution:
+# the interval of desired outcomes
+l <- 2.99
+r <- 3.01
 
-Beta distribution:
+# calculate the height: any value within the interval will do
+h <- dunif(x=3, min=a, max=b)
+
+# plot the interval function
+plot(x = c(a, b), y = c(h, h), type="o",
+     xlim = c(a, b), ylim=c(0, h),
+     xlab="x", ylab="f(x)") 
+
+# draw the borders
+abline(h=0, lty=2)
+abline(v=a, lty=2)
+abline(v=b, lty=2)
+
+# draw a polygon denoting the desired interval
+polygon(x=c(r, r, l, l), y=c(h, 0, 0, h),
+        col="gray", border=NA)
+
+# calculate the area of the polygon and display it
+area <- round(h * (r - l), digits=3)
+text(x = 3, y = h/2, area)
+```
+
+So the probability of the piece cut off between 2.99 and 3.01 is 10%.
+
+![Plot of the uniform distribution (probability = 10%)](pic/unif-area.png)
+
+The same calculation can be achieved easier with the `punif` function, which
+operates on intervals (and calculates the resulting area):
+
+```R
+# the area from the lower interval (a) to the upper desired interval
+area_a_to_r <- punif(q=3.01, min=2.9, max=3.1)
+
+# the area from the lower interval (a) to the lower desired interval
+area_a_to_l <- punif(q=2.99, min=2.9, max=3.1)
+
+# the desired interval is the difference between those two areas
+area = area_a_to_r - area_a_to_l # 0.1
+```
+
+Calculating the range that will result with a certain probability:
+
+```R
+a <- 2.9
+b <- 3.1
+
+# in 95% of the cases, the piece will be cut off at 3.09 cm maximum
+qunif(p=0.95, min=a, max=b) # 3.09
+
+# in 95% of the cases, the piece will be cut off at 2.91 cm mininum
+qunif(p=1-0.95, min=a, max=b) # 2.91 
+```
+
+Calculate $n$ random values in the given range:
+
+```R
+l <- runif(n=10, min=2.9, max=3.1)
+round(l, digits=3)
+# 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)
+```
+
+TODO:
+
+- Normal distribution
+- Student's t distribution
+- Exponential distribution
+- Chi-squared distribution
+- F distribution
+- Gamma distribution
+- Beta distribution
