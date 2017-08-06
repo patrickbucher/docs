@@ -6,46 +6,62 @@
 
 Set a custom prompt (`R> `):
 
-    options(prompt = "R> ")
+```R
+options(prompt = "R> ")
+```
 
 List variables, objects and user-defined functions of the current session:
 
-    ls()
+```R
+ls()
+```
 
 Remove an item from the current session:
 
-    ls() # nothing
-    foo <- "bar"
-    ls() # "foo"
+```R
+ls() # nothing
+foo <- "bar"
+ls() # "foo"
 
-    rm(foo)
-    ls() # nothing
+rm(foo)
+ls() # nothing
+```
 
 Empty the current session:
 
-    rm(list = ls())
+```R
+rm(list = ls())
+```
 
 Leave R:
 
-    q()
+```R
+q()
+```
 
 ### Scoping
 
 List environments:
 
-    search() # ".GlobalEnv" "tools:rstudio" ... "package:base"
+```R
+search() # ".GlobalEnv" "tools:rstudio" ... "package:base"
+```
 
 When refering to a symbol (a variable, object, functin etc.), R searches through
 the environments listed by `search()` from left to right.
 
 Determine the environment in which an object lives:
 
-    environment(seq) # <environment: namespace:base>
-    environment(plot) # <environment: namespace:graphics>
+```R
+environment(seq) # <environment: namespace:base>
+environment(plot) # <environment: namespace:graphics>
+```
 
 List the content of an environment:
 
-    ls("package:graphics")
+```R
+ls("package:graphics")
+```
 
 When a package is no longer used, it can be detached in order to clean up the
 namespace:
@@ -84,50 +100,70 @@ In order to keep the namespace clean, attaching objects to the namespace
 
 Find out and set the current working directory:
 
-    getwd()
-    setwd("~/my-workspace")
+```R
+getwd()
+setwd("~/my-workspace")
+```
 
 Save the current session:
 
-    save.image("my-session.RData")
+```R
+save.image("my-session.RData")
+```
 
 Load a stored session:
 
-    load("my-session.RData")
+```R
+load("my-session.RData")
+```
 
 ### Packages
 
 Install a new package (`MASS`, for example):
     
-    install.packages("MASS")
+```R
+install.packages("MASS")
+```
 
 List installed packages:
 
-    installed.packages()
+```R
+installed.packages()
+```
 
 Load the installed `MASS` library:
 
-    library("MASS")
+```R
+library("MASS")
+```
 
 Update installed packages:
 
-    update.packages()
+```R
+update.packages()
+```
 
 Uninstall a package (using default library paths):
 
-    remove.packages("MASS", .libPaths())
+```R
+remove.packages("MASS", .libPaths())
+```
 
 ### Help
 
 Get help for a specific keyword (the `mean` function, for example):
 
-    help("mean")
-    ?mean # shortcut
+```R
+help("mean")
+?mean # shortcut
+```
 
 Search for a help topic (`random`, for example):
 
-    help.search("random")
-    ??"random" # shortcut
+```R
+help.search("random")
+??"random" # shortcut
+```
 
 ## Language Basics
 

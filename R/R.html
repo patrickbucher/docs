@@ -148,29 +148,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 id="basics"><span class="header-section-number">1</span> Basics</h1>
 <h2 id="environment"><span class="header-section-number">1.1</span> Environment</h2>
 <p>Set a custom prompt (<code>R&gt;</code>):</p>
-<pre><code>options(prompt = &quot;R&gt; &quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">prompt =</span> <span class="st">&quot;R&gt; &quot;</span>)</code></pre></div>
 <p>List variables, objects and user-defined functions of the current session:</p>
-<pre><code>ls()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
 <p>Remove an item from the current session:</p>
-<pre><code>ls() # nothing
-foo &lt;- &quot;bar&quot;
-ls() # &quot;foo&quot;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># nothing</span>
+foo &lt;-<span class="st"> &quot;bar&quot;</span>
+<span class="kw">ls</span>() <span class="co"># &quot;foo&quot;</span>
 
-rm(foo)
-ls() # nothing</code></pre>
+<span class="kw">rm</span>(foo)
+<span class="kw">ls</span>() <span class="co"># nothing</span></code></pre></div>
 <p>Empty the current session:</p>
-<pre><code>rm(list = ls())</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
 <p>Leave R:</p>
-<pre><code>q()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">q</span>()</code></pre></div>
 <h3 id="scoping"><span class="header-section-number">1.1.1</span> Scoping</h3>
 <p>List environments:</p>
-<pre><code>search() # &quot;.GlobalEnv&quot; &quot;tools:rstudio&quot; ... &quot;package:base&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>() <span class="co"># &quot;.GlobalEnv&quot; &quot;tools:rstudio&quot; ... &quot;package:base&quot;</span></code></pre></div>
 <p>When refering to a symbol (a variable, object, functin etc.), R searches through the environments listed by <code>search()</code> from left to right.</p>
 <p>Determine the environment in which an object lives:</p>
-<pre><code>environment(seq) # &lt;environment: namespace:base&gt;
-environment(plot) # &lt;environment: namespace:graphics&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">environment</span>(seq) <span class="co"># &lt;environment: namespace:base&gt;</span>
+<span class="kw">environment</span>(plot) <span class="co"># &lt;environment: namespace:graphics&gt;</span></code></pre></div>
 <p>List the content of an environment:</p>
-<pre><code>ls(&quot;package:graphics&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="st">&quot;package:graphics&quot;</span>)</code></pre></div>
 <p>When a package is no longer used, it can be detached in order to clean up the namespace:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>() <span class="co"># &quot;.GlobalEnv&quot; &quot;package:stats&quot; &quot;package:graphics&quot; etc.</span>
 <span class="kw">library</span>(<span class="st">&quot;MASS&quot;</span>)
@@ -195,30 +195,30 @@ age <span class="co"># Error: object &#39;age&#39; not found</span></code></pre>
 <p>In order to keep the namespace clean, attaching objects to the namespace (“mounting”) should be avoided.</p>
 <h3 id="sessions"><span class="header-section-number">1.1.2</span> Sessions</h3>
 <p>Find out and set the current working directory:</p>
-<pre><code>getwd()
-setwd(&quot;~/my-workspace&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()
+<span class="kw">setwd</span>(<span class="st">&quot;~/my-workspace&quot;</span>)</code></pre></div>
 <p>Save the current session:</p>
-<pre><code>save.image(&quot;my-session.RData&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save.image</span>(<span class="st">&quot;my-session.RData&quot;</span>)</code></pre></div>
 <p>Load a stored session:</p>
-<pre><code>load(&quot;my-session.RData&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;my-session.RData&quot;</span>)</code></pre></div>
 <h3 id="packages"><span class="header-section-number">1.1.3</span> Packages</h3>
 <p>Install a new package (<code>MASS</code>, for example):</p>
-<pre><code>install.packages(&quot;MASS&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</code></pre></div>
 <p>List installed packages:</p>
-<pre><code>installed.packages()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">installed.packages</span>()</code></pre></div>
 <p>Load the installed <code>MASS</code> library:</p>
-<pre><code>library(&quot;MASS&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;MASS&quot;</span>)</code></pre></div>
 <p>Update installed packages:</p>
-<pre><code>update.packages()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()</code></pre></div>
 <p>Uninstall a package (using default library paths):</p>
-<pre><code>remove.packages(&quot;MASS&quot;, .libPaths())</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">remove.packages</span>(<span class="st">&quot;MASS&quot;</span>, <span class="kw">.libPaths</span>())</code></pre></div>
 <h3 id="help"><span class="header-section-number">1.1.4</span> Help</h3>
 <p>Get help for a specific keyword (the <code>mean</code> function, for example):</p>
-<pre><code>help(&quot;mean&quot;)
-?mean # shortcut</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;mean&quot;</span>)
+?mean <span class="co"># shortcut</span></code></pre></div>
 <p>Search for a help topic (<code>random</code>, for example):</p>
-<pre><code>help.search(&quot;random&quot;)
-??&quot;random&quot; # shortcut</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;random&quot;</span>)
+??<span class="st">&quot;random&quot;</span> <span class="co"># shortcut</span></code></pre></div>
 <h2 id="language-basics"><span class="header-section-number">1.2</span> Language Basics</h2>
 <p>Comments, starting with <code>#</code> to the end of the line:</p>
 <pre><code>1 + 1 # calculates one plus one, which is two</code></pre>
