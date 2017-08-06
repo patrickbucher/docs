@@ -44,7 +44,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="-V title='Programming and Statistics with R' -V author='Patrick Bucher'">
+  <link rel="stylesheet" href="--variable=title:Programming and Statistics with R">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -52,6 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 <header>
 <h1 class="title">Programming and Statistics with R</h1>
+<p class="author">Patrick Bucher</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -1486,7 +1487,9 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <li>‘r’ functions: providing random values</li>
 </ul>
 <h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.3.1</span> Mass Functions (for Discrete Variables)</h3>
-<p>Binomial distribution: The probability of getting <span class="math inline"><em>n</em></span> out of <span class="math inline"><em>x</em></span> when <span class="math inline"><em>p</em>(<em>n</em>)</span> is given. Roll a die (probability of <span class="math inline">1/6</span> of getting a certain value):</p>
+<h4 id="binomial-distribution"><span class="header-section-number">3.3.1.1</span> Binomial distribution</h4>
+<p>The probability of getting <span class="math inline"><em>n</em></span> out of <span class="math inline"><em>x</em></span> when <span class="math inline"><em>p</em>(<em>n</em>)</span> is given.</p>
+<p>Example: Roll a die (probability of <span class="math inline">1/6</span> of getting a certain value):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting the desired value 5 times (x) when rolling a die 10 times (size)</span>
 <span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 0.01302381</span>
 
@@ -1497,14 +1500,93 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <span class="co"># how many desired values to get with a given probability of 50%</span>
 <span class="kw">qbinom</span>(<span class="dt">p=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 2</span>
 
-<span class="co"># do 5 (n) random experiments with 10 (size) die rolls</span>
-<span class="co"># see how many desired values you get</span>
+<span class="co"># amount of desired values after 10 die rolls (run n=5 random experiments)</span>
 <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span>) <span class="co"># 3 1 0 1 3 (for example)</span></code></pre></div>
-<p>Poisson distribution:</p>
-<p>Geometric distribution:</p>
-<p>Negative binomial distribution:</p>
-<p>Hypergeometric distribution:</p>
-<p>Multinomial distribution:</p>
+<h4 id="poisson-distribution"><span class="header-section-number">3.3.1.2</span> Poisson distribution</h4>
+<p>The probability of making <span class="math inline"><em>x</em></span> observations when, on average, there are <span class="math inline"><em>λ</em></span> observations.</p>
+<p>Example: Probability of getting a certain amount of defects in a production series:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the probability of getting 10 defects (for an average of 7 defects)</span>
+<span class="kw">dpois</span>(<span class="dt">x=</span><span class="dv">10</span>, <span class="dt">lambda=</span><span class="dv">7</span>) <span class="co"># 0.07098327</span>
+
+<span class="co"># the probability of getting up to 10 defects (for an average of 7 defects)</span>
+<span class="kw">ppois</span>(<span class="dt">q=</span><span class="dv">10</span>, <span class="dt">lambda=</span><span class="dv">7</span>)
+
+<span class="co"># how much defects to expect in the best 10% (p=0.1) of the production line</span>
+<span class="kw">qpois</span>(<span class="dt">p=</span><span class="fl">0.1</span>, <span class="dt">lambda=</span><span class="dv">7</span>) <span class="co"># 4</span>
+
+<span class="co"># how many defects every product will have (run n=10 random experiments)</span>
+<span class="kw">rpois</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">lambda=</span><span class="dv">7</span>) <span class="co"># 9 6 9 7 4 4 5 8 9 9 (for example)</span></code></pre></div>
+<h4 id="geometric-distribution"><span class="header-section-number">3.3.1.3</span> Geometric distribution</h4>
+<p>The numbers of failures to expect before the first success.</p>
+<p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), expecting head, calculating the probability of first getting <span class="math inline"><em>x</em></span> times tails:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting three tails before getting one head</span>
+<span class="kw">dgeom</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0.0625</span>
+
+<span class="co"># getting up to three tails before getting one head</span>
+<span class="kw">pgeom</span>(<span class="dt">q=</span><span class="dv">3</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0.9375</span>
+
+<span class="co"># in ninety percent of the cases, 3 or less tails occur before the first head</span>
+<span class="kw">qgeom</span>(<span class="dt">p=</span><span class="fl">0.9</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 3</span>
+
+<span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
+<span class="kw">rgeom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 1 0 0 2 1 0 0 0 0 4 (for example)</span></code></pre></div>
+<h4 id="negative-binomial-distribution"><span class="header-section-number">3.3.1.4</span> Negative binomial distribution</h4>
+<p>Generalized version of the geometric distribution with an additional size parameter.</p>
+<p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), calculate the chance of getting a specific number of tails (<span class="math inline"><em>x</em></span>) before a specific number of heads:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># one failure (x=1) before the first (size=1) success</span>
+<span class="co"># first throw tails and then head</span>
+<span class="kw">dnbinom</span>(<span class="dt">x=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0.25</span>
+<span class="co"># four possible outcomes: HT, TH, HH and TT.</span>
+TH is one ouf those four, hence <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>=<span class="fl">0.25</span>
+
+<span class="co"># up to one failure (q=1) before the first (size=1) success</span>
+<span class="co"># first throw head or tails and then head</span>
+<span class="kw">pnbinom</span>(<span class="dt">q=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)
+<span class="co"># four possible outcomes: HT, TH, HH and TT.</span>
+<span class="co"># HT, HH (no failure) and TH (one failure) are 3 out of 4, hence 3/4=0.75</span>
+
+<span class="co"># in ninety percent of the cases, 3 or less tails occur before the first head</span>
+<span class="kw">qnbinom</span>(<span class="dt">p=</span><span class="fl">0.9</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)
+
+<span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
+<span class="kw">rnbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0 0 0 1 1 1 0 0 0 0 (for example)</span></code></pre></div>
+<h4 id="hypergeometric-distribution"><span class="header-section-number">3.3.1.5</span> Hypergeometric distribution</h4>
+<p>Sampling without replacement, when events have an impact on the probabilities of upcoming events.</p>
+<p>Example: A urn is filled <span class="math inline"><em>m</em> = 10</span> white and <span class="math inline"><em>n</em> = 90</span> black balls (<span class="math inline"><em>m</em> + <em>n</em> = 100</span> balls):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># x: number of white balls drawn (whitout replacement)</span>
+<span class="co"># m: total number of white balls in the urn</span>
+<span class="co"># n: total number of black balls in the urn</span>
+<span class="co"># k: number of balls to be drawn from the urn</span>
+
+<span class="co"># getting one white ball when drawing ten times</span>
+<span class="kw">dhyper</span>(<span class="dt">x=</span><span class="dv">1</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 0.4079953</span>
+
+<span class="co"># getting zero or one white ball when drawing ten times</span>
+<span class="kw">phyper</span>(<span class="dt">q=</span><span class="dv">1</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 0.7384715</span>
+
+<span class="co"># in 95% of the cases, 3 or less white balls will be drawn</span>
+<span class="kw">qhyper</span>(<span class="dt">p=</span><span class="fl">0.95</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 3</span>
+
+<span class="co"># how many white balls expected to be drawn (run nn=10 experiments)</span>
+<span class="kw">rhyper</span>(<span class="dt">nn=</span><span class="dv">10</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 2 1 1 1 2 2 1 0 1 0</span></code></pre></div>
+<h4 id="multinomial-distribution"><span class="header-section-number">3.3.1.6</span> Multinomial distribution</h4>
+<p>Generalized version of the binomial distribution. A success can happen in more than one category at each trial.</p>
+<p>Example: Throw a rigged coin with a heavier heads side, see how probable a certain outcome is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rigged coin, head twice as probable as tails</span>
+probs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>) 
+
+<span class="co"># expecting six heads and three tails</span>
+outcome &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">3</span>) <span class="co"># 3 heads, 2 tails</span>
+
+<span class="co"># calculate the odds of that exact outcome</span>
+<span class="kw">dmultinom</span>(<span class="dt">x=</span>outcome, <span class="dt">size=</span><span class="kw">sum</span>(outcome), <span class="dt">prob=</span>probs) <span class="co"># 0.2731291</span>
+
+<span class="co"># what head/tails ratio to expect when running n=5 experiments with 5 tosses</span>
+<span class="kw">rmultinom</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">size=</span><span class="kw">sum</span>(outcome), <span class="dt">prob=</span>probs) <span class="co"># returns a matrix</span></code></pre></div>
+<p>Output of the matrix:</p>
+<pre><code>      [,1] [,2] [,3] [,4] [,5]
+ [1,]    7    8    6    8    8
+ [2,]    2    1    3    1    1</code></pre>
 <h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.3.2</span> Density Functions (for Continuous Variables)</h3>
 <p>Uniform distribution:</p>
 <p>Normal distribution:</p>

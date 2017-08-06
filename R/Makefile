@@ -1,8 +1,8 @@
 FLAGS = --toc -N -S -s -c
 PDF_FLAGS = --latex-engine=xelatex
 
-VARS = "-V title='Programming and Statistics with R' -V author='Patrick Bucher'"
-PDF_VARS = "-V documentclass=scrbook -V classoption=11pt -V papersize=a4 -V mainfont='Droid Serif' -V sansfont='Droid Sans' -V monofont='Fira Mono'"
+VARS = --variable=title:"Programming and Statistics with R" --variable=author:"Patrick Bucher"
+PDF_VARS = -V documentclass=scrbook -V classoption=11pt -V papersize=a4 -V mainfont='Droid Serif' -V sansfont='Droid Sans' -V monofont='Fira Mono'
 
 R.html: R.md style.css
 	pandoc R.md -c style.css -t html5 $(FLAGS) $(VARS) -o R.html

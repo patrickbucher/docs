@@ -2061,8 +2061,11 @@ one-letter prefix:
 
 ### Mass Functions (for Discrete Variables)
 
-Binomial distribution: The probability of getting $n$ out of $x$ when $p(n)$ is
-given. Roll a die (probability of $1/6$ of getting a certain value):
+#### Binomial distribution
+
+The probability of getting $n$ out of $x$ when $p(n)$ is given.
+
+Example: Roll a die (probability of $1/6$ of getting a certain value):
 
 ```R
 # getting the desired value 5 times (x) when rolling a die 10 times (size)
@@ -2075,20 +2078,134 @@ pbinom(x=5, size=10, prob=1/6) # same, using the cumulative function
 # how many desired values to get with a given probability of 50%
 qbinom(p=0.5, size=10, prob=1/6) # 2
 
-# do 5 (n) random experiments with 10 (size) die rolls
-# see how many desired values you get
+# amount of desired values after 10 die rolls (run n=5 random experiments)
 rbinom(n=5, size=10, prob=1/6) # 3 1 0 1 3 (for example)
 ```
 
-Poisson distribution:
+#### Poisson distribution
 
-Geometric distribution:
+The probability of making $x$ observations when, on average, there are $λ$
+observations.
 
-Negative binomial distribution:
+Example: Probability of getting a certain amount of defects in a production
+series:
 
-Hypergeometric distribution:
+```R
+# the probability of getting 10 defects (for an average of 7 defects)
+dpois(x=10, lambda=7) # 0.07098327
 
-Multinomial distribution:
+# the probability of getting up to 10 defects (for an average of 7 defects)
+ppois(q=10, lambda=7)
+
+# how much defects to expect in the best 10% (p=0.1) of the production line
+qpois(p=0.1, lambda=7) # 4
+
+# how many defects every product will have (run n=10 random experiments)
+rpois(n=10, lambda=7) # 9 6 9 7 4 4 5 8 9 9 (for example)
+```
+
+#### Geometric distribution
+
+The numbers of failures to expect before the first success.
+
+Example: Toss a coin (probability = $1/2$), expecting head, calculating the
+probability of first getting $x$ times tails:
+
+```R
+# getting three tails before getting one head
+dgeom(x=3, prob=1/2) # 0.0625
+
+# getting up to three tails before getting one head
+pgeom(q=3, prob=1/2) # 0.9375
+
+# in ninety percent of the cases, 3 or less tails occur before the first head
+qgeom(p=0.9, prob=1/2) # 3
+
+# how many tails to expect before the first head (run n=10 experiments)
+rgeom(n=10, prob=1/2) # 1 0 0 2 1 0 0 0 0 4 (for example)
+```
+
+#### Negative binomial distribution
+
+Generalized version of the geometric distribution with an additional size
+parameter.
+
+Example: Toss a coin (probability = $1/2$), calculate the chance of getting a
+specific number of tails ($x$) before a specific number of heads:
+
+```R
+# one failure (x=1) before the first (size=1) success
+# first throw tails and then head
+dnbinom(x=1, size=1, prob=1/2) # 0.25
+# four possible outcomes: HT, TH, HH and TT.
+TH is one ouf those four, hence 1/4=0.25
+
+# up to one failure (q=1) before the first (size=1) success
+# first throw head or tails and then head
+pnbinom(q=1, size=1, prob=1/2)
+# four possible outcomes: HT, TH, HH and TT.
+# HT, HH (no failure) and TH (one failure) are 3 out of 4, hence 3/4=0.75
+
+# in ninety percent of the cases, 3 or less tails occur before the first head
+qnbinom(p=0.9, size=1, prob=1/2)
+
+# how many tails to expect before the first head (run n=10 experiments)
+rnbinom(n=10, size=1, prob=1/2) # 0 0 0 1 1 1 0 0 0 0 (for example)
+```
+
+#### Hypergeometric distribution
+
+Sampling without replacement, when events have an impact on the probabilities
+of upcoming events.
+
+Example: A urn is filled $m=10$ white and $n=90$ black balls ($m+n=100$ balls):
+
+```R
+# x: number of white balls drawn (whitout replacement)
+# m: total number of white balls in the urn
+# n: total number of black balls in the urn
+# k: number of balls to be drawn from the urn
+
+# getting one white ball when drawing ten times
+dhyper(x=1, m=10, n=90, k=10) # 0.4079953
+
+# getting zero or one white ball when drawing ten times
+phyper(q=1, m=10, n=90, k=10) # 0.7384715
+
+# in 95% of the cases, 3 or less white balls will be drawn
+qhyper(p=0.95, m=10, n=90, k=10) # 3
+
+# how many white balls expected to be drawn (run nn=10 experiments)
+rhyper(nn=10, m=10, n=90, k=10) # 2 1 1 1 2 2 1 0 1 0
+```
+
+#### Multinomial distribution
+
+Generalized version of the binomial distribution. A success can happen in more
+than one category at each trial.
+
+Example: Throw a rigged coin with a heavier heads side, see how probable a
+certain outcome is:
+
+```R
+# rigged coin, head twice as probable as tails
+probs <- c(2/3, 1/3) 
+
+# expecting six heads and three tails
+outcome <- c(6, 3) # 3 heads, 2 tails
+
+# calculate the odds of that exact outcome
+dmultinom(x=outcome, size=sum(outcome), prob=probs) # 0.2731291
+
+# what head/tails ratio to expect when running n=5 experiments with 5 tosses
+rmultinom(n=5, size=sum(outcome), prob=probs) # returns a matrix
+```
+
+Output of the matrix:
+
+          [,1] [,2] [,3] [,4] [,5]
+     [1,]    7    8    6    8    8
+     [2,]    2    1    3    1    1
 
 ### Density Functions (for Continuous Variables)
 
