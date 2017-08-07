@@ -2109,7 +2109,7 @@ one-letter prefix:
 
 ### Mass Functions (for Discrete Variables)
 
-#### Binomial distribution
+#### Binomial Distribution
 
 The probability of getting $n$ out of $x$ when $p(n)$ is given.
 
@@ -2152,7 +2152,7 @@ qpois(p=0.1, lambda=7) # 4
 rpois(n=10, lambda=7) # 9 6 9 7 4 4 5 8 9 9 (for example)
 ```
 
-#### Geometric distribution
+#### Geometric Distribution
 
 The numbers of failures to expect before the first success.
 
@@ -2173,7 +2173,7 @@ qgeom(p=0.9, prob=1/2) # 3
 rgeom(n=10, prob=1/2) # 1 0 0 2 1 0 0 0 0 4 (for example)
 ```
 
-#### Negative binomial distribution
+#### Negative Binomial Distribution
 
 Generalized version of the geometric distribution with an additional size
 parameter.
@@ -2201,7 +2201,7 @@ qnbinom(p=0.9, size=1, prob=1/2)
 rnbinom(n=10, size=1, prob=1/2) # 0 0 0 1 1 1 0 0 0 0 (for example)
 ```
 
-#### Hypergeometric distribution
+#### Hypergeometric Distribution
 
 Sampling without replacement, when events have an impact on the probabilities
 of upcoming events.
@@ -2227,7 +2227,7 @@ qhyper(p=0.95, m=10, n=90, k=10) # 3
 rhyper(nn=10, m=10, n=90, k=10) # 2 1 1 1 2 2 1 0 1 0
 ```
 
-#### Multinomial distribution
+#### Multinomial Distribution
 
 Generalized version of the binomial distribution. A success can happen in more
 than one category at each trial.
@@ -2257,7 +2257,7 @@ Output of the matrix:
 
 ### Density Functions (for Continuous Variables)
 
-#### Uniform distribution
+#### Uniform Distribution
 
 The uniform distribution has a constant value between a defined interval and the
 value zero outside that interval. The width (the interval) and the height (the
@@ -2343,7 +2343,7 @@ round(l, digits=3)
 # 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)
 ```
 
-#### Normal distribution
+#### Normal Distribution
 
 Describes a bell-shaped distribution curve, which is also known as "Gaussian",
 and is often to describe distributions in nature. The curve is symmetric,
@@ -2431,16 +2431,83 @@ plot(sort(heights), xlab="index", ylab="height")
 The values are roughly aligned on a straight line, with outliers at the left
 bottom and at the right top.
 
+#### Student's t Distribution
+
+A bell-shaped distribution curve for samples (rather than populations) and an
+area of 1 below the curve; a family of curves getting closer to the normal
+distribution when rising it's sole parameter -- the _degrees of freedom_ ($df$):
+
+```R
+x <- seq(from=-10, to=10, length=1000)
+a <- dt(x=x, df=1)
+b <- dt(x=x, df=2)
+c <- dt(x=x, df=4)
+n <- dnorm(x = x, mean=0, sd=1)
+
+plot(x=NA, type="n", xlim=c(-3,3), ylim=c(0,0.5), xlab="x", ylab="y")
+lines(x=x, y=a, lty=1, col="green")
+lines(x=x, y=b, lty=2, col="blue")
+lines(x=x, y=c, lty=3, col="red")
+lines(x=x, y=n, lty=4, col="black")
+legend(x="topleft",
+       legend=c("t(df=1)", "t(df=2)", "t(df=4)", "norm(0,1)"),
+       lty=c(1,2,3,4), col=c("green", "blue", "red", "black"))
+```
+
+![Three $t$ distributions and the normal distribution](pic/t-dist.png)
+
+Its functions (`dt`, `pt`, `qt` and `rt`) are applied similarly to the ones of
+the normal distribution.
+
+#### Exponential Distribution
+
+The exponential distribution describes a curve with $x$ values from 0 to
+positive infinity with (exponentially) falling $y$ values, starting from a value
+defined as the rate parameter. The area below the curve is always 1. The bigger
+the rate parameter, the higher the starting point and the faster the decay:
+
+```R
+x <- seq(from=0, to=10, length=1000)
+a <- dexp(x=x, rate=1.6)
+b <- dexp(x=x, rate=1.2)
+c <- dexp(x=x, rate=0.6)
+
+plot(x=NA, type="n", xlim=c(0,10), ylim=c(0,2), xlab="x", ylab="y")
+lines(x=x, y=a, lty=1, col="green")
+lines(x=x, y=b, lty=2, col="blue")
+lines(x=x, y=c, lty=3, col="red")
+legend(x="topleft",
+       legend=c("exp(rate=1.6)", "exp(rate=1.2)", "exp(rate=0.6)"),
+       lty=c(1,2,3), col=c("green", "blue", "red"))
+```
+
+![Three $exp$ distributions with different rates](pic/exp-dist.png)
+
+The rate parameter is also called $λ$, hinting at the close relation to the
+Poisson distribution: The Poisson distribution models the _count_ of a certain
+event, the exponential distribution the _time between_ the events. Example:
+Every hour, 90 cars pass a bridge (a rate of $90/60=1.5$ per minute).
+
+```R
+# after one car has just passed, calculate the probability of ...
+
+# ... a car passing within the next minute (q=1)
+pexp(q=1, rate=1.5) # 0.7768698
+
+# ... no car passing for the next two minutes (q=2)
+1 - pexp(q=2, rate=1.5) # 0.04978707
+
+# the cut-off point for the lowest 10% of waiting time
+qexp(p=0.1, rate=1.5) # 0.07024034 minutes, roughly 4.2 seconds
+
+# the cut-off point for the highest 10% of waiting time
+qexp(p=0.9, rate=1.5) # 1.535057 minutes, roughly 92 seconds
+```
+
 #### Other Density Distributions
 
-Other densitiy distributions and functions ([TODO: explain student's t and
-exponential in detail]):
+Other densitiy distributions and their functions:
 
-- Student's t distribution: bell-shaped distribution curve for samples (rather
-  than populations)
-    - Functions: `dt`, `pt`, `qt` and `rt`
-- Exponential distribution:  for random variables from $0$ to $∞$
-    - Functions: `dexp`, `pexp`, `qexp` and `rexp`
 - Chi-squared distribution: models sums of squared normal variates
     - Functions: `dchisq`, `pchisq`, `qchisq` and `rchisq`
 - F distribution: models rations of two chi-squared random variables

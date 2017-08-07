@@ -1,8 +1,0 @@
-plot(x = c(), xlim = c(-3, 3), ylim = c(7, 13), xlab="", ylab="")
-abline(v = c(-3,3), h = c(7,13), lty = "dashed", col = "grey", lwd = 3)
-x0 = c(-2.5, -2.5, -2.5, 2.5, 2.5, 2.5)
-y0 = c(7.5, 10, 12.5, 12.5, 10, 7.5)
-x1 = c(-1, -1, -1, 1, 1, 1)
-y1 = c(9.5, 10, 10.5, 10.5, 10, 9.5)
-arrows(x0, y0, x1, y1)
-text(x = 0, y = 10, "SOMETHING\nPROFOUND")

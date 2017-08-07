@@ -1,4 +1,4 @@
-FLAGS = --toc -N -S -s -c
+FLAGS = --toc --toc-depth=4 -N -S -s -c
 PDF_FLAGS = --latex-engine=xelatex
 
 VARS = --variable=title:"Programming and Statistics with R" --variable=author:"Patrick Bucher"

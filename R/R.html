@@ -109,7 +109,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#todo-box-and-whisker-plots"><span class="toc-section-number">1.13.5</span> TODO: Box-and-Whisker Plots</a></li>
 <li><a href="#todo-scatterplots"><span class="toc-section-number">1.13.6</span> TODO: Scatterplots</a></li>
 <li><a href="#saving-plots-to-files"><span class="toc-section-number">1.13.7</span> Saving Plots to Files</a></li>
-<li><a href="#plotting-examples"><span class="toc-section-number">1.13.8</span> Plotting Examples</a></li>
+<li><a href="#plotting-examples"><span class="toc-section-number">1.13.8</span> Plotting Examples</a><ul>
+<li><a href="#example-1-drawing-features"><span class="toc-section-number">1.13.8.1</span> Example 1: Drawing Features</a></li>
+<li><a href="#example-2-colored-graph-and-legend"><span class="toc-section-number">1.13.8.2</span> Example 2: Colored Graph and Legend</a></li>
+<li><a href="#example-3-law-of-large-numbers"><span class="toc-section-number">1.13.8.3</span> Example 3: Law of Large Numbers</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#pre-installed-data-sets"><span class="toc-section-number">1.14</span> Pre-Installed Data Sets</a></li>
 <li><a href="#working-with-files"><span class="toc-section-number">1.15</span> Working with Files</a><ul>
@@ -145,8 +149,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#todo-probability"><span class="toc-section-number">3.3</span> TODO: Probability</a></li>
 <li><a href="#probability-distributions"><span class="toc-section-number">3.4</span> Probability Distributions</a><ul>
-<li><a href="#mass-functions-for-discrete-variables"><span class="toc-section-number">3.4.1</span> Mass Functions (for Discrete Variables)</a></li>
-<li><a href="#density-functions-for-continuous-variables"><span class="toc-section-number">3.4.2</span> Density Functions (for Continuous Variables)</a></li>
+<li><a href="#mass-functions-for-discrete-variables"><span class="toc-section-number">3.4.1</span> Mass Functions (for Discrete Variables)</a><ul>
+<li><a href="#binomial-distribution"><span class="toc-section-number">3.4.1.1</span> Binomial Distribution</a></li>
+<li><a href="#poisson-distribution"><span class="toc-section-number">3.4.1.2</span> Poisson distribution</a></li>
+<li><a href="#geometric-distribution"><span class="toc-section-number">3.4.1.3</span> Geometric Distribution</a></li>
+<li><a href="#negative-binomial-distribution"><span class="toc-section-number">3.4.1.4</span> Negative Binomial Distribution</a></li>
+<li><a href="#hypergeometric-distribution"><span class="toc-section-number">3.4.1.5</span> Hypergeometric Distribution</a></li>
+<li><a href="#multinomial-distribution"><span class="toc-section-number">3.4.1.6</span> Multinomial Distribution</a></li>
+</ul></li>
+<li><a href="#density-functions-for-continuous-variables"><span class="toc-section-number">3.4.2</span> Density Functions (for Continuous Variables)</a><ul>
+<li><a href="#uniform-distribution"><span class="toc-section-number">3.4.2.1</span> Uniform Distribution</a></li>
+<li><a href="#normal-distribution"><span class="toc-section-number">3.4.2.2</span> Normal Distribution</a></li>
+<li><a href="#students-t-distribution"><span class="toc-section-number">3.4.2.3</span> Student’s t Distribution</a></li>
+<li><a href="#exponential-distribution"><span class="toc-section-number">3.4.2.4</span> Exponential Distribution</a></li>
+<li><a href="#other-density-distributions"><span class="toc-section-number">3.4.2.5</span> Other Density Distributions</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1499,7 +1516,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <li>‘r’ functions: providing random values</li>
 </ul>
 <h3 id="mass-functions-for-discrete-variables"><span class="header-section-number">3.4.1</span> Mass Functions (for Discrete Variables)</h3>
-<h4 id="binomial-distribution"><span class="header-section-number">3.4.1.1</span> Binomial distribution</h4>
+<h4 id="binomial-distribution"><span class="header-section-number">3.4.1.1</span> Binomial Distribution</h4>
 <p>The probability of getting <span class="math inline"><em>n</em></span> out of <span class="math inline"><em>x</em></span> when <span class="math inline"><em>p</em>(<em>n</em>)</span> is given.</p>
 <p>Example: Roll a die (probability of <span class="math inline">1/6</span> of getting a certain value):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting the desired value 5 times (x) when rolling a die 10 times (size)</span>
@@ -1528,7 +1545,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 
 <span class="co"># how many defects every product will have (run n=10 random experiments)</span>
 <span class="kw">rpois</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">lambda=</span><span class="dv">7</span>) <span class="co"># 9 6 9 7 4 4 5 8 9 9 (for example)</span></code></pre></div>
-<h4 id="geometric-distribution"><span class="header-section-number">3.4.1.3</span> Geometric distribution</h4>
+<h4 id="geometric-distribution"><span class="header-section-number">3.4.1.3</span> Geometric Distribution</h4>
 <p>The numbers of failures to expect before the first success.</p>
 <p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), expecting head, calculating the probability of first getting <span class="math inline"><em>x</em></span> times tails:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getting three tails before getting one head</span>
@@ -1542,7 +1559,7 @@ weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 
 <span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
 <span class="kw">rgeom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 1 0 0 2 1 0 0 0 0 4 (for example)</span></code></pre></div>
-<h4 id="negative-binomial-distribution"><span class="header-section-number">3.4.1.4</span> Negative binomial distribution</h4>
+<h4 id="negative-binomial-distribution"><span class="header-section-number">3.4.1.4</span> Negative Binomial Distribution</h4>
 <p>Generalized version of the geometric distribution with an additional size parameter.</p>
 <p>Example: Toss a coin (probability = <span class="math inline">1/2</span>), calculate the chance of getting a specific number of tails (<span class="math inline"><em>x</em></span>) before a specific number of heads:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># one failure (x=1) before the first (size=1) success</span>
@@ -1562,7 +1579,7 @@ TH is one ouf those four, hence <span class="dv">1</span><span class="op">/</spa
 
 <span class="co"># how many tails to expect before the first head (run n=10 experiments)</span>
 <span class="kw">rnbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="co"># 0 0 0 1 1 1 0 0 0 0 (for example)</span></code></pre></div>
-<h4 id="hypergeometric-distribution"><span class="header-section-number">3.4.1.5</span> Hypergeometric distribution</h4>
+<h4 id="hypergeometric-distribution"><span class="header-section-number">3.4.1.5</span> Hypergeometric Distribution</h4>
 <p>Sampling without replacement, when events have an impact on the probabilities of upcoming events.</p>
 <p>Example: A urn is filled <span class="math inline"><em>m</em> = 10</span> white and <span class="math inline"><em>n</em> = 90</span> black balls (<span class="math inline"><em>m</em> + <em>n</em> = 100</span> balls):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># x: number of white balls drawn (whitout replacement)</span>
@@ -1581,7 +1598,7 @@ TH is one ouf those four, hence <span class="dv">1</span><span class="op">/</spa
 
 <span class="co"># how many white balls expected to be drawn (run nn=10 experiments)</span>
 <span class="kw">rhyper</span>(<span class="dt">nn=</span><span class="dv">10</span>, <span class="dt">m=</span><span class="dv">10</span>, <span class="dt">n=</span><span class="dv">90</span>, <span class="dt">k=</span><span class="dv">10</span>) <span class="co"># 2 1 1 1 2 2 1 0 1 0</span></code></pre></div>
-<h4 id="multinomial-distribution"><span class="header-section-number">3.4.1.6</span> Multinomial distribution</h4>
+<h4 id="multinomial-distribution"><span class="header-section-number">3.4.1.6</span> Multinomial Distribution</h4>
 <p>Generalized version of the binomial distribution. A success can happen in more than one category at each trial.</p>
 <p>Example: Throw a rigged coin with a heavier heads side, see how probable a certain outcome is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rigged coin, head twice as probable as tails</span>
@@ -1600,7 +1617,7 @@ outcome &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv"
  [1,]    7    8    6    8    8
  [2,]    2    1    3    1    1</code></pre>
 <h3 id="density-functions-for-continuous-variables"><span class="header-section-number">3.4.2</span> Density Functions (for Continuous Variables)</h3>
-<h4 id="uniform-distribution"><span class="header-section-number">3.4.2.1</span> Uniform distribution</h4>
+<h4 id="uniform-distribution"><span class="header-section-number">3.4.2.1</span> Uniform Distribution</h4>
 <p>The uniform distribution has a constant value between a defined interval and the value zero outside that interval. The width (the interval) and the height (the value within the interval) multiply to 1.</p>
 <p>Example: A machine cuts off pieces between 2.9 and 3.1 centimeters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the piece is cut off at exactly 3 cm length</span>
@@ -1660,7 +1677,7 @@ b &lt;-<span class="st"> </span><span class="fl">3.1</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">min=</span><span class="fl">2.9</span>, <span class="dt">max=</span><span class="fl">3.1</span>)
 <span class="kw">round</span>(l, <span class="dt">digits=</span><span class="dv">3</span>)
 <span class="co"># 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)</span></code></pre></div>
-<h4 id="normal-distribution"><span class="header-section-number">3.4.2.2</span> Normal distribution</h4>
+<h4 id="normal-distribution"><span class="header-section-number">3.4.2.2</span> Normal Distribution</h4>
 <p>Describes a bell-shaped distribution curve, which is also known as “Gaussian”, and is often to describe distributions in nature. The curve is symmetric, unimodal, and the area below it adds up to 1, and the tails are asymptotic to the x axis.</p>
 <p>Example: The height of a person (male) follows a normal distribution with a mean of 175.5 cm and a standard deviation of 7.37 cm:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height_mean &lt;-<span class="st"> </span><span class="fl">175.5</span>
@@ -1723,17 +1740,60 @@ heights &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class=
 <img src="pic/random_heights.png" alt="Random, normally distributed values" /><figcaption>Random, normally distributed values</figcaption>
 </figure>
 <p>The values are roughly aligned on a straight line, with outliers at the left bottom and at the right top.</p>
-<h4 id="other-density-distributions"><span class="header-section-number">3.4.2.3</span> Other Density Distributions</h4>
-<p>Other densitiy distributions and functions ([TODO: explain student’s t and exponential in detail]):</p>
+<h4 id="students-t-distribution"><span class="header-section-number">3.4.2.3</span> Student’s t Distribution</h4>
+<p>A bell-shaped distribution curve for samples (rather than populations) and an area of 1 below the curve; a family of curves getting closer to the normal distribution when rising it’s sole parameter – the <em>degrees of freedom</em> (<span class="math inline"><em>d</em><em>f</em></span>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="op">-</span><span class="dv">10</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">length=</span><span class="dv">1000</span>)
+a &lt;-<span class="st"> </span><span class="kw">dt</span>(<span class="dt">x=</span>x, <span class="dt">df=</span><span class="dv">1</span>)
+b &lt;-<span class="st"> </span><span class="kw">dt</span>(<span class="dt">x=</span>x, <span class="dt">df=</span><span class="dv">2</span>)
+c &lt;-<span class="st"> </span><span class="kw">dt</span>(<span class="dt">x=</span>x, <span class="dt">df=</span><span class="dv">4</span>)
+n &lt;-<span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> x, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)
+
+<span class="kw">plot</span>(<span class="dt">x=</span><span class="ot">NA</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>a, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;green&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>b, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>c, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>n, <span class="dt">lty=</span><span class="dv">4</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)
+<span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topleft&quot;</span>,
+       <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;t(df=1)&quot;</span>, <span class="st">&quot;t(df=2)&quot;</span>, <span class="st">&quot;t(df=4)&quot;</span>, <span class="st">&quot;norm(0,1)&quot;</span>),
+       <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre></div>
+<figure>
+<img src="pic/t-dist.png" alt="Three t distributions and the normal distribution" /><figcaption>Three <span class="math inline"><em>t</em></span> distributions and the normal distribution</figcaption>
+</figure>
+<p>Its functions (<code>dt</code>, <code>pt</code>, <code>qt</code> and <code>rt</code>) are applied similarly to the ones of the normal distribution.</p>
+<h4 id="exponential-distribution"><span class="header-section-number">3.4.2.4</span> Exponential Distribution</h4>
+<p>The exponential distribution describes a curve with <span class="math inline"><em>x</em></span> values from 0 to positive infinity with (exponentially) falling <span class="math inline"><em>y</em></span> values, starting from a value defined as the rate parameter. The area below the curve is always 1. The bigger the rate parameter, the higher the starting point and the faster the decay:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">length=</span><span class="dv">1000</span>)
+a &lt;-<span class="st"> </span><span class="kw">dexp</span>(<span class="dt">x=</span>x, <span class="dt">rate=</span><span class="fl">1.6</span>)
+b &lt;-<span class="st"> </span><span class="kw">dexp</span>(<span class="dt">x=</span>x, <span class="dt">rate=</span><span class="fl">1.2</span>)
+c &lt;-<span class="st"> </span><span class="kw">dexp</span>(<span class="dt">x=</span>x, <span class="dt">rate=</span><span class="fl">0.6</span>)
+
+<span class="kw">plot</span>(<span class="dt">x=</span><span class="ot">NA</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;y&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>a, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;green&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>b, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>c, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
+<span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topleft&quot;</span>,
+       <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;exp(rate=1.6)&quot;</span>, <span class="st">&quot;exp(rate=1.2)&quot;</span>, <span class="st">&quot;exp(rate=0.6)&quot;</span>),
+       <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>))</code></pre></div>
+<figure>
+<img src="pic/exp-dist.png" alt="Three exp distributions with different rates" /><figcaption>Three <span class="math inline"><em>e</em><em>x</em><em>p</em></span> distributions with different rates</figcaption>
+</figure>
+<p>The rate parameter is also called <span class="math inline"><em>λ</em></span>, hinting at the close relation to the Poisson distribution: The Poisson distribution models the <em>count</em> of a certain event, the exponential distribution the <em>time between</em> the events. Example: Every hour, 90 cars pass a bridge (a rate of <span class="math inline">90/60 = 1.5</span> per minute).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># after one car has just passed, calculate the probability of ...</span>
+
+<span class="co"># ... a car passing within the next minute (q=1)</span>
+<span class="kw">pexp</span>(<span class="dt">q=</span><span class="dv">1</span>, <span class="dt">rate=</span><span class="fl">1.5</span>) <span class="co"># 0.7768698</span>
+
+<span class="co"># ... no car passing for the next two minutes (q=2)</span>
+<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pexp</span>(<span class="dt">q=</span><span class="dv">2</span>, <span class="dt">rate=</span><span class="fl">1.5</span>) <span class="co"># 0.04978707</span>
+
+<span class="co"># the cut-off point for the lowest 10% of waiting time</span>
+<span class="kw">qexp</span>(<span class="dt">p=</span><span class="fl">0.1</span>, <span class="dt">rate=</span><span class="fl">1.5</span>) <span class="co"># 0.07024034 minutes, roughly 4.2 seconds</span>
+
+<span class="co"># the cut-off point for the highest 10% of waiting time</span>
+<span class="kw">qexp</span>(<span class="dt">p=</span><span class="fl">0.9</span>, <span class="dt">rate=</span><span class="fl">1.5</span>) <span class="co"># 1.535057 minutes, roughly 92 seconds</span></code></pre></div>
+<h4 id="other-density-distributions"><span class="header-section-number">3.4.2.5</span> Other Density Distributions</h4>
+<p>Other densitiy distributions and their functions:</p>
 <ul>
-<li>Student’s t distribution: bell-shaped distribution curve for samples (rather than populations)
-<ul>
-<li>Functions: <code>dt</code>, <code>pt</code>, <code>qt</code> and <code>rt</code></li>
-</ul></li>
-<li>Exponential distribution: for random variables from <span class="math inline">0</span> to <span class="math inline">∞</span>
-<ul>
-<li>Functions: <code>dexp</code>, <code>pexp</code>, <code>qexp</code> and <code>rexp</code></li>
-</ul></li>
 <li>Chi-squared distribution: models sums of squared normal variates
 <ul>
 <li>Functions: <code>dchisq</code>, <code>pchisq</code>, <code>qchisq</code> and <code>rchisq</code></li>
