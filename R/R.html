@@ -1660,12 +1660,72 @@ b &lt;-<span class="st"> </span><span class="fl">3.1</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">min=</span><span class="fl">2.9</span>, <span class="dt">max=</span><span class="fl">3.1</span>)
 <span class="kw">round</span>(l, <span class="dt">digits=</span><span class="dv">3</span>)
 <span class="co"># 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)</span></code></pre></div>
-<p>Other densitiy distributions and functions ([TODO: explain normal, student’s t and exponential in detail]):</p>
+<h4 id="normal-distribution"><span class="header-section-number">3.4.2.2</span> Normal distribution</h4>
+<p>Describes a bell-shaped distribution curve, which is also known as “Gaussian”, and is often to describe distributions in nature. The curve is symmetric, unimodal, and the area below it adds up to 1, and the tails are asymptotic to the x axis.</p>
+<p>Example: The height of a person (male) follows a normal distribution with a mean of 175.5 cm and a standard deviation of 7.37 cm:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height_mean &lt;-<span class="st"> </span><span class="fl">175.5</span>
+height_sd &lt;-<span class="st"> </span><span class="fl">7.37</span>
+
+delta &lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>height_sd
+x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span>height_mean<span class="op">-</span>delta, <span class="dt">to=</span>height_mean<span class="op">+</span>delta, <span class="dt">length=</span><span class="dv">50</span>)
+y &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+<span class="kw">plot</span>(x, y, <span class="dt">main=</span><span class="st">&quot;Normal Distribution&quot;</span>)</code></pre></div>
+<figure>
+<img src="pic/normal.png" alt="Normal Distribution: describing a bell-shaped curve" /><figcaption>Normal Distribution: describing a bell-shaped curve</figcaption>
+</figure>
+<p>The points are evenly spread on the x-axis, but not so on the y-axis.</p>
+<p>To obtain a probability value, the area below the curve and inside an interval has to be calculated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height_mean &lt;-<span class="st"> </span><span class="fl">175.5</span>
+height_sd &lt;-<span class="st"> </span><span class="fl">7.37</span>
+
+<span class="co"># calculate the probability of a value within one standard deviation</span>
+low &lt;-<span class="st"> </span>height_mean <span class="op">-</span><span class="st"> </span>height_sd
+high &lt;-<span class="st"> </span>height_mean <span class="op">+</span><span class="st"> </span>height_sd
+area_left &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>low, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area_right &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>high, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area &lt;-<span class="st"> </span>area_right <span class="op">-</span><span class="st"> </span>area_left <span class="co"># 0.6826895</span>
+
+<span class="co"># calculate the probability of a value within two standard deviations</span>
+low &lt;-<span class="st"> </span>height_mean <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>height_sd
+high &lt;-<span class="st"> </span>height_mean <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>height_sd
+area_left &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>low, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area_right &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>high, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area &lt;-<span class="st"> </span>area_right <span class="op">-</span><span class="st"> </span>area_left <span class="co"># 0.9544997</span>
+
+<span class="co"># calculate the probability of a value within three standard deviations</span>
+low &lt;-<span class="st"> </span>height_mean <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>height_sd
+high &lt;-<span class="st"> </span>height_mean <span class="op">+</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>height_sd
+area_left &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>low, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area_right &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q=</span>high, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+area &lt;-<span class="st"> </span>area_right <span class="op">-</span><span class="st"> </span>area_left <span class="co"># 0.9973002</span></code></pre></div>
+<p>The calculated probabilities summarized:</p>
 <ul>
-<li>Normal distribution: bell-shaped distribution curve, also known as “Gaussian”
+<li>around 66% of all values are within <em>one</em> standard deviation</li>
+<li>around 95% of all values are within <em>two</em> standard deviations</li>
+<li>around 99% of all values are within <em>three</em> standard deviations</li>
+</ul>
+<p>Obtaining quantiles, the cut-off points of a given probability can be calculated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height_mean &lt;-<span class="st"> </span><span class="fl">175.5</span>
+height_sd &lt;-<span class="st"> </span><span class="fl">7.37</span>
+
+<span class="co"># calculating a height that marks the cut-off point of the lowest 10%</span>
+<span class="kw">qnorm</span>(<span class="dt">p=</span><span class="fl">0.1</span>, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd) <span class="co"># 166.055</span>
+
+<span class="co"># calculating a height that marks the cut-off point of the lowest 90%</span>
+<span class="kw">qnorm</span>(<span class="dt">p=</span><span class="fl">0.9</span>, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd) <span class="co"># 184.945</span></code></pre></div>
+<p>Create some random, normally distributed values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height_mean &lt;-<span class="st"> </span><span class="fl">175.5</span>
+height_sd &lt;-<span class="st"> </span><span class="fl">7.37</span>
+
+heights &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">mean=</span>height_mean, <span class="dt">sd=</span>height_sd)
+<span class="kw">plot</span>(<span class="kw">sort</span>(heights), <span class="dt">xlab=</span><span class="st">&quot;index&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;height&quot;</span>)</code></pre></div>
+<figure>
+<img src="pic/random_heights.png" alt="Random, normally distributed values" /><figcaption>Random, normally distributed values</figcaption>
+</figure>
+<p>The values are roughly aligned on a straight line, with outliers at the left bottom and at the right top.</p>
+<h4 id="other-density-distributions"><span class="header-section-number">3.4.2.3</span> Other Density Distributions</h4>
+<p>Other densitiy distributions and functions ([TODO: explain student’s t and exponential in detail]):</p>
 <ul>
-<li>Functions: <code>dnorm</code>, <code>pnorm</code>, <code>qnorm</code> and <code>rnorm</code></li>
-</ul></li>
 <li>Student’s t distribution: bell-shaped distribution curve for samples (rather than populations)
 <ul>
 <li>Functions: <code>dt</code>, <code>pt</code>, <code>qt</code> and <code>rt</code></li>

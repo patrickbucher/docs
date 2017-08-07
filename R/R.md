@@ -2343,11 +2343,99 @@ round(l, digits=3)
 # 2.930 2.945 2.979 2.939 3.086 2.990 3.025 2.993 2.920 3.021 (for example)
 ```
 
-Other densitiy distributions and functions ([TODO: explain normal, student's t
-and exponential in detail]):
+#### Normal distribution
 
-- Normal distribution: bell-shaped distribution curve, also known as "Gaussian"
-    - Functions: `dnorm`, `pnorm`, `qnorm` and `rnorm`
+Describes a bell-shaped distribution curve, which is also known as "Gaussian",
+and is often to describe distributions in nature. The curve is symmetric,
+unimodal, and the area below it adds up to 1, and the tails are asymptotic to
+the x axis.
+
+Example: The height of a person (male) follows a normal distribution with a mean
+of 175.5 cm and a standard deviation of 7.37 cm:
+
+```R
+height_mean <- 175.5
+height_sd <- 7.37
+
+delta <- 3 * height_sd
+x <- seq(from=height_mean-delta, to=height_mean+delta, length=50)
+y <- dnorm(x, mean=height_mean, sd=height_sd)
+plot(x, y, main="Normal Distribution")
+```
+
+![Normal Distribution: describing a bell-shaped curve](pic/normal.png)
+
+The points are evenly spread on the x-axis, but not so on the y-axis.
+
+To obtain a probability value, the area below the curve and inside an interval
+has to be calculated:
+
+```R
+height_mean <- 175.5
+height_sd <- 7.37
+
+# calculate the probability of a value within one standard deviation
+low <- height_mean - height_sd
+high <- height_mean + height_sd
+area_left <- pnorm(q=low, mean=height_mean, sd=height_sd)
+area_right <- pnorm(q=high, mean=height_mean, sd=height_sd)
+area <- area_right - area_left # 0.6826895
+
+# calculate the probability of a value within two standard deviations
+low <- height_mean - 2 * height_sd
+high <- height_mean + 2 * height_sd
+area_left <- pnorm(q=low, mean=height_mean, sd=height_sd)
+area_right <- pnorm(q=high, mean=height_mean, sd=height_sd)
+area <- area_right - area_left # 0.9544997
+
+# calculate the probability of a value within three standard deviations
+low <- height_mean - 3 * height_sd
+high <- height_mean + 3 * height_sd
+area_left <- pnorm(q=low, mean=height_mean, sd=height_sd)
+area_right <- pnorm(q=high, mean=height_mean, sd=height_sd)
+area <- area_right - area_left # 0.9973002
+```
+
+The calculated probabilities summarized:
+
+- around 66% of all values are within _one_ standard deviation
+- around 95% of all values are within _two_ standard deviations
+- around 99% of all values are within _three_ standard deviations
+
+Obtaining quantiles, the cut-off points of a given probability can be
+calculated:
+
+```R
+height_mean <- 175.5
+height_sd <- 7.37
+
+# calculating a height that marks the cut-off point of the lowest 10%
+qnorm(p=0.1, mean=height_mean, sd=height_sd) # 166.055
+
+# calculating a height that marks the cut-off point of the lowest 90%
+qnorm(p=0.9, mean=height_mean, sd=height_sd) # 184.945
+```
+
+Create some random, normally distributed values:
+
+```R
+height_mean <- 175.5
+height_sd <- 7.37
+
+heights <- rnorm(n=100, mean=height_mean, sd=height_sd)
+plot(sort(heights), xlab="index", ylab="height")
+```
+
+![Random, normally distributed values](pic/random_heights.png)
+
+The values are roughly aligned on a straight line, with outliers at the left
+bottom and at the right top.
+
+#### Other Density Distributions
+
+Other densitiy distributions and functions ([TODO: explain student's t and
+exponential in detail]):
+
 - Student's t distribution: bell-shaped distribution curve for samples (rather
   than populations)
     - Functions: `dt`, `pt`, `qt` and `rt`
