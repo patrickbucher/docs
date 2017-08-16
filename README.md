@@ -5,8 +5,6 @@ subjects relating to programming, computer science and the like.
 
 Here's an overview:
 
-- _R_: a work-in progress summary about the R programming language and its
-  statistical applications
 - _arch-setup_: a personal step-by-step guide to setup my computers with Arch
   Linux
 - _git_: a currently abandoned summary on `git`

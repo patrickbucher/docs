@@ -1,3 +1,0 @@
-- use R syntax highlighting consequently
-- consider "Plotting" as a chapter on its own
-- consider merging the chapters "Basics" and "Programming"
