@@ -10,8 +10,14 @@
 ## Basic interaction
 
 - Exit Emacs: `C-x C-c`
+- Suspend Emacs: `C-z`
+    - Bring it back using the `fg` shell command
 - Stop current command: `C-g`
-- Maximize current window: `C-x 1`
+- Undo last command: `C-x u`
+- Help
+    - Getting help: `C-h ?`
+    - Get help on a specific command: `C-h c [command]`
+    - Get more help on a specific command: `C-h k [command]`
 
 ## Movement
 
@@ -59,3 +65,28 @@ yanking (re-insertion).
     2. Move to set selection
     3. Kill selection: `C-w`
 - Yank (i.e. insert) killed text at cursor position: `C-y`
+    - Replace yanked text with earlier killing: `M-y` (cycle through killings)
+
+## Files and Buffers
+
+- Open a file: `C-x C-f`
+- Save a file: `C-x C-s`
+- Save some buffers: `C-x s`
+- Show buffers: `C-x C-b`
+- Switch to a buffer: `C-x b`
+
+## Searching
+
+- Searching text
+    - Start searching: `C-s`
+    - Enter search term
+    - Cycle through results (forward): `C-s`
+    - Cycle through results (backward): `C-r`
+    - End search: `C-g`
+
+## Windows
+
+- Split current buffer into two windows: `C-x 2`
+- Maximize current window: `C-x 1`
+- Move to other window: `C-x o`
+- Scroll text in the other window: `C-M-v`
