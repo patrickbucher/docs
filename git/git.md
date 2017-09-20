@@ -182,6 +182,39 @@ Delete a tag:
 
     git tag -d [tag name]
 
+# Branches
+
+List branches (with details about the tips of the branches):
+
+    git branch
+    git branch -v
+
+Create a new branch based on the current master's tip:
+
+    git branch [branch name]
+    git branch bug-4457
+
+Create a branch based on an earlier commit:
+
+    git branch [branch name] [SHA1-ID]
+    git branch hotfix-16 bc34adf1
+
+Checkout a branch (changes the content of the working directory):
+
+    git checkout [branch name]
+    git checkout bug-4457
+
+Create a new branch and check it out in one step (based on a branch):
+
+    git checkout -b [branch name]
+    git checkout -b user-story-57
+    git checkout -b hotfix-17 latest-stable
+
+Delete a branch:
+
+    git branch -d [branch name]
+    git branch -d bug-4457
+
 # Configuration (`git config`)
 
 Set global configuration (name and email):

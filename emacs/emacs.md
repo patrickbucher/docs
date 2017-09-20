@@ -44,7 +44,7 @@
     - Move to the previous character: `C-b`
 - Multiple Units
     - Move by `n` units: `C-u n [unit]`
-    - Move up eight lines: `C-u 8 C-p`:w
+    - Move up eight lines: `C-u 8 C-p`
     - Move three words forward: `C-u 3 M-f`
     - Move twenty charachters forward: `C-u 20 C-f`
 
