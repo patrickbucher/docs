@@ -215,6 +215,13 @@ Delete a branch:
     git branch -d [branch name]
     git branch -d bug-4457
 
+## Merging
+
+Merge another branch into the current branch:
+
+    git merge [branch]
+    git merge bug-4457
+
 ## Stash
 
 Stashing away the current dirty state of the directory:
