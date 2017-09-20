@@ -215,6 +215,17 @@ Delete a branch:
     git branch -d [branch name]
     git branch -d bug-4457
 
+## Stash
+
+Stashing away the current dirty state of the directory:
+
+    git stash
+
+Apply the most recent stash (and drop it from the stack right away):
+
+    git stash apply
+    git stash pop
+
 # Configuration (`git config`)
 
 Set global configuration (name and email):
