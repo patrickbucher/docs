@@ -249,6 +249,8 @@ first position:
 
 ## Printer
 
+For model: Samsung M2825ND
+
 Install, enable and start cups:
 
     pacman -S cups cups-filters ghostscript
@@ -269,7 +271,7 @@ before
 
     resolve ...
 
-download driver for Samsung M262x 282x from openprinting.org and copy it to:
+download driver for Samsung M262x 282x from [Open Printing](https://openprinting.org/printers) and copy it to:
 
     /usr/share/cups/model/samsung.ppd
 
