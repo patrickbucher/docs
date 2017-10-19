@@ -305,3 +305,64 @@ Create a special docker user and add it to the docker group:
     usermod -a -G docker docker
 
 Logout and login again.
+
+## PostgreSQL
+
+Install postgresql:
+
+    pacman -S postgresql
+
+Switch password of user postgres:
+
+    passwd postgres
+
+Initialize the database cluster as postgres user:
+
+    su postgres
+    initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data'
+
+Enable and start service:
+
+    systemctl enable postgresql.service
+    systemctl start postgresql.service
+
+Create a database (as postgres user):
+
+    createdb demo
+
+Start interactive SQL prompt:
+
+    psql demo postgres
+
+Perform SQL operation non-interactively:
+
+    psql demo postgres -c 'SELECT * FROM foobar;'
+    psql demo postgres -f commands.sql
+
+## MySQL/Maria DB
+
+Install Maria DB:
+
+    pacman -S mariadb
+
+Initialize the database system:
+
+    mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+Enable and start service:
+
+    systemctl enable mariadb.service
+    systemctl start mariadb.service
+
+Optionally, configure some security measures:
+
+    mysql_secure_installation
+
+Start interactive SQL prompt:
+
+    mysql -u root -p[password]
+
+Perform SQL operation non-interactively:
+
+    mysql -u root -p[password] -e 'USE foo; SELECT * FROM foo;'
+    mysql -u root -p[password] <commands.sql
