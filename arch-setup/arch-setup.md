@@ -366,3 +366,11 @@ Perform SQL operation non-interactively:
 
     mysql -u root -p[password] -e 'USE foo; SELECT * FROM foo;'
     mysql -u root -p[password] <commands.sql
+
+## Static IP address
+
+Configure static IP address on eno1:
+
+    sudo ip link set eno1 down
+    sudo ip addr add 192.168.1.60/24 broadcast 192.168.1.255 dev eno1
+    sudo ip link set eno1 up
