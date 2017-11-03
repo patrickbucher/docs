@@ -54,3 +54,10 @@
     iface wlan0 inet dhcp
     wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
+- Make hostname discoverable over network using `avahi`:
+
+```bash
+sudo apt-get install avahi-daemon insserv
+sudo insserv avahi-daemon
+sudo /etc/init.d/avahi-daemon restart
+```
