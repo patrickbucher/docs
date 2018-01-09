@@ -34,7 +34,7 @@ Create the partitions:
     - Enter the expert's menu: `x`
     - Toggle the bootable flag: `A`
     - Exit the expert's menu: `r`
-- Create the Swap Partition: `n`, `+2G`
+- Create the Swap Partition: `n`, `+2G` (size of physical memory)
     - Set the type: `t`, `19` (Linux swap)
 - Create the root Partition: `n`, use all blocks
     - set the type: `t`, `20` (Linux filesystem)
@@ -153,15 +153,13 @@ Shutdown:
 
 ## WiFi
 
-Connect to WiFi and store profile:
+Connect to WiFi and store profile (without hyphen):
 
     wifi-menu -o
-    netctl enable wlp2s0-frzbxpdb
 
 Enable and start the `netctl-auto` service:
 
     systemctl enable netctl-auto@wlp2s0.service
-    systemctl start netctl-auto@wlp2s0.service
 
 ## User
 
@@ -374,3 +372,47 @@ Configure static IP address on eno1:
     sudo ip link set eno1 down
     sudo ip addr add 192.168.1.60/24 broadcast 192.168.1.255 dev eno1
     sudo ip link set eno1 up
+
+# Go
+
+Install Go:
+
+    pacman -S go
+
+Create directory (in $HOME):
+
+    mkdir -p ~/go/src
+
+Set environment variables:
+
+   export GOROOT='/usr/lib/go'
+   export GOPATH="$HOME/go"
+   export GOBIN="$GOROOT/bin"
+   export PATH="$PATH:$GOBIN"
+
+## vim-go with vim-plug
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+Extend the `.vimrc` at the very top:
+
+    call plug#begin('~/.vim/plugged')
+    call 'fatih/vim-go'
+    call plug#end()
+
+Reload .vimrc, then run command in vim:
+
+    :PlugInstall
+    :GoInstallBinaries
+
+# SSH key (for GitHub)
+
+Install OpenSSH:
+
+    pacman -S openssh
+
+Create a key:
+
+    ssh-keygen -t rsa -b 4096 -C "patrick.bucher@stud.hslu.ch"
+
