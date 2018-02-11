@@ -216,6 +216,15 @@ Initialize `pacman` file name databaes:
 
     pacman -Fy
 
+### XDG User Dirs
+
+    pacman -S xdg-user-dirs
+    xdg-user-dirs-update
+
+Edit `.config/user-dirs.dirs` and clean up the mess. Then run again:
+
+    xdg-user-dirs-update
+
 ## mutt
 
     pacman -S mutt
@@ -236,6 +245,15 @@ Encrypt it:
     pacman -S ntp
     systemctl enable ntpd.service
     systemctl start ntpd.service
+
+
+## sudo
+
+    pacman -S sudo
+
+Edit `/etc/sudoers` **using the `visudo` command, add this line:
+
+    paedubucher ALL=(ALL) ALL
 
 ## Boot Order
 
