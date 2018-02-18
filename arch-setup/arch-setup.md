@@ -216,6 +216,10 @@ Initialize `pacman` file name databaes:
 
     pacman -Fy
 
+Make sure Java GUIs work properly (add to `$HOME/.bashrc`):
+
+    export _JAVA_AWT_WM_NONREPARENTING=1
+
 ### XDG User Dirs
 
     pacman -S xdg-user-dirs
