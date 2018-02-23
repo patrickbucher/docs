@@ -1,22 +1,41 @@
 # Raspi Setup
 
+After copying image to SD card:
+
+    mount /dev/mmcblk0p1 /mnt # mount boot partition
+    touch /mnt/ssh # activates ssh
+
 ## Network
+
+Edit `/etc/dhcpcd.conf`:
+
+    # static ethernet interface for debugging
+    interface eth0
+    static ip_address=192.168.66.101/24
+    static routers=192.168.66.100
+    static domain_name_servers=8.8.8.8
+
+Add WiFi credentials:
+
+    wpa_passphrase [essid] [passphrase] >> /etc/wpa_supplicant/wpa_supplicant.conf
+
+Enable `wpa_supplicant`:
+
+    systemctl enable wpa_supplicant.service
+    systemctl start wpa_supplicant.service
+
+Restart networking:
+
+    systemctl restart dhcpcd.service
+
+### HSLU WiFi
 
 - Get QuoVadis certificate from
   [HSLU](https://www.hslu.ch/-/media/campus/common/files/dokumente/h/helpdesk/anleitungen/netzwerk/wlan/sicherheitszertifikat/quovadis%20rca2%20der.zip?la=de-ch)
   and copy it to `/usr/share/ca-certificates/hslu/ca.crt`
 - Generate password hash for WPA-EAP: `echo -n 'plaintext password' | iconv -t utf16le | openssl md4` and replace `[TODO]` below with the output.
 
-`/etc/wpa_supplicant/wpa_supplicant.conf`
-
-    country=CH
-    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-    update_config=1
-
-    network={
-        ssid="pren7"
-        psk=[secret]
-    }
+Add to `/etc/wpa_supplicant/wpa_supplicant.conf`:
 
     network={
         ssid="hslu"
@@ -29,35 +48,3 @@
         phase2="auth=MSCHAPV2"
     }
 
-    network={
-        ssid="bucher"
-        psk=[secret]
-    }
-    network={
-        ssid="frzbxpdb"
-        psk=[secret]
-    }
-
-`/etc/network/interfaces`
-
-    source-directory /etc/network/interfaces.d
-
-    auto eth0
-    allow-hotplug eth0
-    iface eth0 inet static
-        address 192.168.1.66
-        netmask 255.255.255.0
-        gateway 192.168.1.1
-
-    auto wlan0
-    allow-hotplug wlan0
-    iface wlan0 inet dhcp
-    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-
-- Make hostname discoverable over network using `avahi`:
-
-```bash
-sudo apt-get install avahi-daemon insserv
-sudo insserv avahi-daemon
-sudo /etc/init.d/avahi-daemon restart
-```
