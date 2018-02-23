@@ -16,7 +16,7 @@ Edit `/mnt/etc/dhcpcd.conf`:
     interface eth0
     static ip_address=192.168.66.101/24
     static routers=192.168.66.100
-    static domain_name_servers=8.8.8.8
+    static domain_name_servers=192.168.66.100
 
 Umount SD card:
 
