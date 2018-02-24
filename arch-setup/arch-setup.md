@@ -438,3 +438,26 @@ Create a key:
 
     ssh-keygen -t rsa -b 4096 -C "patrick.bucher@stud.hslu.ch"
 
+# LaTeX
+
+Basic TeX Live distribution:
+
+    pacman -S texlive-core
+
+For apacite:
+
+    pacman -S texlive-bibtexextra
+
+For multirow etc.:
+
+    pacman -S texlive-latexextra
+
+XeLaTeX (among others):
+
+    pacman -S texlive-bin
+
+# Fonts
+
+TTF Fonts:
+
+    cp *.ttf /usr/share/fonts/TTF
