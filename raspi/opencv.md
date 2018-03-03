@@ -20,7 +20,7 @@ Install image processing libraries:
 
     sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
 
-Install video processing libraries (if needed):
+Install video processing libraries:
 
     sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev
 
@@ -39,11 +39,6 @@ Get the OpenCV sources:
     wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.1.zip
     unzip opencv.zip
 
-Consider downloading the contrib repo:
-
-    wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.3.0.zip
-    unzip opencv_contrib.zip
-
 ## Build
 
 Prepare:
@@ -51,13 +46,9 @@ Prepare:
     $ cd ~/opencv-3.4.1/
     $ mkdir build
     $ cd build
-    $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=ON \
-        -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.1/modules \ # needed?
-        -D BUILD_EXAMPLES=ON ..
+    $ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
 
-Set Swap Size in `/etc/dphys-swapfile`:
+Set swap size in `/etc/dphys-swapfile`:
 
     CONF_SWAPSIZE=1024
 
@@ -74,3 +65,12 @@ Install it:
     
     sudo make install
     sudo ldconfig
+
+Reset swap size in `/etc/dphys-swapfile`:
+
+    CONF_SWAPSIZE=100
+
+Restart Swap service:
+
+    sudo /etc/init.d/dphys-swapfile stop
+    sudo /etc/init.d/dphys-swapfile start
