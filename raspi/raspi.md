@@ -13,7 +13,7 @@ After copying image to SD card:
 Edit `/mnt/etc/dhcpcd.conf`:
 
     # dynamic wifi interface
-    interface wlan0i
+    interface wlan0
     static domain_name_servers=8.8.8.8
 
     # static ethernet interface for debugging
@@ -94,3 +94,48 @@ A couple of important options:
     - A1 Expand Filesystem: requires restart
 - 8 Update: run it
 - Finish (and reboot)
+
+## Packages
+
+Avoid bloat (create `/etc/apt/apt.conf`):
+
+    APT::Install-Recommends "0";
+    APT::Install-Suggests "0";
+
+### General
+
+- vim
+
+### PREN
+
+Python components:
+
+- python3-pip
+- python3-dev
+- python3-numpy
+- python3-rpi.gpio
+- python3-picamera
+
+In order to compile opencv:
+
+- build-essential
+- cmake
+- pkg-config
+- libjpeg-dev
+- libtiff5-dev
+- libjasper-dev
+- libpng2-dev
+- libavcodec-dev
+- libavformat-dev
+- libswscale-dev
+- libv4l-dev
+- libxvidcore-dev
+- libx264-dev
+- libatlas-base-dev
+- gfortran
+
+#### Python
+
+To be installed with `pip3`:
+
+- pyserial
