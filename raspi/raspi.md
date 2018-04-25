@@ -124,7 +124,7 @@ In order to compile opencv:
 - libjpeg-dev
 - libtiff5-dev
 - libjasper-dev
-- libpng2-dev
+- libpng12-dev
 - libavcodec-dev
 - libavformat-dev
 - libswscale-dev
