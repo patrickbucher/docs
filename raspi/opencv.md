@@ -46,7 +46,13 @@ Prepare:
     $ cd ~/opencv-3.4.1/
     $ mkdir build
     $ cd build
-    $ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 -D PYTHON_LIBRARY=/usr/lib/python3.5/config-3.5m-arm-linux-gnueabihf/libpython3.5m.so -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=ON -D HAVE_opencv_python3=ON ..
+    $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
+        -D PYTHON_LIBRARY=/usr/lib/python3.5/config-3.5m-arm-linux-gnueabihf/libpython3.5m.so \
+        -D BUILD_NEW_PYTHON_SUPPORT=ON \
+        -D BUILD_opencv_python3=ON \
+        -D HAVE_opencv_python3=ON ..
 
 Set swap size in `/etc/dphys-swapfile`:
 
