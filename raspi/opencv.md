@@ -24,9 +24,9 @@ Install video processing libraries:
 
     sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev
 
-If you have a GUI, install prerequisites for `highgui` module:
+Install `python3-dev`:
 
-    sudo apt-get install libgtk2.0-dev libgtk-3-dev
+    sudo apt-get install `python3-dev`
 
 Install libraries for optimizations:
 
@@ -46,7 +46,13 @@ Prepare:
     $ cd ~/opencv-3.4.1/
     $ mkdir build
     $ cd build
-    $ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+    $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
+        -D PYTHON_LIBRARY=/usr/lib/python3.5/config-3.5m-arm-linux-gnueabihf/libpython3.5m.so \
+        -D BUILD_NEW_PYTHON_SUPPORT=ON \
+        -D BUILD_opencv_python3=ON \
+        -D HAVE_opencv_python3=ON ..
 
 Set swap size in `/etc/dphys-swapfile`:
 
@@ -54,8 +60,7 @@ Set swap size in `/etc/dphys-swapfile`:
 
 Restart Swap service:
 
-    sudo /etc/init.d/dphys-swapfile stop
-    sudo /etc/init.d/dphys-swapfile start
+    sudo /etc/init.d/dphys-swapfile restart
 
 Build with all cores:
 
@@ -72,5 +77,4 @@ Reset swap size in `/etc/dphys-swapfile`:
 
 Restart Swap service:
 
-    sudo /etc/init.d/dphys-swapfile stop
-    sudo /etc/init.d/dphys-swapfile start
+    sudo /etc/init.d/dphys-swapfile restart
