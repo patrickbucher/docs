@@ -267,6 +267,12 @@ first position:
     pacman -S efibootmgr
     efibootmgr -o 3,7,0 # 3 is USB stick, 7 internal HDD, 0 Windows Boot Manager
 
+## Windows Key
+
+Find out the embedded Windows license key:
+
+    sudo xxd /sys/firmware/acpi/tables/MSDM
+
 ## Printer
 
 For model: Samsung M2825ND
