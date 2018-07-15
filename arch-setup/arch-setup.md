@@ -36,7 +36,7 @@ Create the partitions:
     - Exit the expert's menu: `r`
 - Create the Swap Partition: `n`, `+2G` (size of physical memory)
     - Set the type: `t`, `19` (Linux swap)
-- Create the root Partition: `n`, use all blocks
+- Create the root Partition: `n`, use all blocks (if no multiboot is intended)
     - set the type: `t`, `20` (Linux filesystem)
 - Save and exit: `w`
 
