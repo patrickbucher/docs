@@ -330,6 +330,10 @@ Create a special docker user and add it to the docker group:
     adduser -m docker
     usermod -a -G docker docker
 
+Or add an existing user to the docker group:
+
+    usermod -a -G docker paedu
+
 Logout and login again.
 
 ## PostgreSQL
@@ -467,3 +471,11 @@ XeLaTeX (among others):
 TTF Fonts:
 
     cp *.ttf /usr/share/fonts/TTF
+
+# Unlimited Bash History
+
+Set the history size to unlimited:
+
+    echo 'HISTSIZE=' >> ~/.bashrc
+    echo 'HISTFILESIZE=' >> ~/.bashrc
+
