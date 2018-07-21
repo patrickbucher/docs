@@ -479,3 +479,16 @@ Set the history size to unlimited:
     echo 'HISTSIZE=' >> ~/.bashrc
     echo 'HISTFILESIZE=' >> ~/.bashrc
 
+# Output Sound over HDMI
+
+Find out the card and device number:
+
+    aplay -l
+
+Configure them accordingly in `~/.asoundrc`:
+
+    pcm.!default {
+        type hw
+        card 0
+        device 3
+    }
