@@ -174,7 +174,12 @@ Install terminus:
 
     pacman -S terminus-font
 
-Use it as the system's default font in `/etc/vconsole.conf`
+Try out different sizes:
+
+    setfont ter-v16n
+    setfont ter-v24n
+
+Use it as the system's default font in `/etc/vconsole.conf`:
 
     FONT=ter-v16n
 
@@ -205,6 +210,18 @@ If this causes an error, then probably HDMI is the default sound card. Create
 the file `/etc/modprobe.d/alsa.conf` with the content:
 
     options snd-hda-intel index=1,0
+
+For HDMI output, find out the the card and device number:
+
+    aplay -l
+
+Configure them accordingly in `~/.asoundrc`:
+
+    pcm.!default {
+        type hw
+        card 0
+        device 3
+    }
 
 ## misc
 
@@ -481,14 +498,3 @@ Set the history size to unlimited:
 
 # Output Sound over HDMI
 
-Find out the card and device number:
-
-    aplay -l
-
-Configure them accordingly in `~/.asoundrc`:
-
-    pcm.!default {
-        type hw
-        card 0
-        device 3
-    }
