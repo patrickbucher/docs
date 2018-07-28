@@ -282,11 +282,12 @@ On a multiboot system, make sure that the Windows Boot Manager is not on the
 first position:
 
     pacman -S efibootmgr
+    efibootmgr # display all available boot devices
     efibootmgr -o 3,7,0 # 3 is USB stick, 7 internal HDD, 0 Windows Boot Manager
 
 ## Windows Key
 
-Find out the embedded Windows license key:
+Find out the embedded Windows license key (`xxd` is in the `vim` package):
 
     sudo xxd /sys/firmware/acpi/tables/MSDM
 

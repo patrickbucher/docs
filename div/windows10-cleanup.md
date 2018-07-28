@@ -11,3 +11,5 @@ Here are some package names to delete:
     camera
     zune
     xbox
+    skype
+    store
