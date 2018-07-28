@@ -165,6 +165,11 @@
 - `cancel`: cancel jobs
 - `lpr`: print files
 
+### X
+
+- `xset`: set X user preferences
+    `xset -dpms s off`: deactivate power saving (don't shut off screen after five minutes)
+
 ## Programming
 
 ### Shell Scripting
