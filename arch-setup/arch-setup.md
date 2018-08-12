@@ -435,14 +435,14 @@ Create directory (in $HOME):
 
 Set environment variables:
 
-   export GOROOT='/usr/lib/go'
-   export GOPATH="$HOME/go"
-   export GOBIN="$GOROOT/bin"
-   export PATH="$PATH:$GOBIN"
+    export GOROOT='/usr/lib/go'
+    export GOPATH="$HOME/go"
+    export GOBIN="$GOROOT/bin"
+    export PATH="$PATH:$GOBIN"
 
 ## vim-go with vim-plug
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 Extend the `.vimrc` at the very top:
@@ -496,8 +496,6 @@ Set the history size to unlimited:
 
     echo 'HISTSIZE=' >> ~/.bashrc
     echo 'HISTFILESIZE=' >> ~/.bashrc
-
-# Output Sound over HDMI
 
 # GPG
 
