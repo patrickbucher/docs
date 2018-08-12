@@ -272,7 +272,7 @@ Encrypt it:
 
     pacman -S sudo
 
-Edit `/etc/sudoers` **using the `visudo` command, add this line:
+Edit `/etc/sudoers` **using the `visudo` command**, add this line:
 
     paedubucher ALL=(ALL) ALL
 
@@ -499,3 +499,23 @@ Set the history size to unlimited:
 
 # Output Sound over HDMI
 
+# GPG
+
+Export private key (to USB dongle):
+
+    gpg --export-secret-keys > /mnt/secret.key
+
+Import the private key (from USB dongle):
+
+    gpg --import /mnt/secret.key
+
+Delete the key _safely_ after import (from the USB dongle):
+
+    shred -u /mnt/secret.key
+
+# Pass
+
+Clone the password store to `$HOME/.password-store`, then init `pass`, using
+the GPG ID from `gpg --list-public-keys`:
+
+    pass init --path .password-store [GPG ID]
