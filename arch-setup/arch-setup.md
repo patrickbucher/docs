@@ -315,7 +315,8 @@ before
 
     resolve ...
 
-download driver for Samsung M262x 282x from [Open Printing](https://openprinting.org/printers) and copy it to:
+Download the `pxlmono` (not `pxlmono-Samsung`!)  driver for Samsung M262x 282x
+from [Open Printing](https://openprinting.org/printers) and copy it to:
 
     /usr/share/cups/model/samsung.ppd
 
