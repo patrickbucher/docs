@@ -143,11 +143,13 @@ public void disconnect() throws IllegalStateException {
 **Do instead** only add _checked_ exceptions to the `throws` clause―and
 document _both_ with the `@throws` tag in the JavaDoc.
 
+```java
 /**
  * @throws IllegalStateException if the connection was already closed
  */
 public void disconnect() {
 }
+```
 
 ## Failure-Capture Information (Item 75)
 
