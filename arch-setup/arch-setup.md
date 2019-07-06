@@ -456,7 +456,7 @@ Set environment variables:
 Extend the `.vimrc` at the very top:
 
     call plug#begin('~/.vim/plugged')
-    call 'fatih/vim-go'
+    Plug 'fatih/vim-go'
     call plug#end()
 
 Reload .vimrc, then run command in vim:
