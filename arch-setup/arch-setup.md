@@ -445,7 +445,7 @@ Set environment variables:
 
     export GOROOT='/usr/lib/go'
     export GOPATH="$HOME/go"
-    export GOBIN="$GOROOT/bin"
+    export GOBIN="$GOPATH/bin"
     export PATH="$PATH:$GOBIN"
 
 ## vim-go with vim-plug
