@@ -161,6 +161,13 @@ Enable and start the `netctl-auto` service:
 
     systemctl enable netctl-auto@wlp2s0.service
 
+## Wired Network
+
+Enable and start `dhcpcd` for the respective interface:
+
+    systemctl enable dhcpcd@enp0s31f6
+    systemctl start dhcpcd@enp0s31f6
+
 ## User
 
 Add a user:
