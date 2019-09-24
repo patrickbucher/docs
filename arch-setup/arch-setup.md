@@ -234,7 +234,7 @@ Configure them accordingly in `~/.asoundrc`:
 
 GTK theme and theme switcher:
 
-    pacman -S gtk-chtheme lxappearance gtk-engine-aurora
+    pacman -S gtk-chtheme lxappearance gtk-engines
 
 Initialize `pacman` file name databaes:
 
