@@ -314,7 +314,7 @@ Avahi:
     systemctl enable avahi-daemon.service
     systemctl start avahi-daemon.service
 
-edit /etc/nsswitch.conf, add:
+edit `/etc/nsswitch.conf`, add:
 
     mdns_minimal [NOTFOUND=return]
 
@@ -333,6 +333,7 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
     cupsenable samsung
     cupsaccept samsung
     lpoptions -d samsung
+    lpoptions -o sides=two-sided-long-edge
 
 ## Pinentry
 
