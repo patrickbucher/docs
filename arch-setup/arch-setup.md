@@ -333,7 +333,7 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
     cupsenable samsung
     cupsaccept samsung
     lpoptions -d samsung
-    lpoptions -o sides=two-sided-long-edge
+    lpoptions -o sides=two-sided-long-edge -o media=a4
 
 ## Pinentry
 
