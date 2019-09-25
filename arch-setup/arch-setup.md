@@ -526,3 +526,9 @@ Clone the password store to `$HOME/.password-store`, then init `pass`, using
 the GPG ID from `gpg --list-public-keys`:
 
     pass init --path .password-store [GPG ID]
+
+# Firefox
+
+Enable WebRender compsitor in Servo (instead of Gecko) in `about:config`:
+
+    gfx.webrender.all = true
