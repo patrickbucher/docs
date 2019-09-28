@@ -520,6 +520,12 @@ Delete the key _safely_ after import (from the USB dongle):
 
     shred -u /mnt/secret.key
 
+Trust a key:
+
+	gpg --edit-key [email/key ID]
+
+	gpg> trust
+
 # Pass
 
 Clone the password store to `$HOME/.password-store`, then init `pass`, using
