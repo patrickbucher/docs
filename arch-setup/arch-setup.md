@@ -538,3 +538,20 @@ the GPG ID from `gpg --list-public-keys`:
 Enable WebRender compsitor in Servo (instead of Gecko) in `about:config`:
 
     gfx.webrender.all = true
+
+# Python
+
+## Virtual Environments
+
+Install `virtualenv`:
+
+	# pacman -S python-virtualenv
+
+Create a new virtual environment in the folder `myenv`:
+
+	$ cd [project-folder]
+	$ virtualenv myenv
+
+Activate the virtual environment:
+
+	$ source myenv/bin/activate
