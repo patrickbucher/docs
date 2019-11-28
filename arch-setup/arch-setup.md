@@ -70,7 +70,7 @@ Activate it:
 
 Install basic packages:
 
-    pacstrap /mnt base
+    pacstrap /mnt base linux linux-firmware
 
 Generate `fstab`:
 
@@ -106,7 +106,7 @@ Set the hostname in `/etc/hostname`
 
 Install additional packages for WiFi:
 
-    pacman -S iw wpa_supplicant dialog intel-ucode wpa_actiond
+    pacman -S iw wpa_supplicant dialog intel-ucode netctl dhcpcd vi
 
 Set the root password:
 
@@ -136,10 +136,6 @@ Modify `/boot/loader/loader.conf`:
     timeout 0
     editor  0
 
-Create new _initramfs_:
-
-    mkinitcpio -p linux
-
 Leave and umount recursively:
 
     exit
@@ -151,11 +147,17 @@ Shutdown:
 
 # Configuration
 
+## `pacman`
+
+Build up file index:
+
+    pacman -Fy
+
 ## WiFi
 
 Connect to WiFi and store profile (without hyphen):
 
-    wifi-menu -o
+    wifi-menu
 
 Enable and start the `netctl-auto` service:
 
@@ -172,8 +174,8 @@ Enable and start `dhcpcd` for the respective interface:
 
 Add a user:
 
-    useradd -m paedubucher
-    passwd paedubucher
+    useradd -m paedu
+    passwd paedu
 
 ## Font
 
@@ -274,14 +276,13 @@ Encrypt it:
     systemctl enable ntpd.service
     systemctl start ntpd.service
 
-
 ## sudo
 
     pacman -S sudo
 
 Edit `/etc/sudoers` **using the `visudo` command**, add this line:
 
-    paedubucher ALL=(ALL) ALL
+    paedu ALL=(ALL) ALL
 
 ## Boot Order
 
@@ -520,6 +521,12 @@ Delete the key _safely_ after import (from the USB dongle):
 
     shred -u /mnt/secret.key
 
+Trust a key:
+
+	gpg --edit-key [email/key ID]
+
+	gpg> trust
+
 # Pass
 
 Clone the password store to `$HOME/.password-store`, then init `pass`, using
@@ -532,3 +539,20 @@ the GPG ID from `gpg --list-public-keys`:
 Enable WebRender compsitor in Servo (instead of Gecko) in `about:config`:
 
     gfx.webrender.all = true
+
+# Python
+
+## Virtual Environments
+
+Install `virtualenv`:
+
+	# pacman -S python-virtualenv
+
+Create a new virtual environment in the folder `myenv`:
+
+	$ cd [project-folder]
+	$ virtualenv myenv
+
+Activate the virtual environment:
+
+	$ source myenv/bin/activate
