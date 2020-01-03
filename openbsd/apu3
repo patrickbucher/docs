@@ -1,9 +1,0 @@
-sudo pacman -S cu
-dmesg | grep tty
-cu -l /dev/ttyUSB0 -s 115200
-
-boot prompt:
-
-stty com0 115200
-set tty com0
-[Enter]
