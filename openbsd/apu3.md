@@ -2,7 +2,7 @@
 
 Install `cu` or a similar program able to communicate through the serial port:
 
-    # pacman -S cu
+    # pacman -S uucp
 
 Plugin the Serial cable and check it's device (here: `/dev/ttyUSB0):
 
