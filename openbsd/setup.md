@@ -50,3 +50,11 @@ On order to use a Swiss German keyboard layout, create a file `/etc/kbdtype` wit
 For WiFi (acer laptop needs iwn-7265-16), the firmware can be downloaded from the [OpenBSD firmware server](http://firmware.openbsd.org/firmware/6.6/iwm-firmware-20190923.tgz) and installed using `fw_update(1)`, assuming that the firmware is in the `firmware` folder on a usb stick mounted on `/mnt`.
 
     fw_update -p [path to unpacked firmware FOLDER]
+
+Create a file `/etc/hostname.iwm0` (look up device name ‒ here iwm0 ‒ with `ifconfig`):
+
+    dhcp nwid [your ESSID] wpakey [your WPA key]
+
+Restart the networking:
+
+    # sh /etc/netstart iwm0
