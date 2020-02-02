@@ -556,3 +556,39 @@ Create a new virtual environment in the folder `myenv`:
 Activate the virtual environment:
 
 	$ source myenv/bin/activate
+
+# Ryzen
+
+## Zen Kernel
+
+Install the special zen kernel optimized for Ryzen CPUs:
+
+    # pacman -S linux-zen
+
+Use zen kernel in bootloader (`/boot/loader/entries/arch.conf`):
+
+    title	Arch Linux
+    linux	/vmlinuz-linux-zen
+    initrd	/initramfs-linux-zen.img
+    options	root=PARTUUID=75f01697-e86c-5f49-a3f6-1dae65cd76ba rw acpi_backlight=video
+
+The option `acpi_backlight=video` resolves issues with a failing backlight
+service (`systemd-backlight@backlight:acpi_video0.service`).
+
+## X Startup Issues
+
+If X does not start with the following errors (`~/.local/share/xorg/Xorg.0.log`):
+
+    [    25.311] (EE) systemd-logind: failed to take device /dev/dri/card0: Operation not permitted
+
+Loading the `amdgpu` module early (`/etc/mkinitcpio.conf`) might help:
+
+    MODULES=(amdgpu)
+
+Rebuild `initramfs` (default kernel):
+
+    # mkinitcpio -p linux
+
+Rebuild `initramfs` (zen kernel):
+
+    # mkinitcpio -p linux-zen
