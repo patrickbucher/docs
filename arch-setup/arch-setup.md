@@ -592,3 +592,38 @@ Rebuild `initramfs` (default kernel):
 Rebuild `initramfs` (zen kernel):
 
     # mkinitcpio -p linux-zen
+
+# WPA-EAP WiFi
+
+Create initial profile using `wifi-menu`:
+
+    # wifi-menu
+
+If the network is called `hslu`, and the WiFi interface is `wlp1s0`, the profile `wlp1s0-hslu` is created under `/etc/netctl`.
+
+Encrypt your password:
+
+    echo 'password' | iconv -f utf16le | openssl md4
+
+Modify `/etc/netctl/wlp1s0-hslu` as follows:
+
+    Description='HSLU'
+    Interface=wlp1s0
+    Connection=Wireless
+    ESSID=hslu
+    Security=wpa-configsection
+    IP=dhcp
+    WPAConfigSection=(
+        'ssid="hslu"'
+        'key_mgmt=WPA-EAP'
+        'identity="[your_username]"' # replace with username
+        'password=hash:[your_hash]' # replace with generated hash above
+    )
+
+Enable configuration using `netctl-auto`:
+
+    # systemctl start netctl-auto@wlp1s0-hslu
+
+Check if the profile is listed:
+
+    # netctl-auto list
