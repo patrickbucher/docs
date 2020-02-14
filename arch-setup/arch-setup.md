@@ -595,10 +595,11 @@ Rebuild `initramfs` (zen kernel):
 
 # WPA-EAP WiFi
 
-Create `/etc/netctl/wlp1s0-hslu` as follows:
+Create `/etc/netctl/wlp1s0-hslu` as follows (the interface `wlp1s0` might need
+to be adjusted; use `ip addr` to find the proper identifier):
 
     Description='HSLU'
-    Interface=wlp1s0
+    Interface=wlp1s0 # TODO: adjust as needed
     Connection=wireless
     Security=wpa-configsection
     IP=dhcp
