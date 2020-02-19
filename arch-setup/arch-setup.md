@@ -232,6 +232,16 @@ Configure them accordingly in `~/.asoundrc`:
         device 3
     }
 
+## Pulseaudio
+
+Setup:
+
+    pacman -S pulseaudio pulsemixer
+    systemctl --user enable pulseaudio
+    systemctl --user start pulseaudio
+
+Use `pulsemixer` to adjust volume and the like.
+
 ## misc
 
 GTK theme and theme switcher:
