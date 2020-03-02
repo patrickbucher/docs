@@ -476,6 +476,22 @@ Reload .vimrc, then run command in vim:
     :PlugInstall
     :GoInstallBinaries
 
+# Use Go as a Scripting Language
+
+Source: [Talk at DotGo 2019](https://www.youtube.com/watch?v=fcyHqDwGchI):
+
+Download the `gorun` interpreter:
+
+    $ go get github.com/erning/gorun
+
+Check if `binfmt_misc` is mounted (usually the case with `systemd` based systems):
+
+    $ mount | grep binfmt_misc
+
+Register `gorun` as an interpreter:
+
+    $ echo ':golang:E::go::/home/paedu/go/bin/gorun:OC' | sudo tee /proc/sys/fs/binfmt_misc/register
+
 # SSH key (for GitHub)
 
 Install OpenSSH:
