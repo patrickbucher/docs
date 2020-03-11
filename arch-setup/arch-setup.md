@@ -660,4 +660,8 @@ Rename the user:
 
     # usermod -l new old
 
+Rename the group:
+
+    # groupmod -n new old
+
 Make sure to update the user name where needed (sudoers file, slock, etc.).
