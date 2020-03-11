@@ -643,3 +643,21 @@ Restart `netctl-auto` to reconnect:
 Check if the profile is listed and active (indicated with a `*`):
 
     # netctl-auto list
+
+# Change Username
+
+On order to rename the user `old` to `new`, perform the following steps:
+
+Move `home` directory:
+
+    # usermod -d /home/new -m old
+
+Create symlink from old new new home directory for applications that use hard-coded paths:
+
+    # ln -s /home/new /home/old
+
+Rename the user:
+
+    # usermod -l new old
+
+Make sure to update the user name where needed (sudoers file, slock, etc.).
