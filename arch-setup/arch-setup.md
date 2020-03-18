@@ -242,6 +242,8 @@ Setup:
 
 Use `pulsemixer` to adjust volume and the like.
 
+Use `pactl` to adjust volume, etc. programmatically.
+
 ## misc
 
 GTK theme and theme switcher:
