@@ -3,7 +3,7 @@
 set -e
 
 # TODO: set this options
-boot_partition='/dev/mmcblk0p1'
+root_partition='/dev/mmcblk0p1'
 lang='en_US.UTF-8'
 locale='en_US.UTF-8 UTF-8'
 keymap='de_CH-latin1'
@@ -28,7 +28,7 @@ echo -n "$hostname" > /etc/hostname
 systemd-machine-id-setup
 bootctl --path=/boot install
 
-partuuid=$(blkid | grep "$boot_partition" | egrep -o 'PARTUUID="[^"]+"')
+partuuid=$(blkid | grep "$root_partition" | egrep -o 'PARTUUID="[^"]+"')
 partuuid=$(echo "$partuuid" | awk -F '=' '{ print $2 }' | sed 's/"//g')
 
 cat <<EOF >/boot/loader/entries/arch.conf
