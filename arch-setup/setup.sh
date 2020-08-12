@@ -33,7 +33,7 @@ partuuid=$(echo "$partuuid" | awk -F '=' '{ print $2 }' | sed 's/"//g')
 
 cat <<EOF >/boot/loader/entries/arch.conf
 title   Arch Linux
-linux   /vmlinuz-linuz
+linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
 options root=PARTUUID=${partuuid} rw
 EOF
@@ -43,6 +43,8 @@ default arch
 timeout 0
 editor  0
 EOF
+
+mkinitcpio -p linux
 
 echo "Perform the following tasks manually:"
 echo "- exit the environment: exit"
