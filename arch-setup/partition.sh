@@ -24,21 +24,21 @@ disk_dev="/dev/${disk}"
 parted -s "$disk_dev" mklabel gpt
 
 # create the partitions
-parted -s "$disk_dev" mkpart boot fat32 "${boot_form}MiB" "${swap_from}MiB"
-partes -s "$disk_dev" set 1 esp on
+parted -s "$disk_dev" mkpart boot fat32 "${boot_from}MiB" "${swap_from}MiB"
+parted -s "$disk_dev" set 1 esp on
 parted -s "$disk_dev" mkpart swap linux-swap "${swap_from}Mib" "${root_from}MiB"
 parted -s "$disk_dev" mkpart root ext4 "${root_from}MiB" "${var_from}MiB"
 parted -s "$disk_dev" mkpart var ext4 "${var_from}MiB" "${tmp_from}MiB"
 parted -s "$disk_dev" mkpart tmp ext4 "${tmp_from}MiB" "${home_from}MiB"
-parted -s "$disk_dev" mkpart tmp ext4 "${home_from}MiB" '100%'
+parted -s "$disk_dev" mkpart home ext4 "${home_from}MiB" '100%'
 
 # format the partitions
 mkfs.fat -F32 "/dev/${disk}p1"
 mkswap "/dev/${disk}p2"
-mkfs.ext4 "/dev/${disk}p3"
-mkfs.ext4 "/dev/${disk}p4"
-mkfs.ext4 "/dev/${disk}p5"
-mkfs.ext4 "/dev/${disk}p6"
+mkfs.ext4 -F "/dev/${disk}p3"
+mkfs.ext4 -F "/dev/${disk}p4"
+mkfs.ext4 -F "/dev/${disk}p5"
+mkfs.ext4 -F "/dev/${disk}p6"
 
 # mount the partitions
 mount "/dev/${disk}p3" /mnt
@@ -53,6 +53,7 @@ mkdir /mnt/home
 mount "/dev/${disk}p6" /mnt/home
 
 # generate file system table
+mkdir -p /mnt/etc
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "Perform the following tasks manually"
