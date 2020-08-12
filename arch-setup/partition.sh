@@ -52,11 +52,9 @@ mount "/dev/${disk}p5" /mnt/tmp
 mkdir /mnt/home
 mount "/dev/${disk}p6" /mnt/home
 
-# generate file system table
-mkdir -p /mnt/etc
-genfstab -U /mnt >> /mnt/etc/fstab
-
 echo "Perform the following tasks manually"
 echo "- install the base system: pacstrap /mnt base linux linux-firmware"
+echo "- generate the fstab:      genfstab -U /mnt >> /mnt/etc/fstab"
 echo "- chroot into the system:  arch-chroot /mnt"
 echo "- set an admin password:   passwd"
+echo "- then continue with the setup.sh script"

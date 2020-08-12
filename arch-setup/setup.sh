@@ -10,7 +10,7 @@ keymap='de_CH-latin1'
 hostname='acerbook'
 
 # additional packages
-pacman -S iw wpa_supplicant dialog intel-ucode netctl dhcpcd
+pacman --noconfirm -S iw wpa_supplicant dialog intel-ucode netctl dhcpcd
 
 # locale settings
 ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
@@ -29,7 +29,7 @@ systemd-machine-id-setup
 bootctl --path=/boot install
 
 partuuid=$(blkid | grep "$boot_partition" | egrep -o 'PARTUUID="[^"]+"')
-partuuid=$(echo "$partuuid" | egrep -o '[a-fA-F0-9-]+')
+partuuid=$(echo "$partuuid" | awk -F '=' '{ print $2 }' | sed '/"//g')
 
 cat <<EOF >/boot/loader/entries/arch.conf
 title   Arch Linux
