@@ -29,7 +29,7 @@ systemd-machine-id-setup
 bootctl --path=/boot install
 
 partuuid=$(blkid | grep "$boot_partition" | egrep -o 'PARTUUID="[^"]+"')
-partuuid=$(echo "$partuuid" | awk -F '=' '{ print $2 }' | sed '/"//g')
+partuuid=$(echo "$partuuid" | awk -F '=' '{ print $2 }' | sed 's/"//g')
 
 cat <<EOF >/boot/loader/entries/arch.conf
 title   Arch Linux
