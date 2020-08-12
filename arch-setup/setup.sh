@@ -3,7 +3,7 @@
 set -e
 
 # TODO: set this options
-root_partition='/dev/mmcblk0p1'
+root_partition='/dev/mmcblk0p3'
 lang='en_US.UTF-8'
 locale='en_US.UTF-8 UTF-8'
 keymap='de_CH-latin1'
