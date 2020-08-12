@@ -10,15 +10,23 @@ Set Swiss German keyboard layout:
 
     loadkeys de_CH-latin1
 
-Connect to the WiFi network:
+Connect to the WiFi network (interactively):
 
-    wifi-menu
+    # iwctl
+    [iwd]# device list
+    [iwd]# station wlan0 scan
+    [iwd]# station wlan0 get-networks
+    [iwd]# station wlan0 connect [ssid]
+
+Or, if all data is known, using a single line:
+
+    # iwctl --passphrase [passphrase] station [device] connect [ssid]
 
 Update the system clock:
 
     timedatectl set-ntp true
 
-## Partitioning
+## Partitioning (Interactively)
 
 Find the block device (`mmcblk0` in case of the _acer_ laptop's SSD card):
 
@@ -68,13 +76,13 @@ Activate it:
 
     swapon /dev/mmcblk0p2
 
-Install basic packages:
-
-    pacstrap /mnt base linux linux-firmware
-
 Generate `fstab`:
 
     genfstab -U /mnt >> /mnt/etc/fstab
+
+Install basic packages:
+
+    pacstrap /mnt base linux linux-firmware
 
 Change root into new system:
 

@@ -45,7 +45,7 @@ editor  0
 EOF
 
 echo "Perform the following tasks manually:"
-echo "- exit the environment:\t exit"
-echo "- unmount recursively: \t umount -R /mnt"
-echo "- restart the system:  \t shutdown -h now"
+echo "- exit the environment: exit"
+echo "- unmount recursively:  umount -R /mnt"
+echo "- restart the system:   shutdown -h now"
 echo "- remove the USB media and start the system"

@@ -57,6 +57,6 @@ mkdir -p /mnt/etc
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "Perform the following tasks manually"
-echo "- install the base system:\t pacstrap /mnt base linux linux-firmware"
-echo "- chroot into the system: \t arch-chroot /mnt"
-echo "- set an admin password:  \t passwd"
+echo "- install the base system: pacstrap /mnt base linux linux-firmware"
+echo "- chroot into the system:  arch-chroot /mnt"
+echo "- set an admin password:   passwd"
