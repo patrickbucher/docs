@@ -35,3 +35,7 @@ Modify the script according to your environment, then run it:
     # ./partition.sh
 
 Follow the further instructions printed by the script.
+
+## Useful Packages
+
+    # pacman -S base-devel man-db manpages
