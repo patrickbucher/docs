@@ -58,3 +58,13 @@ Create a file `/etc/hostname.iwm0` (look up device name ‒ here iwm0 ‒ with `
 Restart the networking:
 
     # sh /etc/netstart iwm0
+
+# Keyboard Layout
+
+Change it interactively:
+
+    wsconsctl keyboard.encoding=sg
+
+If that works, make the changes persistent in `/etc/wsconsctl.conf`:
+
+    keyboard.encoding=sg
