@@ -685,3 +685,22 @@ Install `virtualbox` with the kernel modules:
 Load the `vboxdrv` kernel module:
 
     modprobe vboxdrv
+
+# Bluetooth
+
+Install dependencies (for headphones):
+
+    # pacman -S bluez bluez-utils pulseaudio-bluetooth
+
+Start (and enable) the bluetooth service:
+
+    # systemctl start bluetooth
+    # systemctl enable bluetooth
+
+Pair the device (make device ready for pairing):
+
+    # bluetoothctl
+    > default-agent
+    > scan on
+    > pair F0:C4:2F:52:7D:AE
+    > connect F0:C4:2F:52:7D:AE
