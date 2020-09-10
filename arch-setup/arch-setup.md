@@ -701,6 +701,13 @@ Pair the device (make device ready for pairing):
 
     # bluetoothctl
     > default-agent
+    > power on
     > scan on
     > pair F0:C4:2F:52:7D:AE
+    > trust F0:C4:2F:52:7D:AE
+    > connect F0:C4:2F:52:7D:AE
+
+Use the device (after the next restart):
+
+    # bluetoothctl
     > connect F0:C4:2F:52:7D:AE
