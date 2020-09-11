@@ -692,6 +692,11 @@ Install dependencies (for headphones):
 
     # pacman -S bluez bluez-utils pulseaudio-bluetooth
 
+Configure the bluetooth service (`/etc/bluetooth/main.conf`):
+
+    [Policy]
+    AutoEnable=true
+
 Start (and enable) the bluetooth service:
 
     # systemctl start bluetooth
@@ -707,7 +712,8 @@ Pair the device (make device ready for pairing):
     > trust F0:C4:2F:52:7D:AE
     > connect F0:C4:2F:52:7D:AE
 
-Use the device (after the next restart):
+The device should be connecting automatically after the next restart. If not,
+connect via `bluetoothctl`:
 
     # bluetoothctl
     > connect F0:C4:2F:52:7D:AE
