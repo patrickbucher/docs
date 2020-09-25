@@ -1,56 +1,65 @@
 #!/usr/bin/bash
 
+# FIXME: this script hasn't been tested yet
+
 set -e
 
-# TODO: define a disk and set partition sizes
-disk='mmcblk0'
+# define a disk and set partition sizes
+disk='nvme0n1'
 init_mibs='1'
-boot_mibs='250'
-swap_mibs='2000'
-root_mibs='4000'
-var_mibs='4000'
-tmp_mibs='1000'
+boot_mibs='256'
+swap_mibs='16000'
+root_mibs='64000'
+var_mibs='8000'
+tmp_mibs='4000'
 
 # calculate partition sizes
 boot_from="${init_mibs}"
-swap_from="$(expr ${boot_from} + ${boot_mibs})"
-root_from="$(expr ${swap_from} + ${swap_mibs})"
-var_from="$(expr ${root_from} + ${root_mibs})"
-tmp_from="$(expr ${var_from} + ${var_mibs})"
-home_from="$(expr ${tmp_from} + ${tmp_mibs})"
+boot_to="$(expr ${boot_from} + ${boot_mibs})"
 
-# delete all partitions (find out device using lsblk)
+# delete all partitions and overwrite disk with random data
 disk_dev="/dev/${disk}"
+shred --random-source=/dev/urandom --iterations=1 "/dev/${disk}"
 parted -s "$disk_dev" mklabel gpt
 
-# create the partitions
-parted -s "$disk_dev" mkpart boot fat32 "${boot_from}MiB" "${swap_from}MiB"
+# create and format boot partition
+parted -s "$disk_dev" mkpart boot fat32 "${boot_from}MiB" "${boot_to}MiB"
 parted -s "$disk_dev" set 1 esp on
-parted -s "$disk_dev" mkpart swap linux-swap "${swap_from}Mib" "${root_from}MiB"
-parted -s "$disk_dev" mkpart root ext4 "${root_from}MiB" "${var_from}MiB"
-parted -s "$disk_dev" mkpart var ext4 "${var_from}MiB" "${tmp_from}MiB"
-parted -s "$disk_dev" mkpart tmp ext4 "${tmp_from}MiB" "${home_from}MiB"
-parted -s "$disk_dev" mkpart home ext4 "${home_from}MiB" '100%'
+mkfs.fat -F 32 "/dev/${disk}p1"
+
+# prepare partition for disk encryption
+parted -s "/dev/${disk}" mkpart cryptlvm "${swap_from}" '100%'
+cryptsetup luksFormat "/dev/${disk}p2"
+cryptsetup open "/dev/${disk}p2" cryptlvm
+pvcreate /dev/mapper/cryptlvm
+volume_group='VolumeGroup'
+vgcreate "${volume_group}" /dev/mapper/cryptlvm
+
+# create the partitions
+lvcreate -L ${swap_mibs}M "${volume_group}" -n swap
+lvcreate -L ${root_mibs}M "${volume_group}" -n root
+lvcreate -L ${var_mibs}M "${volume_group}" -n var
+lvcreate -L ${tmp_mibs}M "${volume_group}" -n tmp
+lvcreate -L '100%' "${volume_group}" -n home
 
 # format the partitions
-mkfs.fat -F32 "/dev/${disk}p1"
-mkswap "/dev/${disk}p2"
-mkfs.ext4 -F "/dev/${disk}p3"
-mkfs.ext4 -F "/dev/${disk}p4"
-mkfs.ext4 -F "/dev/${disk}p5"
-mkfs.ext4 -F "/dev/${disk}p6"
+mkswap "/dev/${volume_group}/swap"
+mkfs.ext4 -F "/dev/${volume_group}/root"
+mkfs.ext4 -F "/dev/${volume_group}/var"
+mkfs.ext4 -F "/dev/${volume_group}/tmp"
+mkfs.ext4 -F "/dev/${volume_group}/home"
 
 # mount the partitions
-mount "/dev/${disk}p3" /mnt
+mount "/dev/${volume_group}/root" /mnt
 mkdir /mnt/boot
 mount "/dev/${disk}p1" /mnt/boot
-swapon "/dev/${disk}p2"
+swapon "/dev/${volume_group}/swap"
 mkdir /mnt/var
-mount "/dev/${disk}p4" /mnt/var
+mount "/dev/${volume_group}/var" /mnt/var
 mkdir /mnt/tmp
-mount "/dev/${disk}p5" /mnt/tmp
+mount "/dev/${volume_group}/tmp" /mnt/tmp
 mkdir /mnt/home
-mount "/dev/${disk}p6" /mnt/home
+mount "/dev/${volume_group}/home" /mnt/home
 
 # install the base system
 pacstrap /mnt base linux linux-firmware
