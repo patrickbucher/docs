@@ -14,6 +14,8 @@
     - `lsof`
         - Linux
         - FreeBSD
+    - `fstat` 
+        - OpenBSD
     - `ping`
         - OpenBSD
         - FreeBSD
