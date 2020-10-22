@@ -23,6 +23,17 @@ user { 'patrick':
 }
 ```
 
+Puppet's own configuration can be changed using the `puppet config` command, or
+by editing the `/etc/puppet/puppet.conf` configuration file. The file has these 
+sections:
+
+- `[main]`: common configuration for master and agent
+- `[master]`: configuration for the puppet master
+- `[agent]`: configuration for the puppet agent
+- `[user]`: TODO
+
+The configuration can be used to connect a puppet agent with its master.
+
 # Links
 
 - [Puppet Documentation (6.18)](https://puppet.com/docs/puppet/6.18/puppet_index.html)
@@ -62,6 +73,24 @@ Apply a resource stored in a manifest:
 
     $ puppet apply user.pp
 
+## Configuration
+
+Set the puppet agent's identity:
+
+    # puppet config set certname doll
+
+By default, `config set` applies to the `[main]` section of the config. This can
+be changed using the `--section` option:
+
+Set the puppet agent's environment:
+
+    # puppet config --section agent set environment development
+
+Lookup specific configuration settings (in specific section):
+
+    $ puppet config print certname
+    $ puppet config -section main print certname
+
 ## Misc
 
 Show the puppet version:
@@ -69,7 +98,6 @@ Show the puppet version:
     $ puppet --version
 
 # Resource Types
-
 
 ## File
 
