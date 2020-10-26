@@ -30,7 +30,7 @@ add `-nodes` so that no PEM passphrase is asked for:
 
 Run the following command to export the private key:
 
-    openssl pkcs12 -in mydomain.org.pfx -nocerts -out wab.sh.ch.key -nodes # mydomain.org.key is with password
+    openssl pkcs12 -in mydomain.org.pfx -nocerts -out mydomain.org.key -nodes # mydomain.org.key is with password
 
 Run the following command to export the certificate:
 
@@ -38,7 +38,7 @@ Run the following command to export the certificate:
 
 Run the following command to remove the passphrase from the private key
 
-    openssl rsa -in wab.sh.ch.key -out mydomain.org.key # mydomain.org.key is without password
+    openssl rsa -in mydomain.org.key -out mydomain.org.key # mydomain.org.key is without password
 
 ## Check Match
 
@@ -46,9 +46,9 @@ Run the following command to remove the passphrase from the private key
     openssl rsa -noout -modulus -in mydomain.org.key | openssl md5
     # must give same checksum
 
-on server, wab.sh.ch.key matches wab.sh.ch.crt (key without org is passphrase protected)
+on server, mydomain.org.key matches mydomain.org.crt (key without org is passphrase protected)
 
-    openssl req -noout -modulus -in wab.sh.ch.csr | openssl md5
+    openssl req -noout -modulus -in mydomain.org.csr | openssl md5
 
 ## Check Dates
 
