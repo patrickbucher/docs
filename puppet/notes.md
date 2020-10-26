@@ -34,6 +34,14 @@ sections:
 
 The configuration can be used to connect a puppet agent with its master.
 
+A puppet module contains manifests, static files, and templates. Empty modules
+can be created using the `puppet module generate` command (now deprecated).
+Modules are names in the form `[author]-[modulename]`.
+
+A puppet class contains resources and possibly refers to other classes. A class
+itself is not executed, only instances/references thereof. Classes (and only
+classes!) can be referenced using the `include` keyword.
+
 # Links
 
 - [Puppet Documentation (6.18)](https://puppet.com/docs/puppet/6.18/puppet_index.html)
@@ -73,6 +81,15 @@ Apply a resource stored in a manifest:
 
     $ puppet apply user.pp
 
+## Modules
+
+Create an empty module called `demo-webapp` (without questions):
+
+    $ puppet module generate demo-webapp
+    $ puppet module generate --skip-interview demo-webapp
+
+Note: the `puppet module generate` command is deprecated!
+
 ## Configuration
 
 Set the puppet agent's identity:
@@ -107,6 +124,13 @@ file { '/home/patrick/notes':
 }
 ```
 
+## Notify
+
+```puppet
+notify { 'Applying some changes':
+}
+```
+
 ## User
 
 ```puppet
@@ -115,5 +139,14 @@ user { 'patrick':
     groups => ['sudo'],
     home   => '/home/patrick',
     shell  => '/bin/bash',
+}
+```
+
+# Classes
+
+```puppet
+class webserver {
+    notify { 'Applying class webserver':
+    }
 }
 ```
