@@ -72,3 +72,27 @@ change the efault shell (from `/etc/shells`):
 boot after 3 instead of 10 seconds (`/boot/loader.conf`):
 
 	autoboot_delay="3"
+
+# Upgrades
+
+> If you're using ZFS, always create a new boot environment before upgrading or
+> patching! 
+
+(p. 430, Abolute FreeBSD, 3rd Edition)
+
+Download the latest patch:
+
+    # freebsd-update fetch
+
+Install the downloaded patch:
+
+    # freebsd-update install
+
+Download updates to a specific target release:
+
+    # freebsd-update -r 12.2-RELEASE upgrade
+
+Minor upgrades require a reboot, and, thus, running the upgrade twice (before
+and after the reboot):
+
+    # freebsd-update install
