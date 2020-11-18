@@ -173,6 +173,24 @@ Filter for a specific user id (find out using `id [username]`):
 
     $ journalctl _UID=1000
 
+Filter by an identifier (e.g. docker):
+
+    $ journalctl -t docker
+
+# Forward Output to journald
+
+Forward output of a program (`ls /tmp`) to journald:
+
+    $ systemd-cat ls /tmp
+
+Set a log priority (warning):
+
+    $ systemd-cat -p debug ls /tmp
+
+Set a log identifier (health):
+
+    $ systemd-cat -t health ls /tmp
+
 # Syslog
 
 [Source](https://www.loggly.com/ultimate-guide/centralizing-with-syslog/)
