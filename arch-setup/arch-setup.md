@@ -279,13 +279,19 @@ Edit `.config/user-dirs.dirs` and clean up the mess. Then run again:
 
     pacman -S mutt
 
-Create a file `.my-pwds`:
+Create a file `.my-pwds` with the mailbox password for `[SECRET]`:
 
     set my_pw_personal="[SECRET]"
 
 Encrypt it:
 
     gpg -e .my-pwds > .my-pwds.gpg
+
+Copy `.muttrc` to home directory:
+
+    cp ~/github.com/patrickbucher/conf/.muttrc  ~/
+
+Create configuration for GPG:
 
     mkdir .mutt
     cp /usr/share/doc/mutt/samples/gpg.rc .mutt/gpg.rc
