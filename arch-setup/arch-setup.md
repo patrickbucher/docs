@@ -76,13 +76,13 @@ Activate it:
 
     swapon /dev/mmcblk0p2
 
-Generate `fstab`:
-
-    genfstab -U /mnt >> /mnt/etc/fstab
-
 Install basic packages:
 
     pacstrap /mnt base linux linux-firmware
+
+Generate `fstab`:
+
+    genfstab -U /mnt >> /mnt/etc/fstab
 
 Change root into new system:
 
@@ -209,6 +209,10 @@ Xorg for Intel graphics card:
 Packages for compilation:
 
     pacman -S make gcc pkgconfig
+
+Or just use the meta package:
+
+    pacman -S base-devel
 
 Libraries for dwm, dmenu, slock and st:
 
