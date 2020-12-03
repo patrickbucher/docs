@@ -12,7 +12,6 @@ Changing default socket location (default: /tmp):
 
     export TMUX_TMPDIR="$HOME"
 
-
 # Sessions
 
 Start new session:

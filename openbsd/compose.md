@@ -4,7 +4,7 @@ show possible compose keys
 
 configure compose key in ~/.xinitrc
 
-    setxkbmap -option compose:menu
+    setxkbmap -option compose:caps
 
 if special rules are needed, create file ~/.XCompose; include global rules:
 
