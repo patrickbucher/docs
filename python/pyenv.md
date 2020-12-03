@@ -111,3 +111,28 @@ shell session:
 Then activate everything as follows:
 
     $ p
+
+## Example: Additional Project
+
+After the initial setup is done, and a Python version (e.g. `3.8.6`) installed,
+a new project can be configured with a virtual environment to use that version.
+
+First, move to the project folder:
+
+    $ cd ~/myproject
+
+Second, use the installed python version for that particular project:
+
+    $ pyenv local 3.8.6
+
+Third, install a virtual environment:
+
+    $ pyenv virtualenv myproject
+
+Fourth, activate the virtual environment:
+
+    $ pyenv local myproject
+
+Fifth, activate the environment using the `p` function:
+
+    $ p
