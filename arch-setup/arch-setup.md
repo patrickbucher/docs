@@ -404,19 +404,23 @@ Switch password of user postgres:
 
     passwd postgres
 
-Initialize the database cluster as postgres user:
+Initialize the database cluster as `postgres` user with appropriate locale and
+encoding settings:
 
-    su postgres
-    initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data'
+    sudo -u postgres initdb --locale en_US-UTF-8 -E UTF8 -D '/var/lib/postgres/data'
 
 Enable and start service:
 
     systemctl enable postgresql.service
     systemctl start postgresql.service
 
-Create a database (as postgres user):
+Create a database user:
 
-    createdb demo
+    sudo -u postgres createuser --interactive
+
+Create a database (as `postgres` user):
+
+    sudo -u postgres createdb demo
 
 Start interactive SQL prompt:
 
