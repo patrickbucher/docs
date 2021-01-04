@@ -407,7 +407,7 @@ Switch password of user postgres:
 Initialize the database cluster as `postgres` user with appropriate locale and
 encoding settings:
 
-    sudo -u postgres initdb --locale en_US-UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+    sudo -u postgres initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
 
 Enable and start service:
 
