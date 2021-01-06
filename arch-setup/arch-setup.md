@@ -731,3 +731,11 @@ connect via `bluetoothctl`:
 
     # bluetoothctl
     > connect F0:C4:2F:52:7D:AE
+
+# GPG Session Duration
+
+In order to increase the duration of a GPG session, modify
+`~/.gnupg/gpg-agent.conf` as follows (here: session duration of one hour):
+
+    default-cache-ttl 3600
+    max-cache-ttl 3600
