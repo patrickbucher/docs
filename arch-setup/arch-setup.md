@@ -76,13 +76,13 @@ Activate it:
 
     swapon /dev/mmcblk0p2
 
-Generate `fstab`:
-
-    genfstab -U /mnt >> /mnt/etc/fstab
-
 Install basic packages:
 
     pacstrap /mnt base linux linux-firmware
+
+Generate `fstab`:
+
+    genfstab -U /mnt >> /mnt/etc/fstab
 
 Change root into new system:
 
@@ -209,6 +209,10 @@ Xorg for Intel graphics card:
 Packages for compilation:
 
     pacman -S make gcc pkgconfig
+
+Or just use the meta package:
+
+    pacman -S base-devel
 
 Libraries for dwm, dmenu, slock and st:
 
@@ -400,19 +404,23 @@ Switch password of user postgres:
 
     passwd postgres
 
-Initialize the database cluster as postgres user:
+Initialize the database cluster as `postgres` user with appropriate locale and
+encoding settings:
 
-    su postgres
-    initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data'
+    sudo -u postgres initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
 
 Enable and start service:
 
     systemctl enable postgresql.service
     systemctl start postgresql.service
 
-Create a database (as postgres user):
+Create a database user:
 
-    createdb demo
+    sudo -u postgres createuser --interactive
+
+Create a database (as `postgres` user):
+
+    sudo -u postgres createdb demo
 
 Start interactive SQL prompt:
 
@@ -723,3 +731,11 @@ connect via `bluetoothctl`:
 
     # bluetoothctl
     > connect F0:C4:2F:52:7D:AE
+
+# GPG Session Duration
+
+In order to increase the duration of a GPG session, modify
+`~/.gnupg/gpg-agent.conf` as follows (here: session duration of one hour):
+
+    default-cache-ttl 3600
+    max-cache-ttl 3600
