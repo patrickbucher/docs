@@ -108,3 +108,68 @@ States (life cycle):
 - stopping
 - killed
 - post-stopped
+
+## systemd Introduction
+
+### The Purpose of systemd
+
+- goal: more dynamic Linux in respect to changes in the environment (hardware, software)
+- inspired by launchd (Apple)
+- first release in 2010 for Fedora
+- upstart still relied on "a before b"-style dependencies
+    - dependencies started automatically, no matter if really needed or not
+- idea from launchd: listening for all sockets a daemon will listen for; not to the daemon itself
+    - all sockets are made avialable at once
+    - daemons do not need to create their own sockets, systemd provides them
+    - "socket-based activation"
+- daemons can be replaced without loosing messages
+- unused sockets are being closed
+- universal logging framework with persistent log (after reboot)
+- faster boot times
+
+### systemd Architecture
+
+- components in different layers:
+    - utilities: `systemctl`, `journalctl`, `nspawn`, ...
+    - daemons: `systemd`, `journald`, `networkd`, ...
+    - core: service, timer, mount, ...
+    - libraries: dbus-1, libpam, ...
+    - kernel: cgroups, autofs, kdbus, ...
+- process management using cgroups
+    - grouped processes get part of resources (slices), hierarchical groups
+    - two main slices:
+        1. `system.slice`: system services (`crond`, ...)
+        2. `user.slice`: one per user (desktop, ...)
+- scopes: sets of processes having been started by something else
+    - `user.slice` -> `user-1000.slice` -> `session-2.scope`
+- `systemd-cgls`: tree of slices/scopes
+- `systemd-cgtop`: list of resources
+- autofs: mounts services as needed
+    - auto unmount after 5 minutes of idleness
+    - temporary mount
+- read `man 5 systemd.resource-control` for further information on cgroup s
+
+### Alternatives to systemd
+
+- controversy
+    - replaces well-tested and well-known init
+    - not Unix-like, very complex
+    - binary log files
+    - feature creep
+    - not portable, very Linux-specific (cgroups)
+- Debian adopted systemd in 2014
+    - Ubuntu (downstream) followed
+    - Devuan forked off Debian (without systemd)
+- OpenRC (2007)
+    - dependency-based
+    - alongside sysvinit
+    - uses cgroups
+    - default in Gentoo and Alpine
+    - available for Arch, FreeBSD, NetBSD
+- GNU Shepherd
+    - dynamic service start
+- runit
+    - portable
+    - default on Void Linux
+    - 3 runlevels: startup, running, halt
+- systemd is the default on most Linux distributions
