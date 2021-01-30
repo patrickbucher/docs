@@ -173,3 +173,93 @@ States (life cycle):
     - default on Void Linux
     - 3 runlevels: startup, running, halt
 - systemd is the default on most Linux distributions
+
+## systemd Tools
+
+### systemctl
+
+- everything is a unit
+- naming convention: `[something].[unit]`
+    - `[unit]` is either scope, slice, socket, or service
+- `systemctl` is the Swiss Army Knive of systemd
+
+Example: installing Apache httpd on Arch Linux, locating its unit file, and
+showing its status (disabled):
+
+    # pacman -S apache
+
+    $ pacman -Ql apache | grep systemd
+    /usr/lib/systemd/httpd.service
+
+    $ systemctl status httpd.service
+    disabled
+
+By default, the suffix (`service`) can be left away. Be careful if multiple
+units of the same name exist, though.
+
+- `systemctl` commands:
+    - `[none]`: lists all units
+    - `status`: shows the system status (unit/slice tree)
+    - `status [unit]`: shows the status of a specific unit
+    - `enable [unit]`: start unit automatically
+        - creates a symlink fro `/etc/systemd/system/...` to the unit file
+    - `disable [unit]`: do not start unit automatically
+        - removes the symlink
+    - `start [unit]`: start the unit
+    - `stop [unit]`: stop the unit
+    - `help`: show help
+    - `-H [host]`: runs the `systemctl` on a remote host (via SSH)
+
+### Introductoin to systemd Journal
+
+- the systemd Journal is a binary data base file that logs:
+    - kernel log messages
+    - system log messages
+    - stdout/stderr of any system service
+    - SELinux audit records
+    - output from `systemd-cat`
+- messages are logged to `/run/log/journal` by default (lost after restart)
+- logs can be stored persistently under `/var/log/journal`
+- see configuration details: `man 5 journald.conf`
+- default config file under `/etc/systemd/jornald.conf`
+- `[Journal]` section
+    - Storage
+        - `auto` (default): `/var/log/journal` if available, `/run/log/journal` otherwise
+        - `persistent`: /var/log/journal`
+        - `volatile`: `/run/log/journal`
+        - `none`: logs dropped
+    - `Compress`: `yes` (default), `no`
+    - `SystemMaxUse=` (disk), `RuntimeMaxUse=` (RAM): all files combined
+    - `SystemMaxFileSize=` (disk), `RuntimeMaxFileSize=` (RAM): each individual file
+    - `MaxRetentionSec=`
+
+### journalctl
+
+- `journalctl`: display journal, starting with the oldest entries
+    - `-r`: reverse output (newest on top)
+    - `-e`: jump to the end of the file
+    - `-n [number]`: display `number` lines
+    - `-f`: follow (like `tail -f`)
+    - `-u [unit]`: show log entries for a specific unit
+    - `-o [format]`: use a special output format
+        - `verbose`: all fields stored in data base
+        - `json-pretty`: JSON format
+        - see `man 7 systemd.journal-fields` for details
+    - `-x`: enrich output with explanations from catalog, if available
+    - `-k`: only display kernel log messages
+    - `-b`: only show messages from the current boot
+    - `-b -[boot]`: show messages from a specific boot
+        - run `journalctl list-boots` to get the indicator number
+    - `--since`/`--until`: specify time frame for the logs to be shown
+    - `--disk-usage`: show how much disk space the logs take up
+    - `--rotate`: rotate the log files
+
+### More systemd Tools
+
+- `systemd-analyze`: analyzes the boot process in terms of time spent
+- `localectl`: locale settings
+- `timedatectl`: time/date settings
+- `hostnamectl`: host information
+- `systemd-resolve`: DNS lookup utility (similar to `dig(1)`), only if
+  `systemd-resolve` is enabled
+- `systemd-inhibit [command]`: do not suspend/hibernate as long as `command` is running
