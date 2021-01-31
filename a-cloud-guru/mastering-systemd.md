@@ -263,3 +263,41 @@ units of the same name exist, though.
 - `systemd-resolve`: DNS lookup utility (similar to `dig(1)`), only if
   `systemd-resolve` is enabled
 - `systemd-inhibit [command]`: do not suspend/hibernate as long as `command` is running
+
+## Unit Files
+
+### Basics of Unit Files
+
+- no more shell scripts, therefore less processes spawned and less libraries loaded
+- compiled C code instead (faster)
+- System V init scripts can still be used (compatibility layer), however, features like socket activation are unavailable
+- locations of unit files:
+    - default: `/usr/lib/systemd/system` (do _not_ modify these files)
+    - custom: `/etc/sustemd/system` (can be modified)
+    - runtime: `/run/systemd/system` (modification pointless)
+- `systemctl list-unit-files` lists all unit files
+    - add a pattern to list matching unit files
+- unit files use `.ini` file syntax
+    - start with section `[Unit]`
+    - `Description=`: describes the purpose of a unit
+    - `Documentation=`: refer to man pages, URLs
+        - found by `systemd help [unit]`
+    - `Requires=`: units that are needed by this unit
+    - `Wants=`: like `Requires`, but unit doesn't fail if the requirement is not met
+        - either use `Requires` or `Wants`
+    - `Conflicts=`: units that must not be active
+    - `After`: units that must start before
+    - `Before`: units that must start after
+    - see `man 5 systemd.unit`
+    - list a unit file using `systemctl cat [unit]`
+- unit files can be modified by using two main methods:
+    1. copy template from `/usr/lib64/systemd/system` to `/etc/systemd/system` and modify as needed
+        - use `systemctl edit --full [unit]` to do this
+    2. using a drop-in unit file that overwrites defaults, Example:
+        - for `httpd`, create directory `/etc/systemd/system/http.service.d`
+        - create a file `my_httpd.conf` (or similar) in that folder
+        - the options in that file overwrite those in `/etc/systemd/sytem/httpd.service`
+        - use `systemctl edit [unit]` to do this
+- `systemd-delta`: view modified unit files
+- `systemctl daemon-reload`: reload modified configs
+
