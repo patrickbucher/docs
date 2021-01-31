@@ -371,3 +371,50 @@ Common Tasks:
 - useful commands:
     - `systemctl list-timers --all`
     - `systemd-run` --onactive=` for transient timers
+
+## systemd and Containers
+
+- run containers with a full init system
+- run containers as a system service
+- `systemd-nspawn`: minimalistic container manager
+    - originally developed to test systemd without restarting the operating system
+- default location for containers: `/var/lib/machines/<container-name>`
+    - whole OS file system tree stored therein
+- startup a container using `systemd-nspawn -M <container-name>`
+    - `-D [dir]`: if containers are stored under different locations
+- run `machinectl enable <container-name>` to start the container at system boot
+    - `systemctl enable systemd-nspawn@<container-name>` (alternative?)
+- run `machinectl start <container-name>` to start the container manually
+- get containers using `machinectl pull-raw --verify-checksum <url>`
+    - different distros offer additional ways to obtain containers
+    - requires dbus (not active by default in Debian)
+- some distros require `/etc/securetty` to be renamed (say, to `/etc/securetty.disabled`) in order to connect to the container (via SSH)
+- some `machinectl` commands:
+    - `list`: list containers
+    - `login`: login into a container
+    - `status`: show the status of a container
+    - `reboot`: reboot a container
+    - `poweroff`: shut a container down
+    - `start`:  start a container up
+    - `enable`: start a container up automatically on boot
+    - `remove`: delete a container
+- set up a container:
+    1. `systemd-nspawn [container]`: create the container
+    2. `machinectl enable [cotainer]`: start up the container automatically upon next boot
+    3. `machinectl start [container]`: start up the container for now
+    4. `machinectl login [container]`: start interacting with teh container
+
+### Networking
+
+- `systemd-nspawn`:
+    - `--private-network`: loopback only (default)
+    - `--network-veth=[device]`: shared ethernet device between host/guest
+        - requires `systemd-networkd` to be active
+    - `--network-bridge=[device]`: network bridge
+    - `--network-interface=[device]`: dedicated, physical hardware interface for container
+- configuration: `/etc/systemd/network/`
+    - `.network` file: defines a network
+    - `.netdev` file: defines a network interface
+    - `man 5 systemd.link`
+    - `man 5 systemd.netdev`
+    - `man 5 systemd.network`
