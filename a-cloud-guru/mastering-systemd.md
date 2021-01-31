@@ -301,3 +301,24 @@ units of the same name exist, though.
 - `systemd-delta`: view modified unit files
 - `systemctl daemon-reload`: reload modified configs
 
+### Target Unit File
+
+- target unit files bring the system into a new state, comparable to run levels
+- `multi-user.target`: typical for a server system (like run level 3)
+- `graphical.target`: typical for a desktop computer (like run level 5)
+- `rescue.target`: basic system, mounts, rescue shell (like run level 1)
+- `basic.target`: basic system during boot process (before `default.target`)
+- `sysinit.target`: system initialization
+- see `man 5 systemd.target` and `man 7 systemd.special` for reference
+- useful commands for targets:
+    - `systemctl list-unit-files -t target`: list `.target` unit files
+    - `systemctl list-units -t target`: list target units
+    - `systemctl get-default`: display default target
+    - `systemctl set-default [default`: set default target
+    - `systemctl isolate [target]`: change to a different target
+        `systemctl isolate multi-user.target`: changes tty
+        `systemctl isolate graphical.target`: changes to desktop environment
+    - `systemctl rescue`: change to rescue shell
+    - `systemctl reboot`: reboot the system
+    - `systemctl poweroff`: shut the system down
+    - `systemctl default`: change to default target (see `systemctl get-default`)
