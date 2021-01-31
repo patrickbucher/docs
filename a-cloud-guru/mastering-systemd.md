@@ -301,7 +301,7 @@ units of the same name exist, though.
 - `systemd-delta`: view modified unit files
 - `systemctl daemon-reload`: reload modified configs
 
-### Target Unit File
+### Target Units
 
 - target unit files bring the system into a new state, comparable to run levels
 - `multi-user.target`: typical for a server system (like run level 3)
@@ -322,3 +322,52 @@ units of the same name exist, though.
     - `systemctl reboot`: reboot the system
     - `systemctl poweroff`: shut the system down
     - `systemctl default`: change to default target (see `systemctl get-default`)
+
+### Service Units
+
+Sections:
+
+- `[Service]`
+    - `Type=`:
+        - `simple`
+        - `forking` (with PID file for the parent process)
+        - `oneshot`: must be finished before systemd starts follow-up units
+        - `dbus`: with a BusName
+        - `notify`: sends a notification after finished starting
+        - `idle`: waits for five seconds
+    - `ExecStart=`: startup command
+- `[Install]`
+    - `WantedBy=`: dependencies
+- see `man 5 systemd.service` for different sections
+
+Common Tasks:
+
+- check status using `systemctl is-enabled` (enabled/disabled) and `systemctl is-active`
+    - `active`: running
+    - `inactive`: not running
+    - `failed`: exited with an error code (not 0)
+- `systemctl reload [pattern]`: ask units matching `pattern` to reload _their_ configuration
+- `systemctl mask [unit]`: prevents a unit from being started (by accident)
+    - unit file is set as a symlink to `/dev/null`
+- `systemctl unmask [unit]`: allow the unit to be started again
+    - remove the symlink to `/dev/null` again
+
+### Timer Units
+
+- time-based activation
+- require a `.timer` unit file with a corresponding `.service` unit file
+    - exmaple: `foobar.timer` requires `foobar.service`
+    - the timer launches the service defined in the other unit file
+- types of timers:
+    1. monotonic: run after a certain starting point (e.g. 30 seconds after boot)
+    2. real time: run at a certain date/time (like `cron` jobs)
+    3. transient timers (without corresponding service unit, like `at` jobs)
+- `[Timer]` section in unit file:
+    - `OnBootSec=` or `OnUnitActiveSec=` for monotonic timers
+    - `OnCalendar=` for real time timers
+    - `Unit=`: (optional) unit
+    - `WantedBy=`: `timer.target`
+- see `man 5 systemd.timer` and `man 7 systemd.timer`
+- useful commands:
+    - `systemctl list-timers --all`
+    - `systemd-run` --onactive=` for transient timers
