@@ -24,7 +24,7 @@ Save the file (`C-c C-s`) and evaluate it (`M-x eval-buffer`.
 
 Run `M-x package-install RET geiser RET` to install `geiser`.
 
-# Configure geiser
+## Configure geiser
 
 Extend your ``/.emacs` configuration by defining the binary file for
 `mit-scheme` (use `which mit-scheme` to find the path), and by setting `mit` as
@@ -35,7 +35,7 @@ the only active Scheme implementation to be used for geiser:
 
 Save (`C-c C-s`) and close (`C-c C-x`) emacs.
 
-# Use geiser
+## Use geiser
 
 Open a new emacs buffer:
 
