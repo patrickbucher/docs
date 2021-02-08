@@ -36,7 +36,24 @@
 
 ### Bash Files: `.bash_history`
 
+- captures bash commands executed
+- last 100 commands by default
+- use `$HISTCONTROL` to configure behaviour
+    - `ignoredups`: do not track duplicates (like `cd ..`, `cd ..`, etc.)
+    - `ignorespace`: do not track commands starting with a space character
+    - use multiple values seperated by colons, extend like `$PATH`
+    - `export HISTCONTROL="$HISTCONTROL:ignorespace"
+
 ### Bash Files: `.bash_logout`
+
+- not always needed/used (empty)
+- executed when executing `exit` or `logout` command, not when simply closing
+- possible use case: `root` executes maintenance tasks when leaving
+
+### What Makes a File a Shell Script
+
+- shebang line: `#!/bin/bash`
+- file extension is not relevant, but often `.sh` is used
 
 ## Conditional Statements
 
