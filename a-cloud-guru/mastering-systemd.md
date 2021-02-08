@@ -7,7 +7,7 @@
 1. BIOS starts.
 2. The boot loader seeks the boot sector on the first hard drive.
 3. The kernel loads with the initial ramdisk (containing the drivers).
-4. The kernel mounts the partisions and runs the init system.
+4. The kernel mounts the partitions and runs the init system.
 
 ### `init`
 
@@ -147,7 +147,7 @@ States (life cycle):
 - autofs: mounts services as needed
     - auto unmount after 5 minutes of idleness
     - temporary mount
-- read `man 5 systemd.resource-control` for further information on cgroup s
+- read `man 5 systemd.resource-control` for further information on cgroup
 
 ### Alternatives to systemd
 
@@ -210,7 +210,7 @@ units of the same name exist, though.
     - `help`: show help
     - `-H [host]`: runs the `systemctl` on a remote host (via SSH)
 
-### Introductoin to systemd Journal
+### Introduction to systemd Journal
 
 - the systemd Journal is a binary data base file that logs:
     - kernel log messages
@@ -273,7 +273,7 @@ units of the same name exist, though.
 - System V init scripts can still be used (compatibility layer), however, features like socket activation are unavailable
 - locations of unit files:
     - default: `/usr/lib/systemd/system` (do _not_ modify these files)
-    - custom: `/etc/sustemd/system` (can be modified)
+    - custom: `/etc/systemd/system` (can be modified)
     - runtime: `/run/systemd/system` (modification pointless)
 - `systemctl list-unit-files` lists all unit files
     - add a pattern to list matching unit files
