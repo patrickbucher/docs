@@ -1,19 +1,5 @@
 # systemd
 
-Outline:
-
-1. Linux Boot Process
-2. Traditinal `init` System
-3. Upstart
-4. systemd
-    1. Architecture
-    2. Units
-    3. Services
-    4. Journal
-    5. Targets
-    6. Containers
-5. Summary
-
 ## Linux Boot Process
 
 1. BIOS
@@ -22,24 +8,24 @@ Outline:
 4. Mount Disk
 5. `/sbin/init`
 
-## Traditional init System
+## Traditional `init` System
 
 - runlevels:
     - 0: halt
     - 1: single user mode (root only)
     - 2: multi user mode (no networking)
-    - 3: multi user mod (networking enabled)
+    - 3: multi user mode (networking enabled)
     - 4: unused (free for custom use by distributions)
     - 5: multi user mode with GUI (and networking)
     - 6: reboot
 - init scripts in `/etc/rc.d` (Red Hat) or `/etc/init.d` (Debian)
+    - `rc.local`: custom configuration
     - sub-folders per runlevel (`rc0.d`, `rc1.d`)
     - contain start/kill scripts 
-- `rc.local`: custom configuration
 - issues:
     - sequential startup (slow)
-    - spawns a lot of processes, loads a lot of libraries (see `$PID` after
-      start)
+    - spawns a lot of processes, loads a lot of libraries
+        - see `$PID` after start
     - doesn't respond well to changes
 
 ## Upstart
@@ -79,6 +65,9 @@ Outline:
     - conduct with bug reports
     - not portable (Linux-specific due to cgroups)
     - desktop ready, network not...
+    - issues separating `/usr` from `/` partition
+    - unit names with dashes are problematic (`systemd-escape (1)`)
+    - counter-intuitive behaviour (sequence in `/etc/fstab` not relevant)
 - widely adopted nowadays
     - Fedora, Red Hat (since 2010)
     - Debian: 2014 (Devuan fork)
@@ -96,12 +85,12 @@ Outline:
 - utilities: `systemctl`, `journalctl`, ...
 - core: service, timer, mount, ...
 - libraries: dbus-1, libpam, ...
-- kernel: cgroups, autofs, kdbus
+- kernel: cgroups, autofs, kdbus, ...
 - process management using cgroups (2006/2007)
     - slices: hierarchical groups of processes get their part of the resources
     - `system.slice`: for system services
     - `user.slice`: for each user
-    - `systemd-cgls`, `systemd-cgtop`
+    - `systemd-cgls (1)`, `systemd-cgtop (1)`
 
 ### Units
 
@@ -111,45 +100,31 @@ Outline:
     - `systemd.unit (5)`
 - see `/etc/systemd/system`
 - unit files can be modified by using two main methods:
-    1. copy template from `/usr/lib64/systemd/system` to `/etc/systemd/system` and modify as needed
-        - use `systemctl edit --full [unit]` to do this
-    2. using a drop-in unit file that overwrites defaults, Example:
-        - for `httpd`, create directory `/etc/systemd/system/http.service.d`
-        - create a file `my_httpd.conf` (or similar) in that folder
-        - the options in that file overwrite those in `/etc/systemd/sytem/httpd.service`
-        - use `systemctl edit [unit]` to do this
+    1. use `systemctl edit --full [unit]` to edit full file
+    2. use `systemctl edit [unit]` for drop-in overwrites
 - `systemd-delta`: view modified unit files
 - `systemctl daemon-reload`: reload modified configs
 - `systemctl` commands:
     - `[none]`: lists all units
     - `status`: shows the system status (unit/slice tree)
     - `status [unit]`: shows the status of a specific unit
+    - `is-enabled`: shows the system status (unit/slice tree)
     - `enable [unit]`: start unit automatically
-        - creates a symlink fro `/etc/systemd/system/...` to the unit file
     - `disable [unit]`: do not start unit automatically
-        - removes the symlink
+    - `is-active`: shows the system status (unit/slice tree)
     - `start [unit]`: start the unit
     - `stop [unit]`: stop the unit
+    - `reload [unit]`: ask unit to reload _its_ configuration
+    - `mask [unit]`: prevents unit from being started
+        - symlink to `/dev/null`
+    - `unmask [unit]`: allows unit to be started
     - `help [unit]`: show help (if available)
     - `-H [host]`: runs the `systemctl` on a remote host (via SSH)
-        - `systemctl -H foo.bar.com status`
-
-### Services
 
 - Demo: generic service (locally)
 - Demo: custom service (remotely)
 - Demo: oneshot service (remotely)
 - Demo: path unit (remotely)
-- common tasks:
-    - check status using `systemctl is-enabled` (enabled/disabled) and `systemctl is-active`
-        - `active`: running
-        - `inactive`: not running
-        - `failed`: exited with an error code (not 0)
-    - `systemctl reload [pattern]`: ask units matching `pattern` to reload _their_ configuration
-    - `systemctl mask [unit]`: prevents a unit from being started (by accident)
-        - unit file is set as a symlink to `/dev/null`
-    - `systemctl unmask [unit]`: allow the unit to be started again
-        - remove the symlink to `/dev/null` again
 
 ### Journal
 
@@ -162,8 +137,7 @@ Outline:
 - messages are logged to `/run/log/journal` by default (lost after restart)
 - logs can be stored persistently under `/var/log/journal`
 - see configuration details: `man 5 journald.conf`
-- default config file under `/etc/systemd/jornald.conf`
-- `[Journal]` section
+- default config file under `/etc/systemd/journald.conf`
     - Storage
         - `auto` (default): `/var/log/journal` if available, `/run/log/journal` otherwise
         - `persistent`: /var/log/journal`
@@ -191,6 +165,7 @@ Outline:
     - `--since`/`--until`: specify time frame for the logs to be shown
     - `--disk-usage`: show how much disk space the logs take up
     - `--rotate`: rotate the log files
+- `systemd-cat`: logging to journal
 
 ### Target Units
 
@@ -205,7 +180,7 @@ Outline:
     - `systemctl list-unit-files -t target`: list `.target` unit files
     - `systemctl list-units -t target`: list target units
     - `systemctl get-default`: display default target
-    - `systemctl set-default [default`: set default target
+    - `systemctl set-default [target]`: set default target
     - `systemctl isolate [target]`: change to a different target
         `systemctl isolate multi-user.target`: changes to tty
         `systemctl isolate graphical.target`: changes to desktop environment
@@ -225,11 +200,11 @@ Outline:
 - startup a container using `systemd-nspawn -M <container-name>`
     - `-D [dir]`: if containers are stored under different locations
 - run `machinectl enable <container-name>` to start the container at system boot
-    - `systemctl enable systemd-nspawn@<container-name>` (alternative?)
+    - `systemctl enable systemd-nspawn@<container-name>` (alternative)
 - run `machinectl start <container-name>` to start the container manually
 - get containers using `machinectl pull-raw --verify-checksum <url>`
+    - alternative [roots](https://github.com/seantis/roots)
     - different distros offer additional ways to obtain containers
-    - requires dbus (not active by default in Debian)
 - some `machinectl` commands:
     - `list`: list containers
     - `login`: login into a container
