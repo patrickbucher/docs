@@ -260,7 +260,7 @@
 - more
     - `apropos systemd | grep '^systemd' | wc -l`: 202
 - sources, further reading
-    - course on Cloud Guru: [Mastering Systemd](https://acloudguru.com/course/mastering-systemd)
+    - course on _A Cloud Guru_: [Mastering Systemd](https://acloudguru.com/course/mastering-systemd)
     - initial blog post: [Rethinking PID 1](http://0pointer.net/blog/projects/systemd.html)
     - arguments _against_ systemd: [systemd is the best example of Suck.](https://suckless.org/sucks/systemd/)
-    - journald: [Ultimate Guide to Logging](https://www.loggly.com/ultimate-guide/using-systemctl/)
+    - journald: [Ultimate Guide to Logging](https://www.loggly.com/ultimate-guide/using-systemctl/) ([Summary](https://github.com/patrickbucher/docs/blob/master/utils/journald.md))
