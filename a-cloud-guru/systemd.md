@@ -264,3 +264,5 @@
     - initial blog post: [Rethinking PID 1](http://0pointer.net/blog/projects/systemd.html)
     - arguments _against_ systemd: [systemd is the best example of Suck.](https://suckless.org/sucks/systemd/)
     - journald: [Ultimate Guide to Logging](https://www.loggly.com/ultimate-guide/using-systemctl/) ([Summary](https://github.com/patrickbucher/docs/blob/master/utils/journald.md))
+    - only book about systemd: [Savaged by
+      systemd](https://www.amazon.com/Savaged-Systemd-Erotic-Unix-Encounter-ebook/dp/B075DYXZW1)
