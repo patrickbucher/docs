@@ -110,6 +110,16 @@ Outline:
     - types: scope, slice, socket, service, path, timer, mount, ...
     - `systemd.unit (5)`
 - see `/etc/systemd/system`
+- unit files can be modified by using two main methods:
+    1. copy template from `/usr/lib64/systemd/system` to `/etc/systemd/system` and modify as needed
+        - use `systemctl edit --full [unit]` to do this
+    2. using a drop-in unit file that overwrites defaults, Example:
+        - for `httpd`, create directory `/etc/systemd/system/http.service.d`
+        - create a file `my_httpd.conf` (or similar) in that folder
+        - the options in that file overwrite those in `/etc/systemd/sytem/httpd.service`
+        - use `systemctl edit [unit]` to do this
+- `systemd-delta`: view modified unit files
+- `systemctl daemon-reload`: reload modified configs
 - `systemctl` commands:
     - `[none]`: lists all units
     - `status`: shows the system status (unit/slice tree)
