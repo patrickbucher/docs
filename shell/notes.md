@@ -110,3 +110,19 @@ common classes:
         - Return/Enter: follow hyperlink under cursor
         - q: quit
 - `REAMDE` files in `/usr/share/doc`
+
+## Misc
+
+### Aliases
+
+set an alias:
+
+    $ alias ll='ls -l'
+
+unset an alias:
+
+    $ unalias ll
+
+list all available aliases:
+
+    $ alias
