@@ -35,6 +35,7 @@ nested:
 same as:
 
 ```python
+l = []
 for x in [1,2,3]:
     for y in [10,20,30]:
         l.append(x+y)
@@ -43,6 +44,7 @@ for x in [1,2,3]:
 ## Sequences
 
 |           | containers                  | flat                                     |
+|-----------|-----------------------------|------------------------------------------|
 | mutable   | `list`, `collections.deque` | `bytearray`, `memoryview`, `array.array` |
 | immutable | `typle`                     | `str`, `bytes`                           |
 
