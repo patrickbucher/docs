@@ -18,7 +18,7 @@ def twice(x):
 ```
 
 ```bash
-$python -m doctest twice.py
+$ python -m doctest twice.py
 ```
 
 ## List Comprehensions
