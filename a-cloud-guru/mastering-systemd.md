@@ -249,7 +249,7 @@ units of the same name exist, though.
     - `-k`: only display kernel log messages
     - `-b`: only show messages from the current boot
     - `-b -[boot]`: show messages from a specific boot
-        - run `journalctl list-boots` to get the indicator number
+        - run `journalctl --list-boots` to get the indicator number
     - `--since`/`--until`: specify time frame for the logs to be shown
     - `--disk-usage`: show how much disk space the logs take up
     - `--rotate`: rotate the log files
@@ -370,7 +370,7 @@ Common Tasks:
 - see `man 5 systemd.timer` and `man 7 systemd.timer`
 - useful commands:
     - `systemctl list-timers --all`
-    - `systemd-run` --onactive=` for transient timers
+    - `systemd-run` --onactive=` for transient timers`
 
 ## systemd and Containers
 
@@ -402,7 +402,7 @@ Common Tasks:
     1. `systemd-nspawn [container]`: create the container
     2. `machinectl enable [cotainer]`: start up the container automatically upon next boot
     3. `machinectl start [container]`: start up the container for now
-    4. `machinectl login [container]`: start interacting with teh container
+    4. `machinectl login [container]`: start interacting with the container
 
 ### Networking
 
