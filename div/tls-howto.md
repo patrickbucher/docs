@@ -53,3 +53,12 @@ on server, mydomain.org.key matches mydomain.org.crt (key without org is passphr
 ## Check Dates
 
     openssl x509 -noout -in mydomain.org.crt -dates
+
+# Self-Signed Certificates
+
+```bash
+$ openssl ecparam -genkey -name secp384r1 -out server.key
+$ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 365 -subj "/C=CH/ST=Luzern/L=Luzern/O=private/OU=home"
+$ openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12 -passout pass:
+$ openssl pkcs12 -in server.p12 -nodes -out server.pem -passin pass:
+```
