@@ -74,6 +74,33 @@ Only a generator object rather than a tuple is stored in memory.
 1
 ```
 
+Excess items can grabbed using the asterisk notation:
+
+```python
+>>> a, b *remainder = range(5)
+>>> (a, b, remainder)
+(0, 1, [2, 3, 4])
+
+>>> a, b *mid, z = range(5)
+>>> (a, b, mid, z)
+(0, 1, [2, 3], 4)
+```
+
+Nested tuples can be unpacked, too:
+
+```python
+>>> rectangles = [
+    ('A', (10, 30)),
+    ('B', (15, 15)),
+    ('C', (20, 40)),
+]
+>>> for name, (width, height) in rectangles:
+...     print(name, width, height)
+A 10 30
+B 15 15
+C 20 40
+```
+
 ## Sequences
 
 |           | containers                  | flat                                     |
