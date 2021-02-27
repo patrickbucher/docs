@@ -126,3 +126,17 @@ unset an alias:
 list all available aliases:
 
     $ alias
+
+### Redirection
+
+truncate a file (`out.txt`):
+
+    $ >out.txt
+
+redirect both `stdout` and `stderr` to `out.txt` (classic style):
+
+    $ ls >out.txt 2>&1
+
+redirect both `stdout` and `stderr` to `out.txt` (bash style):
+
+    $ ls &>out.txt
