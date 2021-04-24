@@ -2,8 +2,8 @@
 
 In order to work through
 [SICP](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html)
-comfortably, the emacs [geiser](https://www.nongnu.org/geiser/) helps a lot.
-Here's how to set it up and how to use it.
+comfortably, the emacs plugin [geiser](https://www.nongnu.org/geiser/) helps a
+lot. Here's how to set it up and how to use it.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Run `M-x package-install RET geiser RET` to install `geiser`.
 
 ## Configure geiser
 
-Extend your ``/.emacs` configuration by defining the binary file for
+Extend your `/.emacs` configuration by defining the binary file for
 `mit-scheme` (use `which mit-scheme` to find the path), and by setting `mit` as
 the only active Scheme implementation to be used for geiser:
 
