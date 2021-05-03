@@ -63,3 +63,65 @@ decrease over time. A lock-on effect for a programming language entails:
 - user interface philosophy
 
 > People will always choose the familiar over the cofortable.
+
+No two software organisations are 1) exactly alike or 2) entirely different.
+
+There is some common software culture; it's properties can be found in the
+entire world. Some characteristics cluster together as _patterns_. Organizations
+lock in on one of those patterns due to conservatism manifested in:
+
+1. satisfaction with current quality level
+2. fear of losing that level when improvements fail
+3. no understanding for other cultures
+4. invisibility of their own culture
+
+However, improving quality requires cultural change. Resistance can be overcome
+by preserving the good that is already there.
+
+## Software Subcultures
+
+The critical factor to software quality is the people involved (their
+motivations and reactions).
+
+The "manufacturing" part in software is its duplication; a rather trivial task.
+Ideas such as "Zero Defects" are only sensibly applied to the duplication part
+of software. The parallel development of requirements software is the critical
+part of software quality.
+
+Most software development takes place in a "dirty" environment, where the
+requirements cannot be assumed correct. An "economics of quality" (tradeoffs in
+terms of correctnes?) only exist if there's a correct set of requirements.
+
+The requirements process can destroy value, e.g. if it is figured out that the
+wrong thing was built. Defective software, however, can also provide a lot of
+value.
+
+If the customers of a software organization are satisfied, there's no point in
+changing the way that organization works. Mild dissatisfaction is better tackled
+using small, gradual improvements rather than cultural change.
+
+Trying to improve your way of of the wrong pattern using small steps is like
+creating a more detailed map of the wrong trip.
+
+> Quality is the ability to consistently get what people need. That means
+> producing what people will value and not producing what people won't value.
+
+Quality patterns should not be denoted in terms of "maturity", but in a more
+neutral way. Any pattern can produce satisfying results. Maturity only works in
+one way, but organizations can go back to a different pattern, too. Different
+cultural patterns may be more or less _fitting_ to an organization and its
+quality needs.
+
+> Things are the  way they are because they got that way.
+
+One can learn about processes by observing the products created by them.
+
+Organizations can be classified by their _degree of congruence_ between what is
+said and what is done in different parts of the organization:
+
+- Oblivious: "We don't even know that we're performing a process."
+- Variable: "We do whatever we feel like at the moment."
+- Routine: "We follow our routines (except when we panic)."
+- Steering: "We choose among our routines by the results they produce."
+- Anticipating: "We establish routines based on our past experience of them."
+- Congruent: "Everyone is involved in improving everything all the time."
