@@ -119,8 +119,27 @@ One can learn about processes by observing the products created by them.
 Organizations can be classified by their _degree of congruence_ between what is
 said and what is done in different parts of the organization:
 
-- Oblivious: "We don't even know that we're performing a process."
-- Variable: "We do whatever we feel like at the moment."
+- 0) Oblivious: "We don't even know that we're performing a process."
+    - not a professional pattern, but useful as a baseline
+    - most frequent source of new software
+    - the software user is the organization that builds the software
+    - no managers, no customers, no specified processes
+    - no awareness of doing "software development"
+    - produces satisfied users
+- 1) Variable: "We do whatever we feel like at the moment."
+    - awareness rises that pattern 0 doesn't suffice
+    - separation from developer and user begins; blaming, too
+    - management is not understood as part of development
+    - "superprogrammer" (maybe leading a team) as source of success
+    - myths about heroic deeds as company history
+    - sometimes a pool of developers serve the specialist programmers
+    - one or few rockstar programmers do the projects
+    - procedures are abondoned at first sign of a crisis
+    - improving quality by hiring a star
+    - performance, schedule, and costs mostly depend on individual efforts, not
+      teams
+    - project results reinforce the belief system (projects succeed and fail
+      depending on the programmer doing them)
 - Routine: "We follow our routines (except when we panic)."
 - Steering: "We choose among our routines by the results they produce."
 - Anticipating: "We establish routines based on our past experience of them."
