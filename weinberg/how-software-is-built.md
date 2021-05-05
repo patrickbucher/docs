@@ -119,14 +119,14 @@ One can learn about processes by observing the products created by them.
 Organizations can be classified by their _degree of congruence_ between what is
 said and what is done in different parts of the organization:
 
-- 0) Oblivious: "We don't even know that we're performing a process."
+- 0 Oblivious: "We don't even know that we're performing a process."
     - not a professional pattern, but useful as a baseline
     - most frequent source of new software
     - the software user is the organization that builds the software
     - no managers, no customers, no specified processes
     - no awareness of doing "software development"
     - produces satisfied users
-- 1) Variable: "We do whatever we feel like at the moment."
+- 1 Variable: "We do whatever we feel like at the moment."
     - awareness rises that pattern 0 doesn't suffice
     - separation from developer and user begins; blaming, too
     - management is not understood as part of development
@@ -140,7 +140,7 @@ said and what is done in different parts of the organization:
       teams
     - project results reinforce the belief system (projects succeed and fail
       depending on the programmer doing them)
-- 2) Routine: "We follow our routines (except when we panic)."
+- 2 Routine: "We follow our routines (except when we panic)."
     - when "leave the programmer" no longer yields satisfying results
     - "super manager" as the deciding factor (replaces the "super programmer")
     - procedures are put in place to keep programmers under control
@@ -152,7 +152,7 @@ said and what is done in different parts of the organization:
     - silver bullets: refined measurements (in unstable environments),
       sophisticated (but not helpful) tools
     - "name magic": just say "agile" (or whatever) to work magic
-- 3) Steering: "We choose among our routines by the results they produce."
+- 3 Steering: "We choose among our routines by the results they produce."
     - managers are more skilled and experienced (not just promoted programmers
       with a lack of role-models that do "management by telling")
     - magic is replaced by understanding
@@ -162,18 +162,18 @@ said and what is done in different parts of the organization:
       plan)
     - programmers actually like to work in a well-managed (!) operation
     - tools are introduced later in the process, but used well
-- 4) Anticipating: "We establish routines based on our past experience of them."
-    - pattern 3) ("Steering") manager in the higher ranks of management
+- 4 Anticipating: "We establish routines based on our past experience of them."
+    - pattern 3 ("Steering") manager in the higher ranks of management
     - comprehensive process measurements and analysis initiated
-- 5) Congruent: "Everyone is involved in improving everything all the time."
+- 5 Congruent: "Everyone is involved in improving everything all the time."
     - quality managers on highest level (CEO)
     - procedures are understood, followed, and improved all the time by everyone
       (continuous improvement)
 
-Pattern 1) can look like pattern 3) from the outside: if there's no effective
+Pattern 1 can look like pattern 3 from the outside: if there's no effective
 management in place, management can't even cause much harm.
 
-As long as everything goes well, pattern 2) can be mistaken for pattern 3). When
+As long as everything goes well, pattern 2 can be mistaken for pattern 3. When
 things get in trouble, the differences become obvious.
 
-In practice, patterns 4) and 5) hardly exist.
+In practice, patterns 4 and 5 hardly exist.
