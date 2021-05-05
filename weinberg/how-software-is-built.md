@@ -140,7 +140,40 @@ said and what is done in different parts of the organization:
       teams
     - project results reinforce the belief system (projects succeed and fail
       depending on the programmer doing them)
-- Routine: "We follow our routines (except when we panic)."
-- Steering: "We choose among our routines by the results they produce."
-- Anticipating: "We establish routines based on our past experience of them."
-- Congruent: "Everyone is involved in improving everything all the time."
+- 2) Routine: "We follow our routines (except when we panic)."
+    - when "leave the programmer" no longer yields satisfying results
+    - "super manager" as the deciding factor (replaces the "super programmer")
+    - procedures are put in place to keep programmers under control
+    - procedures are followed, but their reason is not understood
+    - works well until routines are bypassed in a "disaster" project (as if the
+      procedures that were followed in successful projects aren't really trusted)
+    - the lack of understanding the _why_ behind procedures, managers start
+      issuing counterproductive orders (overtime, cut training, cutting corners)
+    - silver bullets: refined measurements (in unstable environments),
+      sophisticated (but not helpful) tools
+    - "name magic": just say "agile" (or whatever) to work magic
+- 3) Steering: "We choose among our routines by the results they produce."
+    - managers are more skilled and experienced (not just promoted programmers
+      with a lack of role-models that do "management by telling")
+    - magic is replaced by understanding
+    - procedures not completely defined, but understood; also followed in crisis
+    - very few project failures; they always deliver (at least some) value
+    - procedures are flexible, not rigid ("steering" instead of just following a
+      plan)
+    - programmers actually like to work in a well-managed (!) operation
+    - tools are introduced later in the process, but used well
+- 4) Anticipating: "We establish routines based on our past experience of them."
+    - pattern 3) ("Steering") manager in the higher ranks of management
+    - comprehensive process measurements and analysis initiated
+- 5) Congruent: "Everyone is involved in improving everything all the time."
+    - quality managers on highest level (CEO)
+    - procedures are understood, followed, and improved all the time by everyone
+      (continuous improvement)
+
+Pattern 1) can look like pattern 3) from the outside: if there's no effective
+management in place, management can't even cause much harm.
+
+As long as everything goes well, pattern 2) can be mistaken for pattern 3). When
+things get in trouble, the differences become obvious.
+
+In practice, patterns 4) and 5) hardly exist.
