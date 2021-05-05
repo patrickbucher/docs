@@ -177,3 +177,26 @@ As long as everything goes well, pattern 2 can be mistaken for pattern 3. When
 things get in trouble, the differences become obvious.
 
 In practice, patterns 4 and 5 hardly exist.
+
+## What Is Needed To Change Patterns?
+
+The prevailing pattern is best detected by the way people think and communicate:
+
+- Problems are handled by individuals in reactive ways (pattern 1).
+- Tools and concepts are used, but in the wrong way (pattern 2; e.g. reasoning
+  remains verbal, despite of using "statistics").
+- Linear reasoning ("A caused B") and unjustifiable certainty in what is known
+  prevailing (pattern 2).
+- Problems are handled less emotionally; emergencies are handled better; people
+  act more proactively (pattern 3).
+- Measurement is used, but is sometimes meaningless (process not stable enough
+  to gain useful data; pattern 3).
+- Processes and measurements are stable; single managers can't force
+  organizations into big mistagkes (pattern 4).
+- Scientific reasoning; more problems prevented than handled (pattern 5).
+
+In order to improve the quality of the organization, the quality of thinking
+needs to be improved first.
+
+Every pattern has its models (implicit or explicit) that guide the
+organizations's thinking.
