@@ -200,3 +200,99 @@ needs to be improved first.
 
 Every pattern has its models (implicit or explicit) that guide the
 organizations's thinking.
+
+Sometimes there is not enough incentive to change patterns, so it makes sense to
+remain with the old, sufficient one. However, this is only a concious decision
+if the information about incentives and about other patterns is known.
+
+A pattern change might cause more (temporary) costs in some department
+(development) in order to save costs in another department (service). Such
+change is only possible, if the organization supports this change on a higher
+level.
+
+The higher the demands posed by customers and the problems itself, the higher a
+pattern is needed. There is also a tradeoff: lower demands by the customer
+combined with higher demands of the problem itself could be satisfied with the
+same pattern.
+
+An organization can remain in a pattern for a long time if:
+
+- customers are not demanding
+- problems aren't getting more demanding
+- there's no competition
+
+Under those circumstances, an organization can even stagnate.
+
+Resistance to change often stems from certain _thinking patterns_:
+
+- circular argument
+    - don't try because you might fail
+    - we don't know if you'd fail, because you don't try
+- classic software cycle
+    - we do the best possible job; if others do their job better, their problem
+      must be easier
+    - consultants have bad development habits and therefore must be isolated
+      from internal developers; so we don't know how they work
+    - our rockstar is never at fault; if something fails, someone else is to
+      blame; so the rockstar's weaknesses are never found
+    - our rockstar knows most about software; if alternatives are to be
+      investigated, ask our rockstar; so we'll never use something the rockstar
+      doesn't understand
+
+Those _closed circuits_ can be opened by asking if your rate of success is high
+enough. Over time, evidence to the contrary might accumulate. Unfortunately,
+patterns 0, 1, and 2, which need change the most, often don't keep records of
+their failures and their cost.
+
+Cultural patterns can be broke by starting the information flowing:
+
+- technical reviews offer insight into the products
+- send people to seminars to discover what other people do
+- ask upper management:
+    - how do you spot failures/poor quality?
+    - apply this definition to individual cases
+
+Patterns 0, 1, and 2 are based on a lack of trust:
+
+- pattern 0: we only trust ourselves
+- pattern 1: we don't trust managers
+- pattern 2: we don't trust programmers
+
+Higher patterns are not "more mature", but "more open":
+
+- pattern 0: as open as the individual
+- pattern 1: open to information exchange between developer and user
+- pattern 2: open to information exchange between developer, user, and manager
+- pattern 3: open in all directions to information about the product
+- pattern 4: " about the process
+- pattern 5: " about the culture
+
+Creating trustworty sub-systems reduces the amount of communication needed
+("checking up") and is needed to open up.
+
+Trust reduces the need for data; increasing data flows might indicate trouble.
+
+If in trouble, there's no time to learn better ways how to develop software
+(vicious cycle).
+
+- past success creates inertia; a past strenght become a weakness
+    - lots of code: a lot of value, a lot to maintain
+    - past practices: were successful, no need to improve seen
+    - people's attitudes: worked then, why change?
+
+Any culture must accomplish these tasks:
+
+1. present: keep performing today; don't slip backwards
+2. past: maintain the foundation from yesterday; don't forget what you know
+3. future: build the next pattern to guide the change process
+
+To move to a higher pattern, things have to be learned:
+
+- 0 to 1: humility (exposure to what others are doing)
+- 1 to 2: ability (technical training and experience)
+- 2 to 3: stability (quality software management)
+- 3 to 4: agility (tools and techniques)
+- 4 to 5: adaptability (human development)
+
+Lockons are strong forces that prevent change (driving on one particular side of
+the rode in England vs. Germany).
