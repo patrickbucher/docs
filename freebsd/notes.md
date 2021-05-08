@@ -96,3 +96,35 @@ Minor upgrades require a reboot, and, thus, running the upgrade twice (before
 and after the reboot):
 
     # freebsd-update install
+
+# Boot Environments
+
+Install `beadm` (boot environment manager):
+
+    # pkg install beadm
+
+List boot environments (one by default):
+
+    # beadm list
+    BE           Active Mountpoint  Space Created
+    default      NR     /            5.2G 2020-08-06 14:10
+
+Create a new boot environment (here named after next upgrade step):
+
+    # freebsd-version
+    12.2-RELEASE-p6
+    # beadm create 12.2-to-13.0
+    Created successfully
+    # beadm list
+    BE           Active Mountpoint  Space Created
+    default      NR     /            5.2G 2020-08-06 14:10
+    12.2-to-13.0 -      -          261.6K 2021-05-08 19:12
+
+Activate a boot environment (after `default` has been messed up by a failed
+upgrade attempt):
+
+    # beadm activate 12.2-to-13.0
+
+Destroy a boot environment no longer needed:
+
+    # beadm destroy 12.2-to-13.0
