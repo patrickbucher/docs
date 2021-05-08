@@ -406,4 +406,13 @@ byt also an _engineering discipline_:
 - An organization has the pattern in which it turns out products _consistently_.
 - Emphasize what the organization is doing well to inforce that instead of
   confronting the organization with its "sins" all the time.
-- ...
+- Control means, that some error level can be held in check, not that there are
+  no errors.
+- Pattern 3 looks like pattern 2 from the outside if there are no errors to be
+  handled.
+- Action is the result of comparing the observed with the planned.
+- Aggregation sometimes yields better returns than feedback control for certain
+  situations (e.g. handling of emergency cases).
+- Pattern 4 uses feedback control to not only to improve the product, but also
+  the process.
+- Pattern 5 applies feedback control to the entire organization.
