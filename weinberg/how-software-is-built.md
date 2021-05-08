@@ -296,3 +296,114 @@ To move to a higher pattern, things have to be learned:
 
 Lockons are strong forces that prevent change (driving on one particular side of
 the rode in England vs. Germany).
+
+## Control Patterns for Management
+
+Organizations can remain at pattern 1 or 2, because their problems do not
+require them to be elsewhere. However, higher demands require different
+patterns, otherwise they experience the grief cycle:
+
+1. denial: control the pain by controlling the information (don't notice)
+2. blaming others
+3. tradeoffs
+4. realizing that changes are needed
+
+Quality standards and productivity are moving targets: demands are getting
+higher all the time. When shooting at moving targets, instruction only helps if
+it is general enough (shooting at moving targets in general, not at a specific
+moving target in particular).
+
+Moving targets are most likely being hit by firing many bullets (aggregation).
+In a big market, many solution bullets are fired at single problems. Within an
+organization, developing multiple programs to tackle very critical problems can
+be useful, for the redundancy provides means for comparison.
+
+Pattern 2 organizations often unknowingly perform serial aggregation. A failed
+project is tried again later.
+
+Pattern 1 organization often produce a lot of redundant tooling, because
+programmers are not aware of colleagues facing the same issues.
+
+In pattern 2, measures to "improve efficiency" often work against aggregation by
+the means of centralization.
+
+Evaluating different alternatives before bying a software is also aggregation.
+This process is often seen in pattern 3.
+
+Aggregating is like shooting with a shotgun; feedback control is like shooting
+with a rifle. Cybernetics is the "science of aiming". In pattern 1, a cybernetic
+model starts with the idea of a system to be controlled:
+
+- inputs
+    - resources
+    - requirements
+    - randomness
+- outputs
+    - software
+    - other outputs
+        - competence
+        - tools developed
+        - stronger/weaker teams
+        - etc.
+
+The system's behaviour is governed by the formula:
+
+> Behaviour depends on both state and input.
+
+Thus, the control also depends on what's going on internally (state).
+
+The model of pattern 1 organizations says:
+
+a. tell us what you want (don't change your mind)
+b. give us some resources (whenever we ask)
+c. don't bother us (eliminate randomness)
+
+For pattern 0, there's no point a.
+
+In pattern 2, aggregation is done by adding more resources to the system, which
+is tightly controlled. The internal state of the development systemd won't be
+affected by the controller's efforts, only the inputs:
+
+- make them smarter by training, tooling, hiring
+- motivate them with cash, more interesting assignments
+
+In pattern 3, the controller can measure performance. Inputs and state must be
+connected for feedback control by comparing the desired state to the actual
+state.
+
+Pattern 2 erroneously equate "controller" with "manager". The first law of bad
+management:
+
+> When something isn't working, do more of it.
+
+Managers _are_ controllers, but so is everybody involved in the project.
+
+In pattern 3, management is mostly feedback control:
+
+- plan what should happen
+- observe what is happening
+- compare planned with observed
+- take actions to bring the observed closer to the planned
+
+When pattern 2 organizations try to move to pattern 3, they start to make
+observations, but don't know which ones are useful (false focus on quantity; no
+means of measuring quality).
+
+Measuring data (e.g. by doing reviews) doesn't help unless the controller
+propertly acts upon the findings.
+
+Without information, nothing can be controlled for very long. A process must be
+stable and yield visual evidence of progress, which is rarely the case in
+pattern 2.
+
+Quality software development not only needs "computer science" or "cybernetics",
+byt also an _engineering discipline_:
+
+> the application of scientific principles to practical ends as the design,
+> construction, and operation of efficient and economical structures, equipment,
+> and systems.
+
+- An organization has the pattern in which it turns out products _consistently_.
+- Emphasize what the organization is doing well to inforce that instead of
+  confronting the organization with its "sins" all the time.
+- ...
