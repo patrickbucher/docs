@@ -416,3 +416,45 @@ byt also an _engineering discipline_:
 - Pattern 4 uses feedback control to not only to improve the product, but also
   the process.
 - Pattern 5 applies feedback control to the entire organization.
+
+## Making Explicit Management Models
+
+A controller must not only have accurate and timely observations, but also
+understand those observations ("system models"). One must know: 1) what is
+important to observe, and 2) what is the right response to an observation.
+
+I pattern 1 and 2, those system models are implicit, e.g. "more pressure =
+faster work" or "bugs occur at random", and therefore hard to discuss, test and
+improve; the organization is stuck in its current pattern, and therefore hard to
+discuss, test and improve; the organization is stuck in its current pattern.
+
+A lack of calendar time is not necessarily the cause for a project to fail, but
+the reason why other failures are being detected. Fred Brooks rephrased:
+
+> Lack of calendar time has forced more failing software projects to face the
+> _reality of their failure_ than all other reasons combined.
+
+Or:
+
+> Lack of calendar time has forced more failing software projects to face the
+> _incorrectness of their models_ than all other reasons combined.
+
+Brooks' failure dynamics (and faulty system model):
+
+- poor estimation techniques (depends on a model, such as "all will go well")
+- confuse effort with progress (effort and progress often correlated, but not
+  always; no correlation in other cases, e.g. lines of code and progress)
+- managers lack effectiveness to be "courteously stubborn" (lack of a model to
+  be stubborn about)
+- poor monitoring of schedule progress (drawing _some_ models from other
+  engineering disciplines could help)
+- adding manpower to late projects (again: false correlation)
+
+> More software projects have gone awry for lack of quality, which is part of
+> many destructive dynamics, than for all other causes combined.
+
+> More software projects have gone awry from management taking action based on
+> incorrect systemd models than for all other causes combined.
+
+The problem is not only one particular dynamic, but misunderstanding the model
+behind the dynamic.
