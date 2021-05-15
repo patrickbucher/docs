@@ -458,3 +458,57 @@ Brooks' failure dynamics (and faulty system model):
 
 The problem is not only one particular dynamic, but misunderstanding the model
 behind the dynamic.
+
+Software managers often choose a linear model when non-linear forces are at
+work. They try to use patterns that worked for small systems also for big
+systems, which have different dynamics (_scaling fallacy_). This is common for
+pattern 2 managers and usually leads them into software crises.
+
+Two programmers performing one unit of work won't simply produce two units when
+working together, for their interaction produces non-linearities:
+
+    1 + 1 = 2 + stimulation gain - interference loss
+
+Adding people to a late project increses the total work to be done:
+
+- old workers need to train new workers
+- more coordination is required
+- people in the project might work _against_ one another
+
+Scaling Fallacy: "Large systems are like small systems, just bigger." (Wrong!)
+
+Written and spoken language is linear, therefore we often fall for linear
+models. Two-dimensional _diagrams of effects_ are a better fit for non-linear
+interdependencies:
+
+- nodes: measurable quantities ("cloud" symbols for conceptual/actual
+  measurements)
+- arrow from node A to node B: quantity A has an effect on quantity B
+    - dot on the arrow: A moves in one direction, B moves in _another_ direction
+    - no dot: A and B move in the _same_ direction
+- start with quantities of interest (outputs), e.g.:
+    - number of bugs
+    - time spent to deal with bugs
+    - number of bugs caused by fixing other bugs
+- work back to possible causes using brainstorming
+    - too little developer training
+    - too little testing done
+    - too much pressure to finish new feature fast
+- connect causes and effects with arrows (with/without dots to indicate reverse
+  effects)
+- chart secondary effects
+    - more bugs -> more time spent fixing bugs -> less time testing new features -> more bugs
+    - more bugs -> less time for training -> worse quality in new code -> more bugs
+- reading the diagram from cause to effect:
+    - even number of dots on the path: inverse effects that cancel out one another
+    - odd number: effects reinforce one another
+- connecting a quantity to an arrow indicates a multiplicative effect
+
+The purpose of these models is not rigorous numerical analysis, but stimulating
+thinking. The important part is not the resulting diagram, but the process of
+_diagramming_.
+
+As long as the numbers are small, linear effects can be assumed, because small
+deltas also produce small effects. As soon as non-linear effects are
+measured—and an exponential relationship is detected—the system might already be
+in deep trouble.
