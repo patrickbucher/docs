@@ -512,3 +512,95 @@ As long as the numbers are small, linear effects can be assumed, because small
 deltas also produce small effects. As soon as non-linear effects are
 measured—and an exponential relationship is detected—the system might already be
 in deep trouble.
+
+## Feedback Effects
+
+Some actions can't be reversed, not even with help from higher management.
+
+The Humpty Dumpty Syndrome:
+
+1. manager becomes aware of a big risk
+2. manager talks about the risk with higher management
+3. higher management sees the risk as unlikely, doesn't react immediately, but
+   promises lots of resources in case of emergency
+4. manager convinces himself that everything is fine
+5. the problem gets worse in a non-linear way; management throws resources at
+   the problem, the problem gets worse anyway, and the manager is used as a
+   scapegoat
+
+The manager is not _courteously stubborn_ but skilled at not facing reality (Brooks).
+
+Previous actions _can't always_ be revoked. Two Fallacies:
+
+1. Reversible Fallacy: "What is done can always be undone."
+    - firing half the staff
+    - hire them back the next day
+2. Causation Fallacy: "Every effect has a cause—and we can tell which is which."
+    - causality is not a one-way street
+    - feedback cycles reinforce themselves
+
+Feedback cycles are self-reinforcing, making it hard to distinguish cause from
+effect:
+
+1. more bugs -> more fixes -> even more bugs
+2. too little time to test -> more bugs -> more bugfixing -> even less time to test
+3. low quality -> more frustration -> less motivation -> even worse quality
+
+In a feedback cycle, cause and effect can look the same.
+
+Systems with positive feedback loops either explode or collapse, depending on
+the naming of the variable (measuring "quality" vs. "defects"; quality
+collapses, defects explode).
+
+Explosion and collapse change a system until the current model of the system no
+longer applies. (Too many bugs: system is abandoned or bugs aren't tracked any
+longer.)
+
+Managers are often too optimistic that everything goes well or things will get
+better by themselves. Pattern 2 managers don't know how to reason or communicate
+about problems, slip into Humpty Dumpty Syndrome, and delay action even further.
+Becoming aware that the problem got too big, they apply corrections that are too
+big, starting an evern worse feedback cycle. (Adding more people to the project;
+forcing them to work overtime; cutting technical reviews to save time, etc.)
+
+Non-linearities are introduced in at least three different ways:
+
+1. feeding back changes that _contribute to the workload_
+    - more testing
+    - more bugfixing
+2. feeding back changes that _diminish the workforce_
+    - more meetings
+    - more training of workforce added
+3. waiting too long, so that only big changes can have an effect, which creates
+   other non-linear effects
+    - switching technology
+    - re-organizing the team
+    - firing/hiring people
+
+A system with positive feedback loop can only be stabilized by introducing an
+adverse negative feedback loop. Management action that doesn't introduce this
+correcting loop is cosmetic and only will delay the disaster, e.g. overtime work
+for testing and fixing bugs. (Overtime work will in fact create more positive
+feedback loops contributing to the problem.) Proper solutions must introduce a
+negative feedback loop, such as properly conducting technical reviews, which
+will both diminish the number of bugs and the time spent fixing bugs.
+
+A controller can only be effective when he's connected by _two_ feedback loops
+to the system, and if at least one of those loops is negative.
+
+- reacting to schedule slippage by reducing requirements
+- reacting to more bugs by conducting technical reviews
+- reacting to illness by reducing overtime
+- reacting to poor customer acceptance by design training
+
+In pattern 3, the controller is connected to the system by two feedback loops:
+
+1. through resources
+2. through requirements
+
+Action is only effective when taken early. To act small, one needs to sharpen
+his the powers of observation.
+
+A negative feedback loop is _not_ desirable, because stability is _not always_
+desirable (e.g. when changing the pattern of an organization). Here, positive
+feedback loops have to be established.
