@@ -604,3 +604,132 @@ his the powers of observation.
 A negative feedback loop is _not_ desirable, because stability is _not always_
 desirable (e.g. when changing the pattern of an organization). Here, positive
 feedback loops have to be established.
+
+## Steering Software
+
+In pattern 2, a plan is the sum of its steps:
+
+> It's possible to make a project plan and follow it exactly.
+
+In pattern 3, a plan gives orientation on where a projects stands:
+
+> Plans are rough guides. We need steering to stay on course.
+
+In order to steer a project, not only meaningful measurements based on accurate
+effect models are needed, but also models on how interventions will affect the
+system under control. (If plans always could be followed strictly, interventions
+would be futile.)
+
+Unlike pattern 1, pattern 2 works with plans, often wrapped into methologies
+(i.e. the Waterfall Model), which describe an ideal series of steps.
+
+In classic Waterfall, there's no going back:
+
+1. Requirements
+2. Analysis
+3. Design
+4. Coding
+5. Testing
+6. Operations
+
+Modified Waterfall models have the notion of returning to an earlier stage
+(rather GOTOs than proper iterations):
+
+- requirements and analysis re-considered after design
+- design and coding re-considered after testing
+
+This unplanned re-considerations make estimation harder, which can cause
+schedule overruns.
+
+Sequential methods are like turn-by-turn directions that don't consider
+real-time circumstances (traffic jams, road works) or mistakes (taking the wrong
+turn, taking it too late). Sequential methods are based on an _ideal set of
+instructions_. It is also assumed, that mistakes can be corrected without
+intervention.
+
+Small mistakes can be corrected by individuals. However, bigger projects hold
+more potential for bigger mistakes that cannot be corrected without
+interventions.
+
+When sticking to a sequential plans, small detours are never tried; the
+territory around the chosen route is never explored. However, there might be
+better ways.
+
+Organizations tend to rely on past experience of successful projects. As new
+tools and methods are introduced, the relevance of past experiences and the
+intuitive understanding of feedback effects can be undermined.
+
+A more iterative Waterfall only has some specific places for feedback at the end
+of a phase. However, waiting for such a phase to end ("design", "coding") bears
+risks:
+
+- Not collecting feedback during a phase makes it impossible to detect  problems
+  early on.
+- Re-iterating a phase after a problem has been detected causes major
+  disturbances in the whole process, say, doing a re-design after coding has
+  been "finished". Such "big" steps back are rather avoided than undertaken; the
+  organization might go on with a flawed intermediate product to the next phase.
+
+This methodology can be summarized as "doing it completely right or doing it
+over". There's no notion of small deviations and according corrections.
+
+Instead of one global process (Waterfall), a project can be split up in smaller
+task cells that provide their own feedback loop (e.g. a User Story).
+
+> Good intervention models will help us to understand what we can't control, but
+> a faulty model may lead us to overlook a number of effective interventions.
+
+In Waterfall, it is assumed that every phase brings the project closer to the
+desired state. However, in any phase there might happen things that bring the
+project in a worse state:
+
+- errors are introduced in the design and code
+- project members get falsely confident
+- project members burn out, quit
+- conflicts between project members emerge; the no longer want to work together
+
+Such model don't account for "soft" factors, such as employees getting
+frustrated or sick.
+
+Errors introduced in the coding phase could originate in any of the (earlier)
+phases (wrong requirements, erroneous analysis, bad design, bad coding).
+However, they don't manifest themselves before testing. Likewise, frustration
+and tension might rise during the whole project, but the conflicts might only
+erupt towards the (planned) end of the project.
+
+Methodologies are often only product focused and don't account for other outputs
+("soft" factors).
+
+Pattern 2 managers often would rather hide in their offices and work with plans
+rather than with human beings. The role of human action in project management is
+often denied. However, human decision points are the places where a crisis can
+be prevented.
+
+> More software projects have gone awry _because their managers didn't know how
+> to respond to lack of calender time_ than for all other causes combined.
+
+Loops that concern management contain decisions by people:
+
+> Whenever there's a human decision point in the system, it's not the event that
+> determines the next event, but someone's _reaction_ to that event.
+
+There are two types of laws concerning software engineering management:
+
+1. "natural" laws (accept them)
+2. "human decision laws" (learn to control them)
+
+People often mistake human decision laws for natural laws:
+
+- "We were late with coding, _therefore_ we had less time to test the
+  application."
+    - _therefore_ suggests that a natural (or logic) law was followed
+    - doing less testing was actually a human decision
+- "We could not finish a proper design, but we _had to_ start coding, _because_
+  time for design was up."
+    - _because_ suggests that one should start implementing an unfinished design
+      when the clock tells you so
+    - continuing with an unfinished design was a human decision
+
+Pay attention to words that suggest a logical succession of events, such as "had
+to", "because", "therefore", and ask for the _reasoning behind_ it. Record
+instances of human reasoning disguised as laws of nature.
