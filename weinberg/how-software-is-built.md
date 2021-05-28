@@ -733,3 +733,55 @@ People often mistake human decision laws for natural laws:
 Pay attention to words that suggest a logical succession of events, such as "had
 to", "because", "therefore", and ask for the _reasoning behind_ it. Record
 instances of human reasoning disguised as laws of nature.
+
+## Failing to Steer
+
+In pattern 2, managers only plan what should happen. In pattern 3, they should
+also: observe, compare the observed to the planned, and take actions to move the
+observed closer to the planned.
+
+There are three dynamics standing in their way:
+
+1. Victim Mentality
+    - When bad things happen, managers fail to see their points of action.
+      However, what counts are not only those events, but also (and foremost)
+      the reactions to those events. "Victim language" can be reframed as
+      "Controller language".
+    - Brooks' Law (adding people to a late projects makes it later) can be
+      mitigated: As long as the added staff doesn't interfere with the existing
+      staff's process, they still can add value (checking and improving
+      documentation, reviewing code, creating test cases, do chores for others
+      in the project group).
+2. Suppressing "Negative Talk"
+    - If employees are punished for negative reports, they're incentivized to
+      produce rosy looking fake reports:
+        - quick and dirty fixes to problems so that they don't have to be
+          reported
+        - classify problems with lowered severity
+        - grouping multiple problems together so that it looks like there are
+          fewer problems
+        - blaming users and the environment
+        - interpret problems in a beneficial way
+    - Inaccurate reports lead to improper actions: like navigating with the
+      wrong man and the wrong coordinates.
+    - Employees should be rewarded for handing in accurate reports instead.
+3. Using Wrong Intervention Models
+    - By acting on the wrong intervention model, problems are made worse.
+    - Example: A software project conducted using an iterative approach is
+      behind schedule. He decides to sacrifice quality to make up for the time
+      lost. As more defects occur, the manager reacts by putting "recovery
+      functions" into the product in order to make up for the defects. The
+      software project falls even more behind schedule, and quality detoriates
+      even further, which requires more "recovery functions". The customer, who
+      has to wait longer, wants to be rewarded for his patience—by asking for
+      more features. This creates a vicious cycle.
+    - The control points are working backwards: every intervention makes the
+      problems worse. In this case, the interventions just need to be reversed.
+      In the above example, a trust period is introduced, so that the developers
+      can catch up and improve the product's quality.
+    - Two parties blaming each other creates a mutually destructive feedback
+      loop. This can be solved with a better understanding of the system—unless
+      the two parties have gotton too far from each other and prefer revenge
+      over reconciliation.
+    - Tools do not determine how they are being used. They can be applied for
+      the worse or for the better.
