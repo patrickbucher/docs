@@ -790,7 +790,7 @@ There are three dynamics standing in their way:
 
 When the dynamics of a  process is regulated by human decisions, _intervention
 dynamics_ is at play. When human decisions have no power to alterate the dynamic
-of a process, _natural dunamic_ is at play. A stone of a certain weight can be
+of a process, _natural dynamic_ is at play. A stone of a certain weight can be
 lifted by a human for some time (intervention dynamics), but gravity constrains
 that process in the long run (natural dynamic). Likewise, a manager can increase
 the output of a team by letting its members work overtime (intervention
@@ -808,7 +808,7 @@ of equations with roughly one equation per relevant measurement in the system.
 
 A software project can be modeled as a game, in which a control strategy is
 applied to go from an initial bad state (present position) to a final good state
-(winning position). In a deterministic game, the player is in the po sition of
+(winning position). In a deterministic game, the player is in the position of
 the perfect controller. There is no randomness, and the model covers all
 possible ways a game can unfold (moves and countermoves). Tic Tac Toe and Chess
 are both games that—theoretically—allow for perfect control. However, there are
@@ -826,18 +826,19 @@ instructions needed for a significant program (thousands, millions?) compared to
 a game of Chess, which usually ends before 100 moves are played. However,
 software engineering efforts are directed at reducing such non-linearities to
 keep the Square Law of Computation under control, which is also accomplished by
-applying general princiles, such as:
+applying general principles, such as:
 
-- Don't add people late in a project to catch up (Brooks' Law)
+- Don't add people late in a project to catch up. (Brooks' Law)
 - Use the smallest possible team of the best possible people.
 - Don't shoot the messenger.
 - Break your code up into modules.
 
-Such collections of general principles make up the cultural pattern of a
-software organization. Such guiding principles are needed because of the
-_Size/Complexity dynamic_:
+These general principles are the simplifications ("Unless some simplifications
+can be made") of the Square Law of Computation. Collections of such general
+principles make up the cultural pattern of a software organization. Such guiding
+principles are needed because of the _Size/Complexity dynamic_:
 
-> Human brains capacity is more or less fixed, but software complexity grows at
+> Human brain capacity is more or less fixed, but software complexity grows at
 > least as fast as the square of the size of the program.
 
 When a software project succeeds, ambitions rise, and the problems being
@@ -849,7 +850,7 @@ current pattern.)
 It's hardly possible to alter the capacity of our brains (hiring smarter people
 only works to some extent), but it's possible to alter how much of our capacity
 is used, and for what purpose. Software engineering attempts to simplify the
-solutions to larger problems—reising the success rate in response to higher
+solutions to larger problems—raising the success rate in response to higher
 ambition.
 
 A software project an be seen as a game against nature. The interventions of a
