@@ -785,3 +785,85 @@ There are three dynamics standing in their way:
       over reconciliation.
     - Tools do not determine how they are being used. They can be applied for
       the worse or for the better.
+
+## Why It's Always Hard to Steer
+
+When the dynamics of a  process is regulated by human decisions, _intervention
+dynamics_ is at play. When human decisions have no power to alterate the dynamic
+of a process, _natural dunamic_ is at play. A stone of a certain weight can be
+lifted by a human for some time (intervention dynamics), but gravity constrains
+that process in the long run (natural dynamic). Likewise, a manager can increase
+the output of a team by letting its members work overtime (intervention
+dynamics), but the returns will diminish after some time (natural dynamics).
+Natural dynamics limit the effect interventions can have.
+
+The _Square Law of Computation_ limits what a mind (i.e. a brain or a group of
+brains) can accomplish. In order to keep a system under control, a model to
+compute effects of interventions is required. A model can be expressed as a set
+of equations with roughly one equation per relevant measurement in the system.
+
+> Unless some simplification can be made, the amount of computation to solve a
+> set of equations increases at least as fast as the square of the number of
+> equations. (Square Law of Computation)
+
+A software project can be modeled as a game, in which a control strategy is
+applied to go from an initial bad state (present position) to a final good state
+(winning position). In a deterministic game, the player is in the po sition of
+the perfect controller. There is no randomness, and the model covers all
+possible ways a game can unfold (moves and countermoves). Tic Tac Toe and Chess
+are both games that—theoretically—allow for perfect control. However, there are
+orders of magnitude more ways a game of Chess can unfold than a game of Tic Tac
+Toe. Therefore, there's no perfect model (yet) to play chess. Instead, _general
+principles_ (heuristics) are applied to reduce the set of _possible moves_ to a
+much smaller set of _most promising moves_, which makes the game much more
+manageable (e.g. don't sacrifice your queen to capture a pawn) with limited
+computing capacity. Such general principles are useful _most of the time_ but
+might prevent the best play  _some of the time_.
+
+Software engineering is way more complex and noisy (more randomness) than Chess.
+Consider machine instructions as moves in the game, and the number of
+instructions needed for a significant program (thousands, millions?) compared to
+a game of Chess, which usually ends before 100 moves are played. However,
+software engineering efforts are directed at reducing such non-linearities to
+keep the Square Law of Computation under control, which is also accomplished by
+applying general princiles, such as:
+
+- Don't add people late in a project to catch up (Brooks' Law)
+- Use the smallest possible team of the best possible people.
+- Don't shoot the messenger.
+- Break your code up into modules.
+
+Such collections of general principles make up the cultural pattern of a
+software organization. Such guiding principles are needed because of the
+_Size/Complexity dynamic_:
+
+> Human brains capacity is more or less fixed, but software complexity grows at
+> least as fast as the square of the size of the program.
+
+When a software project succeeds, ambitions rise, and the problems being
+attempted to solve grow bigger. Bigger (and harder) problems drive an
+organization to new, yet untried patterns. (If there's no ambition for solving
+harder problems or achieving better quality, an organization can stay with its
+current pattern.)
+
+It's hardly possible to alter the capacity of our brains (hiring smarter people
+only works to some extent), but it's possible to alter how much of our capacity
+is used, and for what purpose. Software engineering attempts to simplify the
+solutions to larger problems—reising the success rate in response to higher
+ambition.
+
+A software project an be seen as a game against nature. The interventions of a
+controller (moves) can be measured as effects (countermoves by nature). When the
+controller sees that nature moves the project on the losing path, an
+intervention move is required to bring it back to the winning path.
+
+The _Fault Location_ dynamic states that under a constant error rate (say, one
+bug introduced per developer and sprint), a larger system contains more faults
+(Size/Complexity dynamic). The effect required to locate errors therefore grows
+non-linearly. The Fault Location dynamic is a natural dynamic, not the result of
+developers performing worse. Pattern 2 managers miss this point and apply
+the wrong interventions; trying to work against nature. Both Size/Complexity and
+Fault Location dynamic can be tackled using modularization.
+
+The _Human Interaction_ dynamic states that the number of interactions between
+people grows non-linearly to the amount of people being added to a project.
