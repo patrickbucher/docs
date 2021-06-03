@@ -868,3 +868,99 @@ Fault Location dynamic can be tackled using modularization.
 
 The _Human Interaction_ dynamic states that the number of interactions between
 people grows non-linearly to the amount of people being added to a project.
+
+## What it Takes to Be Helpful
+
+The computational power required to control a project grows non-linearly with
+the problem size. Due to this non-linearity, being twice as smart does _not_
+allow you to solve problems twice as big:
+
+> Ambitious requirements can easily outstrip even the brightest developer's
+> mental capacity.
+
+Given a program that is capable of playing the perfect game of chess: If the
+board's size is increased from 8x8 (64) to 10x10 (100) fields, the number of
+possible moves explodes, even though the board size only grows by roughly 50%.
+
+Every pattern has its size/effort curve, showing how well it will do given
+problems of different sizes. This curve grows non-linearly: Increasing
+requirements by 10% causes an additional effort of way more than 10%. The bigger
+the problem, the bigger the _growth rate_ of the effort.
+
+Software projects are highly variable. Due to this noise, a linear curve often
+fits almost as good as an exponential one in a size/effort graph. Plotting data
+on a logarithmic scale might help better understanding the data, but also trick
+the eye into seeing linear patterns (Log-Log-Law):
+
+> Any set of data points forms a straight line if plotted on log-log paper.
+
+Managers influence projects by choosing methods, tools, and people, which make
+up an organization's cultural pattern. Two different methods (or tools, or
+teams) A and B will have different curves on a size/effort graph: Method A is
+cheaper for small projects (say, due to less overhead), but reaches a limit of
+feasible projects quite quickly. Method B, on the other hand, s more expensive
+for small projects, but allows to deal with bigger projects than method A.
+
+Therefore, organizations adopt _two_ (or more) methods instead of just one
+"standard method" for software development, which are then picked from depending
+on a project's estimated size. This requires managers to take an important
+decision at the beginning of every project: which method to choose? In a blaming
+environment, taking such decisions can get a manager into trouble. Therefore,
+they'd often prefer to have a "standard model" being imposed on them.
+
+Managers choose their methods for other reasons than just effort. Risk is also a
+very important factor. Depending on the problem size, different methods have
+different chances of success. The bigger the project, the higher the risk, the
+lower the chance of success.
+
+Using a method for the first time is riskier and more effortful than doing so
+for the umpteenth time. Managers are therefore reluctant to try out new methods,
+patterns, languages, etc. The risk on the decision maker can be reduced by:
+
+1. moving the decision to a higher level of management, so that the risk is
+   spread wider (and higher)
+2. reducing the size of the first project, which is intended to be a pilot
+   project for learning (as opposed to getting attention)
+3. reducing the criticality of the first project
+
+Harm is rarely done out of malice, but of good intentions combined with wrong
+assumptions about the underlying problem (wrong model). It is often being tried
+to control systems that lie beyond one's capacity:
+
+- What one "knows" are often only simplifications (heuristics) carried over from
+  simpler situations.
+- One fails to see the true dynamics in an environment with lots of randomness.
+  Once those dynamics are put under control one by one, the system gets stable
+  enough for a transition from pattern 2 to pattern 3.
+- Behaviours that might produce good results in the short run (e.g. deploying
+  hacks to fix bugs, skip on testing to save time) cause trouble in the long
+  run. One fails to see this connection, gets addicted to such a bad behaviour,
+  and stays with the faulty intervention model―a disease of limited intelligence.
+
+Some interventions cause more harm than good, so one might conclude that doing
+harm is actually intended―which is very rarely the case! To analyze such
+situations without getting paranoid, the _Helpful Model_ can be applied:
+
+> No matter how it looks, everyone is _trying_ to be helpful.
+
+This model takes away the blame and lets us look at the true dynamics, i.e.
+beyond anybody's intention.
+
+Mental models can't be eliminated, but only replaced by better ones (_Principle
+of Addition_):
+
+> The best way to reduce ineffective behaviour is by adding a more effective
+> behaviour.
+
+Organizations get addicted to certain practices, which relieve their pain in the
+short run, but are harmful in the long run. The more a practice is applied, the
+worse one feels, and the more one seeks the relief of the addictive behaviour.
+Such harmful, addictictive practices can be countered by adding long range
+measurements with according rewards and punishments.
+
+Better than curing addictions is preventing them in the first place:
+
+> The way people behave is not based on reality, but on their _models_ of
+> reality.
+
+Implanting more effective models is the most helpful intervention.
