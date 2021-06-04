@@ -1,26 +1,30 @@
 # How Software Is Built
 
+_This is a rough summary of “How Software Is Built”, Volume 1 of six of the
+“Quality Software Management” by Gerald M. Weinberg. Remarks that are not found
+in the book are written within [square brackets]._
+
 ## New Preface
 
-Three fundamental abilities needed to not lag farther and farther behind
-evolving computers:
+There are three fundamental abilities needed to not lag farther and farther
+behind ever evolving computers:
 
-1. observe and understand the significance of the observed
-2. act congruently in difficoult interpersonal situations
-3. understand complex situations; plan and modify the plan (the subject of this
-   book)
+1. Observing, and understanding the significance of the observed.
+2. Acting congruently in difficoult interpersonal situations.
+3. Understanding complex situations; planning and modifying the plan.
+
+The third point is the subject of this book.
 
 ## What Is Quality? Why Is It Important?
 
-Adequate quality to one person may be inadequate quality to another.
+Adequate quality to one person may be inadequate quality to another:
 
-> Quality is meeting _some person's_ requirements.
-
+> Quality is meeting _some person’s_ requirements.
 > Every statement about quality is a statement about some person(s).
-
 > Who is the person behind that statement about quality.
 
-Some ideas about software quality:
+There are different ideas about software quality, some of them (and their
+source) are:
 
 - zero defects (user)
 - lots of features (some users, marketers)
@@ -31,29 +35,28 @@ Some ideas about software quality:
 - user-friendliness (users—different kinds of)
 
 > More quality for one person may mean less quality for another.
-
 > Whose opinion of quality is to count when making decisions?
-
 > Quality is value to some person.
 
-Decisions are often hidden from the conscious minds of the persons who make
+Decisions are often hidden from the conscious minds of the persons who makes
 them. A quality manager must bring those decisions into consciousness.
 
-Internal software organizations have little competition and therefore stagnate.
+Internal software organizations have little competition and therefore tend to
+stagnate.
 
-Improving quality is difficoult (up- or downward spiral):
+Improving quality is difficult, there is an up- or downward spiral:
 
-1. motivation to measure the cost of quality -> 2.
-2. understanding the value of quality -> 3.
-3. motivation to achieve quality -> 4.
-4. understanding of how to achieve quality -> 1.
+1. motivation to measure the cost of quality (influencing point 2)
+2. understanding the value of quality (influencing point 3)
+3. motivation to achieve quality (influencing point 4)
+4. understanding of how to achieve quality (influencing point 1)
 
 A lock-on effect, e.g. caused by the choice of a programming language, causes
-the cost of change to increase, the motivation and knowledge to change to
-decrease over time. A lock-on effect for a programming language entails:
+the cost of change to _increase_, but the motivation and knowledge to change to
+_decrease_ over time. A lock-on effect for a programming language entails:
 
 - software tools
-- hardware systems (less common nowadays)
+- hardware systems [less common nowadays]
 - people trained and hired
 - specialized consultants
 - user community
@@ -64,11 +67,11 @@ decrease over time. A lock-on effect for a programming language entails:
 
 > People will always choose the familiar over the cofortable.
 
-No two software organisations are 1) exactly alike or 2) entirely different.
+No two software organizations are 1) exactly alike or 2) entirely different.
 
-There is some common software culture; it's properties can be found in the
-entire world. Some characteristics cluster together as _patterns_. Organizations
-lock in on one of those patterns due to conservatism manifested in:
+There is some common software culture; its properties can be found in the entire
+world. Some characteristics cluster together as _patterns_. Organizations lock
+in on one of those patterns due to conservatism manifested in:
 
 1. satisfaction with current quality level
 2. fear of losing that level when improvements fail
@@ -80,98 +83,98 @@ by preserving the good that is already there.
 
 ## Software Subcultures
 
-The critical factor to software quality is the people involved (their
-motivations and reactions).
+The critical factor to software quality is the people involved: their
+motivations and reactions.
 
-The "manufacturing" part in software is its duplication; a rather trivial task.
-Ideas such as "Zero Defects" are only sensibly applied to the duplication part
+The “manufacturing” part in software is its duplication; a rather trivial task.
+Ideas such as “Zero Defects” are only sensibly applied to the duplication part
 of software. The parallel development of requirements software is the critical
 part of software quality.
 
-Most software development takes place in a "dirty" environment, where the
-requirements cannot be assumed correct. An "economics of quality" (tradeoffs in
-terms of correctnes?) only exist if there's a correct set of requirements.
+Most software development takes place in a “dirty” environment, where the
+requirements cannot be assumed correct. An “economics of quality” (tradeoffs in
+terms of correctnes) only exist if there’s a correct set of requirements.
 
 The requirements process can destroy value, e.g. if it is figured out that the
 wrong thing was built. Defective software, however, can also provide a lot of
 value.
 
-If the customers of a software organization are satisfied, there's no point in
+If the customers of a software organization are satisfied, there’s no point in
 changing the way that organization works. Mild dissatisfaction is better tackled
-using small, gradual improvements rather than cultural change.
-
-Trying to improve your way of of the wrong pattern using small steps is like
-creating a more detailed map of the wrong trip.
+using small, gradual improvements rather than cultural change. However, trying
+to improve your way out of the wrong pattern using small steps is like creating
+a more detailed map of the wrong trip.
 
 > Quality is the ability to consistently get what people need. That means
-> producing what people will value and not producing what people won't value.
+> producing what people will value and not producing what people won’t value.
 
-Quality patterns should not be denoted in terms of "maturity", but in a more
+Quality patterns should not be denoted in terms of “maturity”, but in a more
 neutral way. Any pattern can produce satisfying results. Maturity only works in
 one way, but organizations can go back to a different pattern, too. Different
 cultural patterns may be more or less _fitting_ to an organization and its
 quality needs.
 
-> Things are the  way they are because they got that way.
+> Things are the way they are because they got that way.
 
 One can learn about processes by observing the products created by them.
 
 Organizations can be classified by their _degree of congruence_ between what is
-said and what is done in different parts of the organization:
+said and what is done in different parts of the organization. Those patterns are:
 
-- 0 Oblivious: "We don't even know that we're performing a process."
+- 0 _Oblivious_: “We don’t even know that we’re performing a process.”
     - not a professional pattern, but useful as a baseline
     - most frequent source of new software
     - the software user is the organization that builds the software
     - no managers, no customers, no specified processes
-    - no awareness of doing "software development"
-    - produces satisfied users
-- 1 Variable: "We do whatever we feel like at the moment."
-    - awareness rises that pattern 0 doesn't suffice
+    - no awareness of doing “software development”
+    - produces satisfied users nonetheless
+- 1 _Variable_: “We do whatever we feel like at the moment.”
+    - awareness rises that pattern 0 doesn’t suffice
     - separation from developer and user begins; blaming, too
     - management is not understood as part of development
-    - "superprogrammer" (maybe leading a team) as source of success
+    - “superprogrammer” (maybe leading a team) as source of success
     - myths about heroic deeds as company history
     - sometimes a pool of developers serve the specialist programmers
     - one or few rockstar programmers do the projects
     - procedures are abondoned at first sign of a crisis
     - improving quality by hiring a star
     - performance, schedule, and costs mostly depend on individual efforts, not
-      teams
+      on teams
     - project results reinforce the belief system (projects succeed and fail
-      depending on the programmer doing them)
-- 2 Routine: "We follow our routines (except when we panic)."
-    - when "leave the programmer" no longer yields satisfying results
-    - "super manager" as the deciding factor (replaces the "super programmer")
+      depending on the individual programmers doing them)
+- 2 _Routine_: “We follow our routines (except when we panic).”
+    - when “leave the programmer” no longer yields satisfying results
+    - “super manager” as the deciding factor (replaces the “super programmer“)
     - procedures are put in place to keep programmers under control
-    - procedures are followed, but their reason is not understood
-    - works well until routines are bypassed in a "disaster" project (as if the
-      procedures that were followed in successful projects aren't really trusted)
-    - the lack of understanding the _why_ behind procedures, managers start
-      issuing counterproductive orders (overtime, cut training, cutting corners)
+    - procedures are followed, but their reasons are not understood
+    - works well until routines are bypassed in a “disaster” project (as if the
+      procedures that were followed in successful projects aren’t really trusted)
+    - lack of understanding the _why_ behind procedures, managers start issuing
+      counterproductive orders (overtime, less training, cutting corners)
     - silver bullets: refined measurements (in unstable environments),
       sophisticated (but not helpful) tools
-    - "name magic": just say "agile" (or whatever) to work magic
-- 3 Steering: "We choose among our routines by the results they produce."
+    - “name magic”: just say “structured programming” [or “agile”] to work magic
+- 3 _Steering_: “We choose among our routines by the results they produce.”
     - managers are more skilled and experienced (not just promoted programmers
-      with a lack of role-models that do "management by telling")
+      with a lack of role-models that do “management by telling“)
     - magic is replaced by understanding
     - procedures not completely defined, but understood; also followed in crisis
-    - very few project failures; they always deliver (at least some) value
-    - procedures are flexible, not rigid ("steering" instead of just following a
+    - very few project failures; they always deliver _at least some_ value
+    - procedures are flexible, not rigid (“steering” instead of just following a
       plan)
     - programmers actually like to work in a well-managed (!) operation
     - tools are introduced later in the process, but used well
-- 4 Anticipating: "We establish routines based on our past experience of them."
-    - pattern 3 ("Steering") manager in the higher ranks of management
+- 4 _Anticipating_: “We establish routines based on our past experience of
+  them.”
+    - pattern 3 (“Steering”) manager in the higher ranks of management
     - comprehensive process measurements and analysis initiated
-- 5 Congruent: "Everyone is involved in improving everything all the time."
+- 5 _Congruent_: “Everyone is involved in improving everything all the time.”
     - quality managers on highest level (CEO)
     - procedures are understood, followed, and improved all the time by everyone
       (continuous improvement)
 
-Pattern 1 can look like pattern 3 from the outside: if there's no effective
-management in place, management can't even cause much harm.
+Pattern 1 can look like pattern 3 from the outside: if there’s no effective
+management in place, management can’t even cause much harm.
 
 As long as everything goes well, pattern 2 can be mistaken for pattern 3. When
 things get in trouble, the differences become obvious.
@@ -184,14 +187,14 @@ The prevailing pattern is best detected by the way people think and communicate:
 
 - Problems are handled by individuals in reactive ways (pattern 1).
 - Tools and concepts are used, but in the wrong way (pattern 2; e.g. reasoning
-  remains verbal, despite of using "statistics").
-- Linear reasoning ("A caused B") and unjustifiable certainty in what is known
+  remains verbal, despite of using “statistics”).
+- Linear reasoning (“A caused B”) and unjustifiable certainty in what is known
   prevailing (pattern 2).
 - Problems are handled less emotionally; emergencies are handled better; people
   act more proactively (pattern 3).
 - Measurement is used, but is sometimes meaningless (process not stable enough
   to gain useful data; pattern 3).
-- Processes and measurements are stable; single managers can't force
+- Processes and measurements are stable; single managers can’t force
   organizations into big mistagkes (pattern 4).
 - Scientific reasoning; more problems prevented than handled (pattern 5).
 
@@ -199,7 +202,7 @@ In order to improve the quality of the organization, the quality of thinking
 needs to be improved first.
 
 Every pattern has its models (implicit or explicit) that guide the
-organizations's thinking.
+organizations’s thinking.
 
 Sometimes there is not enough incentive to change patterns, so it makes sense to
 remain with the old, sufficient one. However, this is only a concious decision
@@ -207,7 +210,7 @@ if the information about incentives and about other patterns is known.
 
 A pattern change might cause more (temporary) costs in some department
 (development) in order to save costs in another department (service). Such
-change is only possible, if the organization supports this change on a higher
+change is only possible if the organization supports this change on a higher
 level.
 
 The higher the demands posed by customers and the problems itself, the higher a
@@ -218,33 +221,33 @@ same pattern.
 An organization can remain in a pattern for a long time if:
 
 - customers are not demanding
-- problems aren't getting more demanding
-- there's no competition
+- problems aren’t getting more demanding
+- there’s no competition
 
 Under those circumstances, an organization can even stagnate.
 
 Resistance to change often stems from certain _thinking patterns_:
 
 - circular argument
-    - don't try because you might fail
-    - we don't know if you'd fail, because you don't try
+    - don’t try because you might fail
+    - we don’t know if you’d fail, because you don’t try
 - classic software cycle
     - we do the best possible job; if others do their job better, their problem
       must be easier
     - consultants have bad development habits and therefore must be isolated
-      from internal developers; so we don't know how they work
-    - our rockstar is never at fault; if something fails, someone else is to
-      blame; so the rockstar's weaknesses are never found
-    - our rockstar knows most about software; if alternatives are to be
-      investigated, ask our rockstar; so we'll never use something the rockstar
-      doesn't understand
+      from internal developers; so we don’t know how they work
+    - our rockstar developer is never at fault; if something fails, someone else
+      is to blame; so the rockstar’s weaknesses are never found
+    - our rockstar developer knows most about software; if alternatives are to
+      be investigated, ask our rockstar; so we’ll never use something the
+      rockstar doesn’t understand
 
 Those _closed circuits_ can be opened by asking if your rate of success is high
 enough. Over time, evidence to the contrary might accumulate. Unfortunately,
-patterns 0, 1, and 2, which need change the most, often don't keep records of
+patterns 0, 1, and 2, which need change the most, often don’t keep records of
 their failures and their cost.
 
-Cultural patterns can be broke by starting the information flowing:
+Cultural patterns can be broken by starting the information flowing:
 
 - technical reviews offer insight into the products
 - send people to seminars to discover what other people do
@@ -255,38 +258,35 @@ Cultural patterns can be broke by starting the information flowing:
 Patterns 0, 1, and 2 are based on a lack of trust:
 
 - pattern 0: we only trust ourselves
-- pattern 1: we don't trust managers
-- pattern 2: we don't trust programmers
+- pattern 1: we don’t trust managers
+- pattern 2: we don’t trust programmers
 
-Higher patterns are not "more mature", but "more open":
+Higher patterns are not “more mature”, but “more open”:
 
 - pattern 0: as open as the individual
 - pattern 1: open to information exchange between developer and user
 - pattern 2: open to information exchange between developer, user, and manager
 - pattern 3: open in all directions to information about the product
-- pattern 4: " about the process
-- pattern 5: " about the culture
+- pattern 4: open in all directions about the process
+- pattern 5: open in all directions about the culture
 
 Creating trustworty sub-systems reduces the amount of communication needed
-("checking up") and is needed to open up.
+(“checking up”) and is needed to open up. Trust reduces the need for data;
+increasing data flows might indicate trouble. If in trouble, there’s no time to
+learn better ways how to develop software (vicious cycle). Past successes create
+inertia; a past strenght become a weakness:
 
-Trust reduces the need for data; increasing data flows might indicate trouble.
-
-If in trouble, there's no time to learn better ways how to develop software
-(vicious cycle).
-
-- past success creates inertia; a past strenght become a weakness
-    - lots of code: a lot of value, a lot to maintain
-    - past practices: were successful, no need to improve seen
-    - people's attitudes: worked then, why change?
+- lots of code: a lot of value, a lot to maintain
+- past practices: were successful, no need to improve them is seen
+- people’s attitudes: worked then, why change?
 
 Any culture must accomplish these tasks:
 
-1. present: keep performing today; don't slip backwards
-2. past: maintain the foundation from yesterday; don't forget what you know
+1. present: keep performing today; don’t slip backwards
+2. past: maintain the foundation from yesterday; don’t forget what you know
 3. future: build the next pattern to guide the change process
 
-To move to a higher pattern, things have to be learned:
+To move to a higher pattern, the following things have to be learned:
 
 - 0 to 1: humility (exposure to what others are doing)
 - 1 to 2: ability (technical training and experience)
@@ -294,8 +294,8 @@ To move to a higher pattern, things have to be learned:
 - 3 to 4: agility (tools and techniques)
 - 4 to 5: adaptability (human development)
 
-Lockons are strong forces that prevent change (driving on one particular side of
-the rode in England vs. Germany).
+Lockons are strong forces that prevent change (e.g. driving on one particular
+side of the road in England vs. Germany).
 
 ## Control Patterns for Management
 
@@ -303,7 +303,7 @@ Organizations can remain at pattern 1 or 2, because their problems do not
 require them to be elsewhere. However, higher demands require different
 patterns, otherwise they experience the grief cycle:
 
-1. denial: control the pain by controlling the information (don't notice)
+1. denial: control the pain by controlling the information (don’t notice)
 2. blaming others
 3. tradeoffs
 4. realizing that changes are needed
@@ -324,14 +324,14 @@ project is tried again later.
 Pattern 1 organization often produce a lot of redundant tooling, because
 programmers are not aware of colleagues facing the same issues.
 
-In pattern 2, measures to "improve efficiency" often work against aggregation by
+In pattern 2, measures to “improve efficiency” often work against aggregation by
 the means of centralization.
 
 Evaluating different alternatives before bying a software is also aggregation.
 This process is often seen in pattern 3.
 
 Aggregating is like shooting with a shotgun; feedback control is like shooting
-with a rifle. Cybernetics is the "science of aiming". In pattern 1, a cybernetic
+with a rifle. Cybernetics is the “science of aiming“. In pattern 1, a cybernetic
 model starts with the idea of a system to be controlled:
 
 - inputs
@@ -346,23 +346,23 @@ model starts with the idea of a system to be controlled:
         - stronger/weaker teams
         - etc.
 
-The system's behaviour is governed by the formula:
+The system’s behaviour is governed by the formula:
 
 > Behaviour depends on both state and input.
 
-Thus, the control also depends on what's going on internally (state).
+Thus, the control also depends on what’s going on internally (state).
 
 The model of pattern 1 organizations says:
 
-a. tell us what you want (don't change your mind)
+a. tell us what you want (don’t change your mind)
 b. give us some resources (whenever we ask)
-c. don't bother us (eliminate randomness)
+c. don’t bother us (eliminate randomness)
 
-For pattern 0, there's no point a.
+For pattern 0, there’s no point a.
 
 In pattern 2, aggregation is done by adding more resources to the system, which
-is tightly controlled. The internal state of the development systemd won't be
-affected by the controller's efforts, only the inputs:
+is tightly controlled. The internal state of the development systemd won’t be
+affected by the controller’s efforts, only the inputs:
 
 - make them smarter by training, tooling, hiring
 - motivate them with cash, more interesting assignments
@@ -371,10 +371,10 @@ In pattern 3, the controller can measure performance. Inputs and state must be
 connected for feedback control by comparing the desired state to the actual
 state.
 
-Pattern 2 erroneously equate "controller" with "manager". The first law of bad
+Pattern 2 erroneously equate “controller” with “manager“. The first law of bad
 management:
 
-> When something isn't working, do more of it.
+> When something isn’t working, do more of it.
 
 Managers _are_ controllers, but so is everybody involved in the project.
 
@@ -386,17 +386,17 @@ In pattern 3, management is mostly feedback control:
 - take actions to bring the observed closer to the planned
 
 When pattern 2 organizations try to move to pattern 3, they start to make
-observations, but don't know which ones are useful (false focus on quantity; no
+observations, but don’t know which ones are useful (false focus on quantity; no
 means of measuring quality).
 
-Measuring data (e.g. by doing reviews) doesn't help unless the controller
+Measuring data (e.g. by doing reviews) doesn’t help unless the controller
 propertly acts upon the findings.
 
 Without information, nothing can be controlled for very long. A process must be
 stable and yield visual evidence of progress, which is rarely the case in
 pattern 2.
 
-Quality software development not only needs "computer science" or "cybernetics",
+Quality software development not only needs “computer science” or “cybernetics“,
 byt also an _engineering discipline_:
 
 > the application of scientific principles to practical ends as the design,
@@ -405,7 +405,7 @@ byt also an _engineering discipline_:
 
 - An organization has the pattern in which it turns out products _consistently_.
 - Emphasize what the organization is doing well to inforce that instead of
-  confronting the organization with its "sins" all the time.
+  confronting the organization with its “sins” all the time.
 - Control means, that some error level can be held in check, not that there are
   no errors.
 - Pattern 3 looks like pattern 2 from the outside if there are no errors to be
@@ -420,11 +420,11 @@ byt also an _engineering discipline_:
 ## Making Explicit Management Models
 
 A controller must not only have accurate and timely observations, but also
-understand those observations ("system models"). One must know: 1) what is
+understand those observations (“system models“). One must know: 1) what is
 important to observe, and 2) what is the right response to an observation.
 
-I pattern 1 and 2, those system models are implicit, e.g. "more pressure =
-faster work" or "bugs occur at random", and therefore hard to discuss, test and
+I pattern 1 and 2, those system models are implicit, e.g. “more pressure =
+faster work” or “bugs occur at random“, and therefore hard to discuss, test and
 improve; the organization is stuck in its current pattern, and therefore hard to
 discuss, test and improve; the organization is stuck in its current pattern.
 
@@ -439,12 +439,12 @@ Or:
 > Lack of calendar time has forced more failing software projects to face the
 > _incorrectness of their models_ than all other reasons combined.
 
-Brooks' failure dynamics (and faulty system model):
+Brooks’ failure dynamics (and faulty system model):
 
-- poor estimation techniques (depends on a model, such as "all will go well")
+- poor estimation techniques (depends on a model, such as “all will go well“)
 - confuse effort with progress (effort and progress often correlated, but not
   always; no correlation in other cases, e.g. lines of code and progress)
-- managers lack effectiveness to be "courteously stubborn" (lack of a model to
+- managers lack effectiveness to be “courteously stubborn” (lack of a model to
   be stubborn about)
 - poor monitoring of schedule progress (drawing _some_ models from other
   engineering disciplines could help)
@@ -464,7 +464,7 @@ work. They try to use patterns that worked for small systems also for big
 systems, which have different dynamics (_scaling fallacy_). This is common for
 pattern 2 managers and usually leads them into software crises.
 
-Two programmers performing one unit of work won't simply produce two units when
+Two programmers performing one unit of work won’t simply produce two units when
 working together, for their interaction produces non-linearities:
 
     1 + 1 = 2 + stimulation gain - interference loss
@@ -475,13 +475,13 @@ Adding people to a late project increses the total work to be done:
 - more coordination is required
 - people in the project might work _against_ one another
 
-Scaling Fallacy: "Large systems are like small systems, just bigger." (Wrong!)
+Scaling Fallacy: “Large systems are like small systems, just bigger.” (Wrong!)
 
 Written and spoken language is linear, therefore we often fall for linear
 models. Two-dimensional _diagrams of effects_ are a better fit for non-linear
 interdependencies:
 
-- nodes: measurable quantities ("cloud" symbols for conceptual/actual
+- nodes: measurable quantities (“cloud” symbols for conceptual/actual
   measurements)
 - arrow from node A to node B: quantity A has an effect on quantity B
     - dot on the arrow: A moves in one direction, B moves in _another_ direction
@@ -515,13 +515,13 @@ in deep trouble.
 
 ## Feedback Effects
 
-Some actions can't be reversed, not even with help from higher management.
+Some actions can’t be reversed, not even with help from higher management.
 
 The Humpty Dumpty Syndrome:
 
 1. manager becomes aware of a big risk
 2. manager talks about the risk with higher management
-3. higher management sees the risk as unlikely, doesn't react immediately, but
+3. higher management sees the risk as unlikely, doesn’t react immediately, but
    promises lots of resources in case of emergency
 4. manager convinces himself that everything is fine
 5. the problem gets worse in a non-linear way; management throws resources at
@@ -530,12 +530,12 @@ The Humpty Dumpty Syndrome:
 
 The manager is not _courteously stubborn_ but skilled at not facing reality (Brooks).
 
-Previous actions _can't always_ be revoked. Two Fallacies:
+Previous actions _can’t always_ be revoked. Two Fallacies:
 
-1. Reversible Fallacy: "What is done can always be undone."
+1. Reversible Fallacy: “What is done can always be undone.”
     - firing half the staff
     - hire them back the next day
-2. Causation Fallacy: "Every effect has a cause—and we can tell which is which."
+2. Causation Fallacy: “Every effect has a cause—and we can tell which is which.”
     - causality is not a one-way street
     - feedback cycles reinforce themselves
 
@@ -549,15 +549,15 @@ effect:
 In a feedback cycle, cause and effect can look the same.
 
 Systems with positive feedback loops either explode or collapse, depending on
-the naming of the variable (measuring "quality" vs. "defects"; quality
+the naming of the variable (measuring “quality” vs. “defects“; quality
 collapses, defects explode).
 
 Explosion and collapse change a system until the current model of the system no
-longer applies. (Too many bugs: system is abandoned or bugs aren't tracked any
+longer applies. (Too many bugs: system is abandoned or bugs aren’t tracked any
 longer.)
 
 Managers are often too optimistic that everything goes well or things will get
-better by themselves. Pattern 2 managers don't know how to reason or communicate
+better by themselves. Pattern 2 managers don’t know how to reason or communicate
 about problems, slip into Humpty Dumpty Syndrome, and delay action even further.
 Becoming aware that the problem got too big, they apply corrections that are too
 big, starting an evern worse feedback cycle. (Adding more people to the project;
@@ -578,14 +578,14 @@ Non-linearities are introduced in at least three different ways:
     - firing/hiring people
 
 A system with positive feedback loop can only be stabilized by introducing an
-adverse negative feedback loop. Management action that doesn't introduce this
+adverse negative feedback loop. Management action that doesn’t introduce this
 correcting loop is cosmetic and only will delay the disaster, e.g. overtime work
 for testing and fixing bugs. (Overtime work will in fact create more positive
 feedback loops contributing to the problem.) Proper solutions must introduce a
 negative feedback loop, such as properly conducting technical reviews, which
 will both diminish the number of bugs and the time spent fixing bugs.
 
-A controller can only be effective when he's connected by _two_ feedback loops
+A controller can only be effective when he’s connected by _two_ feedback loops
 to the system, and if at least one of those loops is negative.
 
 - reacting to schedule slippage by reducing requirements
@@ -609,7 +609,7 @@ feedback loops have to be established.
 
 In pattern 2, a plan is the sum of its steps:
 
-> It's possible to make a project plan and follow it exactly.
+> It’s possible to make a project plan and follow it exactly.
 
 In pattern 3, a plan gives orientation on where a projects stands:
 
@@ -623,7 +623,7 @@ would be futile.)
 Unlike pattern 1, pattern 2 works with plans, often wrapped into methologies
 (i.e. the Waterfall Model), which describe an ideal series of steps.
 
-In classic Waterfall, there's no going back:
+In classic Waterfall, there’s no going back:
 
 1. Requirements
 2. Analysis
@@ -641,7 +641,7 @@ Modified Waterfall models have the notion of returning to an earlier stage
 This unplanned re-considerations make estimation harder, which can cause
 schedule overruns.
 
-Sequential methods are like turn-by-turn directions that don't consider
+Sequential methods are like turn-by-turn directions that don’t consider
 real-time circumstances (traffic jams, road works) or mistakes (taking the wrong
 turn, taking it too late). Sequential methods are based on an _ideal set of
 instructions_. It is also assumed, that mistakes can be corrected without
@@ -660,23 +660,23 @@ tools and methods are introduced, the relevance of past experiences and the
 intuitive understanding of feedback effects can be undermined.
 
 A more iterative Waterfall only has some specific places for feedback at the end
-of a phase. However, waiting for such a phase to end ("design", "coding") bears
+of a phase. However, waiting for such a phase to end (“design“, “coding“) bears
 risks:
 
 - Not collecting feedback during a phase makes it impossible to detect  problems
   early on.
 - Re-iterating a phase after a problem has been detected causes major
   disturbances in the whole process, say, doing a re-design after coding has
-  been "finished". Such "big" steps back are rather avoided than undertaken; the
+  been “finished“. Such “big” steps back are rather avoided than undertaken; the
   organization might go on with a flawed intermediate product to the next phase.
 
-This methodology can be summarized as "doing it completely right or doing it
-over". There's no notion of small deviations and according corrections.
+This methodology can be summarized as “doing it completely right or doing it
+over“. There’s no notion of small deviations and according corrections.
 
 Instead of one global process (Waterfall), a project can be split up in smaller
 task cells that provide their own feedback loop (e.g. a User Story).
 
-> Good intervention models will help us to understand what we can't control, but
+> Good intervention models will help us to understand what we can’t control, but
 > a faulty model may lead us to overlook a number of effective interventions.
 
 In Waterfall, it is assumed that every phase brings the project closer to the
@@ -688,50 +688,50 @@ project in a worse state:
 - project members burn out, quit
 - conflicts between project members emerge; the no longer want to work together
 
-Such model don't account for "soft" factors, such as employees getting
+Such model don’t account for “soft” factors, such as employees getting
 frustrated or sick.
 
 Errors introduced in the coding phase could originate in any of the (earlier)
 phases (wrong requirements, erroneous analysis, bad design, bad coding).
-However, they don't manifest themselves before testing. Likewise, frustration
+However, they don’t manifest themselves before testing. Likewise, frustration
 and tension might rise during the whole project, but the conflicts might only
 erupt towards the (planned) end of the project.
 
-Methodologies are often only product focused and don't account for other outputs
-("soft" factors).
+Methodologies are often only product focused and don’t account for other outputs
+(“soft” factors).
 
 Pattern 2 managers often would rather hide in their offices and work with plans
 rather than with human beings. The role of human action in project management is
 often denied. However, human decision points are the places where a crisis can
 be prevented.
 
-> More software projects have gone awry _because their managers didn't know how
+> More software projects have gone awry _because their managers didn’t know how
 > to respond to lack of calender time_ than for all other causes combined.
 
 Loops that concern management contain decisions by people:
 
-> Whenever there's a human decision point in the system, it's not the event that
-> determines the next event, but someone's _reaction_ to that event.
+> Whenever there’s a human decision point in the system, it’s not the event that
+> determines the next event, but someone’s _reaction_ to that event.
 
 There are two types of laws concerning software engineering management:
 
-1. "natural" laws (accept them)
-2. "human decision laws" (learn to control them)
+1. “natural” laws (accept them)
+2. “human decision laws” (learn to control them)
 
 People often mistake human decision laws for natural laws:
 
-- "We were late with coding, _therefore_ we had less time to test the
-  application."
+- “We were late with coding, _therefore_ we had less time to test the
+  application.”
     - _therefore_ suggests that a natural (or logic) law was followed
     - doing less testing was actually a human decision
-- "We could not finish a proper design, but we _had to_ start coding, _because_
-  time for design was up."
+- “We could not finish a proper design, but we _had to_ start coding, _because_
+  time for design was up.”
     - _because_ suggests that one should start implementing an unfinished design
       when the clock tells you so
     - continuing with an unfinished design was a human decision
 
-Pay attention to words that suggest a logical succession of events, such as "had
-to", "because", "therefore", and ask for the _reasoning behind_ it. Record
+Pay attention to words that suggest a logical succession of events, such as “had
+to“, “because“, “therefore“, and ask for the _reasoning behind_ it. Record
 instances of human reasoning disguised as laws of nature.
 
 ## Failing to Steer
@@ -745,17 +745,17 @@ There are three dynamics standing in their way:
 1. Victim Mentality
     - When bad things happen, managers fail to see their points of action.
       However, what counts are not only those events, but also (and foremost)
-      the reactions to those events. "Victim language" can be reframed as
-      "Controller language".
-    - Brooks' Law (adding people to a late projects makes it later) can be
-      mitigated: As long as the added staff doesn't interfere with the existing
-      staff's process, they still can add value (checking and improving
+      the reactions to those events. “Victim language” can be reframed as
+      “Controller language“.
+    - Brooks’ Law (adding people to a late projects makes it later) can be
+      mitigated: As long as the added staff doesn’t interfere with the existing
+      staff’s process, they still can add value (checking and improving
       documentation, reviewing code, creating test cases, do chores for others
       in the project group).
-2. Suppressing "Negative Talk"
-    - If employees are punished for negative reports, they're incentivized to
+2. Suppressing “Negative Talk”
+    - If employees are punished for negative reports, they’re incentivized to
       produce rosy looking fake reports:
-        - quick and dirty fixes to problems so that they don't have to be
+        - quick and dirty fixes to problems so that they don’t have to be
           reported
         - classify problems with lowered severity
         - grouping multiple problems together so that it looks like there are
@@ -769,16 +769,16 @@ There are three dynamics standing in their way:
     - By acting on the wrong intervention model, problems are made worse.
     - Example: A software project conducted using an iterative approach is
       behind schedule. He decides to sacrifice quality to make up for the time
-      lost. As more defects occur, the manager reacts by putting "recovery
-      functions" into the product in order to make up for the defects. The
+      lost. As more defects occur, the manager reacts by putting “recovery
+      functions” into the product in order to make up for the defects. The
       software project falls even more behind schedule, and quality detoriates
-      even further, which requires more "recovery functions". The customer, who
+      even further, which requires more “recovery functions“. The customer, who
       has to wait longer, wants to be rewarded for his patience—by asking for
       more features. This creates a vicious cycle.
     - The control points are working backwards: every intervention makes the
       problems worse. In this case, the interventions just need to be reversed.
       In the above example, a trust period is introduced, so that the developers
-      can catch up and improve the product's quality.
+      can catch up and improve the product’s quality.
     - Two parties blaming each other creates a mutually destructive feedback
       loop. This can be solved with a better understanding of the system—unless
       the two parties have gotton too far from each other and prefer revenge
@@ -786,7 +786,7 @@ There are three dynamics standing in their way:
     - Tools do not determine how they are being used. They can be applied for
       the worse or for the better.
 
-## Why It's Always Hard to Steer
+## Why It’s Always Hard to Steer
 
 When the dynamics of a  process is regulated by human decisions, _intervention
 dynamics_ is at play. When human decisions have no power to alterate the dynamic
@@ -813,10 +813,10 @@ the perfect controller. There is no randomness, and the model covers all
 possible ways a game can unfold (moves and countermoves). Tic Tac Toe and Chess
 are both games that—theoretically—allow for perfect control. However, there are
 orders of magnitude more ways a game of Chess can unfold than a game of Tic Tac
-Toe. Therefore, there's no perfect model (yet) to play chess. Instead, _general
+Toe. Therefore, there’s no perfect model (yet) to play chess. Instead, _general
 principles_ (heuristics) are applied to reduce the set of _possible moves_ to a
 much smaller set of _most promising moves_, which makes the game much more
-manageable (e.g. don't sacrifice your queen to capture a pawn) with limited
+manageable (e.g. don’t sacrifice your queen to capture a pawn) with limited
 computing capacity. Such general principles are useful _most of the time_ but
 might prevent the best play  _some of the time_.
 
@@ -828,13 +828,13 @@ software engineering efforts are directed at reducing such non-linearities to
 keep the Square Law of Computation under control, which is also accomplished by
 applying general principles, such as:
 
-- Don't add people late in a project to catch up. (Brooks' Law)
+- Don’t add people late in a project to catch up. (Brooks’ Law)
 - Use the smallest possible team of the best possible people.
-- Don't shoot the messenger.
+- Don’t shoot the messenger.
 - Break your code up into modules.
 
-These general principles are the simplifications ("Unless some simplifications
-can be made") of the Square Law of Computation. Collections of such general
+These general principles are the simplifications (“Unless some simplifications
+can be made“) of the Square Law of Computation. Collections of such general
 principles make up the cultural pattern of a software organization. Such guiding
 principles are needed because of the _Size/Complexity dynamic_:
 
@@ -843,12 +843,12 @@ principles are needed because of the _Size/Complexity dynamic_:
 
 When a software project succeeds, ambitions rise, and the problems being
 attempted to solve grow bigger. Bigger (and harder) problems drive an
-organization to new, yet untried patterns. (If there's no ambition for solving
+organization to new, yet untried patterns. (If there’s no ambition for solving
 harder problems or achieving better quality, an organization can stay with its
 current pattern.)
 
-It's hardly possible to alter the capacity of our brains (hiring smarter people
-only works to some extent), but it's possible to alter how much of our capacity
+It’s hardly possible to alter the capacity of our brains (hiring smarter people
+only works to some extent), but it’s possible to alter how much of our capacity
 is used, and for what purpose. Software engineering attempts to simplify the
 solutions to larger problems—raising the success rate in response to higher
 ambition.
@@ -875,11 +875,11 @@ The computational power required to control a project grows non-linearly with
 the problem size. Due to this non-linearity, being twice as smart does _not_
 allow you to solve problems twice as big:
 
-> Ambitious requirements can easily outstrip even the brightest developer's
+> Ambitious requirements can easily outstrip even the brightest developer’s
 > mental capacity.
 
 Given a program that is capable of playing the perfect game of chess: If the
-board's size is increased from 8x8 (64) to 10x10 (100) fields, the number of
+board’s size is increased from 8x8 (64) to 10x10 (100) fields, the number of
 possible moves explodes, even though the board size only grows by roughly 50%.
 
 Every pattern has its size/effort curve, showing how well it will do given
@@ -895,18 +895,18 @@ the eye into seeing linear patterns (Log-Log-Law):
 > Any set of data points forms a straight line if plotted on log-log paper.
 
 Managers influence projects by choosing methods, tools, and people, which make
-up an organization's cultural pattern. Two different methods (or tools, or
+up an organization’s cultural pattern. Two different methods (or tools, or
 teams) A and B will have different curves on a size/effort graph: Method A is
 cheaper for small projects (say, due to less overhead), but reaches a limit of
 feasible projects quite quickly. Method B, on the other hand, s more expensive
 for small projects, but allows to deal with bigger projects than method A.
 
 Therefore, organizations adopt _two_ (or more) methods instead of just one
-"standard method" for software development, which are then picked from depending
-on a project's estimated size. This requires managers to take an important
+“standard method” for software development, which are then picked from depending
+on a project’s estimated size. This requires managers to take an important
 decision at the beginning of every project: which method to choose? In a blaming
 environment, taking such decisions can get a manager into trouble. Therefore,
-they'd often prefer to have a "standard model" being imposed on them.
+they’d often prefer to have a “standard model” being imposed on them.
 
 Managers choose their methods for other reasons than just effort. Risk is also a
 very important factor. Depending on the problem size, different methods have
@@ -925,9 +925,9 @@ patterns, languages, etc. The risk on the decision maker can be reduced by:
 
 Harm is rarely done out of malice, but of good intentions combined with wrong
 assumptions about the underlying problem (wrong model). It is often being tried
-to control systems that lie beyond one's capacity:
+to control systems that lie beyond one’s capacity:
 
-- What one "knows" are often only simplifications (heuristics) carried over from
+- What one “knows” are often only simplifications (heuristics) carried over from
   simpler situations.
 - One fails to see the true dynamics in an environment with lots of randomness.
   Once those dynamics are put under control one by one, the system gets stable
@@ -944,9 +944,9 @@ situations without getting paranoid, the _Helpful Model_ can be applied:
 > No matter how it looks, everyone is _trying_ to be helpful.
 
 This model takes away the blame and lets us look at the true dynamics, i.e.
-beyond anybody's intention.
+beyond anybody’s intention.
 
-Mental models can't be eliminated, but only replaced by better ones (_Principle
+Mental models can’t be eliminated, but only replaced by better ones (_Principle
 of Addition_):
 
 > The best way to reduce ineffective behaviour is by adding a more effective
@@ -970,7 +970,7 @@ Implanting more effective models is the most helpful intervention.
 An organization expresses that it is in crisis by the attitudes towards its
 customers. If it gets too entangled with its internal problems, it forgets its
 reason for existence. Complaints about too many customers and their
-"unreasonable" demands are uttered. The more customers an organization has, the
+“unreasonable” demands are uttered. The more customers an organization has, the
 more requirements it needs to fulfill, the bigger the system becomes—and, due to
 the Size/Complexity dynamic—the more complex. The chances of conflicting
 requirements also grows, causing additional trouble to resolve—either by
@@ -1064,5 +1064,5 @@ couple of important dynamics:
 Issuing fewer releases with higher quality can break those negative,
 self-reinforcing dynamics. Many mature organizations release their software
 only twice a year. Organizations also start to prioritize their customers.
-"Nice" customers that pay more are better served than "nasty" ones that pay
+“Nice” customers that pay more are better served than “nasty” ones that pay
 less.
