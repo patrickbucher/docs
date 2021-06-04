@@ -1030,7 +1030,7 @@ increases, too, usually non-linearly. The cost of an interruption is not only
 the duration of the interruption itself (say, a five minute customer call), but
 also an additional reimmersion time needed to get back to the original task (say,
 fifteen minutes). The more people that are affected by a single
-interruption―say, a phone call pulling a meeting attendee away, causing the
+interruption—say, a phone call pulling a meeting attendee away, causing the
 whole meeting to be interrupted—the longer the reimmersion time becomes:
 Gathering a dispersed crowd costs time—and requires interrupting them at the
 task they picked up in the meantime.
