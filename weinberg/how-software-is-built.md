@@ -1,10 +1,12 @@
-# How Software Is Built
+---
+title: 'Gerald M. Weinberg: “How Software Is Built”'
+subtile: 'Book Summary'
+author: 'Patrick Bucher'
+---
 
-_This is a rough summary of “How Software Is Built”, Volume 1 of six of the
-“Quality Software Management” by Gerald M. Weinberg. Remarks that are not found
-in the book are written within [square brackets]._
-
-## New Preface
+_This is a rough summary of “How Software Is Built”, Volume 1/6 of the “Quality
+Software Management” by Gerald M. Weinberg. Remarks that are not found in the
+book are written within [square brackets]._
 
 There are three fundamental abilities needed to not lag farther and farther
 behind ever evolving computers:
@@ -15,7 +17,7 @@ behind ever evolving computers:
 
 The third point is the subject of this book.
 
-## What Is Quality? Why Is It Important?
+# What Is Quality? Why Is It Important?
 
 Adequate quality to one person may be inadequate quality to another:
 
@@ -81,7 +83,7 @@ in on one of those patterns due to conservatism manifested in:
 However, improving quality requires cultural change. Resistance can be overcome
 by preserving the good that is already there.
 
-## Software Subcultures
+# Software Subcultures
 
 The critical factor to software quality is the people involved: their
 motivations and reactions.
@@ -181,7 +183,7 @@ things get in trouble, the differences become obvious.
 
 In practice, patterns 4 and 5 hardly exist.
 
-## What Is Needed To Change Patterns?
+# What Is Needed To Change Patterns?
 
 The prevailing pattern is best detected by the way people think and communicate:
 
@@ -297,7 +299,7 @@ To move to a higher pattern, the following things have to be learned:
 Lockons are strong forces that prevent change (e.g. driving on one particular
 side of the road in England vs. Germany).
 
-## Control Patterns for Management
+# Control Patterns for Management
 
 Organizations can remain at pattern 1 or 2, because their problems do not
 require them to be elsewhere. However, higher demands require different
@@ -417,7 +419,7 @@ byt also an _engineering discipline_:
   the process.
 - Pattern 5 applies feedback control to the entire organization.
 
-## Making Explicit Management Models
+# Making Explicit Management Models
 
 A controller must not only have accurate and timely observations, but also
 understand those observations (“system models“). One must know: 1) what is
@@ -513,7 +515,7 @@ deltas also produce small effects. As soon as non-linear effects are
 measured—and an exponential relationship is detected—the system might already be
 in deep trouble.
 
-## Feedback Effects
+# Feedback Effects
 
 Some actions can’t be reversed, not even with help from higher management.
 
@@ -605,7 +607,7 @@ A negative feedback loop is _not_ desirable, because stability is _not always_
 desirable (e.g. when changing the pattern of an organization). Here, positive
 feedback loops have to be established.
 
-## Steering Software
+# Steering Software
 
 In pattern 2, a plan is the sum of its steps:
 
@@ -734,7 +736,7 @@ Pay attention to words that suggest a logical succession of events, such as “h
 to“, “because“, “therefore“, and ask for the _reasoning behind_ it. Record
 instances of human reasoning disguised as laws of nature.
 
-## Failing to Steer
+# Failing to Steer
 
 In pattern 2, managers only plan what should happen. In pattern 3, they should
 also: observe, compare the observed to the planned, and take actions to move the
@@ -786,7 +788,7 @@ There are three dynamics standing in their way:
     - Tools do not determine how they are being used. They can be applied for
       the worse or for the better.
 
-## Why It’s Always Hard to Steer
+# Why It’s Always Hard to Steer
 
 When the dynamics of a  process is regulated by human decisions, _intervention
 dynamics_ is at play. When human decisions have no power to alterate the dynamic
@@ -869,7 +871,7 @@ Fault Location dynamic can be tackled using modularization.
 The _Human Interaction_ dynamic states that the number of interactions between
 people grows non-linearly to the amount of people being added to a project.
 
-## What it Takes to Be Helpful
+# What it Takes to Be Helpful
 
 The computational power required to control a project grows non-linearly with
 the problem size. Due to this non-linearity, being twice as smart does _not_
@@ -965,7 +967,7 @@ Better than curing addictions is preventing them in the first place:
 
 Implanting more effective models is the most helpful intervention.
 
-## Responses to Customer Demands
+# Responses to Customer Demands
 
 An organization expresses that it is in crisis by the attitudes towards its
 customers. If it gets too entangled with its internal problems, it forgets its
