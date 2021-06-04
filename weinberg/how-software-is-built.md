@@ -935,10 +935,10 @@ to control systems that lie beyond one's capacity:
 - Behaviours that might produce good results in the short run (e.g. deploying
   hacks to fix bugs, skip on testing to save time) cause trouble in the long
   run. One fails to see this connection, gets addicted to such a bad behaviour,
-  and stays with the faulty intervention model―a disease of limited intelligence.
+  and stays with the faulty intervention model—a disease of limited intelligence.
 
 Some interventions cause more harm than good, so one might conclude that doing
-harm is actually intended―which is very rarely the case! To analyze such
+harm is actually intended—which is very rarely the case! To analyze such
 situations without getting paranoid, the _Helpful Model_ can be applied:
 
 > No matter how it looks, everyone is _trying_ to be helpful.
@@ -964,3 +964,105 @@ Better than curing addictions is preventing them in the first place:
 > reality.
 
 Implanting more effective models is the most helpful intervention.
+
+## Responses to Customer Demands
+
+An organization expresses that it is in crisis by the attitudes towards its
+customers. If it gets too entangled with its internal problems, it forgets its
+reason for existence. Complaints about too many customers and their
+"unreasonable" demands are uttered. The more customers an organization has, the
+more requirements it needs to fulfill, the bigger the system becomes—and, due to
+the Size/Complexity dynamic—the more complex. The chances of conflicting
+requirements also grows, causing additional trouble to resolve—either by
+implementation or explanation.
+
+The more customer a software organization has, the higher the demands on it
+grow. More features are requested, more errors reported, and more configurations
+must be supported—and all this within shorter time spans. An organization under
+such pressure must either omove to a new cultural pattern in order to cope with
+those higher demands—or it reduces its number of (satisfied) customer. (Fewer
+customers tend to expect having all their expectations met, whereas thousands of
+customers have lower expectations, considering their lower relative importance
+to the organization.)
+
+Managers want to keep the systems under their control in a healthy state. They
+want to keep both the amount and the extent of interference from the outside
+low, because too much interference can be disruptive to a system working well.
+Customers give inputs to a system (requirements, error reports, money), and in
+turn expect outputs from that system (software satisfying their requirements,
+error reports being handled in time, correctly, and professionally). Some of
+those inputs cause random disturbances. Like the managers on the inside, the
+customer acts as an external controller to the system. Sometimes, the internal
+and external controller are in conflict, causing conflicts within the system.
+
+Not every user is a paying customer, but every user has expectations on how a
+software is supposed to behave. Most users also notice errors that need to be
+dealt with. All users cause load on a system. Every user has requirements, but
+only paying customers buy their right to define the quality by requirements.
+
+The marketing department is a surrogate for customers that acts on behalf of
+them within the organization. They represent the customers and users against the
+developers—sometimes well, sometimes badly. Marketing is supposed to act as a
+filter between customers and developers. It decreases disturbances from
+customers, but is itself closer to the developers, and therefore more prone to
+cause disturbances itself by bypassing all the defenses. The side effects of an
+interfering marketing department can be worse than the benefits gained from
+their filtering of customer inputs towards the developers.
+
+Developers can act as customer surrogates themselves and influence software
+directly—for the better or worse. In a variable culture (pattern 1), developers
+act without explicit or approved customer requirements. Pattern 2 managers want
+to eliminate such bypassing of processes. In an unstable organization,
+programmers frequently make changes without unauthorized, some of them remaining
+unnoticed internally (but not by the customers). The more programmers an
+organization has, the more potentially dangerous customer surrogates it has to
+deal with.
+
+Testers are supposed to faithfully replicate customer use. However, they make
+frequent implicit decisions about what they think the customer _really_ wants or
+needs. Since they are usually closer to the developers than to the customers,
+there are more prone to the influence of the former than the latter.
+
+As the number of customers increases, the amount of customer interactions
+increases, too, usually non-linearly. The cost of an interruption is not only
+the duration of the interruption itself (say, a five minute customer call), but
+also an additional reimmersion time needed to get back to the original task (say,
+fifteen minutes). The more people that are affected by a single
+interruption―say, a phone call pulling a meeting attendee away, causing the
+whole meeting to be interrupted—the longer the reimmersion time becomes:
+Gathering a dispersed crowd costs time—and requires interrupting them at the
+task they picked up in the meantime.
+
+The number and size of meetings grows as the customer base grows. After a
+certain amount of customers is reached, it is no longer possible to satisfy
+their needs completely all the time. The number of possible configurations
+(combinations of different platforms, versions used, integrations with other
+software, customized software parts) starts to grow exponentially over time.
+More configurations remain untested, causing more error reports. Those cause
+more patches being deployed, which become harder to test on different
+configurations. A software organization either changes its culture—or lowers the
+level of support provided for its customers.
+
+When software is releases, it is passed from one group (developers) to another
+(customers). It is started being used productively. The release initiates a
+couple of important dynamics:
+
+- Multiple versions of a software now exist, which all need to be maintained.
+- More errors are found and reported at a faster rate by actual users.
+- Reported errors need to be fixed more quickly: Development is not driven by an
+  external clock.
+- Deploying faulty patches becomes much more expensive—and causes trouble for
+  more customers. Also, the same errors are reported by multiple parties, which
+  multiplies the amount of interactions for a single error.
+- If individual patches are deployed for single customers, the system becomes
+  harder to understand and maintain, especially if the patch was is poorely
+  documented.
+- All those problems need to be dealt with quickly—disrupting the development
+  process of the entire organization, which leads to poorer quality and more
+  stress in the long run. A vicious cycle unleashes.
+
+Issuing fewer releases with higher quality can break those negative,
+self-reinforcing dynamics. Many mature organizations release their software
+only twice a year. Organizations also start to prioritize their customers.
+"Nice" customers that pay more are better served than "nasty" ones that pay
+less.
