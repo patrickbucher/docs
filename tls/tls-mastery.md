@@ -133,3 +133,132 @@ a leaked private key.
 Since multiple web sites can be hosted under the same IP address, the first
 request must indicate a domain, so that the right TLS certificate can be picked
 for it (SNI: server name indication). This is done in cleartext.
+
+# Chapter 2: TLS Connections
+
+The `openssl s_client` subcommand is useful for debugging daemons that offer
+TLS-encrypted connections. Different implementations of Netcat (`nc(1)`) can
+deal with TLS more or less well, so better stick to `openssl`.
+
+`s_client` was made for debugging and, therefore, also accepts invalid
+certificates:
+
+    $ openssl s_client -connect expired.badssl.com:443 </dev/null >/dev/null
+    $ echo $?
+    0
+
+Specify `-verify_return_error` to fail if the certificate offered is invalid:
+
+    $ openssl s_client -verify_return_error -connect expired.badssl.com:443 </dev/null >/dev/null
+    $ echo $?
+    1
+
+Some protocols, like HTTP, require CR+LF (carriage return and line feed: `\r\n`)
+to end commands, while pressing `[Enter]` on Unix terminals only sends the new
+line character `\n`. Add the `-crlf` option to translate a line feed into CR+LF:
+
+    $ openssl s_client -connect paedubucher.ch:443 -crlf
+    GET / HTTP/1.1
+    Host: paedubucher.ch
+
+Press `[Enter]` twice to terminate HTTP commands; the `index.html` page will be
+listed.
+
+If server name indication (SNI) is used, specify the server name so using the
+`-servername` flag.
+
+Servers that offer _opportunistic TLS_ (STARTTLS) allow the client to connect
+without TLS first and then allow the client to switch to a TLS-encrypted
+connection, if it wants so. The `-starttls [protocol]` can be defined to
+indicate that the switch to TLS is desired for the given protocol:
+
+    $ openssl s_client -connect mail.company.com:25 -starttls smtp
+
+Various commands can be used within an interactive TLS-encrypted session:
+
+- `Q`: quit (cleanly close the connection)
+- `k`: update the key
+- `K`: update the key and request a new key
+- `R`: re-negotiate the terms of the connection
+
+Use the flag `-ign_eof` to keep the connection alife after `EOF` was sent. This
+also deactivates the commands above.
+
+To only display a summary of the negotiated TLS characteristics, use the `-brief` flag:
+
+    $ openssl s_client -connect paedubucher.ch:443 -brief </dev/null
+    CONNECTION ESTABLISHED
+    Protocol version: TLSv1.2
+    Ciphersuite: ECDHE-RSA-AES256-GCM-SHA384
+    Peer certificate: CN = paedubucher.ch
+    Hash used: SHA256
+    Signature type: RSA-PSS
+    Verification: OK
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Server Temp Key: X25519, 253 bits
+    DONE
+
+To only display a summary of the certificate chain, use the `-quiet` flag:
+
+    $ openssl s_client -connect paedubucher.ch:443 -quiet </dev/null
+    depth=2 O = Digital Signature Trust Co., CN = DST Root CA X3
+    verify return:1
+    depth=1 C = US, O = Let's Encrypt, CN = R3
+    verify return:1
+    depth=0 CN = paedubucher.ch
+    verify return:1
+
+By default, `s_client` uses the highest version of TLS offered. The protocol
+version can be specified using the flags `-tls1_3`, `-tls1_2`, and the
+indications for the obsolete versions `-tls1_1`, `-tls1`, `-ssl3`. It is also
+possible to forbid certain protocol versions using the flags of the form
+`-no_[version]`, such as `-no_tls1_1`, `-no_ssl3`, etc. Don't mix those two
+kinds of flags. For example, this command can be used to check if a server still
+offers obsolete TLS versions (< TLS 1.2):
+
+    $ openssl s_client -brief -no_tls1_3 -no_tls1_2 -connect paedubucher.ch:443 -crlf </dev/null
+    CONNECTION ESTABLISHED
+    Protocol version: TLSv1.1
+    Ciphersuite: ECDHE-RSA-AES256-SHA
+    Peer certificate: CN = paedubucher.ch
+    Hash used: MD5-SHA1
+    Signature type: RSA
+    Verification: OK
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Server Temp Key: X25519, 253 bits
+    DONE
+
+In the case above, TLS 1.1 is still offered.
+
+TLS 1.2 ciphers and TLS 1.3 cipher suites can be defined using the `-cipher` and
+`-ciphersuites`, respectively:
+
+    $ openssl s_client -brief -cipher TLS_RSA_WITH_AES_128_CBC_SHA256 -connect paedubucher.ch:443 -crlf </dev/null
+    Error with command: "-cipher TLS_RSA_WITH_AES_128_CBC_SHA256"
+    140339066332544:error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match:ssl/ssl_lib.c:2566:
+
+    $ openssl s_client -brief -cipher ECDHE-RSA-AES256-GCM-SHA384 -connect paedubucher.ch:443 -crlf </dev/null
+    CONNECTION ESTABLISHED
+    Protocol version: TLSv1.2
+    Ciphersuite: ECDHE-RSA-AES256-GCM-SHA384
+    Peer certificate: CN = paedubucher.ch
+    Hash used: SHA256
+    Signature type: RSA-PSS
+    Verification: OK
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Server Temp Key: X25519, 253 bits
+    DONE
+
+    $ openssl s_client -brief -tls1_3 -ciphersuites TLS_AES_128_GCM_SHA256 -connect mozilla.org:443 -crlf </dev/null
+    CONNECTION ESTABLISHED
+    Protocol version: TLSv1.3
+    Ciphersuite: TLS_AES_128_GCM_SHA256
+    Peer certificate: CN = mozilla.org
+    Hash used: SHA256
+    Signature type: RSA-PSS
+    Verification: OK
+    Server Temp Key: X25519, 253 bits
+    DONE
+
+Use `openssl ciphers` or [ciphersuite.info](https://ciphersuite.info/) to find
+proper ciphersuite indications.
