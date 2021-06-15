@@ -262,3 +262,79 @@ TLS 1.2 ciphers and TLS 1.3 cipher suites can be defined using the `-cipher` and
 
 Use `openssl ciphers` or [ciphersuite.info](https://ciphersuite.info/) to find
 proper ciphersuite indications.
+
+## Chapter 3: Certificates
+
+TLS uses X.509 certificates, which is an ITU standard for digital certificates
+built on ASN.1 (Abstract Syntax Notation One), a cross-platform tree-like data
+structure with object identifiers (OID).
+
+The X.500 directory standard is used to specify informations about the
+certificate holder (organization unit `OU=`, organization `O=`, common name
+`CN=`, etc.) The common name used to be the host name, but can be any
+identification (uid, email, first and last name).
+
+A _trust anchor_ or _root certificate_ is an ultimately trusted certificate,
+often self-signed by some big organization that runs its own Certificate
+Authority (CA). Those certificates are included in operating systems (usually
+Mozilla's bundle in Unix-like systems, or Microsoft's bundle in Windows). Those
+bundles can be curated manually, which causes a lot of work and trouble.
+
+On Unix-like systems, certificates are usually stored under `/etc/ssl/certs`.
+Use `openssl` to figure out the real and optional additional paths:
+
+    $ openssl version -a
+    OpenSSL 1.1.1k  25 Mar 2021
+    [...]
+    OPENSSLDIR: "/etc/ssl"
+    ENGINESDIR: "/usr/lib/engines-1.1"
+    [...]
+
+All certificates are validated against those in the trust bundles. Additional
+certificates can be added (and removed) by operating system or distribution
+specific tools, such as `certctl`, `add-trusted-cert`, `update-ca-trust` etc.
+
+Use the `-CAfile` flag to validate a certificate against a specific CA:
+
+    # TODO: whole example
+    $ openssl -CAfile /etc/ssl/certs/SwissSign_Gold_CA_-_G2.pem [...]
+
+A certificate contains two main pieces:
+
+1. information about the entity being certified
+2. the digital signature of that information
+
+The signed organization information is put together with a public key into a
+Certificate Signing Request (CSR). The CSR, which is a certificate without a
+digital signature, is then submitted to the Certificate Auhtority, which
+verifies the submitted information more or less thoroughly, and then signs the
+certificate with its private key for a duration of usually 3 to 12 months.
+(Modern browsers impose a limit of 398 days.)
+
+Certificates can be constrained:
+
+- Some can be used to sign other certificates within the same domain name.
+- The cryptographic algorithms to be used can be constrained.
+- The certificate is valid only for a certain domain (`foobar.com`) or, in case
+  of a wildcard certificate, all subdomains thereof (`*.foobar.com`).
+
+Those constraints can be extended beyond the standard. There are critical and
+non-critical extensions. Critical extensions must be processed and validated by
+all clients. Non-critical extensions can be processed if the client wants to and
+is available to.
+
+There are different levels of validation for a certificate:
+
+1. _Domain Validation_ (DV): The CA checked that the domain is under control of
+   the requesting entity (usually done via DNS).
+2. _Organization Validation_ (OV): The CA verified that the requesting
+   organization exists and is located at the address indicated.
+3. _Extended Validation_ (EV): The CA verifies the business registration. This
+   is expensive; the CA will charge for the certificate accordingly.
+
+Domain Validation is usually enough. Extended Validation is mostly used for
+regulatory compliance, say, in the finance sector. The requesting entity has to
+prove its identity in all cases, only the mechanisms differ.
+
+The verification process of a certificate is based on a _Chain of Trust_, which
+nowadays is rather a _Tree of Trust_.
