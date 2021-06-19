@@ -94,7 +94,7 @@ Set the time zone:
 
 Set the hardware clock:
 
-    hwclock --systohc
+    hwclock --systohc --utc
 
 Uncomment `en_US.UTF-8 UTF-8` in `/etc/locale.gen` and generate locals:
 
