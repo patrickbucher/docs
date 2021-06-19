@@ -96,7 +96,7 @@ subcommand:
 
     $ openssl ciphers HIGH
 
-Applications can be configured to use  specific cipher lists. Sticking to `HIGH`
+Applications can be configured to use specific cipher lists. Sticking to `HIGH`
 is a good idea in general. Check
 [ssl-config.mozilla.org](https://ssl-config.mozilla.org/) for application
 specific configurations.
@@ -337,4 +337,98 @@ regulatory compliance, say, in the finance sector. The requesting entity has to
 prove its identity in all cases, only the mechanisms differ.
 
 The verification process of a certificate is based on a _Chain of Trust_, which
-nowadays is rather a _Tree of Trust_.
+nowadays is rather a _Tree of Trust_. Root CAs protect their private keys very
+well and don't want to use it for every certificate to be signed. Instead, they
+sign certificates of intermediate CAs (with lower lifetimes and limited rights),
+which in turn sign certificates using their private key.
+
+The validation is performed bottom-up: domain owner, intermediate CA, root CA.
+This requires the whole chain of certificates being available to the client,
+which only knows the public keys of some well-known root CAs. Therefore, the
+certififaces and public keys of the intermedia CA must also be delivered in a
+_CA bundle_.
+
+Certificates can be _cross signed_, i.e. be signed using signatures of different
+CAs (both intermediate and root). Only one single path from the domain
+certificate up to the root certificate must be found for a successful
+validation. This makes a certificate more robust in case an intermediary/root
+certificate is revoked (see [RFC
+5280](https://datatracker.ietf.org/doc/html/rfc5280) for details on certificate
+revocation).
+
+Certificates are usually delivered in the X.509 format, but can be stored in a
+different formats.
+
+_Distinguished Encoding Rules_ (DER) is an old binary format using a subset of
+ASN.1, each information being stored with a tag, a length, and the actual data.
+This format is very small and usually stored in files with the ending `.der` in
+their name:
+
+    $ openssl x509 -in certificate.der -inform der -text -noout
+
+_Privacy-Enhanced Mail_ (PEM) is a standard for sending encrypted email, which is
+nowadays less popular than PGP. It is still in common use to encode keys and
+certificates. PEM is basically base64-encoded DER with human friendly headers
+and footers separating multiple certificates or keys:
+
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+
+Usually, `.pem` is used for the file name ending, byt `.crt` or `.key` is also
+common, often for backwards compatibility (i.e. when still relying on the old
+name, even though the transition to a new format has been made). The PEM format
+is assumed by default, so no `-inform` option needs to be passed in order to
+read PEM Files:
+
+    $ openssl x509 -in chain.pem -noout -text
+
+Certificates can be re-encoded by combining the the `-in`, `-out`, `-inform`,
+and `-outform` options. Here, a DER-encoded certificate is converted to the PEM
+format:
+
+    $ openssl x509 -in part.pem -inform pem -outform der -out part.der
+
+_Public Key Cryptography Standard 12_ (PKCS#12) can store multiple related
+encryption files in a single archive, which can be signed and/or encrypted (e.g.
+a certificate chain combined with a private key). Each piece of information is
+stored in its own SafeBox, which are combined to archives, usually stored with
+the ending `.p12` or the older `.pfx`. The `pkcs12` subcommand is used to
+process such archives. A private key can be combined with a (PEM) certificate as
+follows:
+
+    $ openssl pkcs12 -export -out archive.p12 -inkey private.key -in cert.pem
+
+Additional certificates can be provided using the `-certfile` option. A password
+is prompted to encrypt the archive. A PKCS#12 file can be viewed as follows:
+
+    $ openssl pkcs12 -info -in archive.p12
+
+Pass the `-nodes` option to omit encryption for the private key in cleartext,
+`-nokeys` to omit any keys in the output, and `-nocerts` to omit the
+certificates. Those options can be combined to split up a PKCS#12 archive into
+certificate and private key files:
+
+    $ openssl pkcs12 -in archive.p12 -out all.crt -nodes
+    $ openssl pkcs12 -in archive.p12 -out certs.crt -nokeys
+    $ openssl pkcs12 -in archive.p12 -out private.key -nocerts -nodes
+
+Notice that the output file `private.key` in the last example is exported in the
+PKCS#8 format, i.e. without an algorithm mentioned in the header:
+
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
+
+Pipe the output through `openssl rsa` or `openssl ec` in order to transform it
+to the PKCS#1 format with an algorithm indication:
+
+    $ openssl pkcs12 -in archive.p12 -nocerts -nodes | openssl rsa -out key.pem
+
+Notice that the common endings `.pem`, `.der`, and `.crt` do not necessarily
+imply the format used; better rely on the output of `file(1)` and the validation
+of `openssl-x509(1ssl)` instead.
