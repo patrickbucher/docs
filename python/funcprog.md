@@ -254,3 +254,55 @@ g = partial(f, 2, 4, 6)
 g(1)   # x=1: 2x² + 4x + 6 = 12
 g(2)   # x=2: 2x² + 4x + 6 = 22
 ```
+
+## Mutability
+
+Lists, dictionaries, and sets are _mutable_; numbers, strings, and tuples are
+_immutable_. A frozen set is an immutable version of a set. References to any of
+those objects are always mutable: by re-assigning a variable, the object pointed
+to is _not changed_, but _another object_ is pointed to instead.
+
+Notice that mutability is shallow. A tuple itself cannot be modified, but the
+elements of a tuple containing of lists can be modified.
+
+The `sort` method of a list modifies the underlying list, whereas the `sorted`
+function returns a sorted copy of the given list.
+
+A list can be copied by passing it to the `list` function:
+
+```python
+def tail(l):
+    del l[0]
+    return l
+
+numbers = [1, 2, 3]
+print(tail(numbers))  # [2, 3]
+print(numbers)        # [2, 3], too (modified)
+
+numbers = [1, 2, 3]
+print(tail(list(numbers)))  # [2, 3]
+print(numbers)              # [1, 2, 3], still (unmodified)
+```
+
+This, however, is very inefficient. Instead, the `tail` function could work with
+slicing to guarantee immutability:
+
+```python
+def tail(l):
+    return l[1:]
+
+numbers = [1, 2, 3]
+print(tail(numbers))  # [2, 3]
+print(numbers)        # [1, 2, 3], still (unmodified)
+```
+
+Under the hood, slicing is copying, so this solution is not very efficient, too.
+
+Modifications that affect every single item of a list can be expressed using
+_list comprehensions_:
+
+```python
+numbers = [1, 2, 3]
+twice = [x * 2 for x in numbers]
+print(twice)  # [2, 4, 6]
+```
