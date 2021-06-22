@@ -318,7 +318,7 @@ specific tools, such as `certctl`, `add-trusted-cert`, `update-ca-trust` etc.
 Use the `-CAfile` flag to validate a certificate against a specific CA:
 
     $ openssl s_client -verify_return_error -connect www.srf.ch:443 \
-      -CAfile /etc/ssl/certs/DigiCert_Global_Root_CA.pem </dev/null
+      -CAfile /etc/ssl/certs/DigiCert_Global_Root_CA.pem </dev/null >/dev/null
     Global_Root_CA.pem </dev/null >/dev/null
     depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
     verify return:1
