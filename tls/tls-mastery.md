@@ -432,3 +432,200 @@ to the PKCS#1 format with an algorithm indication:
 Notice that the common endings `.pem`, `.der`, and `.crt` do not necessarily
 imply the format used; better rely on the output of `file(1)` and the validation
 of `openssl-x509(1ssl)` instead.
+
+A certificate contains various fields, which can be viewed as follows (output of
+public keys and signatures shortened):
+
+    $ openssl x509 -in cert.der -inform der -text -noout
+    Certificate:
+        Data:
+            Version: 3 (0x2)
+            Serial Number:
+                04:a9:5c:4e:9c:51:cd:df:b3:ef:00:78:5b:97:b5:7f:79:39
+            Signature Algorithm: sha256WithRSAEncryption
+            Issuer: C = US, O = Let's Encrypt, CN = R3
+            Validity
+                Not Before: Apr 26 08:25:39 2021 GMT
+                Not After : Jul 25 08:25:39 2021 GMT
+            Subject: CN = paedubucher.ch
+            Subject Public Key Info:
+                Public Key Algorithm: rsaEncryption
+                    RSA Public-Key: (2048 bit)
+                    Modulus:
+                        00:a0:98:97:a0:9d:41:4d:3a:27:2d:c3:86:12:ce:
+                        ...
+                    Exponent: 65537 (0x10001)
+            X509v3 extensions:
+                X509v3 Key Usage: critical
+                    Digital Signature, Key Encipherment
+                X509v3 Extended Key Usage: 
+                    TLS Web Server Authentication, TLS Web Client Authentication
+                X509v3 Basic Constraints: critical
+                    CA:FALSE
+                X509v3 Subject Key Identifier: 
+                    44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:C9:9C
+                X509v3 Authority Key Identifier: 
+                    keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:8B:14:C2:C6
+
+                Authority Information Access: 
+                    OCSP - URI:http://r3.o.lencr.org
+                    CA Issuers - URI:http://r3.i.lencr.org/
+
+                X509v3 Subject Alternative Name: 
+                    DNS:paedubucher.ch, DNS:www.paedubucher.ch
+                X509v3 Certificate Policies: 
+                    Policy: 2.23.140.1.2.1
+                    Policy: 1.3.6.1.4.1.44947.1.1.1
+                      CPS: http://cps.letsencrypt.org
+
+                CT Precertificate SCTs: 
+                    Signed Certificate Timestamp:
+                        Version   : v1 (0x0)
+                        Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:22:2C:0D:
+                                    D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:4D:A2:C2
+                        Timestamp : Apr 26 09:25:39.415 2021 GMT
+                        Extensions: none
+                        Signature : ecdsa-with-SHA256
+                                    30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:95:FF:EC:
+                                    ...
+                    Signed Certificate Timestamp:
+                        Version   : v1 (0x0)
+                        Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:94:56:8E:
+                                    E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:F1:64:E3
+                        Timestamp : Apr 26 09:25:39.392 2021 GMT
+                        Extensions: none
+                        Signature : ecdsa-with-SHA256
+                                    30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:7B:11:C0:
+                                    ...
+        Signature Algorithm: sha256WithRSAEncryption
+             60:1a:51:cc:77:4c:5d:f7:31:9a:f3:93:31:5c:74:19:3e:70:
+             ...
+
+- `Version` (usually 3) is the X.509, _not_ the TLS version.
+- `Serial Number` is a unique number, which is useful for certificate revocation.
+- `Signature Algorithm` describes how the CA signed the certificate.
+- `Issuer` identifies the CA that issued the certificate.
+- `Validity` defines a time span in which a certificate can be used.
+- `Subject` contains information about the entity being certified.
+    - For Domain Validation (DV), only the common name (CN) is listed.
+    - For Organization or Extended Validation (OV and EV), information about
+      the organization, city, country are listed.
+- `Subject Public Key` is the public part of the key that has been used to
+  create the Certificate Signing Request (CSR).
+- `X509v3 extensions` lists critical and non-critical extensions (mandatory and
+  optional for certificate verification):
+    - `X509v3 Key Usage` (critical) describes how a key can be used.
+    - `X509v3 Extended Key Usage` (non-critical) describes additional purposes
+      the key can be used for.
+    - `X509v3 Basic Constraints` (critical) lists if the certificate's key can
+      be used to sign other certificates (`CA:TRUE`) or not (`CA:FALSE`)
+    - `X509v3 Subject Key Identifier` and `X509v3 Authority Key Identifier` is
+      the identifier for the subject's and the CA authority's key.
+    - `Authority Information Access` shows how to get more information about the
+      CA.
+    - `X509v3 Subject Alternative Name` shows the hostnames covered by the
+      certificate.
+    - `X509v3 Certificate Policies` describes the CA.
+- `CT Precertificate SCTs` contains the Signed Certificate Timestamp (SCT) with
+  the signatures used, which is a cryptographic proof that the certificate was
+  submitted to a certificate log (Certificat Transparency).
+- There's a digital signature of the CA at the very end of the certificate with
+  the indicated `Signature Algorithm`.
+
+Additional information to X.509 extensions can be queried using the `-ext`
+option with comma-separated extensions to be listed (`x509v3_config(3)`):
+
+    $ openssl x509 -in cert.pem -noout -ext keyUsage,extendedKeyUsage
+    X509v3 Key Usage: critical
+        Digital Signature, Key Encipherment
+    X509v3 Extended Key Usage:
+        TLS Web Server Authentication, TLS Web Client Authentication
+
+Extensions not understood by the `openssl` client in use are displayed as raw
+binary data (consider updating `openssl` or look up the respective OID).
+
+The output can be further shortened using the `-certopt` option, which accepts
+comma-separated values (here: neither display public keys nor signature dumps):
+
+    $ openssl x509 -in first.pem -text -noout -certopt no_pubkey,no_sigdump
+    Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            04:a9:5c:4e:9c:51:cd:df:b3:ef:00:78:5b:97:b5:7f:79:39
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, O = Let's Encrypt, CN = R3
+        Validity
+            Not Before: Apr 26 08:25:39 2021 GMT
+            Not After : Jul 25 08:25:39 2021 GMT
+        Subject: CN = paedubucher.ch
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage:
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:C9:9C
+            X509v3 Authority Key Identifier:
+                keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:8B:14:C2:C6
+
+            Authority Information Access:
+                OCSP - URI:http://r3.o.lencr.org
+                CA Issuers - URI:http://r3.i.lencr.org/
+
+            X509v3 Subject Alternative Name:
+                DNS:paedubucher.ch, DNS:www.paedubucher.ch
+            X509v3 Certificate Policies:
+                Policy: 2.23.140.1.2.1
+                Policy: 1.3.6.1.4.1.44947.1.1.1
+                  CPS: http://cps.letsencrypt.org
+
+            CT Precertificate SCTs:
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:22:2C:0D:
+                                D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:4D:A2:C2
+                    Timestamp : Apr 26 09:25:39.415 2021 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:95:FF:EC:
+                                ...
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:94:56:8E:
+                                E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:F1:64:E3
+                    Timestamp : Apr 26 09:25:39.392 2021 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:7B:11:C0:
+                                ...
+
+A site can be reachable under different names, such as `paedubucher.ch` and
+`www.paedubucher.ch`. Subject Alternative Names (SAN) identify all the hostnames
+a certificate is good for and can be displayed as follows:
+
+    $ openssl x509 -in first.pem -noout -ext subjectAltName
+    X509v3 Subject Alternative Name: 
+        DNS:paedubucher.ch, DNS:www.paedubucher.ch
+
+A wildcard certificate is good for any subdomain of a hostname
+(`*.paedubucher.ch`), which can be dangerous, because a successful attacker can
+offer services with subdomains made up for the purpose (such as
+`www2.paedubucher.ch`).
+
+It's also possible to fetch and display remote certificates using the `s_client`
+and `x509` subcommands combined with a pipe (same output as further above):
+
+    $ openssl s_client -connect paedubucher.ch:443 </dev/null | \
+      openssl x509 -text -noout -certopt no_pubkey,no_sigdump
+
+Use the `-showcerts` option to display the whole certificate chain:
+
+    $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null
+
+When buying a certificate, consider the reputation a CA has, and in which
+jurisdication it is located. A CA must support Certificate Revocation Lists
+(CRL), the Online Certificat Status Protocol (OCSP), and, optionally,
+Certification Authority Authorization (CAA).
