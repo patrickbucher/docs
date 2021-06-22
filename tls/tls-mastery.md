@@ -1,6 +1,9 @@
+Notes from [TLS Mastery](https://www.tiltedwindmillpress.com/product/tls/) by
+Michael W. Lucas.
+
 # Chapter 0: Introduction
 
-OpenSSL CLI syntax:
+OpenSSL commands have the following syntax:
 
     $ openssl [subcommand] [flags]
 
@@ -15,7 +18,8 @@ Common flags:
 The `s_client` subcommand provides a TLS-aware netcat. It can be used to fetch
 and output a certificate from a remote website:
 
-    $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null | openssl x509 -text -noout
+    $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null | \
+      openssl x509 -text -noout
 
 There are two `openssl` commands:
 
@@ -53,6 +57,8 @@ private key. The encrypted hash then can be decrypted against the public key.
 
 See [keylength.com](https://www.keylength.com/) for recommendations concerning
 secure key lengths.
+
+## Ciphers
 
 A cipher suite is a combination of asymmetric, symmetric, and checksum
 algorithms and parameters for end-to-end communication (but unrelated to the
@@ -100,6 +106,8 @@ Applications can be configured to use specific cipher lists. Sticking to `HIGH`
 is a good idea in general. Check
 [ssl-config.mozilla.org](https://ssl-config.mozilla.org/) for application
 specific configurations.
+
+## Security Model
 
 There are two models of trust for publik key cryptography:
 
@@ -208,6 +216,8 @@ To only display a summary of the certificate chain, use the `-quiet` flag:
     depth=0 CN = paedubucher.ch
     verify return:1
 
+## Constraining TLS Versions and Ciphers
+
 By default, `s_client` uses the highest version of TLS offered. The protocol
 version can be specified using the flags `-tls1_3`, `-tls1_2`, and the
 indications for the obsolete versions `-tls1_1`, `-tls1`, `-ssl3`. It is also
@@ -263,7 +273,7 @@ TLS 1.2 ciphers and TLS 1.3 cipher suites can be defined using the `-cipher` and
 Use `openssl ciphers` or [ciphersuite.info](https://ciphersuite.info/) to find
 proper ciphersuite indications.
 
-## Chapter 3: Certificates
+# Chapter 3: Certificates
 
 TLS uses X.509 certificates, which is an ITU standard for digital certificates
 built on ASN.1 (Abstract Syntax Notation One), a cross-platform tree-like data
@@ -289,6 +299,8 @@ Use `openssl` to figure out the real and optional additional paths:
     OPENSSLDIR: "/etc/ssl"
     ENGINESDIR: "/usr/lib/engines-1.1"
     [...]
+
+## Certificate Validation and Verification
 
 All certificates are validated against those in the trust bundles. Additional
 certificates can be added (and removed) by operating system or distribution
@@ -336,6 +348,8 @@ Domain Validation is usually enough. Extended Validation is mostly used for
 regulatory compliance, say, in the finance sector. The requesting entity has to
 prove its identity in all cases, only the mechanisms differ.
 
+## Chain of Trust
+
 The verification process of a certificate is based on a _Chain of Trust_, which
 nowadays is rather a _Tree of Trust_. Root CAs protect their private keys very
 well and don't want to use it for every certificate to be signed. Instead, they
@@ -355,6 +369,8 @@ validation. This makes a certificate more robust in case an intermediary/root
 certificate is revoked (see [RFC
 5280](https://datatracker.ietf.org/doc/html/rfc5280) for details on certificate
 revocation).
+
+## Certificate Formats
 
 Certificates are usually delivered in the X.509 format, but can be stored in a
 different formats.
@@ -432,6 +448,8 @@ to the PKCS#1 format with an algorithm indication:
 Notice that the common endings `.pem`, `.der`, and `.crt` do not necessarily
 imply the format used; better rely on the output of `file(1)` and the validation
 of `openssl-x509(1ssl)` instead.
+
+## Certificate Contents
 
 A certificate contains various fields, which can be viewed as follows (output of
 public keys and signatures shortened):
