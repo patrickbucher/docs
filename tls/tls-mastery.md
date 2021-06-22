@@ -161,7 +161,8 @@ certificates:
 
 Specify `-verify_return_error` to fail if the certificate offered is invalid:
 
-    $ openssl s_client -verify_return_error -connect expired.badssl.com:443 </dev/null >/dev/null
+    $ openssl s_client -verify_return_error -connect expired.badssl.com:443 \
+      </dev/null >/dev/null
     $ echo $?
     1
 
@@ -316,8 +317,18 @@ specific tools, such as `certctl`, `add-trusted-cert`, `update-ca-trust` etc.
 
 Use the `-CAfile` flag to validate a certificate against a specific CA:
 
-    # TODO: whole example
-    $ openssl -CAfile /etc/ssl/certs/SwissSign_Gold_CA_-_G2.pem [...]
+    $ openssl s_client -verify_return_error -connect www.srf.ch:443 \
+      -CAfile /etc/ssl/certs/DigiCert_Global_Root_CA.pem </dev/null
+    Global_Root_CA.pem </dev/null >/dev/null
+    depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
+    verify return:1
+    depth=1 C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
+    verify return:1
+    depth=0 C = CH, ST = Z\C3\BCrich, L = Z\C3\BCrich, O = Schweizer Radio & Fernsehen, CN = *.srf.ch
+    verify return:1
+    DONE
+    $ echo $?
+    0
 
 A certificate contains two main pieces:
 
