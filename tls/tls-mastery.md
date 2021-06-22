@@ -15,6 +15,8 @@ Common flags:
 - `-out`: define output
 - `-text`: use textual rather than binary output
 
+## TLS Client
+
 The `s_client` subcommand provides a TLS-aware netcat. It can be used to fetch
 and output a certificate from a remote website:
 
@@ -32,6 +34,8 @@ There are two `openssl` commands:
     - `-noout`: do not output the encoded certificate
 
 Man pages are usually to be found with `openssl-[subcommand]`. Check `apropos openssl`.
+
+## Regulation
 
 The FIPS (Federal Information Processing Standards) regulates which TLS
 algorithms can be used. For organizations operating under FIPS regulation, those
@@ -161,6 +165,8 @@ Specify `-verify_return_error` to fail if the certificate offered is invalid:
     $ echo $?
     1
 
+## Interactive TLS Sessions
+
 Some protocols, like HTTP, require CR+LF (carriage return and line feed: `\r\n`)
 to end commands, while pressing `[Enter]` on Unix terminals only sends the new
 line character `\n`. Add the `-crlf` option to translate a line feed into CR+LF:
@@ -181,6 +187,8 @@ connection, if it wants so. The `-starttls [protocol]` can be defined to
 indicate that the switch to TLS is desired for the given protocol:
 
     $ openssl s_client -connect mail.company.com:25 -starttls smtp
+
+### Helpful Commands and Flags
 
 Various commands can be used within an interactive TLS-encrypted session:
 
@@ -375,12 +383,16 @@ revocation).
 Certificates are usually delivered in the X.509 format, but can be stored in a
 different formats.
 
+### DER: Distinguished Encoding Rules
+
 _Distinguished Encoding Rules_ (DER) is an old binary format using a subset of
 ASN.1, each information being stored with a tag, a length, and the actual data.
 This format is very small and usually stored in files with the ending `.der` in
 their name:
 
     $ openssl x509 -in certificate.der -inform der -text -noout
+
+### PEM: Privacy-Enhanced Mail
 
 _Privacy-Enhanced Mail_ (PEM) is a standard for sending encrypted email, which is
 nowadays less popular than PGP. It is still in common use to encode keys and
@@ -408,6 +420,8 @@ and `-outform` options. Here, a DER-encoded certificate is converted to the PEM
 format:
 
     $ openssl x509 -in part.pem -inform pem -outform der -out part.der
+
+### PKCS#12: Public Key Cryptography Standard 12
 
 _Public Key Cryptography Standard 12_ (PKCS#12) can store multiple related
 encryption files in a single archive, which can be signed and/or encrypted (e.g.
@@ -550,6 +564,8 @@ public keys and signatures shortened):
 - There's a digital signature of the CA at the very end of the certificate with
   the indicated `Signature Algorithm`.
 
+### Narrowing Down the Output
+
 Additional information to X.509 extensions can be queried using the `-ext`
 option with comma-separated extensions to be listed (`x509v3_config(3)`):
 
@@ -620,6 +636,8 @@ comma-separated values (here: neither display public keys nor signature dumps):
                                 30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:7B:11:C0:
                                 ...
 
+## Multiple Hostnames
+
 A site can be reachable under different names, such as `paedubucher.ch` and
 `www.paedubucher.ch`. Subject Alternative Names (SAN) identify all the hostnames
 a certificate is good for and can be displayed as follows:
@@ -633,6 +651,8 @@ A wildcard certificate is good for any subdomain of a hostname
 offer services with subdomains made up for the purpose (such as
 `www2.paedubucher.ch`).
 
+## Fetching Certificates
+
 It's also possible to fetch and display remote certificates using the `s_client`
 and `x509` subcommands combined with a pipe (same output as further above):
 
@@ -642,6 +662,8 @@ and `x509` subcommands combined with a pipe (same output as further above):
 Use the `-showcerts` option to display the whole certificate chain:
 
     $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null
+
+## Some CA Considerations
 
 When buying a certificate, consider the reputation a CA has, and in which
 jurisdication it is located. A CA must support Certificate Revocation Lists
