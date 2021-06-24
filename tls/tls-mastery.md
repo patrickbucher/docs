@@ -1,3 +1,9 @@
+---
+title: TLS Mastery
+subtitle: Notes on TLS
+author: Patrick Bucher
+---
+
 Notes from [TLS Mastery](https://www.tiltedwindmillpress.com/product/tls/) by
 Michael W. Lucas.
 
@@ -680,3 +686,90 @@ When buying a certificate, consider the reputation a CA has, and in which
 jurisdication it is located. A CA must support Certificate Revocation Lists
 (CRL), the Online Certificat Status Protocol (OCSP), and, optionally,
 Certification Authority Authorization (CAA).
+
+# Chapter 4: Revocation and Invalidation
+
+When  private key gets stolen, the certificates based on it can no longer be
+trusted. However, the certificate itself still looks trustworthy, and cannot be
+revoked by the owner of the private key that has been used to sign the
+certificate. Since trust comes from above, only the signing CA can revoke a
+certificate.
+
+CAs offer web interfaces or automated tools and interfaces for this purpose.
+Usually, a replacement certificate is ordered in this purpose, which of course
+needs to be requested with a new private key. It's a good idea to test this
+process, which gives you an idea how well the CA can handle the certificate
+invalidation and replacement process.
+
+TLS offers multiple mechanisms for certificate revocation:
+
+## Certificate Revocation Lists (CRL)
+
+_Certificate Revocation Lists_ (CRL) are lists of revoked (but not yet expired)
+certificates offered by the CA. An endpoint to this list is linked as the `CRL
+Endpoint` (`Distribution Point`) in the CA's intermediary certificate. The
+client downloads this list and makes sure the respective certificate is not on
+that list by comparing the certificate's serial number to those on the list.
+
+CRLs become big quite fast and don't scale very well nowadays, even though they
+can be cached. Caching, however, slows down the revocation process. Use the
+`crl` subcommand on your CA's root certificate to show the CRL:
+
+    $ curl http://crl.identrust.com/DSTROOTCAX3CRL.crl | \
+      openssl crl -text -inform der -noout
+
+CRLs are usually served in DER format to keep the files small, but other formats
+can be used, too.
+
+## Online Certificate Status Protocol (OCSP)
+
+With the _Online Certificate Status Protocol_ (OCSP), the client no longer needs
+to fetch a CA's complete list of rekoved certificates, but can query the status
+of a single certificate via an HTTP endpoint. A result (`good`, `revoked`,
+`unknown`) and a cache time to live are returned. The CA signs the response, so
+raw HTTP (without TLS) is used here. The endpoint for OCSP can be extracted from
+the certificate chain:
+
+    $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null 2>/dev/null | \
+      openssl x509 -noout -ocsp_uri
+    http://r3.o.lencr.org
+
+Given the certificate chain and the OCSP URL, the revocation status can be
+tested using the `ocsp` subcommand (`openssl-ocsp(1ssl)`):
+
+    $ openssl s_client -connect github.com:443 </dev/null | openssl x509 >cert.pem
+    $ openssl s_client -showcerts -connect github.com:443 </dev/null >chain.pem
+    $ openssl x509 -in chain.pem -noout -ocsp_uri
+    http://ocsp.digicert.com
+    $ openssl ocsp -issuer chain.pem -cert cert.pem -text -url http://ocsp.digicert.com
+    OCSP Response Data:
+    OCSP Response Status: successful (0x0)
+    Response Type: Basic OCSP Response
+    Version: 1 (0x0)
+    Responder Id: 5061A6A0D235C4112A208D1F0FAC42F0CD29CF4B
+    Produced At: Jun 24 03:36:53 2021 GMT
+    Responses:
+    Certificate ID:
+      Hash Algorithm: sha1
+      Issuer Name Hash: C6325AEE2FA3FD33D07789FD6B4CCEF0CA3FD029
+      Issuer Key Hash: 5061A6A0D235C4112A208D1F0FAC42F0CD29CF4B
+      Serial Number: 0E8BF3770D92D196F0BB61F93C4166BE
+    Cert Status: good
+    This Update: Jun 24 03:21:02 2021 GMT
+    Next Update: Jul  1 02:36:02 2021 GMT
+
+Check the `Cert Status`; "good" means that the certificate  hasn't been revoked.
+
+This process consumes less bandwith than CRLs, but more processing power on the
+client side. The CA also gets to know the clients accessing particular domains,
+which is a privay issue.
+
+## OCSP Stapling
+
+The OCSP query response (see above) contains a field `Next Update`, which is the
+expiration date of that query. A server can make this request on behalf of the
+client, and attach ("staple") the OCSP response to the TLS session with the
+client, and digitally sign it. Doing so, the server can save the clients a lot
+of OCSP queries—and better protect their privacy—but also needs to perform the
+OCSP lookups periodically (according to the `Next Update` indication). Most
+modern web browsers and servers support OCSP nowadays.
