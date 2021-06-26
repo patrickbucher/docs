@@ -773,3 +773,18 @@ client, and digitally sign it. Doing so, the server can save the clients a lot
 of OCSP queries—and better protect their privacy—but also needs to perform the
 OCSP lookups periodically (according to the `Next Update` indication). Most
 modern web browsers and servers support OCSP nowadays.
+
+## Revocation Issues
+
+Not all CAs offer all the revocation mechanisms described, or they implement
+them in a non-standard or bad way (say, offering just empty CRLs for technical
+compatibility). Client software failing to perform OCSP checks are often hidden
+from the user for the sake of convenience. Some modern browsers rely on their own
+curated list of CRLs, which are shipped with their software updates, instead of
+fetching CRLs in real-time.
+
+How a client deals with revocation can be tested with sites like
+[revoked-rsa-dv.ssl.com](https://revoked-rsa-dv.ssl.com). Using short-lived
+certificates with heavy automation mitigates revocation issues. Unfortunately,
+Chrome ignores the OCSP Must Staple server setting, which would be a way to
+emulate short-lived certificates.
