@@ -33,9 +33,12 @@ There are two `openssl` commands:
 
 1. Fetching the certificate using `s_client`:
     - `-showcerts`: show the TLS certificate
-    - `-connect`: specify a `host:port` to connect to (`paedubucher.ch` on TLS port `443`)
-    - `</dev/null`: do not provide any input, which is usually required from `openssl` commands
-2. Parsing and displaying the certificate using `x509` (deals with X.509 certificates):
+    - `-connect`: specify a `host:port` to connect to (`paedubucher.ch` on TLS
+      port `443`)
+    - `</dev/null`: do not provide any input, which is usually required from
+      `openssl` commands
+2. Parsing and displaying the certificate using `x509` (deals with X.509
+   certificates):
     - `-text`: output human-readable text instead of the binary representation
     - `-noout`: do not output the encoded certificate
 
@@ -122,7 +125,8 @@ specific configurations.
 There are two models of trust for publik key cryptography:
 
 1. Web of Trust: the user decides whom to trust, used for PGP.
-2. Certificate Authority: audited organizations are considered trustworthy, used for TLS.
+2. Certificate Authority: audited organizations are considered trustworthy, used
+   for TLS.
 
 Private keys, which are enough to pretend being its identity, should only be
 readable/writable by the `root` user (`chmod 0600`). All certificates based on a
@@ -207,7 +211,8 @@ Various commands can be used within an interactive TLS-encrypted session:
 Use the flag `-ign_eof` to keep the connection alife after `EOF` was sent. This
 also deactivates the commands above.
 
-To only display a summary of the negotiated TLS characteristics, use the `-brief` flag:
+To only display a summary of the negotiated TLS characteristics, use the
+`-brief` flag:
 
     $ openssl s_client -connect paedubucher.ch:443 -brief </dev/null
     CONNECTION ESTABLISHED
@@ -217,7 +222,7 @@ To only display a summary of the negotiated TLS characteristics, use the `-brief
     Hash used: SHA256
     Signature type: RSA-PSS
     Verification: OK
-    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_...
     Server Temp Key: X25519, 253 bits
     DONE
 
@@ -241,7 +246,8 @@ possible to forbid certain protocol versions using the flags of the form
 kinds of flags. For example, this command can be used to check if a server still
 offers obsolete TLS versions (< TLS 1.2):
 
-    $ openssl s_client -brief -no_tls1_3 -no_tls1_2 -connect paedubucher.ch:443 -crlf </dev/null
+    $ openssl s_client -brief -no_tls1_3 -no_tls1_2 \
+      -connect paedubucher.ch:443 -crlf </dev/null
     CONNECTION ESTABLISHED
     Protocol version: TLSv1.1
     Ciphersuite: ECDHE-RSA-AES256-SHA
@@ -249,7 +255,7 @@ offers obsolete TLS versions (< TLS 1.2):
     Hash used: MD5-SHA1
     Signature type: RSA
     Verification: OK
-    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_...
     Server Temp Key: X25519, 253 bits
     DONE
 
@@ -258,11 +264,13 @@ In the case above, TLS 1.1 is still offered.
 TLS 1.2 ciphers and TLS 1.3 cipher suites can be defined using the `-cipher` and
 `-ciphersuites`, respectively:
 
-    $ openssl s_client -brief -cipher TLS_RSA_WITH_AES_128_CBC_SHA256 -connect paedubucher.ch:443 -crlf </dev/null
+    $ openssl s_client -brief -cipher TLS_RSA_WITH_AES_128_CBC_SHA256 \
+      -connect paedubucher.ch:443 -crlf </dev/null
     Error with command: "-cipher TLS_RSA_WITH_AES_128_CBC_SHA256"
-    140339066332544:error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match:ssl/ssl_lib.c:2566:
+    140339066332544:error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:...
 
-    $ openssl s_client -brief -cipher ECDHE-RSA-AES256-GCM-SHA384 -connect paedubucher.ch:443 -crlf </dev/null
+    $ openssl s_client -brief -cipher ECDHE-RSA-AES256-GCM-SHA384 \
+      -connect paedubucher.ch:443 -crlf </dev/null
     CONNECTION ESTABLISHED
     Protocol version: TLSv1.2
     Ciphersuite: ECDHE-RSA-AES256-GCM-SHA384
@@ -270,11 +278,12 @@ TLS 1.2 ciphers and TLS 1.3 cipher suites can be defined using the `-cipher` and
     Hash used: SHA256
     Signature type: RSA-PSS
     Verification: OK
-    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+    Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_...
     Server Temp Key: X25519, 253 bits
     DONE
 
-    $ openssl s_client -brief -tls1_3 -ciphersuites TLS_AES_128_GCM_SHA256 -connect mozilla.org:443 -crlf </dev/null
+    $ openssl s_client -brief -tls1_3 -ciphersuites TLS_AES_128_GCM_SHA256 \
+      -connect mozilla.org:443 -crlf </dev/null
     CONNECTION ESTABLISHED
     Protocol version: TLSv1.3
     Ciphersuite: TLS_AES_128_GCM_SHA256
@@ -326,11 +335,12 @@ Use the `-CAfile` flag to validate a certificate against a specific CA:
     $ openssl s_client -verify_return_error -connect www.srf.ch:443 \
       -CAfile /etc/ssl/certs/DigiCert_Global_Root_CA.pem </dev/null >/dev/null
     Global_Root_CA.pem </dev/null >/dev/null
-    depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
+    depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert ...
     verify return:1
     depth=1 C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
     verify return:1
-    depth=0 C = CH, ST = Z\C3\BCrich, L = Z\C3\BCrich, O = Schweizer Radio & Fernsehen, CN = *.srf.ch
+    depth=0 C = CH, ST = Z\C3\BCrich, L = Z\C3\BCrich,
+            O = Schweizer Radio & Fernsehen, CN = *.srf.ch
     verify return:1
     DONE
     $ echo $?
@@ -512,9 +522,9 @@ public keys and signatures shortened):
                 X509v3 Basic Constraints: critical
                     CA:FALSE
                 X509v3 Subject Key Identifier: 
-                    44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:C9:9C
+                    44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:...
                 X509v3 Authority Key Identifier: 
-                    keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:8B:14:C2:C6
+                    keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:...
 
                 Authority Information Access: 
                     OCSP - URI:http://r3.o.lencr.org
@@ -530,35 +540,36 @@ public keys and signatures shortened):
                 CT Precertificate SCTs: 
                     Signed Certificate Timestamp:
                         Version   : v1 (0x0)
-                        Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:22:2C:0D:
-                                    D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:4D:A2:C2
+                        Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:...
+                                    D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:...
                         Timestamp : Apr 26 09:25:39.415 2021 GMT
                         Extensions: none
                         Signature : ecdsa-with-SHA256
-                                    30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:95:FF:EC:
+                                    30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:...
                                     ...
                     Signed Certificate Timestamp:
                         Version   : v1 (0x0)
-                        Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:94:56:8E:
-                                    E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:F1:64:E3
+                        Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:...
+                                    E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:...
                         Timestamp : Apr 26 09:25:39.392 2021 GMT
                         Extensions: none
                         Signature : ecdsa-with-SHA256
-                                    30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:7B:11:C0:
+                                    30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:...
                                     ...
         Signature Algorithm: sha256WithRSAEncryption
              60:1a:51:cc:77:4c:5d:f7:31:9a:f3:93:31:5c:74:19:3e:70:
              ...
 
 - `Version` (usually 3) is the X.509, _not_ the TLS version.
-- `Serial Number` is a unique number, which is useful for certificate revocation.
+- `Serial Number` is a unique number, which is useful for certificate
+  revocation.
 - `Signature Algorithm` describes how the CA signed the certificate.
 - `Issuer` identifies the CA that issued the certificate.
 - `Validity` defines a time span in which a certificate can be used.
 - `Subject` contains information about the entity being certified.
     - For Domain Validation (DV), only the common name (CN) is listed.
-    - For Organization or Extended Validation (OV and EV), information about
-      the organization, city, country are listed.
+    - For Organization or Extended Validation (OV and EV), information about the
+      organization, city, country are listed.
 - `Subject Public Key` is the public part of the key that has been used to
   create the Certificate Signing Request (CSR).
 - `X509v3 extensions` lists critical and non-critical extensions (mandatory and
@@ -618,9 +629,9 @@ comma-separated values (here: neither display public keys nor signature dumps):
             X509v3 Basic Constraints: critical
                 CA:FALSE
             X509v3 Subject Key Identifier:
-                44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:C9:9C
+                44:9F:81:5F:58:39:34:C1:0C:E1:A0:E1:3E:B0:BF:E2:61:12:...
             X509v3 Authority Key Identifier:
-                keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:8B:14:C2:C6
+                keyid:14:2E:B3:17:B7:58:56:CB:AE:50:09:40:E6:1F:AF:9D:...
 
             Authority Information Access:
                 OCSP - URI:http://r3.o.lencr.org
@@ -636,21 +647,21 @@ comma-separated values (here: neither display public keys nor signature dumps):
             CT Precertificate SCTs:
                 Signed Certificate Timestamp:
                     Version   : v1 (0x0)
-                    Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:22:2C:0D:
-                                D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:4D:A2:C2
+                    Log ID    : 94:20:BC:1E:8E:D5:8D:6C:88:73:1F:82:8B:...
+                                D1:DA:4D:5E:6C:4F:94:3D:61:DB:4E:2F:58:...
                     Timestamp : Apr 26 09:25:39.415 2021 GMT
                     Extensions: none
                     Signature : ecdsa-with-SHA256
-                                30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:95:FF:EC:
+                                30:44:02:20:0B:2F:D4:47:A0:86:F4:9E:F0:...
                                 ...
                 Signed Certificate Timestamp:
                     Version   : v1 (0x0)
-                    Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:94:56:8E:
-                                E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:F1:64:E3
+                    Log ID    : F6:5C:94:2F:D1:77:30:22:14:54:18:08:30:...
+                                E3:4D:13:19:33:BF:DF:0C:2F:20:0B:CC:4E:...
                     Timestamp : Apr 26 09:25:39.392 2021 GMT
                     Extensions: none
                     Signature : ecdsa-with-SHA256
-                                30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:7B:11:C0:
+                                30:45:02:20:4D:7C:04:F4:F7:02:BC:3F:2B:...
                                 ...
 
 ## Multiple Hostnames
@@ -730,18 +741,21 @@ of a single certificate via an HTTP endpoint. A result (`good`, `revoked`,
 raw HTTP (without TLS) is used here. The endpoint for OCSP can be extracted from
 the certificate chain:
 
-    $ openssl s_client -showcerts -connect paedubucher.ch:443 </dev/null 2>/dev/null | \
-      openssl x509 -noout -ocsp_uri
+    $ openssl s_client -showcerts -connect paedubucher.ch:443 \
+      </dev/null 2>/dev/null | openssl x509 -noout -ocsp_uri
     http://r3.o.lencr.org
 
 Given the certificate chain and the OCSP URL, the revocation status can be
 tested using the `ocsp` subcommand (`openssl-ocsp(1ssl)`):
 
-    $ openssl s_client -connect github.com:443 </dev/null | openssl x509 >cert.pem
-    $ openssl s_client -showcerts -connect github.com:443 </dev/null >chain.pem
+    $ openssl s_client -connect github.com:443 </dev/null | \
+      openssl x509 >cert.pem
+    $ openssl s_client -showcerts -connect github.com:443 \
+      </dev/null >chain.pem
     $ openssl x509 -in chain.pem -noout -ocsp_uri
     http://ocsp.digicert.com
-    $ openssl ocsp -issuer chain.pem -cert cert.pem -text -url http://ocsp.digicert.com
+    $ openssl ocsp -issuer chain.pem -cert cert.pem -text \
+      -url http://ocsp.digicert.com
     OCSP Response Data:
     OCSP Response Status: successful (0x0)
     Response Type: Basic OCSP Response
@@ -788,3 +802,176 @@ How a client deals with revocation can be tested with sites like
 certificates with heavy automation mitigates revocation issues. Unfortunately,
 Chrome ignores the OCSP Must Staple server setting, which would be a way to
 emulate short-lived certificates.
+
+# Chapter 5: TLS Negotiation
+
+Clients and servers may have different software and configurations for TLS
+deployed, which support different protocol versions, algorithms, and options.
+Therefore, the parameters to be uses for a connection are not known in advance,
+but need to be negotiated between client and server.
+
+A TLS connection, which can be initiated using the `s_client` subcommand,
+consists of three parts: certificate validation, protocol settings, and
+session resumption.
+
+## Certificate Validation
+
+The TLS client attempts to find a way from the served certificate up to a
+trusted root certificate. The process is finished as soon as one such valid path
+is discovered. The `openssl` client then then outputs this path to standard
+error:
+
+    $ openssl s_client -connect paedubucher.ch:443 </dev/null >/dev/null
+    depth=2 C = US, O = Internet Security Research Group, CN = ISRG Root X1
+    verify return:1
+    depth=1 C = US, O = Let's Encrypt, CN = R3
+    verify return:1
+    depth=0 CN = paedubucher.ch
+    verify return:1
+    DONE
+
+The certificates are listed from top (root certificate) to bottom (domain
+certificate), with a `depth` field indicating the distance from the domain
+certificate. The field `verify return:1` signifies successful validation of the
+certificate.
+
+The certificate chain is displayed in reverse order (from domain to root) in the
+standard output, followed by the server certificate, details about the
+algorithms and keys being used (here: `SHA256`, `RSA-PSS`, and `X25519` with 253
+bits), and, finally, the result of the SSL handshake (`Verification: OK`):
+
+    $ openssl s_client -connect paedubucher.ch:443 </dev/null 2>/dev/null
+    ...
+    Certificate chain
+     0 s:CN = paedubucher.ch
+       i:C = US, O = Let's Encrypt, CN = R3
+     1 s:C = US, O = Let's Encrypt, CN = R3
+       i:C = US, O = Internet Security Research Group, CN = ISRG Root X1
+     2 s:C = US, O = Internet Security Research Group, CN = ISRG Root X1
+       i:O = Digital Signature Trust Co., CN = DST Root CA X3
+    ...
+    -----BEGIN CERTIFICATE-----
+    MIIFNjCCBB6gAwIBAgISBJa0Pa3QlqD/TEZHmLlZtqQnMA0GCSqGSIb3DQEBCwUA
+    ...
+    wnvurz8wdWtXilw61qAJJwivHeU+/FfF1Lt+wRN6mDZ/bQoU3dFubw1n
+    -----END CERTIFICATE-----
+    subject=CN = paedubucher.ch
+
+    issuer=C = US, O = Let's Encrypt, CN = R3
+    ---
+    No client certificate CA names sent
+    Peer signing digest: SHA256
+    Peer signature type: RSA-PSS
+    Server Temp Key: X25519, 253 bits
+    ---
+    SSL handshake has read 4691 bytes and written 409 bytes
+    Verification: OK
+    ---
+
+
+## Protocol Settings
+
+Parameters such as key length, TLS version and cipher, and the like are
+negotiated between the parties involved. Compression, being deactivated by
+default, can be activated using the `-comp` flag.
+
+Application Layer Protocol Negotiation (ALPN) is a way to integrate TLS setup
+into the protocol setup, which is mostly used in HTTP/2, and can be activated
+using the `-alpn` flag.
+
+Application data can be bundled with a TLS connection using the `-early_data`
+flag. All those informations are displayed in the subsequent sections of the
+output:
+
+    $ openssl s_client -connect paedubucher.ch:443 </dev/null 2>/dev/null
+    ...
+    New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+    Server public key is 2048 bit
+    Secure Renegotiation IS supported
+    Compression: NONE
+    Expansion: NONE
+    No ALPN negotiated
+
+## Session Resumption
+
+The TLS session and resumption details vary strongly between TLS versions being
+used:
+
+### TLS 1.2
+
+The session information starts with the protocol version (`TLSv1.2`) and the
+cipher being used. Every session has its ID (`Session-ID`) and Context ID
+(`Session-ID-ctx`), which could refer to some server-internal context such as an
+application (database server, web server) and is often used for load balancing.
+
+The `Master Key` is the result of the key agreement between client and server.
+Additional fields (prefixes: `PSK` and `SRP`) are only set if pre-shared keys
+and the Secure Remote Password (SRP) protocol are being used.
+
+The actual _session ticket_ follows, which is then used for a subsequent request
+within the same TLS session (_resumption_).
+
+The ticket is accompanied by TTL information indicating the timespan in which
+the ticket is valid. `Verify return code: 0 (ok)` signifies success, all other
+codes point to a verification error.
+
+    $ openssl s_client -tls1_2 -connect paedubucher.ch:443 </dev/null 2>/dev/null
+    ...
+    SSL-Session:
+        Protocol  : TLSv1.2
+        Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+        Session-ID: 3E09DF7A7C7C90B577C12254ED7ACA74CCCB5BDBE5B5B2AF44B...
+        Session-ID-ctx:
+        Master-Key: BB1EA0160136226FEB81B5849161EA9C87BAE06EAFAF649722A...
+        PSK identity: None
+        PSK identity hint: None
+        SRP username: None
+        TLS session ticket lifetime hint: 300 (seconds)
+        TLS session ticket:
+        0000 - 5d 43 c4 64 d9 18 b1 bd-c7 42 cc e9 49 44 2a fd   ]C.d...
+        ...
+        00b0 - 77 9f 38 b6 a2 cf bd 03-e6 7f 31 e1 f7 5f 58 b0   w.8...
+
+        Start Time: 1624727116
+        Timeout   : 7200 (sec)
+        Verify return code: 0 (ok)
+        Extended master secret: yes
+
+### TLS 1.3
+
+TLS 1.3 supports many fields of TLS 1.2 just for the sake of backward
+compatibility, which is important for network devices and tools that perform
+deep packet inspection on network traffic.
+
+In TLS 1.3, sessions are only established _after_ the main handshake has been
+completed. Therefore, no `SSL-Session` section can be found when dealing with
+TLS 1.3.
+
+## TLS Failures
+
+A TLS connection usually fails for two reasons:
+
+1. The client won't accept a certificate.
+2. Client and server cannot agree on TLS options, algorithms, and protocols.
+
+If the client uses a current software version and certificate bundle together
+with a default configuration, then usually the server is to blame for a failed
+TLS connection.
+
+One common error is a server only serving its own domain certificate instead of
+providing the whole certificate chain. This usually results in an error message
+like "unable to get local issuer certificate". Searching for an OpenSSL error
+message usually yields quick and accurate results.
+
+The website [badssl.com](https://badssl.com) provides many subdomains with
+different TLS and SSL (mis)configurations. Try them out with the `s_client`
+subcommand, and make sure to pass the `-verify_return_error`, so that you'll
+learn which TLS issues cause which OpenSSL error messages.
+
+    $ openssl s_client -connect untrusted-root.badssl.com:443 \
+      -verify_return_error </dev/null 2>/dev/null | grep 'Verification error'
+    Verification error: self signed certificate in certificate chain
+
+    $ openssl s_client -connect superfish.badssl.com:443 \
+      -verify_return_error </dev/null 2>/dev/null | grep 'Verification error'
+    Verification error: unable to get local issuer certificate
