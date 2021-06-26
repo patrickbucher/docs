@@ -74,3 +74,25 @@ Create a convenient symlink and test the share (open
 
     $ ln -s /share $HOME/share
     $ echo 'hello' > $HOME/share/hello.txt
+
+## SSH Port Forwarding
+
+Install, enable, and start `sshd` on guest:
+
+    # pacman -S openssh
+    # systemctl enable --now sshd
+
+Configure a port forwarding on VirtualBox:
+
+- Name: ssh
+- Protocol: TCP
+- Host IP: 0.0.0.0
+- Host Port: 2222
+- Guest IP: 10.0.2.15 (check on guest)
+- Guest Port: 22
+
+Check the SSH connection from the host, and copy the SSH key (both requires to
+enter the password—for the last time):
+
+    $ ssh -p 2222 patrick@localhost
+    $ ssh-copy-id -p 2222 patrick@localhost
