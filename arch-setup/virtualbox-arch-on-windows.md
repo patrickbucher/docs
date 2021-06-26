@@ -28,6 +28,49 @@ but install GRUB instead:
     # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
     # grub-mkconfig -o /boot/grub/grub.cfg
 
-Make sure to install `dhcpcd` before leaving:
+Absolutely make sure to install `dhcpcd` before leaving:
 
     # pacman -S dhcpcd
+
+## Install Guest Additions
+
+Install the guest additions:
+
+    # pacman -S virtualbox-guest-utils-nox
+
+Load the VirtualBox kernel modules:
+
+    # modprobe -a vboxguest vboxsf
+
+## Shared Folder
+
+Add the user to the `vboxsf` group:
+
+    # usermod -a -G vboxsf patrick
+
+Enable and start the `vboxservice`:
+
+    # systemctl enable --now vboxservice.service
+
+Create a shared folder (via menu):
+
+- Path: `C:\Users\patrick\arch-share`
+- Name: `arch-share`
+- Mount Automatically: Yes
+- Mount Point: `/share`
+- Permanent: Yes
+
+The directory `/arch-share` should have been created automatically on the guest.
+Make sure it is owned by `vboxsf`:
+
+    # chown -R root:vboxsf /share
+
+Mount the share directory manually:
+
+    # mount -t vboxsf -o gid=vboxsf arch-share /share
+
+Create a convenient symlink and test the share (open
+`C:\User\patrick\arch-share\hello.txt` on guest):
+
+    $ ln -s /share $HOME/share
+    $ echo 'hello' > $HOME/share/hello.txt
