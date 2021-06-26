@@ -1,9 +1,13 @@
-# Functional Programming in Python
+---
+title: Functional Programming in Python
+subtitle: Book Summary
+author: Patrick Bucher
+---
 
 see [Functional Programming in
 Python](https://leanpub.com/functionalprogramminginpython) by Martin McBride
 
-## Introduction
+# Introduction
 
 Python supports three major programming paradigms:
 
@@ -16,6 +20,8 @@ Python supports three major programming paradigms:
   a declarative rather than imperative programming style is used.
 
 Those paradigms are usually mixed; however, FP is often neglected.
+
+## Functional Concepts
 
 In FP, functions are _first class objects_: They can be stored in variables,
 passed to other functions as parameters, or be returned from functions.
@@ -35,6 +41,8 @@ Higher order functions (`filter`, `map`, `apply`) and recursion are preferred
 over structural constructs (`if`/`else` branching, loops).
 
 New functions are created dynamically by combining existing functions.
+
+## Pros and Cons
 
 FP has a lot of _advantages_:
 
@@ -58,7 +66,7 @@ However, this comes with some _disadvantages_:
   that are less efficient (recursion instead of loops) or more expensive
   (re-building data structures instead of modifying them).
 
-## Functions as Objects
+# Functions as Objects
 
 Functions can be stored in variables like, say, a string:
 
@@ -150,6 +158,8 @@ def format_currency(x):
 convert(format_currency, 10/3)  # '3.33 chf'
 ```
 
+## Sorting
+
 The built-in `sorted` function accepts an optional `key` function that allows
 for customized sorting:
 
@@ -178,6 +188,8 @@ The list of employees is sorted twice: once by name, and once by age:
 
     [('Alice', 37), ('Ashok', 21), ('Dilbert', 42), ('Dogbert', 7)]
     [('Dogbert', 7), ('Ashok', 21), ('Alice', 37), ('Dilbert', 42)]
+
+## Lambdas
 
 The code can be shortened by using unnamed _lambda functions_:
 
@@ -211,7 +223,7 @@ add_one(5)  # 5
 add_two(5)  # 7
 ```
 
-Operators are not functions, byt can be wrapped in lambda expressions for use
+Operators are not functions, but can be wrapped in lambda expressions for use
 with higher-order functions:
 
 ```python
@@ -221,6 +233,8 @@ def calculate(op, a, b):
 calculate(lambda a, b: a + b, 3, 1)  # 4
 calculate(lambda a, b: a * b, 3, 2)  # 6
 ```
+
+## Operator Functions
 
 The `operator` module contains pre-defined functions for common operators, so no
 lambdas have to be implemented:
@@ -239,6 +253,8 @@ See the [documentation of the `operator`
 module](https://docs.python.org/3/library/operator.html#mapping-operators-to-functions)
 for a full list of operators and their function equivalents.
 
+## Partial Function Application
+
 Functions can be _partially applied_, i.e. called with fewer arguments than
 expected, which returns a function only expecting the missing arguments:
 
@@ -255,7 +271,7 @@ g(1)   # x=1: 2x² + 4x + 6 = 12
 g(2)   # x=2: 2x² + 4x + 6 = 22
 ```
 
-## Mutability
+# Mutability
 
 Lists, dictionaries, and sets are _mutable_; numbers, strings, and tuples are
 _immutable_. A frozen set is an immutable version of a set. References to any of
@@ -306,3 +322,268 @@ numbers = [1, 2, 3]
 twice = [x * 2 for x in numbers]
 print(twice)  # [2, 4, 6]
 ```
+
+# Recursion
+
+Functions that call themselves are a common technique in functional programming.
+A problem is thereby reduced to its base case, which is defined statically. In
+the general case, a problem is simplified towards the base case:
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    elif n > 0:
+        return n * factorial(n - 1)
+
+print(factorial(2))  # 2
+print(factorial(3))  # 6
+print(factorial(4))  # 24
+```
+
+The bigger the argument `n` is chosen, the more functions are running at the
+same time:
+
+    factorial(6)
+    6 * factorial(5)
+    6 * 5 * factorial(4)
+    6 * 5 * 4 * factorial(3)
+    6 * 5 * 4 * 3 * factorial(2)
+    6 * 5 * 4 * 3 * 2 * factorial(1)
+    6 * 5 * 4 * 3 * 2 * 1 factorial(0)
+    6 * 5 * 4 * 3 * 2 * 1 * 1
+    6 * 5 * 4 * 3 * 2 * 1
+    6 * 5 * 4 * 3 * 2
+    6 * 5 * 4 * 6
+    6 * 5 * 24
+    6 * 120
+    720
+
+This doesn't scale well. An alternative approach to recursive functions are
+tail-recursive functions, which carry intermediate results as an extra
+accumulator parameter (`acc`):
+
+```python
+def factorial(n, acc=1):
+    if n == 0:
+        return acc
+    elif n > 0:
+        return factorial(n-1, n * acc)
+```
+
+## Tail Call Optimization
+
+Some compilers are able to optimize tail-recursive functions by re-using stack
+frames for multiple function calls. Unfortunately, Python doesn't support this
+optimization, so other solutions needs to be considered, such as loops.
+
+Recursion becomes even more inefficient as multiple additional functions are
+called in each step, as a recursive implementation of a function to compute the
+Fibonacci numbers requires:
+
+```python
+def fib(n):
+    print(f'fib({n})')
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-2) + fib(n-1)
+```
+
+The `print` call makes the amount of (redundant) functions being called
+apparent:
+
+    >>> fib(6)
+    fib(6)
+    fib(4)
+    fib(2)
+    fib(0)
+    fib(1)
+    fib(3)
+    fib(1)
+    fib(2)
+    fib(0)
+    fib(1)
+    fib(5)
+    fib(3)
+    fib(1)
+    fib(2)
+    fib(0)
+    fib(1)
+    fib(4)
+    fib(2)
+    fib(0)
+    fib(1)
+    fib(3)
+    fib(1)
+    fib(2)
+    fib(0)
+    fib(1)
+    8
+
+The `fib` function is called with the argument `1` alone eight times. The
+inefficiency becomes even more striking when using a bigger `n` and counting the
+function calls (`fibonacci.py`):
+
+```python
+calls = 0
+
+def fib(n):
+    global calls
+    calls += 1
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-2) + fib(n-1)
+
+print(f'fib(35)={fib(35)} after {calls} calls')
+```
+
+Almost 30 million function calls in a bit less than five seconds are required to
+compute the 35th Fibonacci number:
+
+```bash
+$ time python3 fibonacci.py
+fib(35)=9227465 after 29860703 calls
+
+real    0m4.948s
+user    0m4.946s
+sys     0m0.000s
+```
+
+## Memoization
+
+When many intermediate results are computed multiple times, re-using those
+results helps saving function calls. For this purpose, the function arguments
+are (keys) are put together with the results (values) into a dictionary. This
+technique is called _memoization_:
+
+```python
+calls = 0
+cache = {}
+
+def fib(n):
+    global calls
+    calls += 1
+    if n in cache:
+        return  cache[n]
+    else:
+        if n == 0:
+            result = 0
+        elif n == 1:
+            result = 1
+        else:
+            result = fib(n-2) + fib(n-1)
+        cache[n] = result
+        return result
+
+print(f'fib(35)={fib(35)} after {calls} calls')
+```
+
+Which reduces function calls by a factor of more than 4*10⁵, and runtime by a
+factor of roughly 167 (memoization comes with a slight overhead).
+
+```bash
+fib(35)=9227465 after 69 calls
+
+real    0m0.030s
+user    0m0.030s
+sys     0m0.000s
+```
+
+Memoization is a _cross cutting concern_ that has little to do with the function
+itself. Python's `functools` has a decorator `lru_cache` (least recently used
+cache) which provides memoization out-of-the-box:
+
+```python
+from functools import lru_cache
+
+calls = 0
+
+@lru_cache
+def fib(n):
+    global calls
+    calls += 1
+    if n == 0:
+        result = 0
+    elif n == 1:
+        result = 1
+    else:
+        result = fib(n-2) + fib(n-1)
+    return result
+
+print(f'fib(35)={fib(35)} after {calls} calls')
+```
+
+Even less functions are invoked, because the caching mechanism is around the
+function:
+
+```bash
+fib(35)=9227465 after 36 calls
+
+real    0m0.029s
+user    0m0.025s
+sys     0m0.004s
+```
+
+## Flattening Lists
+
+Lists in Python can be nested:
+
+```python
+[1, [2, [3, 4, [5, 6], 7], 8], 9]
+```
+
+Such a list contains numbers and lists, which again contain numbers and lists,
+and so on. It is often useful to _flatten_ such a list:
+
+```python
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+For this purpose, a recursive implementation processes the nested list one by
+one. The first element (`head`) of the remaining list is considered in each
+function call, and the remaining elements (`tail`) are delegated to another
+recursive call. Then, the solution is combined:
+
+```python
+def flatten(x):
+    if not isinstance(x, list):
+        # x is a number: first base case
+        return [x]
+    if x == []:
+        # x is an empty list: second base case
+        return x
+    else:
+        # x is a non-empty list: general case
+        return flatten(x[0]) + flatten(x[1:])
+```
+
+Memoization won't help here, because `x` is different for every function call. A
+more feasible approach would be to fall back to loops:
+
+```python
+def flatten(x):
+    if not isinstance(x, list):
+        # x is a number: first base case
+        return [x]
+    if x == []:
+        # x is an empty list: second base case
+        return x
+    else:
+        # x is a non-empty list: general case
+        r = []
+        for e in x:
+            if isinstance(e, list):
+                r += flatten(e)
+            else:
+                r.append(e)
+        return r
+```
+
+A recursive function call here only takes place for each additional depth level,
+not for every additional element.
