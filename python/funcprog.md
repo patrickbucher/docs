@@ -786,8 +786,10 @@ grade_for = get_grade_for_func(max_score)
 round_to = get_round_to_func(0.1)
 
 def compose(f, g):
+
     def func(x):
         return f(g(x))
+
     return func
 
 score_to_rounded_grade = compose(round_to, grade_for)
