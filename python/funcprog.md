@@ -1,11 +1,11 @@
 ---
 title: Functional Programming in Python
-subtitle: Book Summary
+subtitle: Concepts and Examples
 author: Patrick Bucher
 ---
 
-see [Functional Programming in
-Python](https://leanpub.com/functionalprogramminginpython) by Martin McBride
+This overview is inspired by [Functional Programming in
+Python](https://leanpub.com/functionalprogramminginpython) by Martin McBride.
 
 # Introduction
 
@@ -371,7 +371,7 @@ def factorial(n, acc=1):
         return factorial(n-1, n * acc)
 ```
 
-## Tail Call Optimization
+## (No) Tail Call Optimization
 
 Some compilers are able to optimize tail-recursive functions by re-using stack
 frames for multiple function calls. Unfortunately, Python doesn't support this
@@ -587,3 +587,517 @@ def flatten(x):
 
 A recursive function call here only takes place for each additional depth level,
 not for every additional element.
+
+# Closures
+
+Functions can contain other functions. The inner function cannnot be seen from
+the outside of the outer function, unless the outer function returns the inner
+function. In this example, an inner function `grade` is used from the outer
+function `grade_exams`.
+
+```python
+def grade_exams(candidate_scores, max_score):
+
+    def grade(score):
+        # Swiss grades: 1..6
+        return score / max_score * 5 + 1
+    
+    candidate_grades = {}
+    for candidate, score in candidate_scores.items():
+        candidate_grades[candidate] = grade(score)
+
+    return candidate_grades
+
+exam_max_score = 50
+exam_scores = {
+    'Alice': 42,
+    'Bob': 35,
+    'Mallory': 49,
+}
+exam_grades = grade_exams(exam_scores, exam_max_score)
+print(exam_grades) # {'Alice': 5.2, 'Bob': 4.5, 'Mallory': 5.9}
+```
+
+## Returning Inner Functions
+
+Notice how each `score` is passed to `grade`, but `max_score` is taken from the
+outer scope. The inner function even has access to the outer function's scope if
+it is returned from the outer function and used elsewhere. The outer function
+_encloses_ the inner function; this construct therefore is called a _closure_:
+
+```python
+def get_compute_salary_func(year):
+
+    bonus_rates = {
+        2018: 0.05,
+        2019: 0.10,
+        2020: 0.07,
+    }
+    bonus_rate = bonus_rates.get(year, 0.0)
+
+    def compute_yearly_salary(monthly):
+        base_salary = monthly * 12
+        bonus = base_salary * bonus_rate
+        return base_salary + bonus
+
+    return compute_yearly_salary
+
+compute_2016_salaries = get_compute_salary_func(2016)
+compute_2018_salaries = get_compute_salary_func(2018)
+compute_2020_salaries = get_compute_salary_func(2020)
+
+print(compute_2016_salaries(80000))  #  960000.0
+print(compute_2018_salaries(80000))  # 1008000.0
+print(compute_2020_salaries(80000))  # 1027200.0
+```
+
+In the example above, the outer function `get_compute_salary_func` encloses the
+inner function `compute_yearly_salary`; the latter using the variable
+`bonus_rate` established in the former's scope. Even though the same function is
+used multiple times, it computes different results, because the enclosing scope
+is different.
+
+## Map
+
+A dictionary is a Python data structure that describes the relationship between
+a key and a value in a static way. The `map` function can be seen as the dynamic
+counterpart of a `dict`. It is a higher-order function that processes a
+collection of items using a given function, and returns a collection consisting
+of the function's return value for each item:
+
+```python
+max_score = 50
+exam_scores = [42, 35, 49]
+
+def grade(score):
+    # Swiss grades: 1..6
+    return score / max_score * 5 + 1
+
+exam_grades = map(grade, exam_scores)
+print(list(exam_grades))  # [5.2, 4.5, 5.9]
+```
+
+No explicit looping over the individual scores is needed, the `map` function
+handles those details. The code can be further simplified by using a lambda
+instead of a named function:
+
+```python
+max_score = 50
+exam_scores = [42, 35, 49]
+exam_grades = map(lambda score: score / max_score * 5 + 1, exam_scores)
+print(list(exam_grades))
+```
+
+This works with any kind of functions, i.e. also with a closure _primed_ with
+a value, like in the salary example from before:
+
+```python
+def get_compute_salary_func(year):
+
+    bonus_rates = {
+        2018: 0.05,
+        2019: 0.10,
+        2020: 0.07,
+    }
+    bonus_rate = bonus_rates.get(year, 0.0)
+
+    def compute_yearly_salary(monthly):
+        base_salary = monthly * 12
+        bonus = base_salary * bonus_rate
+        return base_salary + bonus
+
+    return compute_yearly_salary
+
+compute_2020_salaries = get_compute_salary_func(2020)
+base_salaries = [80000, 90000, 100000]
+total_salaries = map(compute_2020_salaries, base_salaries)
+print(list(total_salaries))
+```
+
+## Composing Functions
+
+Consider the value `x` that has to be processed by two functions `f` and `g`:
+
+1. `y` is computed as `y=g(x)` (intermediate result)
+2. `z` is computed as `z=f(y)` (final result)
+
+This, of course, can be simplified by _composing_ the two functions `f` and `g`
+as `f(g(x))`.
+
+Consider this example, where exam scores are first mapped to exam grades, which
+then are rounded in a second step:
+
+```python
+def get_grade_for_func(max_score):
+
+    def grade(score):
+        return score / max_score * 5 + 1
+
+    return grade
+
+def get_round_to_func(granularity):
+
+    def round_to(value):
+        scaled_up = value * (1 / granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * granularity
+        return scaled_down
+    
+    return round_to
+
+max_score = 72
+scores = [46, 70, 53, 38, 67]
+
+grade_for = get_grade_for_func(max_score)
+round_to = get_round_to_func(0.1)
+
+exact_grades = map(grade_for, scores)
+rounded_grades = map(round_to, exact_grades)
+
+print(list(rounded_grades))  # [4.2, 5.9, 4.7, 3.6, 5.7]
+```
+
+This approach requires two calls to `map`, with each call iterating over all the
+elements. If the grader and rounding function are composed to a single function,
+the list only needs to be processed once:
+
+```python
+def get_grade_for_func(max_score):
+
+    def grade(score):
+        return score / max_score * 5 + 1
+
+    return grade
+
+def get_round_to_func(granularity):
+
+    def round_to(value):
+        scaled_up = value * (1 / granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * granularity
+        return scaled_down
+    
+    return round_to
+
+max_score = 72
+scores = [46, 70, 53, 38, 67]
+
+grade_for = get_grade_for_func(max_score)
+round_to = get_round_to_func(0.1)
+
+def compose(f, g):
+    def func(x):
+        return f(g(x))
+    return func
+
+score_to_rounded_grade = compose(round_to, grade_for)
+
+rounded_grades = map(score_to_rounded_grade, scores)
+
+print(list(rounded_grades))  # [4.2, 5.9, 4.7, 3.6, 5.7]
+```
+
+This approach scales much better: Not only in terms of runtime efficiency, which
+becomes noticable as the number of elements grows, but only if additional
+computations need to be done for every item.
+
+In this example, an additional point bonus is added to each score, so that the
+maximum grade can be reached without a perfect score:
+
+```python
+def get_bonus_of_func(bonus):
+
+    def add(score):
+        return score + bonus
+
+    return add
+
+def get_grade_for_func(max_score):
+
+    def grade(score):
+        return score / max_score * 5 + 1
+
+    return grade
+
+def get_round_to_func(granularity):
+
+    def round_to(value):
+        scaled_up = value * (1 / granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * granularity
+        return scaled_down
+    
+    return round_to
+
+max_score = 100
+scores = [70, 80, 90, 40, 100]
+
+bonus_of = get_bonus_of_func(max_score / 10)
+grade_for = get_grade_for_func(max_score)
+round_to = get_round_to_func(0.1)
+
+def compose(f, g):
+
+    def func(x):
+        return f(g(x))
+
+    return func
+
+score_to_exact_grade = compose(grade_for, bonus_of)
+score_to_rounded_grade = compose(round_to, score_to_exact_grade)
+
+rounded_grades = map(score_to_rounded_grade, scores)
+
+print(list(rounded_grades))  # [5.0, 5.5, 6.0, 3.5, 6.5]
+```
+
+Unfortunately, this brings up another issues: Grades higher than the maximum
+grade of 6.0 are computed. However, this issues can be solved by composing even
+further:
+
+```python
+def get_bonus_of_func(bonus):
+
+    def add(score):
+        return score + bonus
+
+    return add
+
+def get_grade_for_func(max_score):
+
+    def grade(score):
+        return score / max_score * 5 + 1
+
+    return grade
+
+def get_limit_of_func(max_grade):
+
+    def limit(grade):
+        return min(grade, max_grade)
+
+    return limit
+
+
+def get_round_to_func(granularity):
+
+    def round_to(value):
+        scaled_up = value * (1 / granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * granularity
+        return scaled_down
+    
+    return round_to
+
+max_score = 100
+scores = [70, 80, 90, 40, 100]
+
+bonus_of = get_bonus_of_func(max_score / 10)
+grade_for = get_grade_for_func(max_score)
+limit_of = get_limit_of_func(6.0)
+round_to = get_round_to_func(0.1)
+
+def compose(f, g):
+
+    def func(x):
+        return f(g(x))
+
+    return func
+
+score_to_exact_grade = compose(grade_for, bonus_of)
+score_to_bounded_grade = compose(limit_of, score_to_exact_grade)
+score_to_rounded_grade = compose(round_to, score_to_bounded_grade)
+
+rounded_grades = map(score_to_rounded_grade, scores)
+
+print(list(rounded_grades))  # [5.0, 5.5, 6.0, 3.5, 6.0]
+```
+
+Compare this to a procedural approach, which is much shorter in terms of lines:
+
+```python
+max_score = 100
+scores = [70, 80, 90, 40, 100]
+bonus = max_score / 10
+max_grade = 6.0
+granularity = 0.1
+
+grades = []
+for score in scores:
+    score = score + bonus
+    grade = score / max_score * 5 + 1
+    if grade > max_grade:
+        grade = max_grade
+    grade = round(grade * 1 / granularity) * granularity
+    grades.append(grade)
+
+print(grades)  # [5.0, 5.5, 6.0, 3.5, 6.0]
+```
+
+However, this code is harder to reason about ("Where did the error happen?"),
+especially if the computations are getting more involved. The functional
+approach allows you to reason about and write tests for each function in
+isolation. If the functions work correctly, are composed in the right way and
+used with well-tested higher-order functions like `map` , the result will be
+correct, too.
+
+## Closures vs. Classes
+
+Like objects, closures can hold state. In OOP, the state can be initialized
+using a constructor. A method of the same class then can perform computations
+based on both internal state and parameters:
+
+```python
+class Rounder:
+
+    def __init__(self, granularity):
+        self._granularity = granularity
+
+    def round(self, value):
+        scaled_up = value * (1 / self._granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * self._granularity
+        return scaled_down
+
+grades = [5.234, 4.738, 3.269]
+rounder = Rounder(0.05)
+rounded = map(rounder.round, grades)
+print(list(rounded))  # [5.25, 4.75, 3.25]
+```
+
+Python has a special method `__call__`, which allows objects to be used like
+functions. The above implementation can be turned more pythonesque by, first,
+renaming `round` to `__call__`, and, second, by using `rounder` as a function
+(instead of its method `rounder.round`). Calls to `rounder()` will be delegated
+to the `__call__` method:
+
+```python
+class Rounder:
+
+    def __init__(self, granularity):
+        self._granularity = granularity
+
+    def __call__(self, value):
+        scaled_up = value * (1 / self._granularity)
+        rounded = round(scaled_up)
+        scaled_down = rounded * self._granularity
+        return scaled_down
+
+grades = [5.234, 4.738, 3.269]
+rounder = Rounder(0.05)
+rounded = map(rounder, grades)
+print(list(rounded))  # [5.25, 4.75, 3.25]
+```
+
+This approach is useful when objects first need to be configured in a
+complicated but inconsistent manner. Think of the Builder pattern, that allows
+to initialize objects only using a subset of available parameters:
+
+```python
+class Salary:
+
+    _bonus = 0
+    _taxes = 0
+    _penalty = 0
+
+    def __init__(self, amount):
+        self._salary = amount
+
+    def with_bonus(self, rate):
+        self._bonus = rate
+        return self
+
+    def with_taxes(self, rate):
+        self._taxes = rate
+        return self
+
+    def with_penalty(self, penalty):
+        self._penalty = penalty
+        return self
+
+    def __call__(self):
+        pre_bonus = (self._salary - self._penalty)
+        pre_taxes = pre_bonus + pre_bonus * self._bonus
+        return pre_taxes - pre_taxes * self._taxes
+
+salary_1 = Salary(100000).with_bonus(0.1).with_penalty(5000)
+salary_2 = Salary(100000).with_bonus(0.1).with_taxes(0.2)
+print(salary_1())  # 104500.0
+print(salary_2())  #  88000.0
+```
+
+A function returning a closure would require optional parameters for the same
+purpose:
+
+```python
+def get_salary_func(bonus=0, taxes=0, penalty=0):
+
+    def compute(salary):
+        pre_bonus = (salary - penalty)
+        pre_taxes = pre_bonus + pre_bonus * bonus
+        return pre_taxes - pre_taxes * taxes
+
+    return compute
+
+salary_1 = get_salary_func(bonus=0.1, penalty=5000)
+salary_2 = get_salary_func(bonus=0.1, taxes=0.2)
+print(salary_1(100000))  # 104500.0
+print(salary_2(100000))  #  88000.0
+```
+
+## Inspecting Closures
+
+Python provides the special attributes `__closure__` and `__code__` to inspect
+closures (see the [Data
+Model](https://docs.python.org/3/reference/datamodel.html) for details).
+
+The variables a function has access to by enclosing an outer scope—so-called
+_free variables_—can be retrieved as a tuple using the `co_freewars` attribute
+of the `__code__` attribute. To get the values of those free variables, inspect
+the `cell_contents` attribute of each element of the `__closure__` attribute:
+
+```python
+def get_salary_func(bonus=0, taxes=0, penalty=0):
+
+    def compute(salary):
+        pre_bonus = (salary - penalty)
+        pre_taxes = pre_bonus + pre_bonus * bonus
+        return pre_taxes - pre_taxes * taxes
+
+    return compute
+
+salary = get_salary_func(bonus=0.1, penalty=5000)
+print(salary.__code__.co_freevars)  # ('bonus', 'penalty', 'taxes')
+print(salary.__closure__[0].cell_contents)  # 0.1
+print(salary.__closure__[1].cell_contents)  # 5000
+print(salary.__closure__[2].cell_contents)  # 0
+```
+
+This process can be simplified using an utility function:
+
+```python
+def get_salary_func(bonus=0, taxes=0, penalty=0):
+
+    def compute(salary):
+        pre_bonus = (salary - penalty)
+        pre_taxes = pre_bonus + pre_bonus * bonus
+        return pre_taxes - pre_taxes * taxes
+
+    return compute
+
+salary = get_salary_func(bonus=0.1, penalty=5000)
+
+def inspect_closure(func):
+    for i, name in enumerate(func.__code__.co_freevars):
+        print(f'{name} = {func.__closure__[i].cell_contents}')
+
+inspect_closure(salary)
+```
+
+Which outputs all the free variables of a closure:
+
+    bonus = 0.1
+    penalty = 5000
+    taxes = 0
+
+Notice that those are read-only values, don't attempt to manipulate those
+closures: better create a new one.
