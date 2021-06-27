@@ -1025,7 +1025,7 @@ print(salary_1())  # 104500.0
 print(salary_2())  #  88000.0
 ```
 
-A function returning a closure would require optional parameters for the same
+A function returning a closure requires optional parameters for the same
 purpose:
 
 ```python
