@@ -975,3 +975,319 @@ learn which TLS issues cause which OpenSSL error messages.
     $ openssl s_client -connect superfish.badssl.com:443 \
       -verify_return_error </dev/null 2>/dev/null | grep 'Verification error'
     Verification error: unable to get local issuer certificate
+
+# Chapter 6: Certificate Signing Requests and Commecrial CAs
+
+Certificate Signing Requests (CSR) are specified in [RFC
+2986](https://datatracker.ietf.org/doc/html/rfc2986). They contain all the
+information that is verified by the CA, and then signed. A CSR can be seen as an
+unsigned certificate. It is a good idea to automate the process of creating
+CSRs, so that you get it right without re-trying multiple times, especially if
+you urgently need to replace a certificate based on a private key that just has
+been leaked. It's a good idea to create a new private key with each request,
+because older private keys are more likely to have been leaked unknowingly, and
+they also tend to base on older best practices and cryptographic algorithms.
+
+## Gathering Information
+
+Free CAs (like ACME) are a good choice for DV (domain validation) certificates.
+Internal policy, the need for a OV (organization validation) or EV (extended
+validation), or if you want to run your own CA are reasons to use a commercial
+CA instead. DV certificates usually only require a domain name. More information
+is needed for an OV or EV certificate. Make sure to gather this information in
+advance:
+
+- Country Name (`C`): two-letter country code (ISO 3166), e.g. `CH` for
+  Switzerland
+- State/Provice (`ST`): spelled out name of state or provice, e.g. `Lucerne`
+- Locality (`L`): the city name, in which a company is _officially_ located,
+  e.g. `Lucerne`
+- Organization (`O`): the company's legal name, e.g. `Foo Brewery AG` (not just
+  `Foo Brewery`!)
+- Organization Unit (`OU`): the department that handles the certificates
+  (usually `IT`), optional field
+
+Storing the hostname under Common Name (`CN`) is an obsolete practice, which is
+still used a lot for the sake of backward compatibility. Notice that the `CN`
+field is limited to 63 characters, and no name constraints are checked for this
+field by the CA.
+
+## RSA or ECDSA
+
+There are two possible choices for a public key algorithm:
+
+1. RSA is the time-proofen option that is supported by most CAs and most
+   software.
+2. ECDSA is a newer standard that provides the same security with shorter key
+   lengths.
+
+Consider ECDSA to save processing power for cryptography if the certificates are
+mostly used on devices with little computing power or that run on battery. It is
+possible that the CA's root certificate uses a different algorithm than the CSR,
+but then the client has to deal with both RSA and ECDSA. Better pick a CA that
+supports your choice of algorithm. It is also possible to deploy one certificate
+by algorithm, depending on the software you're using.
+
+## OpenSSL Configuration
+
+The information needed for a CSR can be entered in different ways:
+
+1. Using an interactive prompt.
+2. Using command-line flags.
+3. Using configuration files.
+
+Using the interactive prompt is very error-prone and limits automation. Better
+use one of the other two options.
+
+In order to provide your CSR details with a configuration file, you can get to
+know the default configuration of your local OpenSSL installation:
+
+    $ openssl version -a | grep -i openssldir
+    OPENSSLDIR: "/etc/ssl"
+
+The configuration is located in that directory under `openssl.cnf`, so in this
+example in `/etc/ssl/openssl.cnf`. The file is organized in different section.
+For example, configuration relevant for the `req` subcommand is stored under the
+`[ req ]` section. The settings are stored as key-value pairs. Comments start
+with `#` and go to the end of a line. Better do _not_ modify this file, but
+provide local files for specific needs.
+
+## CSR Configuration File
+
+When creating a CSR, make sure to name the files used for this purpose properly,
+i.e. containing the domain name, for example `paedubucher.ch-private.key` for a
+private key, `paedubucher.ch.csr` for the CSR, and `paedubucher.ch.crt` for the
+certificate you get back from the CA.
+
+The CSR is created using openssl's `req` subcommand. Let's gather the required
+information in a config file (`paedubucher.ch.conf`):
+
+    [ req ]
+    prompt             = no
+    default_keyfile    = paedubucher.ch-private.key
+    distinguished_name = req_distinguished_name
+    req_extensions     = v3_req
+    encrypt_key        = yes
+    output_password    = topsecret
+
+    [ req_distinguished_name ]
+    C  = CH
+    ST = Lucerne
+    L  = Lucerne
+    O  = Patrick Bucher Kompooter AG
+    OU = Department of IT Operations
+    CN = paedubucher.ch
+
+    [ v3_req ]
+    subjectAltName = DNS:paedubucher.ch,DNS:www.paedubucher.ch
+
+There are three sections with the following options:
+
+- `req`: parameters to create the CSR
+    - `prompt`: whether (`yes`) or not (`no`) to prompt information
+      interactively from the command line
+    - `default_keyfile`: path to the file the new private key is stored in
+    - `distinguished_name`: pointing to the section the information to be
+      validated is stored
+    - `req_extensions`: pointing to extensions used (here: SAN stored in X.509v3
+      extension)
+    - `encrypt_key`: whether (`yes`) or not (`no`) the private key should be
+      encrypted with a password (the command line option `-nodes` for "no DES"
+      deactivates encryption, even though DES is no longer used for that purpose)
+    - `output_password`: the password in plain text to encrypt the private key
+      with, omit if `encrypt_key = no`
+- `req_distinguished_name`: a section containing the information to be validated
+  by the CA (see the meaning of those fields further above)
+- `v3_req`: information for X.509v3 extensions.
+    - `subjectAltName`: list all the (sub)domains for which this certificate
+      should be valid as comma-separated values with `DNS:` prefix (see [RFC
+      5280](https://datatracker.ietf.org/doc/html/rfc5280))
+
+When using an encrypted private key, the password needs to be provided when the
+service using the certificate is restarted. Protect the config file containing
+the password as good as the private key!
+
+If a lot of subject alt names are to be defined (say, more than would fit on a
+single line), you can use an array instead:
+
+    [ v3_req ]
+    subjectAltName = @alt_names
+
+    [ alt_names ]
+    DNS.1 = paedubucher.ch
+    DNS.2 = www.paedubucher.ch
+    DNS.3 = *.cdn.paedubucher.ch
+
+The entries have to be listed with increasing numbers (`i` in `DNS.i`), gaps are
+allowed.
+
+## Creating the CSR
+
+The CSR, which should be stored in a file named `[domain].csr`, can be created
+using openssl's `req` subcommand. Notice that there are some differences
+depending on the public key algorithm to be used.
+
+### ECDSA
+
+When using ECDSA, a parameters file to configure the elliptic curve is needed.
+
+First, pick one among the available curves, which can be listed using the
+`ecparam` subcommand:
+
+    $ openssl ecparam -list_curves
+
+`P-256` (`prime256v1`) is a good default choice.
+
+Second, create the parameters file to configure the curve using the `genpkey`
+subcommand:
+
+    $ openssl genpkey -genparam -out ec-p256-params.pem -algorithm ec \
+      -pkeyopt ec_paramgen_curve:prime256v1
+
+Finally, the CSR can be created:
+
+    $ openssl req -newkey ec:ec-p256-params.pem -config paedubucher.ch.conf \
+      -out paedubucher.csr
+
+Which should create two files: the private key `paedubucher.ch-private.key` and
+the actual CSR `paedubucher.csr`.
+
+### RSA
+
+When using RSA, the configuration file needs to be modified by including the
+`default_bits` (usually `2048` or `4096`) and the hashing algorithm (e.g.
+`sha256`):
+
+    [ req ]
+    prompt             = no
+    default_bits       = 2048
+    default_md         = sha256
+    # same as above...
+
+Since the crypto parameters are already provided in the configuration file, the
+CSR can be created without further ado:
+
+    $ openssl req -newkey rsa -config paedubucher.ch.conf -out paedubucher.csr
+
+Again, the private key `paedubucher.ch-private.key` and the actual CSR
+`paedubucher.csr` should have been generated.
+
+### Client Certificates
+
+The information needed for client certificates mostly depends on the application
+requesting such a certificate. Here's a config file (`application.conf`) for a
+client certificate supposed to verify a subject by email using RSA encryption:
+
+    [ req ]
+    prompt             = no
+    default_bits       = 2048
+    default_md         = sha256
+    default_keyfile    = application-private.key
+    distinguished_name = req_distinguished_name
+    encrypt_key        = yes
+    output_password    = topsecret
+
+    [ req_distinguished_name ]
+    CN = Patrick Bucher
+    emailAddress = patrick.bucher@mailbox.org
+
+    [ v3_req ]
+    subjectAltName = email:patrick.bucher@mailbox.org
+
+The CSR is created as follows:
+
+    $ openssl req -newkey rsa -config application.conf -out application.csr
+
+Which creates two files: `application-private.key` and `application.csr`.
+
+For applications like VPN connections, a passphrase is commonly used, since the
+key lies on a client device. Other applications do without a passphrase.
+
+Notice that when leaving a way a distinguished name (`DN`) for an OV or EV
+certificate, the `prompt` setting cannot be set to `no` via configuration file.
+Use the `-subj` flag with the value `/` to suppress the prompt nonetheless.
+
+## Without Config File
+
+If you need to create your CSR without an intermediary config file, you can
+provide all the information needed using the `-subj` and `-addext` command line
+flags:
+
+    $ openssl req -newkey rsa:2048 \
+      -keyout paedubucher.ch-private.key \
+      -out paedubucher.ch.csr \
+      -subj '/C=CH/ST=Lucerne/L=Lucerne/O=My Company/OU=IT/CN=paedubucher.ch' \
+      -addext 'subjectAltName=DNS:paedubucher.ch,DNS:www.paedubucher.ch'
+
+Use `-nodes`  for an unprotected private key file. Make sure to provide the `C`,
+`ST`, `L`, and `O` field for OV and EV certificates. DV certificates only
+require the `CN` field.
+
+## Viewing a CSR
+
+Before sending the CSR to your CA, double check it:
+
+    $ openssl req -in paedubucher.ch.csr -noout -text
+    Certificate Request:
+        Data:
+            Version: 1 (0x0)
+            Subject: C = CH, ST = Lucerne, L = Lucerne, O = My Company, OU = ...
+            Subject Public Key Info:
+                Public Key Algorithm: rsaEncryption
+                    RSA Public-Key: (2048 bit)
+                    Modulus:
+                        00:c4:c8:a3:c7:c4:87:67:8b:80:04:b7:c7:b9:01:
+                        ...
+                    Exponent: 65537 (0x10001)
+            Attributes:
+            Requested Extensions:
+                X509v3 Subject Alternative Name: 
+                    DNS:paedubucher.ch, DNS:www.paedubucher.ch
+        Signature Algorithm: sha256WithRSAEncryption
+             81:32:09:8a:c3:2e:9e:da:a9:5f:7f:f1:60:c2:97:18:1d:92:
+             ...
+
+Are all the parameters correct? Is there anything misspelled? Store as much
+information in configuration files and/or scripts as possible, so that
+re-creating the CSR is only a matter of seconds.
+
+If everything is fine, submit your CSR to your CA.
+
+## Storing the Certificate
+
+When you get your certificate back from the CA, make sure to store it properly
+on your server:
+
+- Make sure to store the private key with the certificate. A sub-folder for
+  private keys (e.g. `/etc/certs/keys`) is often used with certificates being
+  stored one level above (e.g. `/etc/certs`).
+- Those folders should be readable only by `root`. The files therein should be
+  owned by `root` and by a group to which application users belong (e.g.
+  `nginx`).
+- Prefix the files stored with the (sub)domain name. Consider adding date
+  information as a prefix, too (e.g. `2021-07-03-paedubucher.ch-private.key`).
+- Keep backups of those files.
+- Consider storing passphrases in a password manager, which is backed up, too.
+
+### Matching CSR, Private Key, and Certificate
+
+If you don't know which files (CSR, private key, and certificate) belong
+together, you can figure this out using the _modulus_, which is a cryptographic
+information that is commonly stored in all the files mentioned.
+
+Use the respective subcommand per file (`x509` for the certificate, `rsa` or
+`ecdsa` for the private key, and `req` for the CSR) to figure out the modulus
+using the `-modulus` flag. Pipe the output through the `md5` subcommand for
+easier comparison:
+
+    $ openssl x509 -noout -modulus -in paedubucher.ch.crt | openssl md5
+    (stdin)= 00ae93c0ba0b571cfbe5e6e0233a6fb1
+    $ openssl rsa -noout -modulus -in paedubucher.ch-private.key | openssl md5
+    (stdin)= 00ae93c0ba0b571cfbe5e6e0233a6fb1
+    $ openssl req -noout -modulus -in paedubucher.ch.csr | openssl md5
+    (stdin)= 00ae93c0ba0b571cfbe5e6e0233a6fb1
+
+Here, certificate, private key, and CSR belong to one another!
+
+It's a good idea to write a script (accepting the domain name `paedubucher.ch`
+as a parameter) to automate the process.
