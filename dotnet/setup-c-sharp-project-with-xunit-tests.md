@@ -13,7 +13,7 @@ Create a new project called "grading":
     $ git init
 
     $ dotnet new sln
-    $ dotnet new classlib -o Grading
+    $ dotnet new classlib -o Grading  # classlib or console
     $ dotnet sln add Grading/Grading.csproj
     $ mv Grading/Class1.cs Grading/Grading.cs
 
