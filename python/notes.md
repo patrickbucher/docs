@@ -110,3 +110,72 @@ C 20 40
 
 - containers: heterogenous, hold references
 - flat: homogenous, hold values
+
+## Interpreter
+
+`-c cmd`: program passed in a string
+
+    $ python -c 'print("Hello, World!")'
+    Hello, World!
+
+`-m mod`: run library module as a script
+
+    $ mkdir -p foo/bar/baz
+    $ cat > foo/bar/baz/qux.py
+    print('Hello, World!')
+    <Ctrl-D>
+
+    $ python -m foo.bar.baz.qux
+    Hello, World!
+
+`-i`: inspect interactively after running script
+
+    $ python -i -c 'a = 3 + 2'
+    >>> print(a)
+    5
+
+`sys.argv[0]` depends on the way the Python interpreter was called:
+
+| Invocation                   | Value of `sys.argv[0]`      |
+|------------------------------|-----------------------------|
+| `python -m foo.bar.baz.qux`  | full name of located module |
+| `python -c 'print("Hello")'` | `-c`                        |
+
+## Interactive Commands
+
+`quit()` terminates both an interactive session and a script:
+
+    $ cat > script.py
+    print('foo')
+    print('bar')
+    quit()
+    print('baz')
+    <Ctrl-D>
+
+    $ python script.py
+    foo
+    bar
+
+## Special Comments
+
+Shebang line for executable scripts:
+
+    #!/usr/bin/env python3
+
+Encoding, if _not_ UTF-8 is to be used:
+
+    # -*- coding: cp1252 -*-
+
+## Variadic Functions
+
+Using positional arguments:
+
+```python
+def sum(*args):
+    result = 0
+    for arg in args:
+        result += arg
+    return result
+
+sum(1, 2, 3) # 6
+```
