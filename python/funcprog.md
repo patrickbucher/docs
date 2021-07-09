@@ -1103,3 +1103,174 @@ Which outputs all the free variables of a closure:
 
 Notice that those are read-only values, don't attempt to manipulate those
 closures: better create a new one.
+
+# Iterators
+
+An _iterator_ can be used to process the elements of a sequence one by one. When
+passed to the `next()` function, the next element of the iterator's underlying
+sequence is returned—or `StopIteration` thrown, in case the iterator is
+_exhausted_, i.e. all of its elements have been processed.
+
+Higher-order functions like `filter` or `map` return iterators:
+
+```python
+numbers = [1, 2, 3, 4, 5]
+even = filter(lambda x: x % 2 == 0, numbers)
+odd = map(lambda x: x + 1, even)
+print(next(odd))  # 3
+print(next(odd))  # 5
+print(next(odd))  # StopIteration
+```
+
+An iterator can onle be processed once in forward direction. However, multiple
+iterators can be used to process the same underlying sequence.
+
+## Iterables
+
+An _iterable_ is something (usually a sequence like list, tuple, string) that
+can be turned into an iterator by passing it to the `iter()` function, which
+returns a new iterator:
+
+```python
+numbers = [1, 2, 3]
+i = iter(numbers)
+print(next(i))  # 1
+print(next(i))  # 2
+print(next(i))  # 3
+```
+
+An iterator itself is also an iterable, so calls to `iter()` passing an iterator
+return the same iterator with its current state:
+
+```python
+numbers = [1, 2, 3]
+i = iter(numbers)
+print(next(i))  # 1
+j = iter(i)
+print(next(j))  # 2
+print(next(i))  # 3
+```
+
+## Loops use Iterators
+
+Internally, Python relies heavily on iterators. A `for`/`in` loop works on any
+iterable. First, `iter()` is called on the loop's iterable to get an iterator.
+Then, for every iteration, `next()` is called on the iterator to get to the next
+elements. Finally, the loop ends when `StopIteration` is raised.
+
+Consider this `for`/`in` loop:
+
+```python
+numbers = [1, 2, 3]
+
+for x in numbers:
+    print(x)
+```
+
+Which could be re-written using explicit `iter()` and `next()` calls and a
+`while` loop:
+
+```python
+numbers = [1, 2, 3]
+
+i = iter(numbers)
+while True:
+    try:
+        x = next(i)
+        print(x)
+    except StopIteration:
+        break
+```
+
+## Lazy Evaluation
+
+Iterators only must produce their values when requested using the `next()`
+function, which means that they can use _lazy evaluation_. If an iteration is
+stopped before the iterator has been exhausted, no remaining items have been
+computed in vain. This can save computing power and memory, but potentially
+increases the processing time needed for a single iteration. (Picking between
+lazy and eager evaluation is a trade-off.) Iterators implemented using lazy
+evaluation can be of infinite length.
+
+The built-in `range()` function produces lazy sequences. However, the sequence's
+length can be figured out using the built-in `len()` function considering the
+limit arguments given to `range()`: `len(range(1, 5))` is `5 - 1 = 4`.
+
+## Realizing Iterators
+
+An iterator must be _realized_ before all of its items can be dealt with at
+once, i.e. by printing out the whole sequence of items. For this purpose, the
+according functions can be called:
+
+```python
+numbers = range(1, 4)
+
+print(list(iter(numbers)))  # [1, 2, 3]
+print(set(iter(numbers)))   # {1, 2, 3}
+print(tuple(iter(numbers))) # (1, 2, 3)
+```
+
+Alternatively, the expansion operator `*` can be used with according literals:
+
+```python
+numbers = range(1, 4)
+
+print([*iter(numbers)])  # [1, 2, 3]
+print({*iter(numbers)})  # {1, 2, 3}
+print((*iter(numbers),)) # (1, 2, 3)
+```
+
+Notice the trailing comma required for tuple expansion in the last example.
+
+When working with strings, `str` will call the iterator's implementation of
+the `__str__()` dunder method, which describes the iterator itself rather than
+its items. Use the `join()` method on an empty string to realize a list of
+characters:
+
+```python
+offsets = range(0, 26)
+capital_a = 65
+alphabet = map(lambda c: chr(c + capital_a), offsets)
+
+print(str(alphabet))     # <map object at 0x7fa5d875b4f0>
+print(''.join(alphabet)) # ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
+
+## Implementing an Iterator
+
+An iterator can be implemented by providing two dunder methods: `__next__()` and
+`__iter__()`. Calls of the built-in functions `next()` and `iter()` will be
+forwarded to the argument's respective dunder methods.
+
+The class `Factorials` implements an iterator that provides the successive
+factorial numbers up to a limit passed to the constructor. The implementation
+uses lazy evaluation:
+
+```python
+class Factorials():
+
+    def __init__(self, n):
+        if n < 0:
+            raise ValueError('n! is only defined for n >= 0')
+        self.n = n
+        self.i = 0
+        self.x = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.i < self.n:
+            self.i += 1
+            self.x *= self.i
+            return self.x
+        else:
+            raise StopIteration
+
+
+print(list(Factorials(3))) # [1, 2, 6]
+print(list(Factorials(5))) # [1, 2, 6, 24, 120]
+print(list(Factorials(8))) # [1, 2, 6, 24, 120, 720, 5040, 40320]
+```
+
+In practice, _generators_ are often a better fit for such tasks.
