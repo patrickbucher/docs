@@ -484,7 +484,7 @@ def fib(n):
 print(f'fib(35)={fib(35)} after {calls} calls')
 ```
 
-Which reduces function calls by a factor of more than 4*10⁵, and runtime by a
+Which reduces function calls by a factor of more than 4*10^5, and runtime by a
 factor of roughly 167 (memoization comes with a slight overhead).
 
 ```bash
@@ -1274,3 +1274,358 @@ print(list(Factorials(8))) # [1, 2, 6, 24, 120, 720, 5040, 40320]
 ```
 
 In practice, _generators_ are often a better fit for such tasks.
+
+# Transforming Iterables
+
+Python provides functions to transform iterables, which are less prone to
+side effects, and therefore the better fit than lists from a functional
+perspective.
+
+## Enumerating
+
+The built-in `enumerate()` function transforms a sequence into an iterator of
+tuples, each containing an index value and an item from the original sequence:
+
+```python
+names = ['Alice', 'Bob', 'Mallory']
+for item in enumerate(names):
+    print(item)
+```
+
+    (0, 'Alice')
+    (1, 'Bob')
+    (2, 'Mallory')
+
+An optional start index can be provided, and the tuple can be unpacked using two
+variables for the loop:
+
+```python
+names = ['Alice', 'Bob', 'Mallory']
+for index, name in enumerate(names, 1):
+    print(index, name)
+```
+
+    1 Alice
+    2 Bob
+    3 Mallory
+
+## Zipping and Unzipping
+
+Multiple sequences can be processed together using the built-in `zip()` function:
+
+```python
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer', 'Consultant', 'Intern']
+salaries = [120000, 250000, 18000]
+
+for employee in zip(names, jobs, salaries):
+    print(employee)
+```
+
+    ('Dilbert', 'Engineer', 120000)
+    ('Dogbert', 'Consultant', 250000)
+    ('Ashok', 'Intern', 18000)
+
+Again, the tuple can be unpacked by using multiple variables for the loop:
+
+```python
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer', 'Consultant', 'Intern']
+salaries = [120000, 250000, 18000]
+
+for name, job, salary in zip(names, jobs, salaries):
+    print(name, job, salary)
+```
+
+    Dilbert Engineer 120000
+    Dogbert Consultant 250000
+    Ashok Intern 18000
+
+Notice that `zip()` stops when the shortest sequence is exhausted:
+
+```python
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer']
+salaries = [120000, 250000]
+
+for employee in zip(names, jobs, salaries):
+    print(employee)
+```
+
+    ('Dilbert', 'Engineer', 120000)
+
+If the original sequences (`names`, `jobs`, `salaries`) are considered columns
+of an employee database, the results of the `zip()` operation can be seen as its
+rows. This transformation can be reversed using `zip()`—by first unpacking the
+resulting sequence, and then zipping it:
+
+```python
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer', 'Consultant', 'Intern']
+salaries = [120000, 250000, 18000]
+
+employees = zip(names, jobs, salaries)
+for col in zip(*employees):
+    print(col)
+```
+
+    ('Dilbert', 'Dogbert', 'Ashok')
+    ('Engineer', 'Consultant', 'Intern')
+    (120000, 250000, 18000)
+
+## Sorting and Reversing
+
+Unlike the list's `sort()` method that sorts a list in-place, the built-in
+`sorted()` function returns a sorted new list. Either operation allows for an
+optional `key` argument, which defines the sorting criterion in terms of a
+function applied to every item:
+
+```python
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer', 'Consultant', 'Intern']
+salaries = [120000, 250000, 18000]
+employees = zip(names, jobs, salaries)
+
+for employee in sorted(employees, key=lambda e: e[2]):
+    print(employee)
+```
+
+    ('Ashok', 'Intern', 18000)
+    ('Dilbert', 'Engineer', 120000)
+    ('Dogbert', 'Consultant', 250000)
+
+The lambda accessing the tuple element at index 2 can also be taken from the
+`operator` module, which provides an `itemgetter` function that produces a
+closure to access the right element:
+
+```python
+from operator import itemgetter
+
+names = ['Dilbert', 'Dogbert', 'Ashok']
+jobs = ['Engineer', 'Consultant', 'Intern']
+salaries = [120000, 250000, 18000]
+employees = zip(names, jobs, salaries)
+
+for employee in sorted(employees, key=itemgetter(2)):
+    print(employee)
+```
+
+    ('Ashok', 'Intern', 18000)
+    ('Dilbert', 'Engineer', 120000)
+    ('Dogbert', 'Consultant', 250000)
+
+When dealing with classes instead of tuple, use the `attrgetter` function to
+access attributes by name. The `methodcaller` function allows to call any method
+on each item by its name:
+
+```python
+from operator import methodcaller
+
+names = ['POINTY HAIRED BOSS', 'Dilbert', 'dogbert', 'alice']
+for name in sorted(names, key=methodcaller('lower')):
+    print(name)
+```
+
+Here, the `lower()` method is called on every name in order to sort the names in
+a case-insensitive manner.
+
+The sort order can be reversed either by setting the optional `reverse` argument
+of the `sorted()` function to `True`, or by calling the `reversed()` built-in
+function:
+
+```python
+names = ['Dilbert', 'Alice', 'Pointy Haired Boss', 'Dogbert', 'Ted']
+
+names_desc = sorted(names, reverse=True)
+print(names_desc)
+
+names_desc = reversed(sorted(names))
+print(list(names_desc))
+```
+
+    ['Ted', 'Pointy Haired Boss', 'Dogbert', 'Dilbert', 'Alice']
+    ['Ted', 'Pointy Haired Boss', 'Dogbert', 'Dilbert', 'Alice']
+
+Notice that the return value of `reversed()` needs to be realized first.
+
+| Function     | accepts  | returns  |
+|--------------|----------|----------|
+| `sorted()`   | iterable | list     |
+| `reversed()` | sequence | iterator |
+
+The sorting operations are _stable_, so sorting multiple times will always
+return the same order of items that share the same sorting criterion, but differ
+otherwise:
+
+```python
+# Swiss-German date format
+dates = [
+    '24.06.1987',
+    '13.05.1987',
+    '31.12.1988',
+    '31.07.1987',
+    '17.09.1988',
+    '05.02.1987',
+    '01.03.1988',
+]
+
+by_year_1 = sorted(dates, key=lambda d: d[6:])
+by_year_2 = sorted(by_year_1, key=lambda d: d[6:])
+by_year_3 = sorted(by_year_2, key=lambda d: d[6:])
+for date_1, date_2, date_3 in zip(by_year_1, by_year_2, by_year_3):
+    print(date_1, '==', date_2, '==', date_3)
+```
+
+    24.06.1987 == 24.06.1987 == 24.06.1987
+    13.05.1987 == 13.05.1987 == 13.05.1987
+    31.07.1987 == 31.07.1987 == 31.07.1987
+    05.02.1987 == 05.02.1987 == 05.02.1987
+    31.12.1988 == 31.12.1988 == 31.12.1988
+    17.09.1988 == 17.09.1988 == 17.09.1988
+    01.03.1988 == 01.03.1988 == 01.03.1988
+
+When counting backwards, the `reverse()` function can be used to create more
+readable code:
+
+```python
+range_reverse = range(9, -1, -1)     # hard to read
+reversed_range = reversed(range(10)) # easy to read
+
+for a, b in zip(range_reverse, reversed_range):
+    print(a, b)
+```
+
+    9 9
+    8 8
+    7 7
+    6 6
+    5 5
+    4 4
+    3 3
+    2 2
+    1 1
+    0 0
+
+## Pipelines
+
+Adding `print()` calls to functions used with `filter()` and `map()` shows in
+which order those functions are executed:
+
+```python
+def is_taxable(salary):
+    print(f'is_taxable({salary})')
+    return salary > 100000
+
+def calc_tax(salary):
+    print(f'calc_tax({salary})')
+    return salary * 0.05
+
+salaries = [120000, 84000, 52000, 190000]
+taxable = filter(is_taxable, salaries)
+taxes = map(calc_tax, taxable)
+
+for tax in taxes:
+    print(tax)
+```
+
+    is_taxable(120000)
+    calc_tax(120000)
+    6000.0
+    is_taxable(84000)
+    is_taxable(52000)
+    is_taxable(190000)
+    calc_tax(190000)
+    9500.0
+
+Notice that those items are processed in a _pipeline_ one by one. Even though
+the call to `map()` comes after the call to `filter()`, the `is_taxable()`
+operation used by `filter()` has only been processed for the first element yet!
+
+Removing the `taxable` intermediary variable and calling `map()` directly on the
+result of `filter()` therefore won't have any impact on the order of processing:
+
+```python
+def is_taxable(salary):
+    print(f'is_taxable({salary})')
+    return salary > 100000
+
+def calc_tax(salary):
+    print(f'calc_tax({salary})')
+    return salary * 0.05
+
+salaries = [120000, 84000, 52000, 190000]
+taxes = map(calc_tax, filter(is_taxable, salaries))
+
+for tax in taxes:
+    print(tax)
+```
+
+    is_taxable(120000)
+    calc_tax(120000)
+    6000.0
+    is_taxable(84000)
+    is_taxable(52000)
+    is_taxable(190000)
+    calc_tax(190000)
+    9500.0
+
+But leave the loop at the bottom away, and _no items will be processed at all_:
+
+```python
+def is_taxable(salary):
+    print(f'is_taxable({salary})')
+    return salary > 100000
+
+def calc_tax(salary):
+    print(f'calc_tax({salary})')
+    return salary * 0.05
+
+salaries = [120000, 84000, 52000, 190000]
+taxes = map(calc_tax, filter(is_taxable, salaries))
+print(taxes)
+```
+
+    <map object at 0x7fd3bbf03fd0>
+
+This demonstrates that `filter()`, `map()` an the like use _lazy evaluation_.
+
+## Multiple Map Parameters
+
+The `map()` function can be used on multiple sequences in one go—if used with a
+function that expects the same number of arguments as sequences are used:
+
+```python
+numbers = [7, 4, 3, 2]
+factors = [1.0, 1.5, 0.5, 2.0]
+
+results = map(lambda n, f: n * f, numbers, factors)
+print(list(results)) # [7.0, 6.0, 1.5, 4.0]
+```
+
+Again, instead of defining a lambda, an `operator` can be used:
+
+```python
+from operator import mul
+
+numbers = [7, 4, 3, 2]
+factors = [1.0, 1.5, 0.5, 2.0]
+
+results = map(mul, numbers, factors)
+print(list(results)) # [7.0, 6.0, 1.5, 4.0]
+```
+
+Any number of sequences can be passed to `map()`, as long as the operation
+performed on them accepts the same number of parameters:
+
+```python
+def f(a, b, x):
+    y = a * x + b
+    return y
+
+slopes = [1, 2, 3, 4]
+coefficients = [1, 0, 2, 0]
+xs = [1.5, 3.0, 2.5, 0.0]
+
+results = map(f, slopes, coefficients, xs)
+print(list(results))
+```
