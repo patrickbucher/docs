@@ -1627,5 +1627,5 @@ coefficients = [1, 0, 2, 0]
 xs = [1.5, 3.0, 2.5, 0.0]
 
 results = map(f, slopes, coefficients, xs)
-print(list(results))
+print(list(results)) # [2.5, 6.0, 9.5, 0.0]
 ```
