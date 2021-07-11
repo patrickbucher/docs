@@ -1291,3 +1291,104 @@ Here, certificate, private key, and CSR belong to one another!
 
 It's a good idea to write a script (accepting the domain name `paedubucher.ch`
 as a parameter) to automate the process.
+
+# Chapter 7: Automated CertificateManagement Environment
+
+The _Automated Certificate Management Environment_ (ACME) is a protocol for
+clients interacting with CAs, defined in [RFC
+8555](https://datatracker.ietf.org/doc/html/rfc8555) by the Internet Security
+Research Group (ISRG), which run's its own CA called _Let's Encrypt_. The API of
+ACME can be used for the entire process: creating an account, negotiating the
+challenges, submitting the CSRs, and deploying the certificates.
+
+## ACME Registration
+
+The ACME client creates a key pair to identify the client. The client contact's
+the CS's server, accepts its terms and conditions. The server then registers an
+account identified by the client's public key. This key is then used to sign
+further interaction between client and server.
+
+Commercial CAs can make use of this key as well, which is linked to a user
+account. Additional services (EV, OV) are provided against payment by those CAs.
+
+## ACME Challenge Process
+
+Once registered, the client can request certificates for the domains (or hosts)
+under his control. The server responds with a list of challenge methods (one per
+domain) the client can use to prove his ownership of the respective domain. The
+client picks one challenge per domain and reports his choice to the server.
+Depending on the of challenge, the server provides additional information the
+client needs to pass the verification. If the challenge succeeded, the client
+can submit CSRs to the server, which will respond with signed certificates ready
+for deployment.
+
+### ACME Challenges
+
+An ACME challenge requires the client to place some _key authorization_ under a
+specific _token_. The token is a specific location, and the key authorization
+combines the token with a digest of the client account's key. If the server can
+find the specified key authorization by accessing the given token, the client
+has proven his ownership of the domain successfully.
+
+ACME supports the following challenge methods:
+
+1. **HTTP-01**: The server verifies if the client controls a web server
+   handling the domain certificates are about to be requested for. For the
+   domain `paedubucher.ch`, the key authorization must be made available under
+   `http://paedubucher.ch/.well-known/acme-challenge/[token]`, with the token
+   indicated by the server. The server verifies if the token with the correct
+   content (key authorization) is served from this location (URL). This
+   challenge runs under port 80, but can be redirected to port 443. HTTP-01 is
+   the simplest challenge, but cannot be used for wildcard certificates.
+2. **DNS-01**: The server verifies if the client controls the DNS server
+   managing the domain certificates are about to be requested for. For the
+   domain `paedubucher.ch`, a `TXT` record under the token
+   `_acme_challenge.paedubucher.ch` must be provided containing the key
+   authorization as its value. DNS-01 is especially useful for web servers not
+   facing the internet, and if wildcard certificates are being requested. It
+   also makes it possible to request certificates from an other server than they
+   are used on.
+3. **TLS-ALPN-01**: Much like HTTP-01, the server verifies that the client
+   controls a server facing the internet. Unlike HTTP-01, the server need not be
+   a web server, but a TLS-aware server running on port 443 supporting
+   _Application Layer Protocol Negotiation_ (ALPN), which allows to run
+   different services under a single port. For this challenge, the client
+   doesn't need any token/key authorization information from the server, but can
+   setup everything before picking the challenge method. It's possible to take
+   the productive web server down and start up a special ALPN server running on
+   the same port during the verification process, which causes some downtime.
+   Web servers support ALPN using modules (Apache's `mod_md`) or by a special
+   proxy configuration (nginx). TLS-ALPN-01 is the right choice for deployments
+   using procies and/or load balancers, but requires the server(s) to be
+   publicly reachable by the internet. Wildcard certificates are not supported
+   by this challenge method.
+
+Use DNS-01 if you need a wildcard certificate or a certificate for a server not
+facing the internet. Use HTTP-01 if it works for your environment, and pick
+TLS-ALPN-01 otherwise.
+
+### Some Practical Advice
+
+When first testing and deploying ACME, make sure to not hit your CA's imposed
+by-account resource limit. If your CA offers a testing or staging environment
+(which don't provide trusted certificates), try to get your setup right first by
+using one of these. If everything works, use the productive environment.
+
+After the initial successful deployment, it's a good idea to test the renewal
+process after two thirds into the certificate's lifetime, i.e. after 60 days for
+a certificate valid for 90 days. (Some CAs do not renew certificates that are
+younger. Thirty days is plenty of time left to fix your environment if something
+doesn't work.)
+
+## ACME Clients
+
+There are plenty of ACME clients to choose from, some of them are:
+
+- OpenBSD's `acme-client(1)`, which, unfortunately, isn't available neatly
+  packed for other operating systems.
+- Apache's `mod_md`, which manages ACME right from the web server.
+- Docker's _Let's Encrypt_ container, which does everything for you.
+- The EFF's `certbot`, which was the first ACME implementation, comes with heavy
+  Python dependencies, but doesn't support the TLS-ALPN-01 challenge yet.
+- Dehydrated, which is a simple client based on shell scripts and basic system
+  utilities, and therefore should work on any Unix-like environment.
