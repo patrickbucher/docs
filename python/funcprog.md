@@ -1629,3 +1629,159 @@ xs = [1.5, 3.0, 2.5, 0.0]
 results = map(f, slopes, coefficients, xs)
 print(list(results)) # [2.5, 6.0, 9.5, 0.0]
 ```
+
+# Comprehensions
+
+Creating an iterable based on another iterable, say, building the squares of a
+list of numbers, can be done in various ways.
+
+The structured approach uses a `for` loop:
+
+```python
+numbers = range(1, 10)
+
+squares = []
+for number in numbers:
+    squares.append(number ** 2)
+
+print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+This approach is perfectly valid, but requires _operational reasoning_ to
+understand.
+
+A more declarative approach uses the higher-order `map` function, which requires
+less code to be written:
+
+```python
+numbers = range(1, 10)
+
+squares = list(map(lambda x: x ** 2, numbers))
+
+print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+However, the best tool for this purpose—building a list based on an iterable—is
+a list comprehension:
+
+```python
+numbers = range(1, 10)
+
+squares = [x ** 2 for x in numbers]
+
+print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+No lambda expression is required, the expression can be stated directly.
+
+The comprehension has the following structure:
+
+    [{expression} for {item} in {iterable}]
+
+The above example can be read in English as:
+
+> make a list of `x ** 2` for all values of `x` in `numbers`
+
+## Conditions
+
+The higher-order functinos `filter` and `map` are often used toghether: first,
+the items to be processed are fitered, second, the remaining items are mapped.
+
+Consider this example turning a list of empty and non-empty strings into
+title-cased strings, ignoring the empty ones:
+
+```python
+strings = ['', '', 'john', '', 'alice', '', 'bob']
+non_empty = filter(len, strings)
+names = list(map(lambda s: s.title(), non_empty))
+print(names) # ['John', 'Alice', 'Bob']
+```
+
+A comprehension has an optional `if` statements; only items passing this test
+end up in the resulting sequence:
+
+```python
+strings = ['', '', 'john', '', 'alice', '', 'bob']
+names = [s.title() for s in strings if s]
+print(names) # ['John', 'Alice', 'Bob']
+```
+
+This code is shorter and clearer. Consider a comprehension as an alternative of
+combining `filter` and `map`.
+
+## Nesting
+
+Comprehensions can be nested, which can be used to create multi-dimensional
+lists:
+
+```python
+def field_2d(rows, cols):
+    return [[(x, y) for x in range(cols)] for y in range(rows)]
+
+field = field_2d(6, 7)
+for row in field:
+    print(row)
+```
+
+    [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+    [(0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1)]
+    [(0, 2), (1, 2), (2, 2), (3, 2), (4, 2), (5, 2), (6, 2)]
+    [(0, 3), (1, 3), (2, 3), (3, 3), (4, 3), (5, 3), (6, 3)]
+    [(0, 4), (1, 4), (2, 4), (3, 4), (4, 4), (5, 4), (6, 4)]
+    [(0, 5), (1, 5), (2, 5), (3, 5), (4, 5), (5, 5), (6, 5)]
+
+Again, this is much shorter than using the structured approach:
+
+```python
+def field_2d(rows, cols):
+    field = []
+    for y in range(rows):
+        row = []
+        for x in range(cols):
+            row.append((x, y))
+        field.append(row)
+    return field
+```
+
+Notice that comprehensions can be nested without creating multi-dimensional
+sequences as a result:
+
+```python
+coords = [x + y for x in range(0, 40, 10) for y in range(4)]
+print(coords)
+```
+
+    [0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23, 30, 31, 32, 33]
+
+This translates to structured code as follows:
+
+```python
+coords = []
+for x in range(0, 40, 10):
+    for y in range(4):
+        coords.append(x + y)
+```
+
+In the comprehension expression, the inner loop is on the right, the outer loop
+on the left.
+
+## Dictionaries, Sets, Tuples
+
+Comprehensions can be used for the other sequence types—dictionaries, sets,
+and tuples—too:
+
+```python
+squares = {x: x ** 2 for x in range(1, 6)}
+print(squares) # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+additions = [(3, 4), (4, 3), (5, 2), (3, 1), (4, 2)]
+sums = {x + y for (x, y) in additions}
+print(sums) # {4, 6, 7}
+
+strings = ['', '', 'john', '', 'alice', '', 'bob']
+names = tuple(s.title() for s in strings if s)
+print(names) # ('John', 'Alice', 'Bob')
+```
+
+Notice that the last example creates a generator object, which must explicitly
+be converted to a tuple.
