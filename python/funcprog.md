@@ -1783,5 +1783,54 @@ names = tuple(s.title() for s in strings if s)
 print(names) # ('John', 'Alice', 'Bob')
 ```
 
-Notice that the last example creates a generator object, which must explicitly
+Notice that the last example creates a _generator object_, which must explicitly
 be converted to a tuple.
+
+# Generators
+
+Unlike comprehensions, _generators_ use lazy evaluation. Unlike iterators,
+generators do not require implementing a class implementing the `next()` and
+`iter()` method (less boilerplate).
+
+Generators are implemented using functions that yield a different result every
+time they are called:
+
+```python
+def squares(n):
+    for i in range(n):
+        yield i ** 2
+
+print(list(squares(6))) # [0, 1, 4, 9, 16, 25]
+```
+
+After a value is returned using the `yield` keyword, the generator function
+stops its execution, but its state is remembered. The execution is continued for
+the next iteration. This makes it possible for generator functions to hold a
+state (without using an explicit closure):
+
+```python
+def factorials(n):
+    current = 1
+    for i in range(n):
+        if i != 0:
+            current *= i
+        yield current
+
+print(list(factorials(6))) # [1, 1, 2, 6, 24, 120]
+```
+
+As seen in the last example of the previous chapter, a generator can be created
+as a comprehension using parentheses:
+
+```python
+square_gen = (x ** 2 for x in range(2, 6))
+print(next(square_gen)) #  4
+print(next(square_gen)) #  9
+print(next(square_gen)) # 16
+print(next(square_gen)) # 25
+print(next(square_gen)) # StopIteration
+```
+
+Generators combine the advantages of comprehensions with lazy evaluation. If a
+sequence is hard to express in terms of `filter` and `map`, and if the task is
+memory-critical, consider a generator.
