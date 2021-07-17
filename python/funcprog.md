@@ -1630,6 +1630,10 @@ results = map(f, slopes, coefficients, xs)
 print(list(results)) # [2.5, 6.0, 9.5, 0.0]
 ```
 
+# Reducing Iterables
+
+TODO: p.72-79
+
 # Comprehensions
 
 Creating an iterable based on another iterable, say, building the squares of a
@@ -1834,3 +1838,15 @@ print(next(square_gen)) # StopIteration
 Generators combine the advantages of comprehensions with lazy evaluation. If a
 sequence is hard to express in terms of `filter` and `map`, and if the task is
 memory-critical, consider a generator.
+
+# Partial Application and Currying
+
+TODO: p.90-100
+
+# Functors and Monats
+
+TODO: p.101-106
+
+# Useful Libraries
+
+TODO: p.107-109
