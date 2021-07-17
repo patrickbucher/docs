@@ -1292,7 +1292,7 @@ Here, certificate, private key, and CSR belong to one another!
 It's a good idea to write a script (accepting the domain name `paedubucher.ch`
 as a parameter) to automate the process.
 
-# Chapter 7: Automated CertificateManagement Environment
+# Chapter 7: Automated Certificate Management Environment
 
 The _Automated Certificate Management Environment_ (ACME) is a protocol for
 clients interacting with CAs, defined in [RFC
