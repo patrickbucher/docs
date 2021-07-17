@@ -1392,3 +1392,73 @@ There are plenty of ACME clients to choose from, some of them are:
   Python dependencies, but doesn't support the TLS-ALPN-01 challenge yet.
 - Dehydrated, which is a simple client based on shell scripts and basic system
   utilities, and therefore should work on any Unix-like environment.
+
+## Dehydrated
+
+Dehydrated can be downloaded and installed using a package manager or manually
+from [dehydrated.io](https://dehydrated.io). Make sure `/etc/dehydrated` exists
+into which the example configuration shipped with dehydrated should be copied
+(`/etc/dehydrated/config`).
+
+The main script `dehydrated` relies on hook scripts that provide the
+functionality specific to each challenge. For HTTP-01, `hook.sh` is provided as
+an example. The Dehydrated web site provides additional hook scripts for other
+challenges and specific software packages (e.g. DNS servers, load balancers,
+etc.). Put `hook.sh` into your configuration path (`/etc/dehydrated/hook.sh`).
+(Alternatively, modify your configuration so that it points to this hook
+script.) 
+
+Certificates created by Dehydrated should only be accessible by `root`—and the
+user that runs the dehydrated scripts. Create an unprivileged user called `acme`
+with a home in `/var/acme`. This is where certificates are going to be stored.
+Do not allow the user to login by setting a bogus shell (e.g.
+`/usr/bin/nologin`). Also set a lengthy password. (Remember: this setup takes
+place on a Internet-facing server, which is prone to attacks from the outside.)
+On Arch Linux:
+
+    # useradd -d /var/acme -m -s /usr/bin/nologin -U acme
+    # chown -R /var/acme acme:acme
+    # passwd acme
+
+Modify the configuration (`/etc/dehydrated/config`) so that `BASEDIR` points to
+`/var/acme`—the home directory just set for the `acme` user. Also set the
+`DEHYDRATED_USER` and `DEHYDRATED_GROUP`  to `acme`. Provide a proper
+`CONTACT_EMAIL` address. List the domains to manage certificates for in
+`/etc/dehydrated/domains.txt` (more of which later) and set `DOMAINS_TXT`
+accordingly. For a challenge other than HTTP-01, set the challenge type using
+`CHALLENGETYPE`. Set the `CA` to the certificate authority to be used:
+`letsencrypt` (default), `letsencrypt-test` (for testing your setup), `buypass`,
+`buypass-test`, `zerossl` (others supported by default). For other CAs, set `CA`
+to the API URL provided by the respective CA instead of its name.  Additional
+configuration settings can be put in an extra folder, say
+`/etc/dehydrated/config.d` to be referred to by the option `CONFIG_D`.
+
+    BASEDIR="/var/acme"
+    DEHYDRATED_USER="acme"
+    DEHYDRATED_GROUP="acme"
+    CONTACT_EMAIL="patrick.bucher@mailbox.org"
+    DOMAINS_TXT="/etc/dehydrated/domains.txt"
+    CHALLENGETYPE="http-01"
+    CA="letsencrypt-test"
+    CONFIG_D="/etc/dehydrated/config.d"
+
+The files in `CONFIG_D` ending in `.sh` will be processed in alphanumerical
+order, with later files overriding settings of earlier files.
+
+Put all the domains that will use the same certificate on a single line in your
+domain list (`/etc/dehydrated/domains.txt`). Make sure to put the domain with
+the Common Name (CN) first (max. 64 characters):
+
+    foo.bar www.foo.bar mail.foo.bar
+    qux.com www.qux.com mail.qux.com
+
+The common name (above: `foo.bar` and `qux.com`) will be used as a directory
+name to store the certificates inside. Define an optional alias name after `>`
+at the end of a line in order to tie domains together:
+
+    buythisnow.com bestdealever.com youneedthisstuff.com > scamsites
+
+If you're using wildcard certificates, always define an alias name for it, so
+that you don't end up with a `*` character in your folder name:
+
+    *.foo.bar > wildcard.foo.bar
