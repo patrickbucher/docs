@@ -1759,7 +1759,7 @@ print(all([True, 'a', 1, []]))   # False
 print(all([]))                   # True
 ```
 
-## `reduce()` Function
+## The `reduce()` Function
 
 The `functools` module provides a `reduce()` function, which allows for custom
 definitions of reducing operations. Its first argument is a function accepting
