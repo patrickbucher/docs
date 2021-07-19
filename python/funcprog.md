@@ -371,6 +371,17 @@ def factorial(n, acc=1):
         return factorial(n-1, n * acc)
 ```
 
+Which leads to an easier to understand call stack:
+
+    factorial(6, 1)
+    factorial(5, 6)
+    factorial(4, 30)
+    factorial(3, 120)
+    factorial(2, 360)
+    factorial(1, 720)
+    factorial(0, 720)
+    720
+
 ## (No) Tail Call Optimization
 
 Some compilers are able to optimize tail-recursive functions by re-using stack
