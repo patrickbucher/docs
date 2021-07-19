@@ -1632,7 +1632,288 @@ print(list(results)) # [2.5, 6.0, 9.5, 0.0]
 
 # Reducing Iterables
 
-TODO: p.72-79
+A _reducing_ function combines all the values of an iterable and produces a
+single value out of them as a result.
+
+## Built-in Reducing Functions
+
+the `len()` function is one of the most common reducing functions. It returns
+the number of elements contained in an sequence:
+
+```python
+print(len([7, 3, 5, 2])) # 4
+print(len([]))           # 0
+```
+
+The `sum()` function adds up the items of an iterable and returns their sum:
+
+```python
+print(sum([7, 3, 5, 2])) # 17
+print(sum([]))           #  0
+```
+
+An optional start value can be provided for the second argument if the summation
+should start from a different value than 0 (default):
+
+```python
+print(sum([7, 3, 5, 2], -10)) # 7
+print(sum([], 0))             # 0
+```
+
+Even though the `sum()` function applies the `+` operator to the elements of the
+given iterable, it cannot be used to concatenate strings. Use the string's
+`join()` method instead:
+
+```python
+letters = ['abc', 'de', 'f', 'ghi']
+print(sum(letters, '')) # wrong: TypeError
+print(''.join(letters)) # right: abcdefghi
+```
+
+The `min()` and `max()` function return the smallest or biggest element of an
+iterable, respectively:
+
+```python
+numbers = [7, 3, 1, 9, 5]
+print(min(numbers)) # 1
+print(max(numbers)) # 9
+```
+
+If the elements are list themselves, those sub-lists are compared element-wise:
+
+```python
+numbers = [[3, 1, 2], [9, 1, 3], [1, 9, 8]]
+print(min(numbers)) # [1, 9, 8]
+print(max(numbers)) # [9, 1, 3]
+```
+
+Calling `min()` or `max()` on an empty iterable causes a `ValueError`, which can
+be prevented by setting a `default` argument, which is used as a fallback, and
+ignored for non-empty iterables:
+
+```python
+numbers = [9, 1, 5]
+nothing = []
+
+print(min(numbers))            # 1
+print(min(numbers, default=0)) # 1
+print(min(nothing))            # ValueError
+print(min(nothing, default=0)) # 0
+
+print(max(numbers))            # 9
+print(max(numbers, default=0)) # 9
+print(max(nothing))            # ValueError
+print(max(nothing, default=0)) # 0
+```
+
+The optional `key` argument can be used to speficy the criterion being used for
+comparison—like for the `sorted()` function or `sort()` method:
+
+```python
+employees = [
+    ('Dilbert', 42, 120000),
+    ('Alice', 39, 110000),
+    ('Wally', 53, 130000),
+    ('Ashok', 23, 36000),
+]
+
+youngest = min(employees, key=lambda e: e[1])
+oldest = max(employees, key=lambda e: e[1])
+
+lowest_salary = min(employees, key=lambda e: e[2])
+highest_salary = max(employees, key=lambda e: e[2])
+
+print(f'age: {youngest} (youngest), {oldest} (oldest)')
+print(f'earns: {lowest_salary} (least), {highest_salary} (most)')
+```
+
+    age: ('Ashok', 23, 36000) (youngest), ('Wally', 53, 130000) (oldest)
+    earns: ('Ashok', 23, 36000) (least), ('Wally', 53, 130000) (most)
+
+The `any()` function returns `True` if _at least one element_ of the given
+iterable evaluates to `True`:
+
+```python
+print(any([False, False, False])) # False
+print(any([False, False, True]))  # True
+print(any([0, 0, 0, 0, 0]))       # False
+print(any([0, 0, 0, 1, 0]))       # True
+print(any(['', '', '', '']))      # False
+print(any(['', 'x', '', 'y']))    # True
+print(any([False, '', 0, []]))    # False
+print(any([]))                    # False
+```
+
+For an empty iterable (last example), `any()` returns False—unlike the `all()`
+function, which returns `True` if _all elements_ evaluate to `True`, and
+`False`, if an element evaluates to `False`:
+
+```python
+print(all([True, False, True]))  # False
+print(all([True, True, True]))   # True
+print(all([2, 8, 0, 3, 8]))      # False
+print(all([2, 8, 4, 3, 8]))      # True
+print(all(['a', 'b', '', 'd']))  # False
+print(all(['u', 'v', 'x', 'y'])) # True
+print(all([True, 'a', 1, []]))   # False
+print(all([]))                   # True
+```
+
+## `reduce()` Function
+
+The `functools` module provides a `reduce()` function, which allows for custom
+definitions of reducing operations. Its first argument is a function accepting
+_two_ parameters (the elements `n-1` and `n` to be combined), and its second
+argument is the iterable to be reduced. This example implements factorials using
+the `operator` module's `mul()` and the `functool` module's `reduce()` function:
+
+```python
+from functools import reduce
+from operator import mul
+
+def factorial(x):
+    numbers = range(1, x+1)
+    return reduce(mul, numbers)
+
+print(factorial(4)) #  24
+print(factorial(5)) # 120
+print(factorial(6)) # 720
+```
+
+As an optional third argument, an `initializer` can be provided:
+
+```python
+from functools import reduce
+from operator import mul
+
+numbers = range(1, 6)
+half_the_fac = reduce(mul, numbers, 0.5)
+print(half_the_fac) # 60.0
+```
+
+This is especially useful when dealing with empty iterables, which result in a
+`TypeError` when reduced without an initializer, which serves as a fallback
+value:
+
+```python
+from functools import reduce
+from operator import mul
+
+print(reduce(mul, []))      # TypeError
+print(reduce(mul, [], 0.5)) # 0.5
+```
+
+## The `filter()`, `map()`, `reduce()` Pattern
+
+Even though they work completely different, the functions `filter()`, `map()`,
+and `reduce()` have some pair-wise commonalities:
+
+- Both `filter()` and `map()` process the elements of an iterable one by one.
+- Both `map()` and `reduce()` transform values.
+- Both `filter()` and `reduce()` decrease the number of elements.
+
+Those three functions are often used together to process iterables, resulting in
+a single value. Consider the following list containing employees, their hourly
+rates, and the amount of hours worked by each for a project:
+
+```python
+efforts = [
+    # (name, rate, hours)
+    ('Dilbert', 220, 13.5),
+    ('Alice', 180, 16.0),
+    ('Wally', 150, 0.0),
+    ('Ashok', 80, 42.5),
+    ('Dogbert', 250, 3.5),
+    ('Pointy Haired Boss', 500, 0.0),
+]
+```
+
+In order to produce the total labor costs of the project, this list of tuples
+can be processed in three steps:
+
+1. _filter_: Only entries with actual working hours (> 0.0) are retained.
+2. _map_: Compute the cost for each employee (rate multiplied by hours).
+3. _reduce_: Sum up all the individual costs of each employee.
+
+```python
+from functools import reduce
+from operator import add
+
+efforts = [
+    # (name, rate, hours)
+    ('Dilbert', 220, 13.5),
+    # ...
+]
+
+involved = filter(lambda e: e[2] > 0.0, efforts)
+cost_per_employee = map(lambda e: e[1] * e[2], involved)
+total_costs = reduce(add, cost_per_employee)
+print(f'total costs: {total_costs}') # 10125.0
+```
+
+In this particular example, the `filter` step is redundant, because employees
+with zero hours would not affect the total cost at all. The `reduce` step could
+also be simplified using the `sum()` function:
+
+```python
+efforts = [
+    # (name, rate, hours)
+    ('Dilbert', 220, 13.5),
+    # ...
+]
+
+cost_per_employee = map(lambda e: e[1] * e[2], efforts)
+total_costs = sum(cost_per_employee)
+print(f'total costs: {total_costs}') # 10125.0
+```
+
+Consider another example: a list of exam submissions consisting of the name, the
+submission date, and the score achieved:
+
+```python
+submissions = [
+    # name, submission date, score
+    ('Alice', '2021-07-03', 73),
+    ('Bob', '2021-07-18', 81),
+    ('Charles', '2021-07-12', 57),
+    ('Deborah', '2021-07-10', 96),
+    ('Ernest', '2021-07-19', 89),
+    ('Fanny', '2021-07-06', 61),
+]
+```
+
+The average grade of submissions within deadline should be computed as follows:
+
+1. _filter_: Submissions after the deadline (`2021-07-10`) are ignored.
+2. _map_: A grade from 1 (worst) to 6 (best) is computed based on a maximum
+   score of 100.
+3. _reduce_: The grade average of all submissions is calculated.
+
+```python
+from datetime import datetime
+
+submissions = [
+    # name, submission date, score
+    ('Alice', '2021-07-03', 73),
+    # ...
+]
+
+max_score = 100
+
+def is_within_deadline(submission):
+    deadline = datetime.fromisoformat('2021-07-10')
+    submitted = datetime.fromisoformat(submission[1])
+    return submitted < deadline
+
+def swiss_grade(score, max_score):
+    return score / max_score * 5 + 1
+
+within_deadline = filter(is_within_deadline, submissions)
+grades = map(lambda s: swiss_grade(s[2], max_score), within_deadline)
+grades = list(grades)
+average = sum(grades) / len(grades)
+print(f'average: {average}') # 4.35
+```
 
 # Comprehensions
 
