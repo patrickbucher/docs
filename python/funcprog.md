@@ -2124,7 +2124,7 @@ memory-critical, consider a generator.
 
 TODO: p.90-100
 
-# Functors and Monats
+# Functors and Monads
 
 TODO: p.101-106
 
