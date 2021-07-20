@@ -2245,6 +2245,43 @@ print_space(*names) # Dilbert Alice Wally
 
 ## Currying
 
+Python supports currying using third-party libraries such as PyMonad (version
+2.4.0):
+
+    $ pip install --user PyMonad==2.4.0
+
+The `pymonad` module includes the `curry` decorator, which can be used to define
+functions that can be partially applied without explicit use of
+`functools.partial`. The number of arguments to be curried needs to be passed to
+the `curry` decorator:
+
+```python
+from pymonad.tools import curry
+
+@curry(4)
+def quad(a, b, c, x):
+    return a*x**2 + b*x + c
+
+xs = range(5)
+
+quad_abc = quad(1, 2, 3)
+print(list(map(quad_abc, xs))) # [3, 6, 11, 18, 27]
+
+quad_a = quad(1)
+quad_ab = quad_a(2)
+quad_abc = quad_ab(3)
+print(list(map(quad_abc, xs))) # [3, 6, 11, 18, 27]
+```
+
+Notice that curried functions don't come for free; a lot of functions with
+different argument lists are defined automatically in the background. Calling a
+curried function is less explicit than using partial application. Make sure the
+curried nature of a function is made clear to its users by the means of naming,
+documentation, or convention (writing a module where functions are curried in
+general).
+
+## Composition
+
 TODO
 
 # Functors and Monads
