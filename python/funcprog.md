@@ -2133,7 +2133,119 @@ memory-critical, consider a generator.
 
 # Partial Application and Currying
 
-TODO: p.90-100
+_Partial application_ of functions and _currying_ are both ways to create new
+functions based on existing functions. Those techniques are based on closures. (A
+closure is an inner function returned from a surrounding function, with the
+inner function having references to the surrounding function.)
+
+## Partial Application
+
+With partial application, only a subset of a function's parameters are set on
+the first function call. The rest of the parameters are filled in a later call
+to the partially applied function.
+
+Consider the function `inc_x`, which requires a parameter `x`, and returns a
+function that increases its parameter by `x`:
+
+```python
+def inc_x(x):
+    def inc(y):
+        return x + y
+    return inc
+
+numbers = [1, 2, 3]
+
+inc_1 = inc_x(1)
+inc_3 = inc_x(3)
+
+print(list(map(inc_1, numbers))) # [2, 3, 4]
+print(list(map(inc_3, numbers))) # [4, 5, 6]
+```
+
+Partial application is especially helpful if a function has a lot of parameters,
+like a quadratic function:
+
+    y = ax² + bx + c
+
+Such a function is usually defined in terms of the parameters `a`, `b`, and
+`c`—and applied multiple times using different values for `x`:
+
+```python
+def quad(a, b, c, x):
+    return a*x**2 + b*x + c
+
+def quad_abc(a, b, c):
+    def f(x):
+        return quad(a, b, c, x)
+    return f
+
+xs = range(5)
+
+f = quad_abc(1, 2, 3)
+g = quad_abc(2, 0, 1)
+
+print(list(map(f, xs))) # [3, 6, 11, 18, 27]
+print(list(map(g, xs))) # [1, 3, 9, 19, 33]
+```
+
+The `partial()` functions from the `functools` module provides a more flexible
+approach that doesn't require defining closures for specific partial
+applications. The code above can be simplified using `partial()`:
+
+```python
+from functools import partial
+
+def quad(a, b, c, x):
+    return a*x**2 + b*x + c
+
+xs = range(5)
+
+f = partial(quad, 1, 2, 3)
+g = partial(quad, 2, 0, 1)
+
+print(list(map(f, xs))) # [3, 6, 11, 18, 27]
+print(list(map(g, xs))) # [1, 3, 9, 19, 33]
+```
+
+It is possible to apply a function partially multiple times, until every
+parameter was filled in:
+
+```python
+from functools import partial
+
+def quad(a, b, c, x):
+    return a*x**2 + b*x + c
+
+xs = range(5)
+
+quad_a = partial(quad, 1)
+quad_ab = partial(quad_a, 2)
+quad_abc = partial(quad_ab, 3)
+
+print(list(map(quad_abc, xs))) # [3, 6, 11, 18, 27]
+```
+
+However, using partial application, the parameters have to be filled in the
+order as they are defined in the function. It's not possible to just define
+the `quad` function's parameter `b` and `x`, and leave `a` and `c` undefined.
+
+It is possible though to partially apply a function by setting keyword
+arguments:
+
+```python
+from functools import partial
+
+print_csv = partial(print, sep=',')
+print_space = partial(print, sep=' ')
+
+names = ['Dilbert', 'Alice', 'Wally']
+print_csv(*names)   # Dilbert,Alice,Wally
+print_space(*names) # Dilbert Alice Wally
+```
+
+## Currying
+
+TODO
 
 # Functors and Monads
 
