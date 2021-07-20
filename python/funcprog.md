@@ -2282,7 +2282,142 @@ general).
 
 ## Composition
 
-TODO
+Functions with a single argument can be composed using a closure:
+
+```python
+def compose(f, g):
+    def fn(x):
+        return f(g(x))
+    return fn
+
+def increment(x):
+    return x + 1
+
+def twice(x):
+    return x * 2
+
+f = compose(twice, increment)
+
+print(f(1)) # 4
+print(f(2)) # 6
+print(f(3)) # 8
+```
+
+Functions with multiple arguments can only be composed as above if partially
+applied before to turn them into functions accepting a single argument:
+
+```python
+from functools import partial
+
+def compose(f, g):
+    def fn(x):
+        return f(g(x))
+    return fn
+
+def add(x, y):
+    return x + y
+
+def mul(x, y):
+    return x * y
+
+increment = partial(add, 1)
+twice  = partial(mul, 2)
+f = compose(twice, increment)
+
+print(f(1)) # 4
+print(f(2)) # 6
+print(f(3)) # 8
+```
+
+### Composing Multiple Functions
+
+Consider the following set of functions `f()`, `g()`, `h()`, and `i()`, which
+perform the following computations:
+
+- `f(x)`: adds 1 to `x`
+- `g(x)`: multiplies `x` by 2
+- `h(x)`: computes `x` to the power of 3
+- `i(x)`: subtracts 1 from `x`
+
+Thus, `i(h(g(f(x)))) = (((x + 1) * 2) ^ 3) - 1`. Composing those functions one
+by one is cumbersome:
+
+```python
+def compose(f, g):
+    def fn(x):
+        return f(g(x))
+    return fn
+
+def f(x):
+    return x + 1
+
+def g(x):
+    return x * 2
+
+def h(x):
+    return x ** 3
+
+def i(x):
+    return x - 1
+
+fn = compose(i, h)
+fn = compose(fn, g)
+fn = compose(fn, f)
+
+print(fn(1)) # (((1 + 1) * 2) ^ 3) - 1 = 63
+```
+
+The composition can be generalized as a reducing operation. The `compose()`
+function accepts a list of functions to be reduced by composing them pair-wise:
+
+```python
+from functools import reduce
+
+def compose(*fns):
+    def compose_pair(f, g):
+        def fn(x):
+            return f(g(x))
+        return fn
+    return reduce(compose_pair, fns)
+
+def f(x):
+    return x + 1
+
+def g(x):
+    return x * 2
+
+def h(x):
+    return x ** 3
+
+def i(x):
+    return x - 1
+
+fn = compose(i, h, g, f)
+
+print(fn(1)) # (((1 + 1) * 2) ^ 3) - 1 = 63
+```
+
+Unfortunately, this implementation doesn't work if _no_ functions are passed as
+arguments. The `initializer` argument of `reduce()` can be used to define a
+default value. A sensible default value, however, depends on the operation to be
+performed. (For an addition or subtraction, the neutral element is 0, for a
+multiplicationor a division, the neutral element is 1.) The _identity value_
+provided by an _identity function_ (`lambda x: x`) is the right choice for all
+cases:
+
+```python
+from functools import reduce
+
+def compose(*fns):
+    def compose_pair(f, g):
+        def fn(x):
+            return f(g(x))
+        return fn
+    return reduce(compose_pair, fns, lambda x: x)
+
+fn = compose()
+print(fn(37)) # 37
+```
 
 # Functors and Monads
 
