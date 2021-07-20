@@ -2280,7 +2280,7 @@ curried nature of a function is made clear to its users by the means of naming,
 documentation, or convention (writing a module where functions are curried in
 general).
 
-## Composition
+## Advanced Composition
 
 Functions with a single argument can be composed using a closure:
 
