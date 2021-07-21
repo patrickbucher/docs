@@ -2587,4 +2587,177 @@ print(y) # Nothing
 
 # Useful Libraries
 
-TODO: p.107-109
+Python's standard library offers a lot of capabilities that support a functional
+programming style. The `functools` (treated above) and `itertools` (treated in
+the following section) modules are especially useful for that purpose.
+
+## The `itertools` Module
+
+The `itertools` module provides useful functions to create iterators.
+
+Infinite series of incrementing values can be created using the `count()`
+function, which requires a `start` value and an optional `step` size:
+
+```python
+from itertools import count
+
+to_infinite = count(0) # 0, 1, 2, 3, ...
+to_infinite = count(0, 10) # 0, 10, 20, 30, ...
+
+```
+
+Infinite or finite repetitions of values can be created using the `repeat()`
+function, which requires a value `x` to be repeated and an optional limit `n`:
+
+```python
+from itertools import repeat
+
+infinite_ones = repeat(1) # 1, 1, 1, 1, ...
+limited_ones = repeat(1, 3) # 1, 1, 1
+```
+
+Series of numbers can be repeated using the `cycle()` function that accepts an
+iterator to be repeated:
+
+```python
+from itertools import cycle
+
+one_two_three_ad_nauseam = cycle([1, 2, 3]) # 1, 2, 3, 1, 2, 3
+```
+
+Like `zip`, the `zip_longest` function zips together two iterables. Unlike
+`zip`, it doesn't stop when the shorter iterable is exhausted, but fills in
+values until the longer iterable is exhausted, too:
+
+```python
+from itertools import zip_longest
+
+names = ['Dilbert', 'Alice', 'Wally']
+ranks = range(1, 6)
+ranking = zip_longest(ranks, names, fillvalue='fired')
+for rank in ranking:
+    print(rank)
+```
+
+    (1, 'Dilbert')
+    (2, 'Alice')
+    (3, 'Wally')
+    (4, 'fired')
+    (5, 'fired')
+
+If a function with `n` parameters is given to the higher-order `map()` function,
+it expects `n` iterables, too. The higher-order `starmap()` requires a single
+iterable consisting of `n` tuples instead:
+
+```python
+from itertools import starmap
+
+inventory = [
+    (17, 0.99),
+    (32, 0.49),
+    (12, 5.49),
+    (97, 0.19),
+    (13, 2.95),
+]
+
+positions = starmap(lambda n, p: n * p, inventory)
+
+for position in positions:
+    print(position)
+```
+
+    16.83
+    15.68
+    65.88
+    18.43
+    38.35
+
+The `filterfalse()` higher-order function works like `filter()`, except that it
+returns the values for which the predicate function returns `False`:
+
+```python
+from itertools import filterfalse
+
+def is_even(x):
+    return x % 2 == 0
+
+numbers = range(10)
+even = filter(is_even, numbers)
+odd = filterfalse(is_even, numbers)
+
+print(list(even)) # [0, 2, 4, 6, 8]
+print(list(odd))  # [1, 3, 5, 7, 9]
+```
+
+The `accumulate()` function works like `sum()`, but keeps a running total:
+
+```python
+from itertools import accumulate
+
+xs = range(5)
+sums = accumulate(xs)
+
+print(list(xs))   # [0, 1, 2, 3, 4]
+print(list(sums)) # [0, 1, 3, 6, 10]
+```
+
+Two or more iterables can be joined together using the `chain()` function:
+
+```python
+from itertools import chain
+
+xs = range(3)
+ys = range(3, 6)
+zs = range(6, 9)
+
+print(list(chain(xs, ys, zs))) # [0, 1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+An iterable can be turned into `n` iterables with the same underlying values
+using the `tee()` function:
+
+```python
+from itertools import tee
+
+xs = range(5)
+
+a, b, c = tee(xs, 3)
+print(list(a)) # [0, 1, 2, 3, 4]
+print(list(b)) # [0, 1, 2, 3, 4]
+print(list(c)) # [0, 1, 2, 3, 4]
+```
+
+The `takewhile()` function works like `filter()`, but stops after the first item
+fails the predicate function. The `dropwhile()` function ignores values until
+the first item matches the predicate function:
+
+```python
+from itertools import takewhile, dropwhile
+
+def is_even(x):
+    return x % 2 == 0
+
+numbers = [0, 2, 4, 6, 7, 8, 10, 11]
+
+left = takewhile(is_even, numbers)
+right = dropwhile(is_even, numbers)
+
+print(list(left))  # [0, 2, 4, 6]
+print(list(right)) # [7, 8, 10, 11]
+```
+
+Notice that the value `11` is included in the `right` list, even though it
+wouldn't match the `is_even()` predicate function.
+
+See the [`itertools`](https://docs.python.org/3/library/itertools.html) and
+[`functools`](https://docs.python.org/3/library/functools.html) documentation
+pages for more details and additional useful functions.
+
+## Third-Party Libraries
+
+The following third-party libraries have been introduced in this text:
+
+- [PyMonad](https://pypi.org/project/PyMonad/) providing functional programming
+  techniques the Python standard library doesn't.
+- [OSlash](https://pypi.org/project/OSlash/) providing functors, applicatives,
+  and monads.
