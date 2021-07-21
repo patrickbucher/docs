@@ -2421,7 +2421,169 @@ print(fn(37)) # 37
 
 # Functors and Monads
 
-TODO: p.101-106
+Functors wrap a value and control how functions are applied to that wrapped
+value. Such wrappers are useful when dealing with values that might be missing,
+or add new capabilities to existing functions, such as making a function
+that can only deal with scalar values capable of handling lists of scalar
+values.
+
+The `oslash` library provides Haskell-style _functors_, _applicatives_, and
+_monads_:
+
+    $ pip install oslash==0.6.3
+
+- A **functor** wraps a value and controls how function is applied to that
+  wrapped value using the `map()` method or the `%` operator.
+- An **applicative** is a special kind of a functor that wraps a function, which
+  can be called by the `apply()` method.
+- A **monad** is a special kind of an applicative that also wraps the value
+  returned from a function using its `bind()` method.
+
+Those constructs are crucial in a pure functional programming language like
+Haskell, where they are needed to deal with errors or side-effects. In Python,
+those constructs are optional—hence available by third-party libraries such as
+`oslash`—and can be left away in favour of procedural code.
+
+## Functors
+
+The `Just` functor, which technically is also an applicative and a monad (of
+which more later), is a wrapper around a value:
+
+```python
+from oslash import Just
+
+x = Just(3)
+print(x) # Just 3
+```
+
+Functions cannot be called directly with an instance of `Just` as an argument.
+Instead, the functor's `map()` method or the `%` operator can be used:
+
+```python
+from oslash import Just
+
+def twice(x):
+    return x * 2
+
+x = Just(3)
+
+y = twice(x) # illegal
+
+y = x.map(twice) # correct
+print(y) # Just 6
+
+y = twice % x # correct, but shorter
+print(y) # Just 6
+```
+
+Notice that the function stands at the left of the `%` operator, and the functor
+to its right.
+
+The `Nothing` functor does not wrap a value. It is the functional brother of
+Python's `None` with well-defined behaviour—a function being applied to
+`Nothing` always returns `Nothing` instead of throwing an exception:
+
+```python
+from oslash import Nothing
+
+def twice(x):
+    return x * 2
+
+x = Nothing()
+print(x) # Nothing
+
+y = twice % x
+print(y) # Nothing
+```
+
+The `List` functor wraps a list of values and makes it possible that a function
+that only deals with scalar values can be applied to an entire list—a lot like
+the higher-order `map()` function (notice that the `twice()` function has to be
+wrapped by a `Just` functor, of which more in the next section):
+
+```python
+from oslash import Just, List
+
+def twice(x):
+    return x * 2
+
+xs = List.from_iterable([1, 2, 4, 8]) # [1, 2, 4, 8]
+print(xs)
+
+f = Just(twice)
+
+ys = f.apply(xs) # [2, 4, 8, 16]
+print(ys)
+```
+
+## Applicatives
+
+The `Just` functor is, in fact, also an _applicative functor_ that wraps a
+function as a value, or short: an applicative, which provides an `apply()`
+method:
+
+```python
+from oslash import Just
+
+def twice(x):
+    return x * 2
+
+x = Just(3)
+f = Just(twice)
+
+b = f.apply(x)
+print(b) # Just 6
+```
+
+Notice that both the value `3` and the function `twice()` have been wrapped by a
+`Just` applicative.
+
+An applicative wrapping a function with more than one parameter returns a
+partially applied function if the `apply()` method is called on it. The
+arguments can be filled in one by one:
+
+```python
+from oslash import Just
+
+def quad(a, b, c, x):
+    return (a * x ** 2) + b * x + c
+
+f = Just(quad)
+f_a = f.apply(Just(1))
+f_ab = f_a.apply(Just(2))
+f_abc = f_ab.apply(Just(3))
+
+x = Just(4)
+
+y = f_abc.apply(x)
+print(y) # Just 27
+
+y = Just(quad).apply(Just(1)).apply(Just(2)).apply(Just(3)).apply(x)
+print(y) # Just 27
+```
+
+## Monads
+
+An applicative that also wraps the return value resulting from a call to its 
+wrapped function is called a monad. Its `bind()` method accepts a single
+parameter—a function returning another monad:
+
+```python
+from oslash import Just, Nothing
+
+def safe_reciprocal(x):
+    if x == 0:
+        return Nothing()
+    return Just(1/x)
+
+x = Just(4)
+y = x.bind(safe_reciprocal)
+print(y) # Just 0.25
+
+x = Just(0)
+y = x.bind(safe_reciprocal)
+print(y) # Nothing
+```
 
 # Useful Libraries
 
