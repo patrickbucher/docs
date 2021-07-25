@@ -1417,20 +1417,24 @@ place on a Internet-facing server, which is prone to attacks from the outside.)
 On Arch Linux:
 
     # useradd -d /var/acme -m -s /usr/bin/nologin -U acme
-    # chown -R /var/acme acme:acme
+    # chown -R acme:acme /var/acme
     # passwd acme
 
 Modify the configuration (`/etc/dehydrated/config`) so that `BASEDIR` points to
 `/var/acme`—the home directory just set for the `acme` user. Also set the
 `DEHYDRATED_USER` and `DEHYDRATED_GROUP`  to `acme`. Provide a proper
-`CONTACT_EMAIL` address. List the domains to manage certificates for in
-`/etc/dehydrated/domains.txt` (more of which later) and set `DOMAINS_TXT`
-accordingly. For a challenge other than HTTP-01, set the challenge type using
+`CONTACT_EMAIL` address.
+
+List the domains to manage certificates for in `/etc/dehydrated/domains.txt`
+(more of which later) and set `DOMAINS_TXT` accordingly.
+
+For a challenge other than HTTP-01, set the challenge type using
 `CHALLENGETYPE`. Set the `CA` to the certificate authority to be used:
 `letsencrypt` (default), `letsencrypt-test` (for testing your setup), `buypass`,
 `buypass-test`, `zerossl` (others supported by default). For other CAs, set `CA`
-to the API URL provided by the respective CA instead of its name.  Additional
-configuration settings can be put in an extra folder, say
+to the API URL provided by the respective CA instead of its name.
+
+Additional configuration settings can be put in an extra folder, say
 `/etc/dehydrated/config.d` to be referred to by the option `CONFIG_D`.
 
     BASEDIR="/var/acme"
@@ -1462,3 +1466,217 @@ If you're using wildcard certificates, always define an alias name for it, so
 that you don't end up with a `*` character in your folder name:
 
     *.foo.bar > wildcard.foo.bar
+
+### Dehydrated HTTP-01 Challenge
+
+In order to test Dehydrated with the HTTP-01 challenge, a web server serving a
+web site must be set up, say Apache 2 serving the site `foobar.com` (see
+_Appendix A_). Dehydrated will create the file needed to pass challenge according
+to the information provided by the CA upon request, and clean it up after the
+challenge succeeded.
+
+For a web server serving its data from `/var/www`, create a directory
+`/var/www/acme` owned by `acme:acme`:
+
+    # mkdir /var/www/acme
+    # chown -R acme:acme /var/www/acme
+
+This directory must be made available for every site whose certificates are
+going to be managed by Dehydrated under the path `/.well-known/acme-challenge`,
+both via HTTP and HTTPS. For the Apache web server, a reusable configuration can
+be created as follows (e.g. under `/etc/apache2/acme.config`):
+
+    Alias /.well-known/acme-challenge/ /var/www/acme/
+    <Directory "/var/www/acme/">
+            Options         None
+            Require         all granted
+            AllowOverride   None
+            ForceType       text/plain
+    </Directory>
+
+For each virtual host supposed to serve TLS certificates managed by Dehydrated,
+add the following line to the configuration:
+
+    <VirtualHost *:443>
+        Include /etc/apache2/acme.config
+        ...
+    </VirtualHost>
+
+Make sure that the `hook.sh` script for the HTTP-01 challenge is available under
+`/etc/dehydrated/hook.sh`. When using another location, set the configuration
+option `HOOK` in `/etc/dehydrated/config` pointing to that script. Also set the
+`WELLKNOWN` option to `/var/www/acme`, so that the challenge files end up in
+that directory, which was setup before.
+
+Dehydrated is now ready to run. Make sure you can run `dehydrated` either using
+`su` or `sudo`, depending on your setup:
+
+    $ su -m acme -c 'dehydrated -v'
+    $ sudo -u acme dehydrated -v
+
+If this command's output includes version information about Dehydrated,
+everything is ready to run the registration command (`sudo` is used for all
+`dehydrated` commands henceforth):
+
+    $ sudo -u acme dehydrated --register --accept-terms
+    # INFO: Using main config file /etc/dehydrated/config
+     + Generating account key...
+     + Registering account key with ACME server...
+     + Fetching account ID...
+     + Done!
+
+Dehydrated can now be run to request the certificates. A periodic expiration
+check to renew certificates that will expire within the next 30 days can be
+setup by providing the `--cron` option in the same step:
+
+    $ sudo -u acme dehydrated --cron
+    # INFO: Using main config file /etc/dehydrated/config
+    Processing foobar.com
+     + Signing domains...
+     + Generating private key...
+     + Generating signing request...
+     + Requesting new certificate order from CA...
+     + Received 1 authorizations URLs from the CA
+     + Handling authorization for foobar.com
+     + 1 pending challenge(s)
+     + Deploying challenge tokens...
+     + Responding to challenge for foobar.com authorization...
+     + Challenge is valid!
+     + Cleaning challenge tokens...
+     + Requesting certificate...
+     + Checking certificate...
+     + Done!
+     + Creating fullchain.pem...
+     + Done!
+
+This should output a list of domains for which certificates are going to be
+checked for expiration periodically. Since no certificates existed yet, they
+have been requested right away. The challenge files are cleaned up
+automatically.
+
+The certificate files end up in a sub-directory of `BASEDIR` (e.g. `/var/acme`):
+
+- `accounts/` contains the account information resulting from the registration.
+  There is one sub-directory for each CA account.
+- `archive/` contains all the expired certificate, key, chain, and CSR files,
+  which are kept around for later inspection.
+- `chains/` containes cached certificate chain files, which are used to speed up
+  the process of building new certificate chains.
+- `cert/` contains the current certificate, key, chain, and CSR files. For each
+  domain, a sub-directory named after its common name is created.
+
+Every sub-directory of `cert/` contains the actual chain file to be deployed.
+The file name contains the epochal timestamp of the certificate creation time.
+Symlinks from the CSR (`cert.csr -> cert-1627207259.csr`), the certificate
+(`cert.pem -> cert-1627207259.pem`), the chain (`fullchain.pem ->
+fullchain-1627207259.pem`), and the private key (`privkey.pem ->
+privkey-1627207259.pem`) are created automatically, so that the paths to be used
+from the web server configuration remain stable. Use the paths to `cert.pem` and
+`privkey.pem` for your webserver configuration
+(`/etc/apache2/sites-enabled/foobar.com.conf`):
+
+    SSLEngine             on
+    SSLCertificateFile    /var/acme/certs/foobar.com/chain.pem
+    SSLCertificateKeyFile /var/acme/certs/foobar.com/privkey.pem
+
+Make sure to restart your web server or to reload its config after modifying
+those paths:
+
+    # systemctl restart apache2.service
+
+Since renewed certificates end up in the same folder, old certificate, CSR,
+chain, and private key files should be archived once in a while:
+
+    $ sudo -u acme dehydrated --cleanup
+
+The archived files, which end up in a sub-directory of `/var/acme/archive` (or
+generally speaking: in `${BASEDIR}/archive`), should be deleted once in a while
+using a cronjob running a command as follows, which deletes archive files older
+than 300 days:
+
+    # find /var/acme/archive -type f -mtime 300 -delete
+
+Notice that most web servers load the certificate files on startup and won't
+reload renewed certificate chains automatically. Consider running your web
+server's reload or restart command after certificate renewal using a cronjob. Or
+as a better alternative, put this command into the `deploy_cert()` function of
+your `hook.sh` script. Make sure that the user running `dehydrated` has the
+according rights.
+
+#### Debugging
+
+For debugging, make sure that the challenge files are created in the first
+place:
+
+    # watch -n 1 find -f /var/www/acme
+
+This lists the contents of `/var/www/acme` every second, and a challenge token
+should appear while `dehydrated` is running. If not, something with your
+Dehydrated config or access rights to `/var/www/acme` must be wrong.
+
+If the challenge file was created, but the challenge failed nonetheless, check
+double your Apache configuration; probably the challenge files aren't served.
+
+# Appendix A: Apache Setup
+
+In order to setup and test Dehydrated for the domain `foobar.com`, a web server
+must be running, serving that particular site. (Use a real domain owned by you
+instead.) This quick tutorial describes how to do so under Debian 10 (Buster).
+
+First, install Apache 2:
+
+    # apt install apache2
+
+Second, create the directory to serve your site from (replace `foobar.com` by
+your proper domain) with proper permissions:
+
+    # mkdir -p /var/www/foobar.com/public_html
+    # chown -R 755 /var/www/foobar.com/public_html
+
+Third, create a simple test index page
+(`/var/www/foobar.com/public_html/index.html`):
+
+    <h1>Hello, World!</h1>
+
+Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
+(`/etc/apache2/sites-available/foobar.com.conf`):
+
+<VirtualHost *:443>
+    ServerAdmin  webmaster@foobar.com
+    ServerName   foobar.com
+    ServerAlias  www.foobar.com
+    DocumentRoot /var/www/foobar.com/public_html
+
+    ErrorLog  ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine             on
+    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+</VirtualHost>
+<VirtualHost *:80>
+    ServerAdmin  webmaster@foobar.com
+    ServerName   foobar.com
+    ServerAlias  www.foobar.com
+    DocumentRoot /var/www/foobar.com/public_html
+
+    ErrorLog  ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+Fifth, disable the default page and activate `foobar.com`. Also enable Apache's
+SSL module:
+
+    # a2dissite 000-default.conf
+    # a2ensite foobar.com.conf
+    # a2enmod ssl
+
+Finally, the webserver can be restarted:
+
+    # systemctl restart apache2.service
+
+If everything works, the demo page should be available under both HTTP and
+HTTPS:
+
+    $ curl http://foobar.com/index.html
+    $ curl -k https://foobar.com/index.html
