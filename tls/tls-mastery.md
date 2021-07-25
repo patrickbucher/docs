@@ -4,8 +4,10 @@ subtitle: Notes on TLS
 author: Patrick Bucher
 ---
 
-Notes from [TLS Mastery](https://www.tiltedwindmillpress.com/product/tls/) by
-Michael W. Lucas.
+These notes are based on [TLS
+Mastery](https://www.tiltedwindmillpress.com/product/tls/) by Michael W. Lucas.
+I highly recommend to buy that book. The examples have been modified as needed.
+An appendix providing instructions for a basic web server setup has been added.
 
 # Chapter 0: Introduction
 
