@@ -1502,6 +1502,8 @@ add the following line to the configuration:
         ...
     </VirtualHost>
 
+#### Running Dehydrated
+
 Make sure that the `hook.sh` script for the HTTP-01 challenge is available under
 `/etc/dehydrated/hook.sh`. When using another location, set the configuration
 option `HOOK` in `/etc/dehydrated/config` pointing to that script. Also set the
@@ -1554,6 +1556,8 @@ checked for expiration periodically. Since no certificates existed yet, they
 have been requested right away. The challenge files are cleaned up
 automatically.
 
+#### Deploying the Certificate
+
 The certificate files end up in a sub-directory of `BASEDIR` (e.g. `/var/acme`):
 
 - `accounts/` contains the account information resulting from the registration.
@@ -1583,6 +1587,8 @@ Make sure to restart your web server or to reload its config after modifying
 those paths:
 
     # systemctl restart apache2.service
+
+#### Cleanup
 
 Since renewed certificates end up in the same folder, old certificate, CSR,
 chain, and private key files should be archived once in a while:
