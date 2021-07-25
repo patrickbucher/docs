@@ -1571,12 +1571,12 @@ Symlinks from the CSR (`cert.csr -> cert-1627207259.csr`), the certificate
 (`cert.pem -> cert-1627207259.pem`), the chain (`fullchain.pem ->
 fullchain-1627207259.pem`), and the private key (`privkey.pem ->
 privkey-1627207259.pem`) are created automatically, so that the paths to be used
-from the web server configuration remain stable. Use the paths to `cert.pem` and
-`privkey.pem` for your webserver configuration
+from the web server configuration remain stable. Use the paths to
+`fullchain.pem` and `privkey.pem` for your webserver configuration
 (`/etc/apache2/sites-enabled/foobar.com.conf`):
 
     SSLEngine             on
-    SSLCertificateFile    /var/acme/certs/foobar.com/chain.pem
+    SSLCertificateFile    /var/acme/certs/foobar.com/fullchain.pem
     SSLCertificateKeyFile /var/acme/certs/foobar.com/privkey.pem
 
 Make sure to restart your web server or to reload its config after modifying
