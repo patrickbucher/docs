@@ -1620,8 +1620,8 @@ This lists the contents of `/var/www/acme` every second, and a challenge token
 should appear while `dehydrated` is running. If not, something with your
 Dehydrated config or access rights to `/var/www/acme` must be wrong.
 
-If the challenge file was created, but the challenge failed nonetheless, check
-double your Apache configuration; probably the challenge files aren't served.
+If the challenge file was created, but the challenge failed nonetheless, double
+check your Apache configuration; probably the challenge files aren't served.
 
 # Appendix A: Apache Setup
 
