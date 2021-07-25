@@ -1647,28 +1647,28 @@ Third, create a simple test index page
 Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
 (`/etc/apache2/sites-available/foobar.com.conf`):
 
-<VirtualHost *:443>
-    ServerAdmin  webmaster@foobar.com
-    ServerName   foobar.com
-    ServerAlias  www.foobar.com
-    DocumentRoot /var/www/foobar.com/public_html
+    <VirtualHost *:443>
+        ServerAdmin  webmaster@foobar.com
+        ServerName   foobar.com
+        ServerAlias  www.foobar.com
+        DocumentRoot /var/www/foobar.com/public_html
 
-    ErrorLog  ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ErrorLog  ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-    SSLEngine             on
-    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-</VirtualHost>
-<VirtualHost *:80>
-    ServerAdmin  webmaster@foobar.com
-    ServerName   foobar.com
-    ServerAlias  www.foobar.com
-    DocumentRoot /var/www/foobar.com/public_html
+        SSLEngine             on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+    </VirtualHost>
+    <VirtualHost *:80>
+        ServerAdmin  webmaster@foobar.com
+        ServerName   foobar.com
+        ServerAlias  www.foobar.com
+        DocumentRoot /var/www/foobar.com/public_html
 
-    ErrorLog  ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
+        ErrorLog  ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
 
 Fifth, disable the default page and activate `foobar.com`. Also enable Apache's
 SSL module:
