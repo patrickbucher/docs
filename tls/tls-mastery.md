@@ -1688,3 +1688,104 @@ HTTPS:
 
     $ curl http://foobar.com/index.html
     $ curl -k https://foobar.com/index.html
+
+# Appendix B: DNS Setup
+
+If you want to test the DNS-01 challenge with Dehydrated, besides a web server,
+you also must run your own authoritative-only DNS server. Again the domain
+`foobar.com` is used as a placeholder, to be replaced with your real domain
+name. As an IP address, the placeholder `123.45.67.89` is used. Debian 10 (Buster)
+is used in this tutorial, too. This setup requires that both the DNS and web
+server are running on the same host.
+
+For this setup, the DNS server only manages the `TXT` records needed for the
+ACME challenge. `CNAME` records are created on the main DNS server of your
+hosting provider, pointing to the `TXT` records managed on your ACME-only DNS
+server.
+
+First, a `NS` record is needed, which assigns your subdomain
+(`acme.foobar.com`) to the DNS server that will manage it (`ns1.foobar.com`).
+Use your registrar's web interface to create one.
+
+Second, an `A` record is needed setting `ns1.foobar.com` to the IP address
+`123.45.67.89`. (Consider a glue record for this purpose.)
+
+Make sure that UDP port 53 is open on your server:
+
+    $ nmap 123.45.67.89 -p 53
+
+Install the Bind 9 on your server and check the version number:
+
+    # apt install bind9 bind9utils bind9-doc
+    # named -v
+
+Next, enable and start the `bind9` service and check its status (the last line
+should read: "server is up and running"):
+
+    # systemctl enable --now bind9
+    # rndc status
+
+Also enable the `bind9-resolvconf` service so that Bind can be used as the
+system's default DNS resolver:
+
+    # systemctl enable --now bind9-resolvconf
+
+Check if `/etc/resolv.conf` uses `127.0.0.1` as its name server:
+
+    $ cat /etc/resolv.conf
+    nameserver 127.0.0.1
+
+Deactivate the recursive DNS service and zone transfer, and activate the query
+log by adding the following options to `/etc/bind/named.conf.options`:
+
+    recursion no;
+    allow-transfer { none; };
+    querylog yes;
+
+Define your zone in `/etc/bind/named.conf.local` as follows:
+
+    zone "acme.foobar.com" {
+            type master;
+            file "/etc/bind/zones/db.acme.foobar.com";
+            allow-query { any; };
+    };
+
+To create the zone file `db.acme.foobar.com`, copy from the template:
+
+    # cp /etc/bind/db.empty /etc/bind/zones/db.acme.foobar.com
+
+And create a zone configuration as follows:
+
+    $TTL    300
+    $ORIGIN acme.foobar.com.
+    @       IN      SOA     ns1.foobar.com. webmaster.foobar.com. (
+                         2021072600         ; Serial
+                             604800         ; Refresh
+                              86400         ; Retry
+                            2419200         ; Expire
+                              86400 )       ; Negative Cache TTL
+
+            IN      NS      ns1.foobar.com.
+
+    test    IN      TXT     "this is a test"
+
+Check the global and zone configuration and restart the `bind9` service:
+
+    # named-checkconf
+    # named-checkzone acme.foobar.com /etc/bind/zones/db.acme.foobar.com
+    zone acme.foobar.com/IN: loaded serial 2021072600
+    OK
+    # systemctl restart bind9.service
+
+Test your DNS setup on the server by querying the test `TXT` record defined
+above:
+
+    $ dig -t txt +short test.acme.foobar.com @localhost
+    "this is a test"
+
+If this succeeds, also perform the same test from your local computer:
+
+    $ dig -t txt +short test.acme.foobar.com @acme.foobar.com
+    "this is a test"
+
+If this also works, your DNS server is ready.
