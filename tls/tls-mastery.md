@@ -1625,7 +1625,7 @@ Dehydrated config or access rights to `/var/www/acme` must be wrong.
 If the challenge file was created, but the challenge failed nonetheless, double
 check your Apache configuration; probably the challenge files aren't served.
 
-# Appendix A: Apache Setup
+# Appendix A: Web Server Setup Using Apache 2
 
 In order to setup and test Dehydrated for the domain `foobar.com`, a web server
 must be running, serving that particular site. (Use a real domain owned by you
@@ -1689,7 +1689,7 @@ HTTPS:
     $ curl http://foobar.com/index.html
     $ curl -k https://foobar.com/index.html
 
-# Appendix B: DNS Setup
+# Appendix B: DNS Server Setup Using Bind9
 
 If you want to test the DNS-01 challenge with Dehydrated, besides a web server,
 you also must run your own authoritative-only DNS server. Again the domain
