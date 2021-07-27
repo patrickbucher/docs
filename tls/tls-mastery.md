@@ -1469,7 +1469,7 @@ that you don't end up with a `*` character in your folder name:
 
     *.foo.bar > wildcard.foo.bar
 
-### Dehydrated HTTP-01 Challenge
+## Dehydrated HTTP-01 Challenge
 
 In order to test Dehydrated with the HTTP-01 challenge, a web server serving a
 web site must be set up, say Apache 2 serving the site `foobar.com` (see
@@ -1504,7 +1504,7 @@ add the following line to the configuration:
         ...
     </VirtualHost>
 
-#### Running Dehydrated
+### Running Dehydrated
 
 Make sure that the `hook.sh` script for the HTTP-01 challenge is available under
 `/etc/dehydrated/hook.sh`. When using another location, set the configuration
@@ -1558,7 +1558,7 @@ checked for expiration periodically. Since no certificates existed yet, they
 have been requested right away. The challenge files are cleaned up
 automatically.
 
-#### Deploying the Certificate
+### Deploying the Certificate
 
 The certificate files end up in a sub-directory of `BASEDIR` (e.g. `/var/acme`):
 
@@ -1590,7 +1590,7 @@ those paths:
 
     # systemctl restart apache2.service
 
-#### Cleanup
+### Cleanup
 
 Since renewed certificates end up in the same folder, old certificate, CSR,
 chain, and private key files should be archived once in a while:
@@ -1611,7 +1611,7 @@ as a better alternative, put this command into the `deploy_cert()` function of
 your `hook.sh` script. Make sure that the user running `dehydrated` has the
 according rights.
 
-#### Debugging
+### Debugging
 
 For debugging, make sure that the challenge files are created in the first
 place:
@@ -1624,6 +1624,31 @@ Dehydrated config or access rights to `/var/www/acme` must be wrong.
 
 If the challenge file was created, but the challenge failed nonetheless, double
 check your Apache configuration; probably the challenge files aren't served.
+
+## Dehydrated DNS-01 Challenge
+
+Whereas the HTTP-01 challenge verifies that a web server requesting certificates
+can create arbitrary files in the directories served by it, the DNS-01 challenge
+verifies that a DNS server requesting certificates can create arbitrary `TXT`
+records for the domains managed by it.
+
+Therefore, the DNS-01 challenge requires access to a domain's DNS
+configuration—and some familiarity with DNS on the side of the system's
+administrator. (_Appendix B_ describes the process of setting up a basic
+authoritative-only DNS server which can be used to test the Dehydrated setup.)
+
+For each SAN a certificate is to be managed by ACME, a `TXT`
+entry under a specific subdomain, say `_acme-challenge`, must be created; e.g.
+`_acme-challenge.foobar.com` for the domain `foobar.com`, or
+`_acme-challenge.www.foobar.com` for its subdomain `www.foobar.com`. According
+`CNAME` entries can be used to point to those `TXT` entries managed by the
+stub-DNS resolver used for ACME. Dehydrated must be able to update a `TXT`
+record on its own. When the `dehydrated` script runs, it creates one such `TXT`
+entry, which is used for all the challenges domains are pointing to using their
+`CNAME` record. This `TXT` record is deleted after the challenge succeeded (or
+failed).
+
+TODO: p. 168 ff.
 
 # Appendix A: Web Server Setup Using Apache 2
 
@@ -1700,12 +1725,12 @@ server are running on the same host.
 
 For this setup, the DNS server only manages the `TXT` records needed for the
 ACME challenge. `CNAME` records are created on the main DNS server of your
-hosting provider, pointing to the `TXT` records managed on your ACME-only DNS
-server.
+hosting provider, one per SAN, pointing to the `TXT` records managed on your
+ACME-only DNS server.
 
 First, a `NS` record is needed, which assigns your subdomain
-(`acme.foobar.com`) to the DNS server that will manage it (`ns1.foobar.com`).
-Use your registrar's web interface to create one.
+(`_acme-challenge.foobar.com`) to the DNS server that will manage it
+(`ns1.foobar.com`).  Use your registrar's web interface to create one.
 
 Second, an `A` record is needed setting `ns1.foobar.com` to the IP address
 `123.45.67.89`. (Consider a glue record for this purpose.)
@@ -1744,20 +1769,20 @@ log by adding the following options to `/etc/bind/named.conf.options`:
 
 Define your zone in `/etc/bind/named.conf.local` as follows:
 
-    zone "acme.foobar.com" {
+    zone "_acme-challenge.foobar.com" {
             type master;
             file "/etc/bind/zones/db.acme.foobar.com";
             allow-query { any; };
     };
 
-To create the zone file `db.acme.foobar.com`, copy from the template:
+To create the zone file `db._acme-challenge.foobar.com`, copy from the template:
 
-    # cp /etc/bind/db.empty /etc/bind/zones/db.acme.foobar.com
+    # cp /etc/bind/db.empty /etc/bind/zones/db._acme-challenge.foobar.com
 
 And create a zone configuration as follows:
 
     $TTL    300
-    $ORIGIN acme.foobar.com.
+    $ORIGIN _acme-challenge.foobar.com.
     @       IN      SOA     ns1.foobar.com. webmaster.foobar.com. (
                          2021072600         ; Serial
                              604800         ; Refresh
@@ -1772,20 +1797,21 @@ And create a zone configuration as follows:
 Check the global and zone configuration and restart the `bind9` service:
 
     # named-checkconf
-    # named-checkzone acme.foobar.com /etc/bind/zones/db.acme.foobar.com
-    zone acme.foobar.com/IN: loaded serial 2021072600
+    # named-checkzone _acme-challenge.foobar.com \
+      /etc/bind/zones/db._acme-challenge.foobar.com
+    zone _acme-challenge.foobar.com/IN: loaded serial 2021072600
     OK
     # systemctl restart bind9.service
 
 Test your DNS setup on the server by querying the test `TXT` record defined
 above:
 
-    $ dig -t txt +short test.acme.foobar.com @localhost
+    $ dig -t txt +short test._acme-challenge.foobar.com @localhost
     "this is a test"
 
 If this succeeds, also perform the same test from your local computer:
 
-    $ dig -t txt +short test.acme.foobar.com @acme.foobar.com
+    $ dig -t txt +short test._acme-challenge.foobar.com @ns1.foobar.com
     "this is a test"
 
 If this also works, your DNS server is ready.
