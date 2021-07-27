@@ -7,7 +7,8 @@ author: Patrick Bucher
 These notes are based on [TLS
 Mastery](https://www.tiltedwindmillpress.com/product/tls/) by Michael W. Lucas.
 I highly recommend to buy that book. The examples have been modified as needed.
-An appendix providing instructions for a basic web server setup has been added.
+Appendices providing instructions on how to setup a basic web and DNS server
+have been added.
 
 # Chapter 0: Introduction
 
