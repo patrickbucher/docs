@@ -1648,7 +1648,92 @@ entry, which is used for all the challenges domains are pointing to using their
 `CNAME` record. This `TXT` record is deleted after the challenge succeeded (or
 failed).
 
-TODO: p. 168 ff.
+### Dynamic Zone Setup
+
+Since the `TXT` record is going to be managed dynamically, a dynamic DNS key
+needs bo be created using `ddns-confgen(8)`:
+
+    # ddns-confgen -k acme
+
+Copy the following part of the output into `/etc/bind/acme.key`, and rename the
+key from `acme` to `acmekey`. Ignore the rest of the output:
+
+    key "acmekey" {
+            algorithm hmac-sha256;
+            secret "S6u5iSJYaur7K...";
+    };
+
+In `/etc/bind/named.conf.local`, make sure to include that key:
+
+    include "/etc/bind/acme.key";
+
+Also adjust the zone definition for `_acme-challenge.foobar.com` as created in
+_Appendix B_, so that it looks as follows:
+
+    zone "_acme-challenge.foobar.com" {
+            type master;
+            file "/var/cache/bind/db._acme-challenge.foobar.com";
+            allow-query { any; };
+            update-policy {
+                    grant acmekey name _acme-challenge.foobar.com TXT;
+            };
+    };
+
+This `update-policy` allows for dynamic DNS updates of `TXT` records within the
+zone `_acme-challenge.foobar.com` to the key `acme`.
+
+Check your configuration, restart the `bind9` service, and run a test:
+
+    # named-checkconf
+    # named-checkzone _acme-challenge.foobar.com \
+      /var/cache/bind/db._acme-challenge.foobar.com
+    # systemctl restart bind9.service
+    $ dig -t txt +short test._acme-challenge.foobar.com @localhost
+    "this is a test"
+
+### Creating a Test `TXT` Record
+
+Next, `nsupdate(1)` is used to create the `TXT` required by the DNS-01
+challenge. The key created before is loaded using the `-k` option. (The commands
+after the `>` prompt are to be entered interactively; the `show` command is used
+to double-check the configuration change to be performed.)
+
+    # nsupdate -k /etc/bind/acme.key
+    > server localhost
+    > update add _acme-challenge.foobar.com 300 TXT HelloWorld
+    > show
+    Outgoing update query:
+    ;; ->>HEADER<<- opcode: UPDATE, status: NOERROR, id:      0
+    ;; flags:; ZONE: 0, PREREQ: 0, UPDATE: 0, ADDITIONAL: 0
+    ;; UPDATE SECTION:
+    _acme-challenge.foobar.com. 300 IN    TXT     "HelloWorld"
+    > send
+    > quit
+
+Check if the `TXT` record is served correctly when queried (both locally and
+remotely):
+
+    $ dig -t txt +short _acme-challenge.foobar.com @localhost
+    "HelloWorld"
+    $ dig -t txt +short _acme-challenge.foobar.com @ns1.foobar.com
+    "HelloWorld"
+
+Since this is only a configuration test, and the ACME client will create a `TXT`
+entry with the challenge secret on its own, the record can be deleted again:
+
+    # nsupdate -k /etc/bind/acme.key
+    > server localhost
+    > update delete _acme-challenge.snipperia.ch TXT
+    > send
+    > quit
+
+Now the `TXT` record should be gone (no output should be shown):
+
+    $ dig -t txt +short _acme-challenge.foobar.com @localhost
+
+### Setting up DNS Aliases
+
+TODO: p. 173 ff.
 
 # Appendix A: Web Server Setup Using Apache 2
 
@@ -1771,13 +1856,16 @@ Define your zone in `/etc/bind/named.conf.local` as follows:
 
     zone "_acme-challenge.foobar.com" {
             type master;
-            file "/etc/bind/zones/db.acme.foobar.com";
+            file "/var/cache/bind/db.acme.foobar.com";
             allow-query { any; };
     };
 
+The path `/var/cache/bind` is used instead of `/etc/bind`, because the former is
+allowed using Debian's default App Armor settings.
+
 To create the zone file `db._acme-challenge.foobar.com`, copy from the template:
 
-    # cp /etc/bind/db.empty /etc/bind/zones/db._acme-challenge.foobar.com
+    # cp /etc/bind/db.empty /var/cache/bind/db._acme-challenge.foobar.com
 
 And create a zone configuration as follows:
 
@@ -1798,7 +1886,7 @@ Check the global and zone configuration and restart the `bind9` service:
 
     # named-checkconf
     # named-checkzone _acme-challenge.foobar.com \
-      /etc/bind/zones/db._acme-challenge.foobar.com
+      /var/cache/bind/db._acme-challenge.foobar.com
     zone _acme-challenge.foobar.com/IN: loaded serial 2021072600
     OK
     # systemctl restart bind9.service
