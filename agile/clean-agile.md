@@ -96,7 +96,7 @@ _burn-down chart_ shows the points remaining until the next milestone. The
 latter not necessarily shrinks at the rate of the velocity, because requirements
 and their estimations can change. Still, the burn-down chart's slope can be used
 to predict a likely date when the milestone is going to be reached. Agile is a
-feedback-driven approach. Even though the Agile manifesto doesn't mention
+feedback-driven approach. Even though the Agile Manifesto doesn't mention
 velocity or burn-down charts, collecting such data and taking decisions based on
 it is crucial. Make that data public, transparent, and obvious.
 
@@ -122,3 +122,101 @@ produced after a lot of overtime work, despite deadlines being moved forward
 repeatedly. The "solution" for the next project usually is to do even more
 analysis and design—more of what didn't work in the first place (_Runaway
 Process Inflation_).
+
+## The Agile Way
+
+Like Waterfall, an Agile projects starts with analysis—but analysis never ends.
+The time is divided in iterations or sprints of typically one or two weeks.
+_Iteration Zero_ is used to write the initial stories, to estimate them, to set
+up the development environment, to draft a tentative design, and to come up with
+a rough plan. Analysis, design, and implementation take place in every
+iteration.
+
+After the first iteration is completed, usually fewer stories have been finished
+than originally estimated. This is not a failure, but provides a first
+measurement that can be used to adjust the original plan. After a couple of
+iterations, a realistic average velocity and an estimation of the project's
+release date can be calcualted. This might be disappointing, but realistic. Hope
+is replaced by real data early in the process.
+
+Project management dealing with the Iron Cross—good, fast, cheap, done: pick
+three!—can now do the following adjustments:
+
+- _Schedule_: The end date is usually not negotiable, and if it is, delays
+  usually cost the business significantly.
+- _Staff_: _"Adding manpower to a late project makes it later."_ (Brooke's Law)
+  If more staff is added to a project, productivity first plummets, and only
+  increases over time. Staff can be added in the long run, if one can afford it.
+- _Quality_: Lowering the quality might give the impression of going faster in
+  the short run, but slows down the project in the long run, because more
+  defects are introduced. _"The only way to go fast, is to go well."_
+- _Scope_: If there's no other way, stakeholders can often be convinced to limit
+  their demands to features that are absolutely needed.
+
+Reducing the scope is often the only sensible choice. Make sure at the beginning
+of every sprint to only implement features that are really needed by the
+stakeholders. You might waste precious time on "nice to have" features
+otherwise.
+
+## Circle of Life
+
+Extreme Programming (XP), as described in Kent Beck's _Extreme Programming
+Explained", captures the essence of Agile. The practices of XP are organized in
+the _Circle of Life_, which consists of three rings.
+
+The outer ring contains the _business-facing_ practices, which are quite similar
+to the Scrum process:
+
+- **Planning Game**: breaking down a project into features, stories, and tasks
+- **Small Releases**: delivering small, but regular increments
+- **Acceptance Tests**: providing unambiguous completion criteria (definition of
+  "done")
+- **Whole Team**: working together in different functions (programmers, testers,
+  management)
+
+The middle ring contains the _team-facing_ practices:
+
+- **Sustainable Pace**: making progress while preventing burnout of the
+  developing team
+- **Collective Ownership**: sharing knowledge on the project to prevent silos
+- **Continuous Integration**: closing the feedback loop frequently and keeping
+  the team's focus
+- **Metaphor**: working with a common vocabulary and language
+
+The inner ring contains _technical_ practices:
+
+- **Pairing**: sharing knowledge, reviewing, collaborating
+- **Simple Design**: preventing wasted efforts
+- **Refactoring**: refining and improving all work products continuously
+- **Test-Driven Development**: maintaining quality when going quickly
+
+These practices closely match the values of the Agile Manifesto:
+
+- **Individuals and interactions** over processes and tools
+    - Whole Team (business-facing)
+    - Metaphor (team-facing)
+    - Collective Ownership (team-facing)
+    - Pairing (technical)
+- **Working software** over comprehensive documentation
+    - Acceptance Tests (business-facing)
+    - Test-Driven Development (technical)
+    - Simple Design (technical)
+    - Refactoring (technical)
+    - Continuous Integration (technical)
+- **Customer collaboration** over contract negotiation
+    - Planning Game (business-facing)
+    - Small Releases (business-facing)
+    - Acceptance Tests (business-facing)
+    - Metaphor (team)
+- **Responding to change** over following a plan
+    - Planning Game (business-facing)
+    - Small Releases (business-facing)
+    - Acceptance Tests (business-facing)
+    - Sustainable Pace (team-facing)
+    - Refactoring (technical)
+    - Test-Driven Development (technical)
+
+To sum up:
+
+> Agile is a small discipline that helps small software teams manage small
+> projects. Big projects are made from small projects.
