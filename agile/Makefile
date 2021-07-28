@@ -1,6 +1,6 @@
 DOC_OPTS=--toc -N -s
 PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue
-FONT_OPTS=-V mainfont='Vollkorn' -V sansfont='Lato'
+FONT_OPTS=-V mainfont='Linux Libertine' -V sansfont='Linux Biolinum'
 DATE=-V date="`date +'%Y-%m-%d'`"
 
 .PHONY: all clean
