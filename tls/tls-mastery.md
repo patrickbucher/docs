@@ -1530,9 +1530,9 @@ everything is ready to run the registration command (`sudo` is used for all
      + Fetching account ID...
      + Done!
 
-Dehydrated can now be run to request the certificates. A periodic expiration
-check to renew certificates that will expire within the next 30 days can be
-setup by providing the `--cron` option in the same step:
+Dehydrated can now be run to request the certificates. Certificates that are
+missing, or that will will expire within the next 30 days, are requested by
+providing the `--cron` option:
 
     $ sudo -u acme dehydrated --cron
     # INFO: Using main config file /etc/dehydrated/config
@@ -1600,16 +1600,16 @@ chain, and private key files should be archived once in a while:
 
 The archived files, which end up in a sub-directory of `/var/acme/archive` (or
 generally speaking: in `${BASEDIR}/archive`), should be deleted once in a while
-using a cronjob running a command as follows, which deletes archive files older
+using a cron job running a command as follows, which deletes archive files older
 than 300 days:
 
     # find /var/acme/archive -type f -mtime 300 -delete
 
 Notice that most web servers load the certificate files on startup and won't
 reload renewed certificate chains automatically. Consider running your web
-server's reload or restart command after certificate renewal using a cronjob. Or
-as a better alternative, put this command into the `deploy_cert()` function of
-your `hook.sh` script. Make sure that the user running `dehydrated` has the
+server's reload or restart command after certificate renewal using a cron job.
+Or as a better alternative, put this command into the `deploy_cert()` function
+of your `hook.sh` script. Make sure that the user running `dehydrated` has the
 according rights.
 
 ### Debugging
@@ -1724,7 +1724,7 @@ entry with the challenge secret on its own, the record can be deleted again:
 
     # nsupdate -k /etc/bind/acme.key
     > server localhost
-    > update delete _acme-challenge.snipperia.ch TXT
+    > update delete _acme-challenge.foobar.com TXT
     > send
     > quit
 
@@ -1820,6 +1820,58 @@ work. Finally, `dehydrated` can be executed:
      + Done!
 
 The certificates have been created, and Apache should have been reloaded.
+
+## Dehydrated Configuration per Domain
+
+If most of your domains work with the HTTP-01 challenge, but some special
+domains need DNS-01 because they need a wildcard certificate, the Dehydrated
+configuration can be created by domain to some extent. Set the `DOMAINS_D`
+option to point to a directory where those configurations are to be stored in
+`/etc/dehydrated/config`:
+
+    DOMAINS_D="/etc/dehydrated/domains.d"
+
+Create one file per common name (the first entry per line in `domains.txt`),
+which contains the settings to be overwritten for that specific domain, e.g.
+`/etc/dehydrated/domains.d/quxbaz.com` for the domain `quxbaz.com` (here, the
+challenge type and the path to a special hook script are set):
+
+    CHALLENGETYPE="dns-01"
+    HOOK="/etc/dehydrated/dns01-hook.sh"
+
+Notice that some options, e.g. `CA`, cannot be overwritten by a domain-specific
+configuration. The output of `dehydrated` will show that a special config is
+used for such a domain.
+
+## Certificate Renewal
+
+If the Dehydrated setup works, schedule a cron job so that renewals are
+attempted once a week. Certificates expiring within the next 30 days can be
+renewed, so running one renewal attempt once per week gives four attempts before
+the certificates are expired.
+
+Make sure to create the cron job for the user `acme`:
+
+    $ sudo -u acme EDITOR=vi crontab -e
+
+The following line configures a cron job that runs every sunday evening at 8
+o'clock p.m. and attaches the command's output to
+`/var/log/dehydrated/renewal.log`:
+
+    0 20 * * 7 dehydrated --cron >/var/log/dehydrated/renewal.log 2>&1
+
+Make sure to prepare the log folder as follows:
+
+    # mkdir /var/log/dehydrated
+    # chown -R acme:acme /var/log/dehydrated
+
+As an alternative, use systemd's built-in logger:
+
+    0 20 * * 7 systemd-cat dehydrated --cron
+
+Whose output can be viewed using:
+
+    $ sudo -u acme journalctl -u cron
 
 # Appendix A: Web Server Setup Using Apache 2
 
