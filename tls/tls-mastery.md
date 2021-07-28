@@ -1768,6 +1768,11 @@ sudoers file using `visudo(8)`:
 
     acme ALL=(root) NOPASSWD: /etc/init.d/apache2 reload
 
+Test if `acme` can actually reload Apache using `sudo`:
+
+    $ sudo -u acme bash
+    $ sudo /etc/init.d/apache2 reload
+
 The `printf` statement for the `"deploy_challenge"` and `"clean_challenge"`
 challenge step cases ("hooks") use the variables and arguments provided in and
 to the script and should work as intended. The following arguments are provided
