@@ -72,6 +72,53 @@ those lightweight ideas. After two days, broad consensus was reached:
 > - **Responding to change** over following a plan
 
 This _Agile Manifesto_ was published after the gathering on
-[agilemanifesto.org](https://agilemanifesto.org/), where it still can be signed,
-and and accompanied by [12
-Principles](https://agilemanifesto.org/principles.html).
+[agilemanifesto.org](https://agilemanifesto.org/), where it still can be signed.
+The [12
+Principles](https://agilemanifesto.org/principles.html) were written as a
+collaborative effort within the two weeks that followed the conference. This
+document explains and directs the four values stated in the manifesto; it shows,
+that those values have actual consequences.
+
+## Agile Overview
+
+Many software projects are managed using approaches based on faith and
+motivational techniques. As a result, such projects are chronically late,
+despite developers working overtime.
+
+All projects are constrained by a trade-off called the _Iron Cross_: good, fast,
+cheap, done—pick three! Good project managers understand this trade-off and
+strive for results that are done good enough within an acceptable time frame and
+budget, which provide the crucial features.
+
+Agile produces data that helps managers taking good decisions. The _velocity_
+shows the amount of points a development team finishes within an iteration. A
+_burn-down chart_ shows the points remaining until the next milestone. The
+latter not necessarily shrinks at the rate of the velocity, because requirements
+and their estimations can change. Still, the burn-down chart's slope can be used
+to predict a likely date when the milestone is going to be reached. Agile is a
+feedback-driven approach. Even though the Agile manifesto doesn't mention
+velocity or burn-down charts, collecting such data and taking decisions based on
+it is crucial. Make that data public, transparent, and obvious.
+
+A project's end date is usually given and not negotiable, often for good
+business reasons. The requirements, however, often change, because customers
+only have a rough goal, but don't know the detailed steps how to reach it.
+
+## A Waterfall Project
+
+In the Waterfall days, a project was often split up into three pases of equal
+length: analysis, design, and implementation. In the analysis phase,
+requirements are gathered and planning is done. In the design phase, a solution
+is sketched and the planning is refined. Neither phase has hard and tangible
+goals; they are done when the end date of the phase is reached.
+
+The implementation phase, however, needs to produce working software—a goal that
+is hard and tangible, and whose attainment is easy to judge. Schedule slips are
+only detected in this phase, and stakeholder only become aware of such issues
+when the project should be done almost finished.
+
+Such projects often end in a _Death March_: a hardly working solution is
+produced after a lot of overtime work, despite deadlines being moved forward
+repeatedly. The "solution" for the next project usually is to do even more
+analysis and design—more of what didn't work in the first place (_Runaway
+Process Inflation_).
