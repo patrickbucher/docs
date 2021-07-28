@@ -1747,6 +1747,80 @@ Use low TTLs (`300` or `600` seconds), so that no old ACME challenges can
 interfere with newer ones. No `CNAME` entry is needed for the actual challenge
 domain.
 
+### DNS-01 Hook Script
+
+Download Dehydrated's sample DNS-01 script, which uses `nsupdate(1)`, and save
+it to `/etc/dehydrated/hook.sh`. Some adjustments are needed:
+
+First, change the content of the `NSUPDATE` variable, so that it points to the
+correct key file:
+
+    NSUPDATE='nsupdate -k /etc/bind/acme.key'
+
+Second, change the instructions under the `"deploy_cert"` branch, so that the
+apache configuration is updated:
+
+    "deploy_cert")
+        sudo systemctl reload apache2.service
+
+Make sure `acme` can perform this step by adding the following line to the
+sudoers file using `visudo(8)`:
+
+    acme ALL=(root) NOPASSWD: /etc/init.d/apache2 reload
+
+Make sure that `acme` can now reload Aapche:
+
+    $ sudo -u acme /etc/init.d/apache2 reload
+    TODO
+
+The `printf` statement for the `"deploy_challenge"` and `"clean_challenge"`
+challenge step cases ("hooks") use the variables and arguments provided in and
+to the script and should work as intended. The following arguments are provided
+to the script:
+
+1. the challenge step (`deploy_challenge`, `clean_challenge`)
+2. the domain name being challenged (e.g. `www.foobar.com`)
+3. the filename (not used for DNS-01, only for HTTP-01)
+4. the secret that must go into the `TXT` record
+
+Adjust your `/etc/dehydrated/config` for the right challenge type:
+
+    CHALLENGETYPE="dns-01"
+
+Also consider requesting a wildcard certificate by adjusting
+`/etc/dehydrated/domains.txt` as follows, which, after all, is the main reason
+for all the DNS hassle::
+
+    foobar.com *.foobar.com
+
+Better first use the staging environment until certificate renewal is proofed to
+work. Finally, `dehydrated` can be executed:
+
+    $ sudo -u acme dehydrated --cron
+    # INFO: Using main config file /etc/dehydrated/config
+    Processing foobar.com with alternative names: *.foobar.com
+     + Signing domains...
+     + Generating private key...
+     + Generating signing request...
+     + Requesting new certificate order from CA...
+     + Received 2 authorizations URLs from the CA
+     + Handling authorization for foobar.com
+     + Handling authorization for foobar.com
+     + 2 pending challenge(s)
+     + Deploying challenge tokens...
+     + Responding to challenge for foobar.com authorization...
+     + Challenge is valid!
+     + Responding to challenge for foobar.com authorization...
+     + Challenge is valid!
+     + Cleaning challenge tokens...
+     + Requesting certificate...
+     + Checking certificate...
+     + Done!
+     + Creating fullchain.pem...
+     + Done!
+
+The certificates have been created, and Apache should have been reloaded.
+
 # Appendix A: Web Server Setup Using Apache 2
 
 In order to setup and test Dehydrated for the domain `foobar.com`, a web server
