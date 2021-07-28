@@ -1734,7 +1734,18 @@ Now the `TXT` record should be gone (no output should be shown):
 
 ### Setting up DNS Aliases
 
-TODO: p. 173 ff.
+In order to make use of the `TXT` entry being managed dynamically by Dehydrated,
+each domain needs an alias of their `_acme-challenge` subdomain to the challenge
+domain's `_acme-challenge` subdomain. For this purpose `CNAME` entries need to
+be created, e.g.:
+
+    _acme-challenge.my-website.com  _acme-challenge.foobar.com
+    _acme-challenge.whatever.com    _acme-challenge.foobar.com
+    _acme-challenge.www.foobar.com  _acme-challenge.foobar.com
+
+Use low TTLs (`300` or `600` seconds), so that no old ACME challenges can
+interfere with newer ones. No `CNAME` entry is needed for the actual challenge
+domain.
 
 # Appendix A: Web Server Setup Using Apache 2
 
@@ -1763,7 +1774,7 @@ Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
     <VirtualHost *:443>
         ServerAdmin  webmaster@foobar.com
         ServerName   foobar.com
-        ServerAlias  www.foobar.com
+        ServerAlias  www.foobar.com www2.foobar.com
         DocumentRoot /var/www/foobar.com/public_html
 
         ErrorLog  ${APACHE_LOG_DIR}/error.log
@@ -1776,7 +1787,7 @@ Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
     <VirtualHost *:80>
         ServerAdmin  webmaster@foobar.com
         ServerName   foobar.com
-        ServerAlias  www.foobar.com
+        ServerAlias  www.foobar.com www2.foobar.com
         DocumentRoot /var/www/foobar.com/public_html
 
         ErrorLog  ${APACHE_LOG_DIR}/error.log
@@ -1846,10 +1857,9 @@ Check if `/etc/resolv.conf` uses `127.0.0.1` as its name server:
     $ cat /etc/resolv.conf
     nameserver 127.0.0.1
 
-Deactivate the recursive DNS service and zone transfer, and activate the query
-log by adding the following options to `/etc/bind/named.conf.options`:
+Deactivate zone transfer and activate the query log by adding the following
+options to `/etc/bind/named.conf.options`:
 
-    recursion no;
     allow-transfer { none; };
     querylog yes;
 
