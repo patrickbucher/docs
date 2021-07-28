@@ -1,6 +1,6 @@
 ---
 title: 'Robert C. Martin: Clean Agile. Back to Basics'
-subtilte: 'Book Summary'
+subtitle: 'Book Summary'
 author: 'Patrick Bucher'
 ---
 
