@@ -1873,6 +1873,96 @@ Whose output can be viewed using:
 
     $ sudo -u acme journalctl -u cron
 
+# Chapter 8: HSTS and CAA
+
+Even though TLS is omnipresent nowadays, websites and applications deploying
+proper TLS certificates can still be subject to attacks. There are additions to
+TLS leveraging other protocols to address those issues. Two of those are _HTTP
+Strict Transport Security_ (HSTS) and _Certification Authority Authorization_
+(CAA).
+
+## HTTP Strict Transport Security
+
+An attacker performing a _downgrade attack_ forces the client to use old and
+broken algorithms and/or TLS versions—or even to fall back to unencrypted, bare
+HTTP communication. This can be achieved using a _man-in-the-middle_ attack,
+which redirects and captures the communication between client and server using
+an attacker's proxy. Even a server redirecting all HTTP traffic to HTTPS won't
+help, because the proxy still offers the client weak HTTPS or HTTP.
+
+A website only serving HTTPS can use HSTS to inform the client that there's
+won't be served anything under plain, unencrypted HTTP. A client receiving this
+information will switch to HTTPS—and reject further wekly encrypted or entirely
+unencrypted communication.
+
+Since the HSTS header is cached on the client side, no fallback to HTTP will be
+possible within the indicated caching period. HSTS also applies for all sites on
+a host, so an unencrypted subdomain is not possible, once a HSTS header for the
+same host is out.
+
+### Deploying HSTS
+
+HSTS is activated by issuing the `Strict-Transport-Security` header. Its
+`max-age` sub-value sets the header's caching duration in seconds. 
+When deploying a completely new website, pick a high value from the start (e.g.
+`max-age=31536000` for the duration of one year). For an existing website, start
+low and increase the value progressively as confidence with testing grows and no
+negative feedback is reported.
+
+The `includeSubDomains` header tells the client that HSTS not only applies to
+the main domain, but also to all of its sub-domains. Test this option together
+with a  low `mag-age` duration for existing deployments, so that you become
+aware of possible issues with sub-domains quickly, and without long-lasting
+issues for clients.
+
+HSTS is only activated after the first response of a server reaches the client.
+Therefore, the domain is vulnerable to man-in-the-middle attacks for first-time
+visitors. The Chrome browser maintains a list of domains serving HSTS, so that
+HSTS can be applied for the first request of a client to a server, if that
+server is on the list. Other browser also use Chrome's list.
+
+HSTS domains can be submitted to a [web form](https://hstspreload.org/). A
+minimum `max-age` of one year is required. Once registered, the `preload`
+sub-value of the `Strict-Transport-Security` header can be added.
+
+There's also a [removal form](https://hstspreload.org/removal/) to get of
+the preload list. Notice that it can take a long time until this removal
+information reaches all the clients by the means of software updates. Think
+twice and test well before committing yourself to the HSTS preload list, which
+is a proprietary mechanism, after all.
+
+## Certificate Authority Authorization
+
+An attacker might get a valid certificate based on a leaked private key. By
+accident, you might deploy a valid certificate not compliant to regulations,
+because you picked the wrong CA or validation method.
+
+A Certificate Authority Authorization DNS record (`CAA`) defines which CA is
+authorized to issue a certificate for the respective domain. For the `keyword`
+field, use `issue` or `issuewild` for specific or wildcard certificates,
+respectively.  The `CAA` record's value contains the name of the CA that is
+allowed to issue a (wildcard) certificate for the respective domain. On entry
+per CA and domain is required. The CA's website should mention the exact name to
+be used for the `value` field.
+
+This entries define that _Let's Encrypt_ can issue certificates for the domain
+`foobar.com`, but only _SwissSign_ is allowed to issue wildcard certificates for
+the same domain:
+
+    foobar.com  3600  IN  CAA  0  issue      "letsencrypt.org"
+    foobar.com  3600  IN  CAA  0  issuewild  "swisssign.com"
+
+The value `;` (semicolon) indicates that no CA is allowed to issue a certificate
+for the respective domain, which is useful to prevent any CA respecting CAA
+entries from issuing wildcard certificates:
+
+    foobar.com  3600  IN  CAA  0  issue      "letsencrypt.org"
+    foobar.com  3600  IN  CAA  0  issuewild  ";"
+
+The `CAA` record is checked when a certificate is issued by the CA. Check if
+your CA respects `CAA` records and make sure to follow your CA's documentation.
+CAA is still optional, but might become mandatory in the future.
+
 # Appendix A: Web Server Setup Using Apache 2
 
 In order to setup and test Dehydrated for the domain `foobar.com`, a web server
