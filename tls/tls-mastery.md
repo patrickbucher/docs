@@ -1362,7 +1362,7 @@ ACME supports the following challenge methods:
    the same port during the verification process, which causes some downtime.
    Web servers support ALPN using modules (Apache's `mod_md`) or by a special
    proxy configuration (nginx). TLS-ALPN-01 is the right choice for deployments
-   using procies and/or load balancers, but requires the server(s) to be
+   using proxies and/or load balancers, but requires the server(s) to be
    publicly reachable by the internet. Wildcard certificates are not supported
    by this challenge method.
 
@@ -1399,9 +1399,9 @@ There are plenty of ACME clients to choose from, some of them are:
 ## Dehydrated
 
 Dehydrated can be downloaded and installed using a package manager or manually
-from [dehydrated.io](https://dehydrated.io). Make sure `/etc/dehydrated` exists
-into which the example configuration shipped with dehydrated should be copied
-(`/etc/dehydrated/config`).
+from [dehydrated.io](https://dehydrated.io). Make sure `/etc/dehydrated` exists,
+into which folder the example configuration shipped with dehydrated should be
+copied (`/etc/dehydrated/config`).
 
 The main script `dehydrated` relies on hook scripts that provide the
 functionality specific to each challenge. For HTTP-01, `hook.sh` is provided as
