@@ -1348,11 +1348,11 @@ ACME supports the following challenge methods:
    domain `paedubucher.ch`, a `TXT` record under the token
    `_acme_challenge.paedubucher.ch` must be provided containing the key
    authorization as its value. DNS-01 is especially useful for web servers not
-   facing the internet, and if wildcard certificates are being requested. It
+   facing the Internet, and if wildcard certificates are being requested. It
    also makes it possible to request certificates from an other server than they
    are used on.
 3. **TLS-ALPN-01**: Much like HTTP-01, the server verifies that the client
-   controls a server facing the internet. Unlike HTTP-01, the server need not be
+   controls a server facing the Internet. Unlike HTTP-01, the server need not be
    a web server, but a TLS-aware server running on port 443 supporting
    _Application Layer Protocol Negotiation_ (ALPN), which allows to run
    different services under a single port. For this challenge, the client
@@ -1363,11 +1363,11 @@ ACME supports the following challenge methods:
    Web servers support ALPN using modules (Apache's `mod_md`) or by a special
    proxy configuration (nginx). TLS-ALPN-01 is the right choice for deployments
    using proxies and/or load balancers, but requires the server(s) to be
-   publicly reachable by the internet. Wildcard certificates are not supported
+   publicly reachable by the Internet. Wildcard certificates are not supported
    by this challenge method.
 
 Use DNS-01 if you need a wildcard certificate or a certificate for a server not
-facing the internet. Use HTTP-01 if it works for your environment, and pick
+facing the Internet. Use HTTP-01 if it works for your environment, and pick
 TLS-ALPN-01 otherwise.
 
 ### Some Practical Advice
@@ -1962,6 +1962,68 @@ entries from issuing wildcard certificates:
 The `CAA` record is checked when a certificate is issued by the CA. Check if
 your CA respects `CAA` records and make sure to follow your CA's documentation.
 CAA is still optional, but might become mandatory in the future.
+
+# Chapter 9: TLS Testing and Certificate Analysis
+
+Even though most applications deploying TLS can be tested manually with little
+effort, systematic testing is better performed using automated tools, of which
+many exist.
+
+## Testing Server Configuration
+
+[SSL Labs](https://www.ssllabs.com/ssltest/) is a free service to test your TLS
+server configuration. It performs a wide assessment covering many TLS features,
+and reports a grade from A (best) to F (worst). Using default configuration
+settings and allowing old protocol versions and algorithms can yield
+surprisingly low grades. The grade, however, will improve quickly as you follow
+the reported hints. Test regularly: a high grade detoriates if the configuration
+is not adjusted to ever-evolving standards.
+
+[Test SSL](https://testssl.sh/) provides a shell script to perform similar
+kinds of tests like SSL Labs, but also works on servers not facing the Internet
+or using different protocols than HTTP(S). Your operating system may offer a
+package for `testssl.sh`. The script is written in Bash and relies on basic Unix
+utilities. A simple test against a web server can be run as follows:
+
+    $ testssl https://foobar.com
+
+The output contains similar information as SSL Lab's report. Multiple operating
+systems and clients are simulated during the test.
+
+To test servers running other applications than web servers, indicate the
+protocol using the `--starttls`, or, short, `-t` flag:
+
+    $ testssl --starttls imap mail.foobar.com:993    
+
+[Cryptcheck](https://cryptcheck.fr/) offers a similar service like SSL Labs and
+Test SSL. Test them to figure out which one suits your needs best.
+
+[Bad SSL](https://badssl.com/) offers examples demonstrating how bad
+certificates or misconfigured TLS/SSL behave with your client.
+
+## Testing Certificate Transparency
+
+A public CA must keep records of which certificates it signs, and publish that
+information to public certificate logs, which then can be checked by auditors
+(_Certificate Transparency_). The CA also must published timely information on
+its revoked certificates.
+
+Certificate Transparency is not only useful for auditors scrutinizing CAs, but
+also for domain owners that want to figure out which certificates have been
+issued and are deemed trustworthy for one's domain. For this purpose, services
+based on public certificate logs such as [Certificate Search](https://crt.sh/)
+or the [Google Transparency
+Report](https://transparencyreport.google.com/https/certificates?hl=en) can be
+used. Make sure that only certificates can be found that were issued by CAs you
+really used!
+
+A TLS certificate itself contains proof that it was submitted to a Certificate
+Transparency log. The CA, before sending you the requested certificate, submits
+a preliminary certificate to a Certificate Transparency log, which is then
+signed using a _Signed Certificate Timestamp_ (SCT) by the log. That SCT is then
+copied into the real certificate being returned from the CA to the requestor.
+SCT is still optional, but certificates lacking one might be considered unsafe
+in the future.
 
 # Appendix A: Web Server Setup Using Apache 2
 
