@@ -1307,7 +1307,7 @@ challenges, submitting the CSRs, and deploying the certificates.
 ## ACME Registration
 
 The ACME client creates a key pair to identify the client. The client contact's
-the CS's server, accepts its terms and conditions. The server then registers an
+the CA's server, accepts its terms and conditions. The server then registers an
 account identified by the client's public key. This key is then used to sign
 further interaction between client and server.
 
