@@ -220,3 +220,50 @@ To sum up:
 
 > Agile is a small discipline that helps small software teams manage small
 > projects. Big projects are made from small projects.
+
+# The Reasons for Agile
+
+Many developers adopting Agile for the promise of speed and quality end up
+disappointed as these results do not show up immediately. However, the more
+important reasons for adopting Agile are _professionalism_ and _reasonable
+customer expectations_.
+
+## Professionalism
+
+In Agile, high commitment to discipline is more important than ceremony.
+Disciplined, professional behaviour becomes more important as software itself
+becomes more important. Computers are almost everywhere nowadays, and so is
+software. Little gets accomplished without software.
+
+Software is written by programmers—and bad software can kill people. Therefore,
+programmers will be blames as people are getting killed due to erroneous
+software. The disciplines of Agile development are a first step towards
+professionalism—which might save people's life in the long run.
+
+## Reasonable Customer Expectations
+
+Managers, customers, and users have reasonable expectations of software and its
+programmers. The goal of Agile development is to meet t hose expectations, which
+is not an easy task:
+
+- **Do not ship bad software**: A system should not require from a user to think
+  like a programmer. People spend good money on software—and should get high
+  quality with few defects in return.
+- **Continuous technical readiness**: Programmers often fail to ship useful
+  software in time, because they work on too many features at the same time,
+  instead of working only on the most important features first. Agile demands
+  that a system must be technically deployable at the end of every iteration.
+  The code is clean, and the tests all pass. Deploying or not—this is no longer
+  a technical but a business decision.
+- **Stable Productivity**: Progress usually is fast at the beginning of a
+  project, but slows down as messy code accumulates. Adding people to a project
+  only helps in the long run—but not at all if those new programmers are trained
+  by those programmers that created the mess in the first place. As this
+  downward spiral continues, progress comes to a halt. Developers demand to
+  start again from scratch. A new code base is built—with the old, messy code
+  base as the sole reliable source for requirements. The old system is
+  maintained and further developed by one half of the team, and the other half
+  lacks behind working on the new system; trying to hit a moving target. Big
+  redesigns often fail, few are ever deployed to customers.
+
+TODO: p. 49 ff.
