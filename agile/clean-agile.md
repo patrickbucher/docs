@@ -265,5 +265,65 @@ is not an easy task:
   maintained and further developed by one half of the team, and the other half
   lacks behind working on the new system; trying to hit a moving target. Big
   redesigns often fail, few are ever deployed to customers.
+- **Inexpensive Adoptability**: Software ("soft"), as opposed to hardware
+  ("hard") is supposed to be easy to change. Often seen as a nuisance by some
+  developers, changing requirements are the reason why the discipline of
+  software engineering exists. A good software system is easy to change.
+- **Continuous Improvement**: Software should become better as time goes.
+  Design, architecture, code structure, efficiency, and throughput of a system
+  should improve and not detoriate over time.
+- **Fearless Competence**: Developers are often afraid of modifying bad code,
+  and therefor, bad code isn't improved. ("You touch it, you break it. You break
+  it, you own it.") Test-Driven Development is helpful to overcome this fear by
+  allowing for an automated quality assessment after every change to the code.
+- **No QA Findings**: Bugs should not be discovered by QA, but avoided or
+  eliminated by the development team in the first place. If the QA finds bugs,
+  the developers must not only fix those, but also improve their process.
+- **Test Automation**: Manual tests are expensive and, thus, will be reduced or
+  skipped if the project's budget is cut. If development is late, QA has too
+  little time to test. Parts of the system remain untested. Machines are better
+  at performing repetetive tasks like manual testing than humans (except for
+  exploratory testing). It is a waste of time and money to let humans perform
+  manual tests; it's also immoral.
+- **Cover for each other**: Developers must help each other; they must act as a
+  team. IF somebody fails or gets sick, the other team members must help out.
+  Every developer must ensure that others can cover for him or her by
+  documenting the code, sharing knowledge, and helping others reciprocally.
+- **Honest Estimates**: Developers must be honest with their estimates based on
+  their level of knowledge. Under uncertainty, ranges ("5 to 15 days") rather
+  than exact estimates ("10 days") should be provided. Tasks can't always be
+  estimated exactly, but in relation to other tasks ("this takes twice as long
+  as that").
+- **Saying "No"**: If no feasible solution for a problem can be found, the
+  developer must say so. This can be inconvenient, but could also save bigger
+  trouble down the road.
+- **Continuous Learning**: Developers must keep up with an ever and fast
+  changing industry by learning all the time. It's great if a company provides
+  training, byt the responsibility for learning remains with the developer.
+- **Mentoring**: Existing team members must teach new team members. Both sides
+  learn in the process, because teaching is a great way of learning.
 
-TODO: p. 49 ff.
+## The Bill of Rights
+
+Agile is supposed to heal the divide between business and development. Both
+sides—customers and developers—have complementary rights.
+
+Customers have the right to …
+
+- … an overall plan: what can be accomplished when at what cost?
+- … get the most out of every iteration.
+- … see progress in terms of passing tests they define.
+- … change their minds and priorities.
+- … be informed on schedule and estimate changes.
+- … cancel at any time and remain with a working system nonetheless.
+
+Developers have the right to …
+
+- … know what is needed, and what the priorities are.
+- … produce high-quality work.
+- … ask for and receive help.
+- … update their estimates.
+- … accept responsibilities rather than having them assigned.
+
+Agile is not a process, it is a set of _rights, expectations, and disciplines_
+that form the basis for an ethical profession.
