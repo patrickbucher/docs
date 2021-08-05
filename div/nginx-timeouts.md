@@ -1,0 +1,24 @@
+- `client_header_timeout`
+    - client sends a header in multiple packets
+    - time to complete all the packets of a header
+    - connection is closed if header's packages don't all arrive within that timeout
+- `client_body_timeout`
+    - client sends a body (e.g. POST request) in multiple packets
+    - time to complete all the packets of a body
+    - connection is closed if body's packages don't all arrive within that timeout
+- `send_timeout`
+    - the server sends response to the client
+    - the response is split up into multiple packets
+    - the transmission of all packets must finish within this layout
+    - timer is reset when clients sends ACK
+- `keepalive_timeout`
+    - client can allow connection to be kept alive for a certain period of time
+    - idle connections will be closed after this timeout is reached
+- `lingering_timeout`
+    - when closing a connection:
+        - `lingering=off`: connection is closed immediately
+        - `lingering=on`: connection is closed after the timeout, so that
+          packets transmission can be finished (might be out of order, so FIN
+          arrives before packet transmission is finished)
+- `resolver_timeout`
+    - DNS timeout
