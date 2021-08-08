@@ -327,3 +327,93 @@ Developers have the right to …
 
 Agile is not a process, it is a set of _rights, expectations, and disciplines_
 that form the basis for an ethical profession.
+
+# Business Practices
+
+Development must follow the business-facing practices of Planning, Small
+Releases, Acceptance Tests, and Whole Team in order to succeed.
+
+## Planning
+
+A project can be planned by breaking it up into its pieces recursively and
+estimating those pieces. The more those pieces are broken up—down to individual
+lines of code in the extreme case—the more accurate and precise the estimate
+becomes, but the more time it takes to come up with this estimation. An estimate
+should be as accurate as possible, but only as precise as necessary.
+
+By giving a range of time (e.g. 5-15 days) instead of an exact duration (e.g. 10
+days), an estimate can be imprecise, but still accurate. A _trivariate
+estimation_ gives a best-case, a nominal-case, and a worst-case for a task to be
+finished with a probability of 5%, 50%, or 95%, respectively.
+
+For example, a task estimated to take 8 (best-case), 12 (nominal-case), and 16
+(worst-case) days has a 5% chance of finishing within 8 days, a 50% chance of
+finishing within 12 days, and a chance of 95% to finish within 16 days. To put
+it differently: Given 100 similar tasks, 5 will be completed within the
+best-case, 50 within the nominal-case, and 95 within the worst-case estimate.
+
+### User Stories and Story Points
+
+This technique works well for long-term planning, but is too imprecise for
+day-to-day planning within a project. For this purpose, a technique based on an
+iteratively calibrating feedback loop is used: _Story Points_.
+
+A _user story_ is written from the user's perspective and describes a feature of
+the system to be developed, for example: "As a user, I want to be asked if I
+want to save my document when I close the application without saving." The
+details are left out at first and will be clarified as the developers are taking
+the story up for development.
+
+Despite modern technology, writing those stories on index cards lets you
+physically _handle_ those stories in meetings, which can be highly valuable.
+Index cards impose a certain discipline of keeping the stories vague, so that
+the planning process isn't bogged down by too much detail. The cards also must
+not become too valuable for being discarded.
+
+The story cards written in Iteration Zero are estimated in an informal meeting,
+which takes place regularly, usually at the beginning of every sprint. Writing
+and estimating stories is an ongoing process. Estimation starts by picking a
+story of average size, to which an average number of story points is assigned,
+say, 3 story points when working with a range of 1-5 story points.
+
+Other stories are compared in size against this _Golden Story_ and assigned
+story points accordingly. The story points estimated are written on the story's
+index card.  Those points do _not_ map to units of time! Different developers
+would spend a different amount of time for implementing the same story.
+Fortunately, those differences even out as a lot of stories are implemented over
+the course of many sprints thanks to the _Law of Large Numbers_.
+
+### Iteration Planning
+
+An iteration starts with the _Iteration Planning Meeting_ (IPM), which should
+not take up more time than one twentieth of the total iteration, i.e. at most
+half a day for a two week iteration. The whole team—stakeholders, programmers,
+testers, business analysts, project managers—attend the IPM.
+
+The programmers estimate their velocity for the upcoming iteration, i.e. how
+many story points they think they can complete. This is a rough guess and
+probably way too high for the first iteration. The stakeholders choose the
+stories to fit in within the velocity estimated by the programmers. This
+estimate is _not_ a commitment!
+
+The stakeholders play the _four-quadrant game_ to pick the right stories, i.e.
+those with the highest return on invest (ROI). Along the two axes of cost and
+value, each story can be put in one of four quadrants:
+
+![The four-quadrant game](quadrants.png){width=275}\
+
+1. Valuable, but cheap: those stories should be done right away.
+2. Valuable, but expensive: those stories should be done later on.
+3. Not valuable, but expensive: don't do this stories, discard them.
+4. Not valuable, but cheap: consider doing those stories later.
+
+At the midpoint of the iteration, half of the story points should be done. If
+less are done, which is to expect from the first iteration, the iteration is
+_not_ a failure, because it generates valuable data. The first half of the
+iteration is a good prediction for its second half in terms of velocity, like
+today's weather is the best predictor for tomorrow's weather. Likewise, the
+current iteration's velocity is also a good predictor for next iterations's
+velocity.
+
+The project ends if no more stories worth implementing in terms of their ROI can
+be gathered for another iteration.
