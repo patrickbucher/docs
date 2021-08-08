@@ -400,7 +400,7 @@ The stakeholders play the _four-quadrant game_ to pick the right stories, i.e.
 those with the highest return on invest (ROI). Along the two axes of cost and
 value, each story can be put in one of four quadrants:
 
-![The four-quadrant game](quadrants.png){width=275}\
+![The four-quadrant game](quadrants.png){width=921px}
 
 1. Valuable, but cheap: those stories should be done right away.
 2. Valuable, but expensive: those stories should be done later on.
