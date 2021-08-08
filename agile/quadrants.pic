@@ -1,0 +1,11 @@
+.PS
+A: box wid 1 ht 1 "Do Later"
+B: box same "Do Now"
+C: box same "Never Do" at A.s - (0, 0.5)
+D: box same "Do Much Later" at B.s - (0, 0.5)
+
+box "high cost" invisible at A.n + (0, 0.1)
+box "low cost" invisible at B.n + (0, 0.1)
+box "high value" invisible at A.w - (0.35, 0)
+box "low value" invisible at C.w - (0.35, 0)
+.PE
