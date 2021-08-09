@@ -417,3 +417,61 @@ velocity.
 
 The project ends if no more stories worth implementing in terms of their ROI can
 be gathered for another iteration.
+
+### INVEST Stories
+
+User stories do not describe features in detail, they are rather a reminder of
+features. The acronym INVEST stands for simple guidelines to be followed when
+writing stories:
+
+- **I**: _Independent_. User stories don't have to be implemented in a particular
+  order, because they are independent of each other. Even though dependencies
+  cannot be avoided sometimes, they should be kept at a minimum, so that stories
+  can be implemented in the order of their business value.
+- **N**: _Negotiable_. User stories should leave space for negotiations between
+  business and development. Those negotiations can help to keep the cost low by
+  agreeing on simple features ans easy implementations.
+- **V**: _Valuable_. User stories must create clear and quantifiable value to
+  the business. Soft quantifications like high/medium/low are fine, as long as
+  stories can be compared in terms of their business value. Such stories usually
+  cut through all layers: from frontend over backend to the database and
+  middleware. Architecture, refactoring, and cleanup tasks are not user stories!
+- **E**: _Estimable_. User stories must be concrete enough in order to be
+  estimated by the developers. However, stories must still be negotiable, so aim
+  for the sweet spot between specificy and vagueness by being precise about the
+  business value while leaving out implementation details.
+- **S**: _Small_. User stories should be small enough so that they can be
+  implemented by one or two developers within a single iteration. A good rule of
+  thumb is to pick roughly the same number of stories for an iteration as there
+  are developers on the team.
+- **T**: _Testable_. User stories should be accompanied by tests specified by
+  the business. A story is complete when all of its tests pass. Tests are
+  usually written by QA and automated by the developers. Specifying the tests
+  can happen later than the actual story is written.
+
+### Story Estimation
+
+There are different ways to estimate user stories. _Flying Fingers_ is the
+simplest: After reading and discussing a story, developers hold up the amount of
+fingers corresponding to their estimation of story points. They do so behind
+their backs, and all hands are shown on the count of three.
+
+_Planning Poker_ is a similar approch based on numbered cards denoting story
+points. Some decks use a Fibonacci series (1, 2, 3, 5, 8), sometimes with
+additional indications: infinity (∞) for stories too big for estimation, a
+question mark (?) if there's not enough information available to estimate a
+story, and zero (0) if the story is too trivial for estimation.
+
+As fingers or cards are revealed, there might be a consensus, in which case the
+common number is written on the index card. If there is a big deviation, those
+differences are being discussed, followed by another round of estimation, until
+a consensus can be reached.
+
+Stories too trivial for estimation (0) can be combined by stapling those index
+cards together. Here, multiple zeros can indeed add up to something more than
+zero. Stories too big (∞) can be split up as long they comply to the INVEST
+guidelines.
+
+Stories too unclear for estimation (?) often require additional research. A
+meta-story—a so-called _spike_, cutting a very thin slice through the sytem—is
+created and referred to as a dependency of the original, unclear story.
