@@ -327,3 +327,151 @@ Developers have the right to …
 
 Agile is not a process, it is a set of _rights, expectations, and disciplines_
 that form the basis for an ethical profession.
+
+# Business Practices
+
+Development must follow the business-facing practices of Planning, Small
+Releases, Acceptance Tests, and Whole Team in order to succeed.
+
+## Planning
+
+A project can be planned by breaking it up into its pieces recursively and
+estimating those pieces. The more those pieces are broken up—down to individual
+lines of code in the extreme case—the more accurate and precise the estimate
+becomes, but the more time it takes to come up with this estimation. An estimate
+should be as accurate as possible, but only as precise as necessary.
+
+By giving a range of time (e.g. 5-15 days) instead of an exact duration (e.g. 10
+days), an estimate can be imprecise, but still accurate. A _trivariate
+estimation_ gives a best-case, a nominal-case, and a worst-case for a task to be
+finished with a probability of 5%, 50%, or 95%, respectively.
+
+For example, a task estimated to take 8 (best-case), 12 (nominal-case), and 16
+(worst-case) days has a 5% chance of finishing within 8 days, a 50% chance of
+finishing within 12 days, and a chance of 95% to finish within 16 days. To put
+it differently: Given 100 similar tasks, 5 will be completed within the
+best-case, 50 within the nominal-case, and 95 within the worst-case estimate.
+
+### User Stories and Story Points
+
+This technique works well for long-term planning, but is too imprecise for
+day-to-day planning within a project. For this purpose, a technique based on an
+iteratively calibrating feedback loop is used: _Story Points_.
+
+A _user story_ is written from the user's perspective and describes a feature of
+the system to be developed, for example: "As a user, I want to be asked if I
+want to save my document when I close the application without saving." The
+details are left out at first and will be clarified as the developers are taking
+the story up for development.
+
+Despite modern technology, writing those stories on index cards lets you
+physically _handle_ those stories in meetings, which can be highly valuable.
+Index cards impose a certain discipline of keeping the stories vague, so that
+the planning process isn't bogged down by too much detail. The cards also must
+not become too valuable for being discarded.
+
+The story cards written in Iteration Zero are estimated in an informal meeting,
+which takes place regularly, usually at the beginning of every sprint. Writing
+and estimating stories is an ongoing process. Estimation starts by picking a
+story of average size, to which an average number of story points is assigned,
+say, 3 story points when working with a range of 1-5 story points.
+
+Other stories are compared in size against this _Golden Story_ and assigned
+story points accordingly. The story points estimated are written on the story's
+index card.  Those points do _not_ map to units of time! Different developers
+would spend a different amount of time for implementing the same story.
+Fortunately, those differences even out as a lot of stories are implemented over
+the course of many sprints thanks to the _Law of Large Numbers_.
+
+### Iteration Planning
+
+An iteration starts with the _Iteration Planning Meeting_ (IPM), which should
+not take up more time than one twentieth of the total iteration, i.e. at most
+half a day for a two week iteration. The whole team—stakeholders, programmers,
+testers, business analysts, project managers—attend the IPM.
+
+The programmers estimate their velocity for the upcoming iteration, i.e. how
+many story points they think they can complete. This is a rough guess and
+probably way too high for the first iteration. The stakeholders choose the
+stories to fit in within the velocity estimated by the programmers. This
+estimate is _not_ a commitment!
+
+The stakeholders play the _four-quadrant game_ to pick the right stories, i.e.
+those with the highest return on invest (ROI). Along the two axes of cost and
+value, each story can be put in one of four quadrants:
+
+![The four-quadrant game](quadrants.png){width=921px}
+
+1. Valuable, but cheap: those stories should be done right away.
+2. Valuable, but expensive: those stories should be done later on.
+3. Not valuable, but expensive: don't do this stories, discard them.
+4. Not valuable, but cheap: consider doing those stories later.
+
+At the midpoint of the iteration, half of the story points should be done. If
+less are done, which is to expect from the first iteration, the iteration is
+_not_ a failure, because it generates valuable data. The first half of the
+iteration is a good prediction for its second half in terms of velocity, like
+today's weather is the best predictor for tomorrow's weather. Likewise, the
+current iteration's velocity is also a good predictor for next iterations's
+velocity.
+
+The project ends if no more stories worth implementing in terms of their ROI can
+be gathered for another iteration.
+
+### INVEST Stories
+
+User stories do not describe features in detail, they are rather a reminder of
+features. The acronym INVEST stands for simple guidelines to be followed when
+writing stories:
+
+- **I**: _Independent_. User stories don't have to be implemented in a particular
+  order, because they are independent of each other. Even though dependencies
+  cannot be avoided sometimes, they should be kept at a minimum, so that stories
+  can be implemented in the order of their business value.
+- **N**: _Negotiable_. User stories should leave space for negotiations between
+  business and development. Those negotiations can help to keep the cost low by
+  agreeing on simple features ans easy implementations.
+- **V**: _Valuable_. User stories must create clear and quantifiable value to
+  the business. Soft quantifications like high/medium/low are fine, as long as
+  stories can be compared in terms of their business value. Such stories usually
+  cut through all layers: from frontend over backend to the database and
+  middleware. Architecture, refactoring, and cleanup tasks are not user stories!
+- **E**: _Estimable_. User stories must be concrete enough in order to be
+  estimated by the developers. However, stories must still be negotiable, so aim
+  for the sweet spot between specificy and vagueness by being precise about the
+  business value while leaving out implementation details.
+- **S**: _Small_. User stories should be small enough so that they can be
+  implemented by one or two developers within a single iteration. A good rule of
+  thumb is to pick roughly the same number of stories for an iteration as there
+  are developers on the team.
+- **T**: _Testable_. User stories should be accompanied by tests specified by
+  the business. A story is complete when all of its tests pass. Tests are
+  usually written by QA and automated by the developers. Specifying the tests
+  can happen later than the actual story is written.
+
+### Story Estimation
+
+There are different ways to estimate user stories. _Flying Fingers_ is the
+simplest: After reading and discussing a story, developers hold up the amount of
+fingers corresponding to their estimation of story points. They do so behind
+their backs, and all hands are shown on the count of three.
+
+_Planning Poker_ is a similar approch based on numbered cards denoting story
+points. Some decks use a Fibonacci series (1, 2, 3, 5, 8), sometimes with
+additional indications: infinity (∞) for stories too big for estimation, a
+question mark (?) if there's not enough information available to estimate a
+story, and zero (0) if the story is too trivial for estimation.
+
+As fingers or cards are revealed, there might be a consensus, in which case the
+common number is written on the index card. If there is a big deviation, those
+differences are being discussed, followed by another round of estimation, until
+a consensus can be reached.
+
+Stories too trivial for estimation (0) can be combined by stapling those index
+cards together. Here, multiple zeros can indeed add up to something more than
+zero. Stories too big (∞) can be split up as long they comply to the INVEST
+guidelines.
+
+Stories too unclear for estimation (?) often require additional research. A
+meta-story—a so-called _spike_, cutting a very thin slice through the sytem—is
+created and referred to as a dependency of the original, unclear story.

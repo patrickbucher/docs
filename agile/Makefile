@@ -1,5 +1,5 @@
 DOC_OPTS=--toc -N -s
-PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue
+PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue --dpi=300
 FONT_OPTS=-V mainfont='Linux Libertine' -V sansfont='Linux Biolinum'
 DATE=-V date="`date +'%Y-%m-%d'`"
 
@@ -7,11 +7,14 @@ DATE=-V date="`date +'%Y-%m-%d'`"
 
 all: clean-agile.pdf clean-agile.epub
 
-clean-agile.pdf: clean-agile.md
-	pandoc $(DOC_OPTS) $(PDF_OPTS) $(FONT_OPTS) $(DATE) $^ -o $@
+clean-agile.pdf: clean-agile.md quadrants.png
+	pandoc $(DOC_OPTS) $(PDF_OPTS) $(FONT_OPTS) $(DATE) $< -o $@
 
-clean-agile.epub: clean-agile.md
-	pandoc $(DOC_OPTS) $(DATE) $^ -o $@
+clean-agile.epub: clean-agile.md quadrants.png
+	pandoc $(DOC_OPTS) $(DATE) $< -o $@
+
+quadrants.png: quadrants.pic
+	pic $^ | pic2graph -density 300 -colorspace RGB -format png > $@
 
 clean:
-	rm -f clean-agile.pdf clean-agile.epub
+	rm -f clean-agile.pdf clean-agile.epub quadrants.png
