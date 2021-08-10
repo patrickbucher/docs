@@ -475,3 +475,43 @@ guidelines.
 Stories too unclear for estimation (?) often require additional research. A
 meta-story—a so-called _spike_, cutting a very thin slice through the sytem—is
 created and referred to as a dependency of the original, unclear story.
+
+### Iteration and Release
+
+An iteration produces data by getting stories done. The focus should be on
+finishing entire stories rather than tasks within stories: better 80% of stories
+completely done than 80% of the tasks for each story done. Stories are  not
+assigned to programmers, but picked individually or by negotiating within the
+developer team. Experienced programmers should guide rookies away from picking
+up too many or too heavy stories.
+
+QA should start writing the acceptance tests right after the IPM, so that they
+are finished up to the midpoint of the iteration. Developers can help in the
+process, but not the same developer should be responsible for implementing a
+story and writing the acceptance tests for it. However, QA and developers should
+work closely together on the acceptance tests. A story is done when all of its
+acceptance tests pass.
+
+At the end of every iteration, a demo is given to the stakeholders. The newly
+added features and passing acceptance tests—both old and new—should be shown.
+After the demo, velocity and burn-down charts are updated. Noisy at the
+beginning, the velocity will average out after a few iterations.
+
+A rising velocity can hint to story point inflation: as pressure is put on the
+development team to get more done, developers start assigning more points to
+their stories. Velocity is a measurement and not an objective; don't put
+pressure on something you measure!
+
+A falling velocity likely points to bad code quality, dragging further
+development down. If too few unit tests are written, developers become hesitant
+refactoring the code. As pressure builds up, developers will be tempted to
+inflate story points. Keep in mind the Golden Story of the initial iteration to
+countersteer.
+
+Release as often as possible. The goal of continuous delivery is to release to
+production after every change. Historically, those cycles were long because of
+long technical turnover times (testing, checking out code). With modern source
+code management systems, working with optimistic locks, checkout time approaches
+zero, and Continuous Delivery becomes possible. Old organizations must adjust
+their processes accordingly to overcome their inertia, which requires cultural
+change.
