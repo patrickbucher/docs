@@ -54,4 +54,87 @@
 
 ## 101.2 Boot the System
 
+### The Linux Boot Sequence
+
+- boot process
+    - BIOS checks devices
+    - boot sector is searched for boot loader
+    - boot loader loads the Linux kernel
+    - Linux kernel loads the initial RAM disk
+    - Linux kernel starts the initialization system
+        - initial RAM disk is no longer needed
+- boot logs are usually volatile and can be viewed using utilities
+    - `dmesg` shows information written to the kernel ring buffer
+        - mostly hardware details from the kernel's perspective
+    - `journalctl -k` is part of systemd, `-k` shows messages of kernel ring
+      buffer
+    - both tools show the same information
+    - kernel parameters, BIOS information etc. is displayed
+
+### init
+
+- old init is based on Unix System V (sysvinit), starts services sequentially
+- located under `/sbin/init`, reads `/etc/inittab`
+- based on global runlevels (the system is always in one single runlevel)
+    0. halt: to power off the system
+    1. single user mode: only root, maintenance
+    2. multi user mode (no networking)
+    3. multi user mode (with networking)
+    4. unused: available for custom use
+    5. multi user (with networking and GUI)
+    6. reboot: to restart the system (complete boot sequence)
+- each run levels runs scripts to start/stop services
+- `/etc/inittab` line structure: `<identifier>:<runlevel>:<action>:<process>`
+    - `<identifier>`: identifier, e.g. `id` for "init default"
+    - `<runlevel>`: numeric, e.g. 3 (multi user mode with networking)
+    - `<action>`: ...
+    - `<process>`: ...
+- referred scripts located under `/etc/rc.d` (Red Hat) or `/etc/init.d` (Debian)
+    - "rc" stands for "run commands"
+    - directories `rc.0`, `rc.1`, ..., `rc.6` contain the scripts by runlevel
+    - `rc.sysinit` performs initialization tasks
+    - `rc.local` performs extra tasks
+    - scripts pre-fixed with `Kxy` ("kill", number `xy` like 00, 01) or `Sxy`
+      ("start", same ordering)
+    - scripts are actually symlinks to other scripts (less duplication)
+
+### upstart
+
+- Ubuntu 6.10 introduced upstart as an alternative to init
+    - Red Hat etc. adopted it later
+- works asynchronuously, decreases boot time
+- event-based; monitors and, if needed, re-starts services
+- `/sbin/init` -> startup
+    - mountall
+    - sysinit -> telinit -> runlevel -> ...
+- can react to modifications to a running system (soft- and hardware changes)
+    - events trigger jobs, i.e. tasks and services
+- lifecycle: waiting -> starting -> running -> stopping -> killed -> post-stop -> waiting
+    - respawning <-> running (on problems, max. 10 times)
+
+### systemd
+
+- traditional init systems were based on shell scripts, which spawn a lot of
+  processes
+- systemd implements most of the functionality using C code
+- backward compatibility to System V init scripts mostly maintained, but less
+  comfortable
+- unit files define services etc.
+    - `/usr/lib/systemd/system`: system-wide, do not modify
+    - `/etc/systemd/system`: modify here to overwrite system-wide
+    - `/run/systemd/system`: current runtime, read-only
+    - list using `systemctl list-unit-files`
+    - based on INI-like syntax
+    - `[Unit]` section
+        - `Description=...`
+        - `Documentation=man:...`
+        - `Requires=basic.target` or `Wants=...`: this unit's dependencies
+          dependency
+        - `After=...` and `Before=`: ordering
+        - see `systemd.unit(5)`
+    - print unit file using `systemctl cat [name].unit`
+- startup process: `/sbin/init -> ../lib/systemd/systemd` (symlink)
+
+## 101.3 Change Runlevels/Boot Targets and Shutdown or Reboot the System
+
 # LPIC-1 (Exam 102)
