@@ -1,0 +1,8 @@
+.PS
+RD: circle rad 0.15 invis "Red"
+GR: circle invis same "Green" at RD.se + (0.5, -0.8)
+RF: circle invis same "Refactor" at RD.sw - (0.5, 0.8)
+arc cw rad 0.6 from RD.e to GR.n -> chop
+arc cw rad 0.6 from RF.n to RD.w -> chop
+arc cw rad 0.6 from GR.sw to RF.se -> chop
+.PE

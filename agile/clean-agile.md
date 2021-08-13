@@ -515,3 +515,51 @@ code management systems, working with optimistic locks, checkout time approaches
 zero, and Continuous Delivery becomes possible. Old organizations must adjust
 their processes accordingly to overcome their inertia, which requires cultural
 change.
+
+## Acceptance Tests
+
+_Acceptance Tests_ are based on the idea that requirements should be specified
+by the business. The word "specify" has different meanings, deponding on who's
+using it: business wants to keep the specification somewhat vague in natural
+language, whereas programmers prefer a specification as precise as needed for a
+machine to execute it.
+
+The solution to this conflict is that business specifies a test in a natural
+language, but using a formal structure like _Given, When, Then_ (as used in
+_Behaviour-Driven Development_, BDD). Developers then implement those tests
+using their programming language. Those tests become the "Definition of Done"
+for the user story.
+
+- A story is not specified until its acceptance tests are written.
+- A story is not completed until its acceptance tests pass.
+
+Business people usually define the "happy path", which shows that the system
+produces the intended value. QA extends those tests with the "unhappy paths",
+because they are good at finding corner cases and ways a user might break the
+system.
+
+QA no longer is the bottleneck at the end of the iteration, but deeply involved
+from the beginning. Finding lots of bugs at the end of the iteration is no
+longer considered proof of QA doing its job properly. Instead, QA supplies test
+specifications to development, and development makes sure that those tests all
+pass. This process of running the tests should be automated, of course.
+
+## Whole Team
+
+The _Whole Team_ practice used to be called _On-Site Customer_. It is based on
+the idea that reducing physical distance improves communication. "Customer" is
+meant in a broad sense: it can describe a stakeholder of a project or a Scrum
+Product Owner.
+
+Having the whole project team sitting in the same room not only makes
+communication more efficient, it also creates serendipity: People in different
+roles will get together by mere chance (watercooler, coffee machine). Hopefylly,
+those unplanned interactions create synergy within the team.
+
+The advantages of co-location—better communication, serendipity—fall off in
+outsourcing settings. As the distance—physical, cultural, in terms of language,
+and time zone—becomes bigger, communication tends to get worse. Technology has
+improved, however, and working remotely works quite well nowadays, especially
+if there's only a gap in space, but none in terms of culture, language, and
+time zone. Serendipituous conversation and nonverbal communication,  however,
+are significantly reduced in a remote setting.

@@ -13,7 +13,8 @@ clean-agile.pdf: clean-agile.md quadrants.png
 clean-agile.epub: clean-agile.md quadrants.png
 	pandoc $(DOC_OPTS) $(DATE) $< -o $@
 
-quadrants.png: quadrants.pic
+.SUFFIXES: .pic .png
+.pic.png:
 	pic $^ | pic2graph -density 300 -colorspace RGB -format png > $@
 
 clean:
