@@ -2336,8 +2336,8 @@ names:
     [ v3_ca ]
     subjectKeyIdentifier   = hash
     authorityKeyIdentifier = keyid:always,issuer
-    basicConstraints       = critical, CA:true
-    keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+    basicConstraints       = critical,CA:true
+    keyUsage               = critical,digitalSignature,cRLSign,keyCertSign
 
 Particular certificates are identified by a unique hash code
 (`subjectKeyIdentifier`). Public keys used to create those certificates require
@@ -2355,8 +2355,8 @@ the `basicConstraints` to an otherwise identical `v3_intermediate_ca` section:
     [ v3_intermediate_ca ]
     subjectKeyIdentifier   = hash
     authorityKeyIdentifier = keyid:always,issuer
-    basicConstraints       = critical, CA:true, pathlen:0
-    keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+    basicConstraints       = critical,CA:true,pathlen:0
+    keyUsage               = critical,digitalSignature,cRLSign,keyCertSign
 
 Pre-defined options for new CSRs can be defined in the `req_distinguished_name`
 section, as pointed to from the `req` section further above:
