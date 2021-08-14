@@ -2192,3 +2192,68 @@ If this succeeds, also perform the same test from your local computer:
     "this is a test"
 
 If this also works, your DNS server is ready.
+
+# Chapter 10: Becoming a CA
+
+Even though using a professionally maintained CA is usually the best option,
+sometimes you need to run your own internal CA.
+
+A _Private Trust Anchor_ is based on a self-signed certificate, which initially
+is not trusted by the clients, until you install the root certificate's public
+key on them. This effort is proportional to the number of clients, servers, and
+applications that are going to use your own CA.
+
+Running a CA on a virtual machine is fine for testing and education, but for a
+professional setup, your CA should run on a server not facing the Internet.
+Building and running your own CA teaches you a lot about TLS and X.509.
+
+While everything can be build with OpenSSL alone, consider commercial CA
+solutions for a professional setup, such as easy-rsa, XCA, Dogtag, FreeIPA, or
+EJBCA. There is also a lot of software capable of signing certificates you might
+already be running, such as Active Directory, Puppet, FreeNAS, Hashicorp Vault
+etc.
+
+You can also deploy ACME internally using Boulder (the open source ACME server
+from Let's Encrypt) or step-ca. ACME also allows you to build your own CA for
+small, internal setups.
+
+## CA Components
+
+An OCSP responder is available as `openssl-ocsp(1)`, which should not be exposed
+to the Internet. Updates might break your setup, so prepare for debugging and
+research sessions when running your own CA using OpenSSL.
+
+Signing certificates require databases of issued and revoked certificates. Such
+a database can be run using `openssl-ca(1)`, which, however, doesn't support
+locking, and therefore is not suited for usage of multiple simultaneous users.
+
+You need one Certificate Revocation List per signing certificate, which must be
+made publicly available by a web server. (For internal usage, a web server only
+internally reachable is fine.)
+
+You also need an OCSP responder with access to your certificate databases. In a
+professional setup, those Internet-facing services should run on a different
+machine than the CA itself.
+
+## OpenSSL CA Configuration
+
+CA files are usually put into `/root/CA` and must be only accessible by the
+`root` user. Modern CAs use both a root and an intermediary certificate. The
+configuration file `openssl.cnf` helps to keep them separated—and your
+certificates and keys organized.
+
+Your root and intermediary certificate are going to need separate
+configurations. Put the root certificate under `/root/CA/root`, and the
+configuration under `/root/CA/root/openssl.cnf`. The `[ ca ]` section contains
+settings that apply to the `openssl ca` command:
+
+    [ ca ]
+    default_ca = CA_default
+
+The CA is, thus, configured in a section called `CA_default`:
+
+    [ CA_default ]
+    dir = /root/CA/root
+
+This defines the directory where the CA is going to be put in. The `dir` setting
+then can be referred from a variable called `$dir` for further configuration.
