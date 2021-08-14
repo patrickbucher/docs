@@ -2257,3 +2257,114 @@ The CA is, thus, configured in a section called `CA_default`:
 
 This defines the directory where the CA is going to be put in. The `dir` setting
 then can be referred from a variable called `$dir` for further configuration.
+
+    certs         = $dir/certs
+    new_certs_dir = $dir/newcerts
+    crl_dir       = $dir/crl
+
+Thus, critical certificates, such as the root certificate, are put into
+`$dir/certs`, new certificates into `$dir/newcerts`, and the Certificate
+Revocation List into `$dir/crl`. Create those directories beforehand.
+
+    database = $dir/index.txt
+    serial   = $dir/serial
+
+The database of signed certificates is stored under `$dir/index.txt`, and the
+certificate serial numbers under `$dir/serial`.
+
+    private_key = $dir/private/ca.key.pem
+    certificate = $dir/certs/ca.cert.pem
+
+This defines the location of your private key and CA certificate. Create
+`$dir/private` beforehand, only accessible to `root`.
+
+    crlnumber        = $dir/crlnumber
+    crl              = $dir/crl/ca.crl.pem
+    crl_extensions   = crl_ext
+    default_crl_days = 30
+
+Those options are needed for certificate revocation, which you, hopefully, won't
+ever need. The `crlnumber` file contains the next CRL number to be used. The
+`crl` option points to the current PEM-encoded CRL. X.509 extensions used for
+CRLs are listed in the `crl_ext` file. A CRL is good for `default_crl_days`, and
+must be renewed within that period, i.e. while still valid.
+
+    name_opt     = ca_default
+    cert_opt     = ca_default
+    default_days = 375
+    preserve     = no
+    policy       = policy_strict
+
+The `ca_default` option points to modern settings to be used for the signing
+command. A certificate, by default, should expire within 375 days. With
+`preserve = no`, some obsolete backward compatibilities are deactivated. The
+`policy` setting poitns to another section named `policy_strict`.
+
+A root certificate should only be allowed to sign intermediate certificates;
+root and intermediate certificates therefore must belong to the same
+organization. A strict policy is configured as follows:
+
+    [ policy_strict ]
+    countryName            = match
+    stateOrProvinceName    = match
+    organizationName       = match
+    organizatoinalUnitName = optional
+    commonName             = supplied
+    emailAddress           = optional
+
+Thus, country, state/province, and organization must be the same in the CSR as
+in the signing certificate. Organization unit and email are optional settings,
+and any value can be supplied as the (mandatory) common name.
+
+Settings for generating CSRs are pre-defined in the `req` section:
+
+    [ req ]
+    default_bits       = 4096
+    distinguished_name = req_distinguished_name
+    string_mask        = utf8only
+    default_md         = sha256
+    x509_extensions    = v3_ca
+    prompt             = no
+
+Those are settings commonly used for CSRs as of the year 2021. Never set
+`default_keyfile` to your private key location, which might overwrite your CA's
+key by an incomplete command accidentally run.
+
+Both `req_distinguished_name` and `v3_ca` point to further sections of those
+names:
+
+    [ v3_ca ]
+    subjectKeyIdentifier   = hash
+    authorityKeyIdentifier = keyid:always,issuer
+    basicConstraints       = critical, CA:true
+    keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+Particular certificates are identified by a unique hash code
+(`subjectKeyIdentifier`). Public keys used to create those certificates require
+a key id and an optional issuer indication; both pieces of information will end
+up in the certificate (`authorityKeyIdentifier`). Created certificates can be
+used to sign further certificates (`CA:true`), which _must_ be respected by the
+client (marked as `critical`); so CA certificates can be created with this
+configuration (`basicConstraints`). The CA is allowed to sign certificates and
+its own CRL (`keyUsage`), which, again, the client _must_ accept (`critical`).
+
+The certificates signed by the intermediate certificate must not be allowed to
+sign other certificates by themselves. Therefore, `pathlen:0` must be added to
+the `basicConstraints` to an otherwise identical `v3_intermediate_ca` section:
+
+    [ v3_intermediate_ca ]
+    subjectKeyIdentifier   = hash
+    authorityKeyIdentifier = keyid:always,issuer
+    basicConstraints       = critical, CA:true, pathlen:0
+    keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+Pre-defined options for new CSRs can be defined in the `req_distinguished_name`
+section, as pointed to from the `req` section further above:
+
+    [ req_distinguished_name ]
+    C  = CH
+    ST = Luzern
+    L  = Luzern
+    O  = Frickelbude
+    OU = Software Development
+    CN = CA Root Certificate
