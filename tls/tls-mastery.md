@@ -2319,7 +2319,7 @@ date timestamp (missing for certificates not revoked yet), the serial number
 (starting at 1000), the file name (always `unknown` in this setup), and,
 finally, the Distinguished Name.
 
-TODO: example
+    TODO: example
 
 The database is updated as you run the `openssl ca` command in context of your
 root CA. A copy of the certificate is stored under the `newcerts` directory,
@@ -2329,7 +2329,7 @@ Copy the intermediate certificate as the foundation for chain files:
 
     # cp /root/CA/intermediate/certs/intermediate.cert.pem /root/CA/chain.pem
 
-## OCSP Responder Certificate
+## OCSP Responder
 
 Your CA needs an OCSP responder, so that clients can check the revocation status
 of individual certificates signed by your CA. The OCSP responder needs a
@@ -2378,6 +2378,182 @@ can be signed as follows:
 When prompted, use the intermediary CA's passphrase for signing. An OCSP
 responder using this certificate can now be set up, available under a domain
 like `ocsp.[yourdomain].[tld]`, usually running on port 80.
+
+### Running the OCSP Responder
+
+For testing and education purposes, OpenSSL's built-in OCSP responder can be
+used. (For Internet-facing production servers, use something else.) The OCSP
+responder can be run using the `openssl-ocsp` command:
+
+    # openssl ocsp -port 80 -text -index /root/CA/intermediate/index.txt \
+                   -CA /root/CA/chain.pem \
+                   -rkey /root/CA/intermediate/private/ocsp.privkey.pem \
+                   -rsigner /root/CA/intermediate/certs/ocsp.cert.pem
+
+The passphrase for the OCSP private key must be entered. The server runs on port
+80 (`-port 80`), and will send textual output to its clients (`-text`). The
+other options provide the files necessary to check a certificate's revocation
+status.
+
+In order to try out the client, some certificates should be created and revoked
+for proper demonstration, of which more later.
+
+## Issuing Web Site Certificates
+
+In order to issue certificates for web sites, an according policy has to be
+defined for the intermediate CA (`/root/CA/intermediate/openssl.cnf`):
+
+    [ server_cert ]
+    basicConstraints       = CA:FALSE
+    subjectKeyIdentifier   = hash
+    authorityKeyIdentifier = keyid,issuer:always
+    keyUsage               = critical,digitalSignature,keyEncipherment
+    extendedKeyUsage       = serverAuth
+    authorityInfoAccess    = OCSP;URI:http://ocsp.frickelbude.ch:80
+    crlDistributionPoints  = URI:http://crl.frickelbude.ch/intermediate.crl
+
+The first three settings `basicConstraints`, `subjectKeyIdentifier`, and
+`keyUsage` have been used like this before. The `authorityKeyIdentifier` makes
+sure that OpenSSL only issues a certificate if an issuer is defined. The
+`extendedKeyUsage` setting `serverAuth` restricts certificates for server
+applications. The last two options `authorityInfoAccess` and
+`crlDistributionPoints` point to the OCSP and CRL facilities of your
+intermediate CA, so that the client can verify the certificate's revocation
+status.
+
+Now that the configuration is ready for issuing server certificates, a
+certificate for the domain `paedubucher.ch` is requested using the following
+configuration (`/tmp/paedubucher.ch.cnf`):
+
+    [ req ]
+    prompt             = on
+    default_bits       = 2048
+    default_md         = sha256
+    default_keyfile    = server-private.key
+    distinguished_name = req_distinguished_name
+    req_extensions     = v3_req
+
+    [ req_distinguished_name ]
+    CN                 = paedubucher.ch
+
+    [ v3_req ]
+    subjectAltName     = @alt_names
+
+    [ alt_names ]
+    DNS.1              = paedubucher.ch
+    DNS.2              = www.paedubucher.ch
+    DNS.3              = mail.paedubucher.ch
+
+A CSR is created based on that configuration as follows:
+
+    TODO: create CSR to /tmp/paedubucher.ch.csr (see chapter 6)
+
+After the CA verified the ownership of the domain by the requestor, the CSR can
+be copied into the intermediate CA's `csr` folder and signed:
+
+    # cp /tmp/paedubucher.ch.csr /root/CA/intermediate/csr/
+    # openssl ca -batch -config /root/CA/intermediate/openssl.cnf \
+                 -extensions server_cert -notext \
+                 -in /root/CA/intermediate/csr/paedubucher.ch.csr
+
+The passphrase for the intermediate CA's private key is required. The
+certificate will end up under `/root/CA/intermediate/newcerts/1001.pem`.
+
+Combine this certificate with the foundation for the chain file, and deliver the
+resulting file to the requestor:
+
+    # cat /root/CA/chain.pem /root/CA/intermediate/newcerts/1001.pem \
+      >/tmp/paedubucher.ch.fullchain.pem
+
+Since the certificate just has been issued and wasn't revoked yet, the OCSP
+responder should consider it good:
+
+    # openssl ocsp -issuer /root/CA/chain.pem -text -url http://localhost:80 \
+                   -cert /root/CA/intermediate/newcerts/1001.pem
+
+    TODO: output, shortened, show "Cert Status: good"
+
+## Issuing Client Certificates
+
+A client certificate requires different X.509 extensions than a server
+certificate. Add a section called `user_cert` to your intermediate CA's
+configuration (`/root/CA/intermediate/openssl.cnf`):
+
+    [ user_cert ]
+    basicConstraints       = CA:FALSE
+    subjectKeyIdentifier   = hash
+    authorityKeyIdentifier = keyid,issuer
+    keyUsage               = critical,nonRepudiation,digitalSignature, \
+                             keyEncipherment
+    extendedKeyUsage       = clientAuth,emailProtection
+    authorityInfoAccess    = OCSP;URI:http://ocsp.frickelbude.ch:80
+    crlDistributionPoints  = URI:http://crl.frickelbude.ch/intermediate.crl
+
+Only the `keyUsage` and `extendedKeyUsage` settings differ from the
+`server_cert` configuration. Create a CSR for a client certificate as follows:
+
+    TODO: create CSR to /tmp/client.csr (see chapter 6)
+
+After validation, move the CSR to your intermediate CA's `csr` folder and sign it:
+
+    # cp /tmp/client.csr /root/CA/intermediate/csr/
+    # openssl ca -batch -config /root/CA/intermediate/openssl.cnf \
+                 -extensions user_cert -notext \
+                 -in /root/CA/intermediate/csr/client.csr
+
+Again, the passphrase for the intermediate CA's private key is required. The
+certificate will end up under `/root/CA/intermediate/newcerts/1002.pem`, which
+can be returned to the requestor.
+
+## Revoking Certificates
+
+Consider that the private key of the domain `paedubucher.ch`, for which a
+certificate was issued further above (`1001.pem`), was leaked. The certificate
+must be revoked. Do so using the `openssl ca` command's `-revoke` flag:
+
+    # openssl ca -config /root/CA/intermediate/openssl.cnf \
+                 -revoke /root/CA/intermediate/newcerts/1001.pem
+
+Check the database under `/root/CA/intermediate/index.txt`, which now should
+contain a revocation date for the respective certificate:
+
+    TODO: show index.txt line with revocation date
+
+Whereas the OCSP responder uses this database for informing clients about the
+revocation, the CRL must be generated as an extra step. The CRL must be signed
+and encoded by the CA, a lot like a certificate. For this purpose, define the
+`crl_ext` section, as already pointed to in `/root/CA/intermediate/openssl.cnf`:
+
+    [ crl_ext ]
+    authorityKeyIdentifier = keyid:always
+
+The CRL can be signed by its key ID alone (mandatory). Create the CRL as
+follows, with today's date as its file name:
+
+    # today="$(date +'%Y-%m-%d')"
+    # openssl ca -config /root/CA/intermediate/openssl.cnf -gencrl \
+                 -out "/root/CA/intermediate/crl/${today}.crl.pem"
+
+Copy the file to a location served by the URL indicated as the
+`crlDistributionPoints` in the `server_cert` section of the intermediate CA's
+`openssl.cnf`.
+
+Locally, you can view the CRL as follows (given t:
+
+    # openssl crl -text -noout -in "/root/CA/intermediate/crl/${today}.crl.pem"
+
+    TODO: output
+
+The section `Revoked Certificates` should mention the certificate for
+`paedubucher.ch` that was revoked before.
+
+Once again use the OCSP responder to check that this certificate is no longer
+considered good:
+
+    # openssl ocsp -issuer /root/CA/chain.pem -text -url http://localhost:80 \
+                   -cert /root/CA/intermediate/newcerts/1001.pem
+
+    TODO: output, shortened, show "Cert Status: ???"
 
 # Appendix A: Web Server Setup Using Apache 2
 
