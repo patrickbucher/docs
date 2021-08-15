@@ -2028,18 +2028,18 @@ in the future.
 # Chapter 10: Becoming a CA
 
 Even though using a professionally maintained CA is usually the best option,
-sometimes you need to run your own internal CA.
+sometimes you need to run your own CA.
 
 A _Private Trust Anchor_ is based on a self-signed certificate, which initially
-is not trusted by the clients, until you install the root certificate's public
-key on them. This effort is proportional to the number of clients, servers, and
-applications that are going to use your own CA.
+is not trusted by the clients, until you install the root certificate on them.
+This effort is proportional to the number of clients, servers, and applications
+that are going to use your own CA.
 
 Running a CA on a virtual machine is fine for testing and education, but for a
 professional setup, your CA should run on a server not facing the Internet.
 Building and running your own CA teaches you a lot about TLS and X.509.
 
-While everything can be build with OpenSSL alone, consider commercial CA
+While everything can be built with OpenSSL alone, consider commercial CA
 solutions for a professional setup, such as easy-rsa, XCA, Dogtag, FreeIPA, or
 EJBCA. There is also a lot of software capable of signing certificates you might
 already be running, such as Active Directory, Puppet, FreeNAS, Hashicorp Vault
@@ -2070,14 +2070,25 @@ machine than the CA itself.
 ## OpenSSL Root CA Configuration
 
 CA files are usually put into `/root/CA` and must be only accessible by the
-`root` user. Modern CAs use both a root and an intermediary certificate. The
-configuration file `openssl.cnf` helps to keep them separated—and your
-certificates and keys organized.
+`root` user:
+
+    # mkdir /root/CA
+    # chmod 700 /root/CA
+
+Modern CAs use both a root and an intermediary certificate. The configuration
+file `openssl.cnf` helps to keep them separated—and your certificates and keys
+organized.
 
 Your root and intermediary certificate are going to need separate
 configurations. Put the root certificate under `/root/CA/root`, and the
-configuration under `/root/CA/root/openssl.cnf`. The `[ ca ]` section contains
-settings that apply to the `openssl ca` command:
+configuration under `/root/CA/root/openssl.cnf`:
+
+    # mkdir /root/CA/root
+    # chmod 700 /root/CA/root
+    # touch /root/CA/root/openssl.cnf
+    # chmod 600 /root/CA/root/openssl.cnf
+
+The `[ ca ]` section contains settings that apply to the `openssl ca` command:
 
     [ ca ]
     default_ca = CA_default
@@ -2096,7 +2107,14 @@ then can be referred from a variable called `$dir` for further configuration.
 
 Thus, critical certificates, such as the root certificate, are put into
 `$dir/certs`, new certificates into `$dir/newcerts`, and the Certificate
-Revocation List into `$dir/crl`. Create those directories beforehand.
+Revocation List into `$dir/crl`.
+
+Create those directories, and some others (of which more later), beforehand:
+
+    # mkdir -p /root/CA/root/{certs,crl,csr,newcerts,private}
+    # find /root/CA/root -type d -exec chmod -R 700 {} \;
+
+And continue with the configuration (`/root/CA/root/openssl.cnf`):
 
     database = $dir/index.txt
     serial   = $dir/serial
@@ -2118,12 +2136,13 @@ This defines the location of your private key and CA certificate. Create
 Those options are needed for certificate revocation, which you, hopefully, won't
 ever need. The `crlnumber` file contains the next CRL number to be used. The
 `crl` option points to the current PEM-encoded CRL. X.509 extensions used for
-CRLs are listed in the `crl_ext` file. A CRL is good for `default_crl_days`, and
-must be renewed within that period, i.e. while still valid.
+CRLs are listed in the `crl_ext` section. A CRL is good for `default_crl_days`,
+and must be renewed within that period, i.e. while still valid.
 
     name_opt     = ca_default
     cert_opt     = ca_default
     default_days = 375
+    default_md   = sha256
     preserve     = no
     policy       = policy_strict
 
@@ -2215,10 +2234,14 @@ Also create an empty index file used as the database for signed certificates:
 
     # touch /root/CA/root/index.txt
 
+Use restrictive access rights for all those files:
+
+    # find /root/CA/root/ -type f -exec chmod 600 {} \;
+
 Now it's time to create the root certificate with a very long lifetime (7300
 days, i.e. 20 years), based on the settings configured before:
 
-    # openssl req -config /root/CA/root/openssl.conf -newkey rsa \
+    # openssl req -config /root/CA/root/openssl.cnf -newkey rsa \
                   -keyout /root/CA/root/private/ca.key.pem \
                   -x509 -days 7300 -extensions v3_ca \
                   -out /root/CA/root/certs/ca.cert.pem
@@ -2226,7 +2249,7 @@ days, i.e. 20 years), based on the settings configured before:
 Make sure to use a strong passphrase, and store that passphrase somewhere safe.
 Check if the certificate was created according to the settings you configured:
 
-    $ openssl x509 -in /root/CA/root/certs/ca.cert.pem -noout -text
+    # openssl x509 -in /root/CA/root/certs/ca.cert.pem -noout -text
 
 Install this private root certificate `ca.cert.pem` to the trusted certificate
 store of your clients. The root CA is ready now.
@@ -2239,22 +2262,24 @@ and initialize the serial numbers:
     # mkdir -p /root/CA/intermediate/{certs,crl,csr,newcerts,private}
     # echo 1000 >/root/CA/intermediate/serial
     # echo 1000 >/root/CA/intermediate/crl_number
+    # touch /root/CA/intermediate/index.txt
     # cp /root/CA/root/openssl.cnf /root/CA/intermediate/
 
-The configuration file copied in the last step must be adjusted to the
-intermediate CA. First, modify the `dir` setting:
+Again, use restrictive access rights for the intermediate CA's directory structure:
+
+    # find /root/CA/intermediate -type d -exec chmod 700 {} \;
+    # find /root/CA/intermediate -type f -exec chmod 600 {} \;
+
+The configuration file copied further above must be adjusted to the intermediate
+CA. First, modify the `dir` setting:
 
     [ CA_default ]
     dir = /root/CA/intermediate
 
 Thanks to the relative paths based on `$dir` used elsewhere in the
-configuration, the other settings now point to the right paths. Add settings for
-algorithm and certificate lifetime, and adjust file names to the intermediate CA
-(still in the `CA_default` section):
+configuration, the other settings now point to the right paths. Adjust file
+names to the intermediate CA (still in the `CA_default` section):
 
-    default_md      = sha256
-    default_days    = 375
-    ...
     private_key     = $dir/private/intermediate.key.pem
     certificate     = $dir/certs/intermediate.cert.pem
     crl             = $dir/crl/intermediate.crl.pem
@@ -2272,7 +2297,7 @@ that the intermediate CA can sign a wider range of CSRs:
     stateOrProvinceName    = optional
     localityName           = optional
     organizationName       = optional
-    organizatoinalUnitName = optional
+    organizationalUnitName = optional
     commonName             = supplied
     emailAddress           = optional
 
@@ -2302,9 +2327,9 @@ CA, mostly similar to creating the root CA certificate:
 
 Use a different but equally strong passphrase as for the root CA. The
 intermediate CA's CSR can now be signed using the root certificate and the
-password for its private key:
+passphrase for its private key:
 
-    # openssl ca -batch -cofig /root/CA/root/openssln.cnf \
+    # openssl ca -batch -config /root/CA/root/openssl.cnf \
                  -extensions v3_intermediate_ca -days 3600 -notext \
                  -in /root/CA/intermediate/csr/intermediate.cert.csr \
                  -out /root/CA/intermediate/certs/intermediate.cert.pem
@@ -2317,9 +2342,10 @@ entry starting with `V` for "valid" (as opposed to `R` for "revoked", or `E` for
 "expired"). The other fields show the expiration date timestamp, the revocation
 date timestamp (missing for certificates not revoked yet), the serial number
 (starting at 1000), the file name (always `unknown` in this setup), and,
-finally, the Distinguished Name.
+finally, the Distinguished Name (output shortened):
 
-    TODO: example
+    # cat /root/CA/root/index.txt
+    V  310624143604Z  1000  unknown  /C=CH/[...]/CN=CA Intermediate Certificate 1
 
 The database is updated as you run the `openssl ca` command in context of your
 root CA. A copy of the certificate is stored under the `newcerts` directory,
@@ -2387,7 +2413,7 @@ responder can be run using the `openssl-ocsp` command:
 
     # openssl ocsp -port 80 -text -index /root/CA/intermediate/index.txt \
                    -CA /root/CA/chain.pem \
-                   -rkey /root/CA/intermediate/private/ocsp.privkey.pem \
+                   -rkey /root/CA/ocsp.privkey.pem \
                    -rsigner /root/CA/intermediate/certs/ocsp.cert.pem
 
 The passphrase for the OCSP private key must be entered. The server runs on port
