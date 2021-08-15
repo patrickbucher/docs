@@ -3,7 +3,7 @@
 - [x] How Software Is Built (Weinberg)
 - [x] Getting Clojure (Olsen)
 - [x] Functional Programming in Python (McBride)
-- [ ] TLS Mastery (Lucas)
+- [x] TLS Mastery (Lucas)
 - [ ] Clean Agile (Martin)
 
 # TODO
