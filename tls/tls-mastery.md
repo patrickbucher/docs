@@ -2235,7 +2235,7 @@ You also need an OCSP responder with access to your certificate databases. In a
 professional setup, those Internet-facing services should run on a different
 machine than the CA itself.
 
-## OpenSSL CA Configuration
+## OpenSSL Root CA Configuration
 
 CA files are usually put into `/root/CA` and must be only accessible by the
 `root` user. Modern CAs use both a root and an intermediary certificate. The
@@ -2307,6 +2307,7 @@ organization. A strict policy is configured as follows:
     [ policy_strict ]
     countryName            = match
     stateOrProvinceName    = match
+    localityName           = match
     organizationName       = match
     organizatoinalUnitName = optional
     commonName             = supplied
@@ -2368,3 +2369,96 @@ section, as pointed to from the `req` section further above:
     O  = Frickelbude
     OU = Software Development
     CN = CA Root Certificate
+
+### Create the Root CA
+
+Once configuration and directory structure are ready, the serial numbers for
+certificates and CRL need to be initialized.  A random value is used in a
+productive setting, but starting at 1000 is fine for a test environment:
+
+    # echo 1000 >/root/CA/root/serial
+    # echo 1000 >/root/CA/root/crlnumber
+
+Also create an empty index file used as the database for signed certificates:
+
+    # touch /root/CA/root/index.txt
+
+Now it's time to create the root certificate with a very long lifetime (7300
+days, i.e. 20 years), based on the settings configured before:
+
+    # openssl req -config /root/CA/root/openssl.conf -newkey rsa \
+                  -keyout /root/CA/root/private/ca.key.pem \
+                  -x509 -days 7300 -extensions v3_ca \
+                  -out /root/CA/root/certs/ca.cert.pem
+
+Make sure to use a strong passphrase, and store that passphrase somewhere safe.
+Check if the certificate was created according to the settings you configured:
+
+    $ openssl x509 -in /root/CA/root/certs/ca.cert.pem -noout -text
+
+Install this private root certificate `ca.cert.pem` to the trusted certificate
+store of your clients. The root CA is ready now.
+
+## OpenSSL Intermediate CA Configuration
+
+The intermediate CA is created with the same directory structure as the root CA,
+and initialize the serial numbers:
+
+    # mkdir -p /root/CA/intermediate/{certs,crl,csr,newcerts,private}
+    # echo 1000 >/root/CA/intermediate/serial
+    # echo 1000 >/root/CA/intermediate/crl_number
+    # cp /root/CA/root/openssl.cnf /root/CA/intermediate/
+
+The configuration file copied in the last step must be adjusted to the
+intermediate CA. First, modify the `dir` setting:
+
+    [ CA_default ]
+    dir = /root/CA/intermediate
+
+Thanks to the relative paths based on `$dir` used elsewhere in the
+configuration, the other settings now point to the right paths. Add settings for
+algorithm and certificate lifetime, and adjust file names to the intermediate CA
+(still in the `CA_default` section):
+
+    default_md      = sha256
+    default_days    = 375
+    ...
+    private_key     = $dir/private/intermediate.key.pem
+    certificate     = $dir/certs/intermediate.cert.pem
+    crl             = $dir/crl/intermediate.crl.pem
+    ...
+    copy_extensions = copy
+    policy          = policy_loose
+
+The `copy_extensions` setting instructs OpenSSL to copy any extension set in the
+CSR but not by the CA. The `policy` setting points to a section called
+`policy_loose`, so rename and reconfigure the copied `policy_strict` section, so
+that the intermediate CA can sign a wider range of CSRs:
+
+    [ policy_strict ]
+    countryName            = optional
+    stateOrProvinceName    = optional
+    localityName           = optional
+    organizationName       = optional
+    organizatoinalUnitName = optional
+    commonName             = supplied
+    emailAddress           = optional
+
+Only a Common Name must be supplied. In the `req_distinguished_name` section,
+the Common Name must be adjusted, stating that it is an intermediate, not a root
+CA:
+
+    [ req_distinguished_name ]
+    C  = CH
+    ST = Luzern
+    L  = Luzern
+    O  = Frickelbude
+    OU = Software Development
+    CN = CA Intermediate Certificate 1
+
+The number 1 is attached, so that multiple intermediate CAs can be created
+later. Keep the other settings identical as foor the root CA.
+
+### Create the Intermediate CA
+
+TODO: p. 207 ff.
