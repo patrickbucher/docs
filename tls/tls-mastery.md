@@ -2722,3 +2722,24 @@ If this succeeds, also perform the same test from your local computer:
     "this is a test"
 
 If this also works, your DNS server is ready.
+
+# Appendix C: Relevant RFCs
+
+Here's a collection of RFC documents relevant for TLS:
+
+- [RFC 2986](https://datatracker.ietf.org/doc/html/2986)
+- [RFC 5246](https://datatracker.ietf.org/doc/html/5246)
+- [RFC 5280](https://datatracker.ietf.org/doc/html/5280)
+- [RFC 5480](https://datatracker.ietf.org/doc/html/5480)
+- [RFC 6066](https://datatracker.ietf.org/doc/html/6066)
+- [RFC 6125](https://datatracker.ietf.org/doc/html/6125)
+- [RFC 6347](https://datatracker.ietf.org/doc/html/6347)
+- [RFC 6797](https://datatracker.ietf.org/doc/html/6797)
+- [RFC 6960](https://datatracker.ietf.org/doc/html/6960)
+- [RFC 6962](https://datatracker.ietf.org/doc/html/6962)
+- [RFC 7301](https://datatracker.ietf.org/doc/html/7301)
+- [RFC 7633](https://datatracker.ietf.org/doc/html/7633)
+- [RFC 8446](https://datatracker.ietf.org/doc/html/8446)
+- [RFC 8555](https://datatracker.ietf.org/doc/html/8555)
+- [RFC 8659](https://datatracker.ietf.org/doc/html/8659)
+- [RFC 8737](https://datatracker.ietf.org/doc/html/8737)
