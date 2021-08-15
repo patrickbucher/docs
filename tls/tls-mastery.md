@@ -2524,16 +2524,36 @@ configuration (`/root/CA/intermediate/openssl.cnf`):
     crlDistributionPoints  = URI:http://crl.frickelbude.ch/intermediate.crl
 
 Only the `keyUsage` and `extendedKeyUsage` settings differ from the
-`server_cert` configuration. Create a CSR for a client certificate as follows:
+`server_cert` configuration.
 
-    TODO: create CSR to /tmp/client.csr (see chapter 6)
+To create the CSR for the client certificate, define the settings as follows in a file
+under `/tmp/patrick.bucher.cnf`:
+
+    [ req ]
+    prompt             = no
+    default_bits       = 2048
+    default_md         = sha256
+    default_keyfile    = patrick.bucher-private.key
+    distinguished_name = req_distinguished_name
+
+    [ req_distinguished_name ]
+    CN = Patrick Bucher
+    emailAddress = patrick.bucher@mailbox.org
+
+    [ v3_req ]
+    subjectAltName = email:patrick.bucher@mailbox.org
+
+Create a CSR for a client certificate as follows:
+
+    $ openssl req -newkey rsa -config /tmp/patrick.bucher.cnf \
+                  -out /tmp/patrick.bucher.csr
 
 After validation, move the CSR to your intermediate CA's `csr` folder and sign it:
 
-    # cp /tmp/client.csr /root/CA/intermediate/csr/
+    # cp /tmp/patrick.bucher.csr /root/CA/intermediate/csr/
     # openssl ca -batch -config /root/CA/intermediate/openssl.cnf \
                  -extensions user_cert -notext \
-                 -in /root/CA/intermediate/csr/client.csr
+                 -in /root/CA/intermediate/csr/patrick.bucher.csr
 
 Again, the passphrase for the intermediate CA's private key is required. The
 certificate will end up under `/root/CA/intermediate/newcerts/1002.pem`, which
