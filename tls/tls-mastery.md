@@ -2292,7 +2292,7 @@ CSR but not by the CA. The `policy` setting points to a section called
 `policy_loose`, so rename and reconfigure the copied `policy_strict` section, so
 that the intermediate CA can sign a wider range of CSRs:
 
-    [ policy_strict ]
+    [ policy_loose ]
     countryName            = optional
     stateOrProvinceName    = optional
     localityName           = optional
@@ -2472,7 +2472,11 @@ configuration (`/tmp/paedubucher.ch.cnf`):
 
 A CSR is created based on that configuration as follows:
 
-    TODO: create CSR to /tmp/paedubucher.ch.csr (see chapter 6)
+    $ openssl genpkey -genparam -out /tmp/paedubucher.ch.params.pem \
+                      -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1
+    $ openssl req -newkey ec:/tmp/paedubucher.ch.params.pem \
+                  -keyout /tmp/paedubucher.ch.private.key \
+                  -config /tmp/paedubucher.ch.cnf -out /tmp/paedubucher.ch.csr
 
 After the CA verified the ownership of the domain by the requestor, the CSR can
 be copied into the intermediate CA's `csr` folder and signed:
