@@ -2025,174 +2025,6 @@ copied into the real certificate being returned from the CA to the requestor.
 SCT is still optional, but certificates lacking one might be considered unsafe
 in the future.
 
-# Appendix A: Web Server Setup Using Apache 2
-
-In order to setup and test Dehydrated for the domain `foobar.com`, a web server
-must be running, serving that particular site. (Use a real domain owned by you
-instead.) This quick tutorial describes how to do so under Debian 10 (Buster).
-
-First, install Apache 2:
-
-    # apt install apache2
-
-Second, create the directory to serve your site from (replace `foobar.com` by
-your proper domain) with proper permissions:
-
-    # mkdir -p /var/www/foobar.com/public_html
-    # chown -R 755 /var/www/foobar.com/public_html
-
-Third, create a simple test index page
-(`/var/www/foobar.com/public_html/index.html`):
-
-    <h1>Hello, World!</h1>
-
-Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
-(`/etc/apache2/sites-available/foobar.com.conf`):
-
-    <VirtualHost *:443>
-        ServerAdmin  webmaster@foobar.com
-        ServerName   foobar.com
-        ServerAlias  www.foobar.com www2.foobar.com
-        DocumentRoot /var/www/foobar.com/public_html
-
-        ErrorLog  ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-        SSLEngine             on
-        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-    </VirtualHost>
-    <VirtualHost *:80>
-        ServerAdmin  webmaster@foobar.com
-        ServerName   foobar.com
-        ServerAlias  www.foobar.com www2.foobar.com
-        DocumentRoot /var/www/foobar.com/public_html
-
-        ErrorLog  ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-    </VirtualHost>
-
-Fifth, disable the default page and activate `foobar.com`. Also enable Apache's
-SSL module:
-
-    # a2dissite 000-default.conf
-    # a2ensite foobar.com.conf
-    # a2enmod ssl
-
-Finally, the webserver can be restarted:
-
-    # systemctl restart apache2.service
-
-If everything works, the demo page should be available under both HTTP and
-HTTPS:
-
-    $ curl http://foobar.com/index.html
-    $ curl -k https://foobar.com/index.html
-
-# Appendix B: DNS Server Setup Using Bind9
-
-If you want to test the DNS-01 challenge with Dehydrated, besides a web server,
-you also must run your own authoritative-only DNS server. Again the domain
-`foobar.com` is used as a placeholder, to be replaced with your real domain
-name. As an IP address, the placeholder `123.45.67.89` is used. Debian 10 (Buster)
-is used in this tutorial, too. This setup requires that both the DNS and web
-server are running on the same host.
-
-For this setup, the DNS server only manages the `TXT` records needed for the
-ACME challenge. `CNAME` records are created on the main DNS server of your
-hosting provider, one per SAN, pointing to the `TXT` records managed on your
-ACME-only DNS server.
-
-First, a `NS` record is needed, which assigns your subdomain
-(`_acme-challenge.foobar.com`) to the DNS server that will manage it
-(`ns1.foobar.com`).  Use your registrar's web interface to create one.
-
-Second, an `A` record is needed setting `ns1.foobar.com` to the IP address
-`123.45.67.89`. (Consider a glue record for this purpose.)
-
-Make sure that UDP port 53 is open on your server:
-
-    $ nmap 123.45.67.89 -p 53
-
-Install the Bind 9 on your server and check the version number:
-
-    # apt install bind9 bind9utils bind9-doc
-    # named -v
-
-Next, enable and start the `bind9` service and check its status (the last line
-should read: "server is up and running"):
-
-    # systemctl enable --now bind9
-    # rndc status
-
-Also enable the `bind9-resolvconf` service so that Bind can be used as the
-system's default DNS resolver:
-
-    # systemctl enable --now bind9-resolvconf
-
-Check if `/etc/resolv.conf` uses `127.0.0.1` as its name server:
-
-    $ cat /etc/resolv.conf
-    nameserver 127.0.0.1
-
-Deactivate zone transfer and activate the query log by adding the following
-options to `/etc/bind/named.conf.options`:
-
-    allow-transfer { none; };
-    querylog yes;
-
-Define your zone in `/etc/bind/named.conf.local` as follows:
-
-    zone "_acme-challenge.foobar.com" {
-            type master;
-            file "/var/cache/bind/db.acme.foobar.com";
-            allow-query { any; };
-    };
-
-The path `/var/cache/bind` is used instead of `/etc/bind`, because the former is
-allowed using Debian's default App Armor settings.
-
-To create the zone file `db._acme-challenge.foobar.com`, copy from the template:
-
-    # cp /etc/bind/db.empty /var/cache/bind/db._acme-challenge.foobar.com
-
-And create a zone configuration as follows:
-
-    $TTL    300
-    $ORIGIN _acme-challenge.foobar.com.
-    @       IN      SOA     ns1.foobar.com. webmaster.foobar.com. (
-                         2021072600         ; Serial
-                             604800         ; Refresh
-                              86400         ; Retry
-                            2419200         ; Expire
-                              86400 )       ; Negative Cache TTL
-
-            IN      NS      ns1.foobar.com.
-
-    test    IN      TXT     "this is a test"
-
-Check the global and zone configuration and restart the `bind9` service:
-
-    # named-checkconf
-    # named-checkzone _acme-challenge.foobar.com \
-      /var/cache/bind/db._acme-challenge.foobar.com
-    zone _acme-challenge.foobar.com/IN: loaded serial 2021072600
-    OK
-    # systemctl restart bind9.service
-
-Test your DNS setup on the server by querying the test `TXT` record defined
-above:
-
-    $ dig -t txt +short test._acme-challenge.foobar.com @localhost
-    "this is a test"
-
-If this succeeds, also perform the same test from your local computer:
-
-    $ dig -t txt +short test._acme-challenge.foobar.com @ns1.foobar.com
-    "this is a test"
-
-If this also works, your DNS server is ready.
-
 # Chapter 10: Becoming a CA
 
 Even though using a professionally maintained CA is usually the best option,
@@ -2462,3 +2294,171 @@ later. Keep the other settings identical as foor the root CA.
 ### Create the Intermediate CA
 
 TODO: p. 207 ff.
+
+# Appendix A: Web Server Setup Using Apache 2
+
+In order to setup and test Dehydrated for the domain `foobar.com`, a web server
+must be running, serving that particular site. (Use a real domain owned by you
+instead.) This quick tutorial describes how to do so under Debian 10 (Buster).
+
+First, install Apache 2:
+
+    # apt install apache2
+
+Second, create the directory to serve your site from (replace `foobar.com` by
+your proper domain) with proper permissions:
+
+    # mkdir -p /var/www/foobar.com/public_html
+    # chown -R 755 /var/www/foobar.com/public_html
+
+Third, create a simple test index page
+(`/var/www/foobar.com/public_html/index.html`):
+
+    <h1>Hello, World!</h1>
+
+Fourth, create a configuration file both serving HTTP and (yet bogus) HTTPS
+(`/etc/apache2/sites-available/foobar.com.conf`):
+
+    <VirtualHost *:443>
+        ServerAdmin  webmaster@foobar.com
+        ServerName   foobar.com
+        ServerAlias  www.foobar.com www2.foobar.com
+        DocumentRoot /var/www/foobar.com/public_html
+
+        ErrorLog  ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        SSLEngine             on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+    </VirtualHost>
+    <VirtualHost *:80>
+        ServerAdmin  webmaster@foobar.com
+        ServerName   foobar.com
+        ServerAlias  www.foobar.com www2.foobar.com
+        DocumentRoot /var/www/foobar.com/public_html
+
+        ErrorLog  ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+
+Fifth, disable the default page and activate `foobar.com`. Also enable Apache's
+SSL module:
+
+    # a2dissite 000-default.conf
+    # a2ensite foobar.com.conf
+    # a2enmod ssl
+
+Finally, the webserver can be restarted:
+
+    # systemctl restart apache2.service
+
+If everything works, the demo page should be available under both HTTP and
+HTTPS:
+
+    $ curl http://foobar.com/index.html
+    $ curl -k https://foobar.com/index.html
+
+# Appendix B: DNS Server Setup Using Bind9
+
+If you want to test the DNS-01 challenge with Dehydrated, besides a web server,
+you also must run your own authoritative-only DNS server. Again the domain
+`foobar.com` is used as a placeholder, to be replaced with your real domain
+name. As an IP address, the placeholder `123.45.67.89` is used. Debian 10 (Buster)
+is used in this tutorial, too. This setup requires that both the DNS and web
+server are running on the same host.
+
+For this setup, the DNS server only manages the `TXT` records needed for the
+ACME challenge. `CNAME` records are created on the main DNS server of your
+hosting provider, one per SAN, pointing to the `TXT` records managed on your
+ACME-only DNS server.
+
+First, a `NS` record is needed, which assigns your subdomain
+(`_acme-challenge.foobar.com`) to the DNS server that will manage it
+(`ns1.foobar.com`).  Use your registrar's web interface to create one.
+
+Second, an `A` record is needed setting `ns1.foobar.com` to the IP address
+`123.45.67.89`. (Consider a glue record for this purpose.)
+
+Make sure that UDP port 53 is open on your server:
+
+    $ nmap 123.45.67.89 -p 53
+
+Install the Bind 9 on your server and check the version number:
+
+    # apt install bind9 bind9utils bind9-doc
+    # named -v
+
+Next, enable and start the `bind9` service and check its status (the last line
+should read: "server is up and running"):
+
+    # systemctl enable --now bind9
+    # rndc status
+
+Also enable the `bind9-resolvconf` service so that Bind can be used as the
+system's default DNS resolver:
+
+    # systemctl enable --now bind9-resolvconf
+
+Check if `/etc/resolv.conf` uses `127.0.0.1` as its name server:
+
+    $ cat /etc/resolv.conf
+    nameserver 127.0.0.1
+
+Deactivate zone transfer and activate the query log by adding the following
+options to `/etc/bind/named.conf.options`:
+
+    allow-transfer { none; };
+    querylog yes;
+
+Define your zone in `/etc/bind/named.conf.local` as follows:
+
+    zone "_acme-challenge.foobar.com" {
+            type master;
+            file "/var/cache/bind/db.acme.foobar.com";
+            allow-query { any; };
+    };
+
+The path `/var/cache/bind` is used instead of `/etc/bind`, because the former is
+allowed using Debian's default App Armor settings.
+
+To create the zone file `db._acme-challenge.foobar.com`, copy from the template:
+
+    # cp /etc/bind/db.empty /var/cache/bind/db._acme-challenge.foobar.com
+
+And create a zone configuration as follows:
+
+    $TTL    300
+    $ORIGIN _acme-challenge.foobar.com.
+    @       IN      SOA     ns1.foobar.com. webmaster.foobar.com. (
+                         2021072600         ; Serial
+                             604800         ; Refresh
+                              86400         ; Retry
+                            2419200         ; Expire
+                              86400 )       ; Negative Cache TTL
+
+            IN      NS      ns1.foobar.com.
+
+    test    IN      TXT     "this is a test"
+
+Check the global and zone configuration and restart the `bind9` service:
+
+    # named-checkconf
+    # named-checkzone _acme-challenge.foobar.com \
+      /var/cache/bind/db._acme-challenge.foobar.com
+    zone _acme-challenge.foobar.com/IN: loaded serial 2021072600
+    OK
+    # systemctl restart bind9.service
+
+Test your DNS setup on the server by querying the test `TXT` record defined
+above:
+
+    $ dig -t txt +short test._acme-challenge.foobar.com @localhost
+    "this is a test"
+
+If this succeeds, also perform the same test from your local computer:
+
+    $ dig -t txt +short test._acme-challenge.foobar.com @ns1.foobar.com
+    "this is a test"
+
+If this also works, your DNS server is ready.
