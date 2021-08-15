@@ -2452,10 +2452,10 @@ certificate for the domain `paedubucher.ch` is requested using the following
 configuration (`/tmp/paedubucher.ch.cnf`):
 
     [ req ]
-    prompt             = on
+    prompt             = no
     default_bits       = 2048
     default_md         = sha256
-    default_keyfile    = server-private.key
+    default_keyfile    = paedubucher.ch.private.key
     distinguished_name = req_distinguished_name
     req_extensions     = v3_req
 
@@ -2470,13 +2470,15 @@ configuration (`/tmp/paedubucher.ch.cnf`):
     DNS.2              = www.paedubucher.ch
     DNS.3              = mail.paedubucher.ch
 
-A CSR is created based on that configuration as follows:
+A CSR is created based on that configuration as follows (see chapter 6 for
+details):
 
     $ openssl genpkey -genparam -out /tmp/paedubucher.ch.params.pem \
                       -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1
     $ openssl req -newkey ec:/tmp/paedubucher.ch.params.pem \
-                  -keyout /tmp/paedubucher.ch.private.key \
                   -config /tmp/paedubucher.ch.cnf -out /tmp/paedubucher.ch.csr
+
+When prompted, enter some distinguished name (e.g. `paedubucher.ch`).
 
 After the CA verified the ownership of the domain by the requestor, the CSR can
 be copied into the intermediate CA's `csr` folder and signed:
@@ -2501,7 +2503,9 @@ responder should consider it good:
     # openssl ocsp -issuer /root/CA/chain.pem -text -url http://localhost:80 \
                    -cert /root/CA/intermediate/newcerts/1001.pem
 
-    TODO: output, shortened, show "Cert Status: good"
+Output (shortened to last line):
+
+    /root/CA/intermediate/newcerts/1001.pem: good
 
 ## Issuing Client Certificates
 
