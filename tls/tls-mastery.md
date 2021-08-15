@@ -2293,7 +2293,91 @@ later. Keep the other settings identical as foor the root CA.
 
 ### Create the Intermediate CA
 
-TODO: p. 207 ff.
+The configuration is now ready to create the certificate for the intermediate
+CA, mostly similar to creating the root CA certificate:
+
+    # openssl req -config /root/CA/intermediate/openssl.cnf -newkey rsa \
+                  -keyout /root/CA/intermediate/private/intermediate.key.pem \
+                  -out /root/CA/intermediate/csr/intermediate.cert.csr
+
+Use a different but equally strong passphrase as for the root CA. The
+intermediate CA's CSR can now be signed using the root certificate and the
+password for its private key:
+
+    # openssl ca -batch -cofig /root/CA/root/openssln.cnf \
+                 -extensions v3_intermediate_ca -days 3600 -notext \
+                 -in /root/CA/intermediate/csr/intermediate.cert.csr \
+                 -out /root/CA/intermediate/certs/intermediate.cert.pem
+
+A shorter but still quite long lifetime (10 years) is used for the intermediate
+CA certificate.
+
+Check the database (`/root/CA/root/index.txt`), which should now contain one
+entry starting with `V` for "valid" (as opposed to `R` for "revoked", or `E` for
+"expired"). The other fields show the expiration date timestamp, the revocation
+date timestamp (missing for certificates not revoked yet), the serial number
+(starting at 1000), the file name (always `unknown` in this setup), and,
+finally, the Distinguished Name.
+
+TODO: example
+
+The database is updated as you run the `openssl ca` command in context of your
+root CA. A copy of the certificate is stored under the `newcerts` directory,
+named after its serial number. Make backups when signing certificates.
+
+Copy the intermediate certificate as the foundation for chain files:
+
+    # cp /root/CA/intermediate/certs/intermediate.cert.pem /root/CA/chain.pem
+
+## OCSP Responder Certificate
+
+Your CA needs an OCSP responder, so that clients can check the revocation status
+of individual certificates signed by your CA. The OCSP responder needs a
+certificate itself, which must be signed by the intermediate CA. This
+certificate can be configured as follows under `/root/CA/intermediate/ocsp.cnf`:
+
+    [ req ]
+    prompt             = no
+    default_bits       = 4096
+    distinguished_name = req_distinguished_name
+    default_md         = sha256
+    default_keyfile    = ocsp.privkey.pem
+
+    [ req_distinguished_name ]
+    C  = CH
+    ST = Luzern
+    L  = Luzern
+    O  = Frickelbude
+    OU = OCSP
+    CN = OCSP Responder
+
+Only the Organizational Unit and the Common Name differ from the settings used
+before. The OCSP certificate then can be created as follows:
+
+    # openssl req -config /root/CA/intermediate/ocsp.cnf -newkey rsa \
+                  -out /root/CA/intermediate/csr/ocsp.cert.csr
+
+Once more, use a strong and unique passphrase. Configure the X.509 extensions
+needed for OCSP directly in the intermediate CA's `openssl.cnf`:
+
+    [ ocsp ]
+    basicConstraints       = CA:FALSE
+    subjectKeyIdentifier   = hash
+    authorityKeyIdentifier = keyid,issuer
+    keyUsage               = critical,digitalSignature
+    extendedKeyUsage       = critical,OCSPSigning
+
+With this OCSP policy in place, and the CSR created before, the OCSP certificate
+can be signed as follows:
+
+    # openssl ca -batch -config /root/CA/intermediate/openssl.cnf \
+                 -extensions ocsp -notext \
+                 -in /root/CA/intermediate/csr/ocsp.cert.csr \
+                 -out /root/CA/intermediate/certs/ocsp.cert.pem
+
+When prompted, use the intermediary CA's passphrase for signing. An OCSP
+responder using this certificate can now be set up, available under a domain
+like `ocsp.[yourdomain].[tld]`, usually running on port 80.
 
 # Appendix A: Web Server Setup Using Apache 2
 
