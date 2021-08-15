@@ -2149,7 +2149,7 @@ and must be renewed within that period, i.e. while still valid.
 The `ca_default` option points to modern settings to be used for the signing
 command. A certificate, by default, should expire within 375 days. With
 `preserve = no`, some obsolete backward compatibilities are deactivated. The
-`policy` setting poitns to another section named `policy_strict`.
+`policy` setting points to another section named `policy_strict`.
 
 A root certificate should only be allowed to sign intermediate certificates;
 root and intermediate certificates therefore must belong to the same
@@ -2571,7 +2571,21 @@ must be revoked. Do so using the `openssl ca` command's `-revoke` flag:
 Check the database under `/root/CA/intermediate/index.txt`, which now should
 contain a revocation date for the respective certificate:
 
-    TODO: show index.txt line with revocation date
+    R  220825152234Z  210815153420Z  1001  unknown  /CN=paedubucher.ch
+
+Use the OCSP responder to check that this certificate is no longer considered
+good:
+
+    # openssl ocsp -issuer /root/CA/chain.pem -text -url http://localhost:80 \
+                   -cert /root/CA/intermediate/newcerts/1001.pem
+
+Output (shortened to last three lines):
+
+    /root/CA/intermediate/newcerts/1001.pem: revoked
+        This Update: Aug 15 15:37:10 2021 GMT
+        Revocation Time: Aug 15 15:34:20 2021 GMT
+
+### Generating the CRL
 
 Whereas the OCSP responder uses this database for informing clients about the
 revocation, the CRL must be generated as an extra step. The CRL must be signed
@@ -2588,6 +2602,8 @@ follows, with today's date as its file name:
     # openssl ca -config /root/CA/intermediate/openssl.cnf -gencrl \
                  -out "/root/CA/intermediate/crl/${today}.crl.pem"
 
+The passphrase for the intermediate CA is required.
+
 Copy the file to a location served by the URL indicated as the
 `crlDistributionPoints` in the `server_cert` section of the intermediate CA's
 `openssl.cnf`.
@@ -2596,18 +2612,12 @@ Locally, you can view the CRL as follows (given t:
 
     # openssl crl -text -noout -in "/root/CA/intermediate/crl/${today}.crl.pem"
 
-    TODO: output
+The section `Revoked Certificates` of the output should mention the certificate
+for `paedubucher.ch` (resp. its serial number) that was revoked before.
 
-The section `Revoked Certificates` should mention the certificate for
-`paedubucher.ch` that was revoked before.
-
-Once again use the OCSP responder to check that this certificate is no longer
-considered good:
-
-    # openssl ocsp -issuer /root/CA/chain.pem -text -url http://localhost:80 \
-                   -cert /root/CA/intermediate/newcerts/1001.pem
-
-    TODO: output, shortened, show "Cert Status: ???"
+    Revoked Certificates:
+        Serial Number: 1001
+            Revocation Date: Aug 15 15:34:20 2021 GMT
 
 # Appendix A: Web Server Setup Using Apache 2
 
