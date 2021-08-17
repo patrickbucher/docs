@@ -1300,7 +1300,7 @@ as a parameter) to automate the process.
 The _Automated Certificate Management Environment_ (ACME) is a protocol for
 clients interacting with CAs, defined in [RFC
 8555](https://datatracker.ietf.org/doc/html/rfc8555) by the Internet Security
-Research Group (ISRG), which run's its own CA called _Let's Encrypt_. The API of
+Research Group (ISRG), which runs its own CA called _Let's Encrypt_. The API of
 ACME can be used for the entire process: creating an account, negotiating the
 challenges, submitting the CSRs, and deploying the certificates.
 
