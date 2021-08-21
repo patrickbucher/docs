@@ -563,3 +563,62 @@ improved, however, and working remotely works quite well nowadays, especially
 if there's only a gap in space, but none in terms of culture, language, and
 time zone. Serendipituous conversation and nonverbal communication,  however,
 are significantly reduced in a remote setting.
+
+# Team Practices
+
+Agile's Team Practices are all about the relationships of the individual team
+members to one another and with the product they are building. Those are
+_Metaphor_, _Sustainable Pace_, _Collective Ownership_, and _Continuous
+Integration_.
+
+## Metaphor
+
+Effective communication within a team requires a common language, including a
+well-defined vocabulary of terms and concepts. Using metaphors, e.g. comparing a
+multi-step process with an assembly line, can improve communication both within
+the team and with the customer. Silly and bad metaphors, on the other side, can
+be embarassing or even insulting towards the stakeholders.
+
+The term _Ubiquitous Language_, coined by Eric Evans in his book _Domain-Driven
+Design_, very well defines what a team needs: a model of the problem domain,
+described by a commonly accepted vocabulary, i.e. by programmers, QA, managers,
+customers, users—everyone involved with the project.
+
+## Sustainable Pace
+
+Working long hours can make programmers feel proud of themselves. They are
+valuable and needed, after all, and sometimes a project is saved by working
+overtime. Unfortunately, this well intended dedication can lead to burnout, with
+long-term negative effects for both programmer and employer.
+
+Judgement is often impeded when working late at night after a full working day;
+often grave mistakes are made and bad decisions are taken at that point.
+
+A software project is more like a marathon than a sprint or a series of sprints,
+and therefor must be approached at a sustainable pace. If there's spare energy
+just before the finish line, it's ok to sprint for this last stretch.
+
+Developers must not comply when asked by the management to go faster. Working a
+lot of overtime is not a demonstration of dedication to the employer, but a
+consequence of bad planning, and often the result of manipulable developers
+being coerced into agreeing on unrealistic deadlines.
+
+Programmers should figure out how many hours of sleep they need, and make it a
+priority to consistently get that amount of sleep.
+
+## Collective Ownership
+
+In an Agile project, code is not owned by individuals, but collectively, i.e. by
+the team as a whole. Even though specialization is allowed and becomes a
+necessity as the system grows, the ability to work outside of one's speciality
+must be maintained.
+
+The need for generalization in a system grows with its code base. But
+generalization can only be achieved by developers seeing the big picture. With
+Collective Ownership, knowledge is distributed across the team, which then
+becomes better at communicating and making decisions.
+
+Teams practicing individual code ownership with strong barriers to modifying or
+even reading other's code often become dysfunctional. Finger pointing and
+miscommunication become rampant in such teams. Code solving the same problem is
+written multiple times rather than shared.
