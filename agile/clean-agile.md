@@ -622,3 +622,40 @@ Teams practicing individual code ownership with strong barriers to modifying or
 even reading other's code often become dysfunctional. Finger pointing and
 miscommunication become rampant in such teams. Code solving the same problem is
 written multiple times rather than shared.
+
+## Continuous Integration
+
+The practice of _Continuous Integration_ initially consisted of checking in
+source code and merging it with the main line every couple of hours. Feature
+toggles are used to hide changes that were already deployed, but should not be
+active yet. Later, the introduction of _Continuous Build_ tools, which run all
+the tests automatically as code is check in, shortened this cycle to minutes.
+
+Programmers should run all the tests locally before checkin in code, so that the
+continuous build never breaks. If the build breaks nonetheless, it's the highest
+priority for the entire team to get it running and the tests passing again. Once
+discipline slips and the build is left in a broken state, the team very unlikely
+will make the effort to "catch up later". As a consequence, broken systems will
+be deployed sooner or later.
+
+## Standup Meetings
+
+The _Standup Meeting_ or _Daily Scrum_ is optional. It can be held less often
+than daily, at whatever schedule it fits the team best. The meeting should take
+roughly ten minutes, no matter how big the team is.
+
+The team members stand in a circle and answer the following questions:
+
+1. What did I do since the last meeting?
+2. What will I do until the next meeting?
+3. What is in my way?
+
+No discussions are held, no explanations are given, no complaints are made.
+Every developer gets half a minute. If people other than developers take part,
+they either should only listen or talk according to the same rules as the
+developers.
+
+_The Chicken and the Pig_ is a fable that demonstrates why non-developers—the
+chickens, making a small sacrifice to provide eggs—and developers—the pigs,
+sacrificing their life to provide meat—should not have the same weight in making
+decisions about the (menu) plan.
