@@ -659,3 +659,75 @@ _The Chicken and the Pig_ is a fable that demonstrates why non-developers—the
 chickens, making a small sacrifice to provide eggs—and developers—the pigs,
 sacrificing their life to provide meat—should not have the same weight in making
 decisions about the (menu) plan.
+
+# Technical Practices
+
+The technical practices of Agile reach deep into the programmer's behaviour when
+writing code, by adding a set of rituals considered absurd by many programmers.
+Those practices at the very core of Agile are: _Test-Driven Development_,
+_Refactoring_, _Simple Design_, and _Pair Programming_.
+
+## Test-Driven Development
+
+Programming is a lot like accounting: a single little mistake can have huge
+negative consequences. Therefor, accountants developed _double-entry
+bookkeeping_, which requires every transaction being entered twice into the
+book: once on the credit side, and once on the debit side. The sums of each
+account from both sides are collected in the balance sheet. The differences of
+the credit and debit side must amount to zero, otherwise a mistake has been
+made. Such mistakes can be detected quickly, if the transactions are entered one
+at a time, and the difference of both sides is checked to remain zero after
+every entered transaction.
+
+_Test-Driven Development_ (TDD) is the corresponding technique for programming.
+Every required behaviour of the program is entered twice: once as test code, and
+once as production code. Behaviours are added one by one: first as a (yet
+failing) test, second as working production code making that test pass. As in
+accounting, a result of zero is to be achieved: zero failing tests. Like this,
+mistakes can be caught as they'd enter the code base—and be avoided in time.
+Unlike double-entry bookkeeping, TDD is not (yet?) required by law.
+
+TDD can be described with the following three simple rules:
+
+1. Do not write production code until you have test code failing due to the
+   lack of that very production code.
+2. Do not write more test code than needed to fail the test—with compiler errors
+   counting as failing.
+3. Do not write more production code than needed to make the test pass.
+
+When sticking to those rules, programmers oscillate between test and production
+code at a rate of just a few seconds. What looks like a distraction at the
+beginning will ensure that everything works—or at least worked just a minute
+ago. The code that introduced the error is easy to detect: it must be among the
+few lines that just have been written.
+
+Some programmers are very good at working with debuggers, because they've spent
+a lot of time debugging. You only need to debug a lot, if you have a lot of
+bugs. With TDD, less bugs are introduced, so it's ok for developers sticking to
+the discipline of TDD to be bad at operating debuggers. (Debugging is still
+required now and then, but much less often.)
+
+A comprehensive test suite is the best kind of documentation for programmers:
+working, self-contained, small code examples.
+
+Writing tests after the fact for code that already has been tested manually
+feels like boring busy work. It's more fu to test and program according to the
+three rules of TDD. Code having been written under the rules of TDD is designed
+for testability. Writing tests for production code not designed for testability
+is hard—and therefor likely to be left away. This leaves holes in the test
+suite, and a passing test suite can no longer be trusted. However, a good test
+suite that passes should be the go ahead for deployment.
+
+Though desirable, a high test coverage of, say, 90% and above, is not a metric
+for management, but for the development team. It requires a strong understanding
+of the code base in order to interpret the test coverage metric in a meaningful
+way. Enforcing high test coverage by the means of builds failing for a coverage
+deemed too low is counterproductive, because it incentivises programmers to
+write bogus tests without meaningful assertions.
+
+The ultimate goal of TDD is _courage_, not coverage: Programmers with trust in
+their test suite fearlessly modify and improve existing code. Developers lacking
+that kind of trust will shy away fro cleaning up messy code; the code base
+begins to rot. If the code becomes unmaintainable, further development becomes
+harder and, ultimately, comes to a halt. TDD, on the other hand, keeps the code
+orderly and gives the programmers confidence for further development.
