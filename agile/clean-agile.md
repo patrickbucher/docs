@@ -731,3 +731,50 @@ that kind of trust will shy away fro cleaning up messy code; the code base
 begins to rot. If the code becomes unmaintainable, further development becomes
 harder and, ultimately, comes to a halt. TDD, on the other hand, keeps the code
 orderly and gives the programmers confidence for further development.
+
+## Refactoring
+
+_Refactoring_ is the practice of improving the structure of the code without
+changing its behaviour. This behaviour is defined by the test cases, which must
+still pass after the code has been refactored.
+
+The practice of Refactoring is strongly coupled to the practice of TDD. A good
+test suite is required so that the code can be refactored fearlessly. The third
+rule of TDD states that one must not write more production code than needed in
+order to pass the test. Improving that very code, however, is allowed—and
+strongly encouraged.
+
+The process of Refactoring is described in the _Red/Green/Refactor_ cycle:
+
+![The Red/Green/Refactor Cycle](refactoring.png){width=486px}
+
+1. _Red_: Write a failing test.
+2. _Green_: Write as much production code as needed to pass the test.
+3. _Refactor_: Clean up that code without breaking any tests.
+
+Writing code that works is hard enough, and so is writing code that is clean.
+Therefore, those two goals—_working_ code and  _clean_ code—are best achieved in
+two separate steps.
+
+The changes done to the code during the Refactoring step can range from trivial
+cosmetics to deep restructurings, e.g.:
+
+- changing the names of variables, functions, classes, etc.
+- rewriting switch statements in terms of multiple classes with polymorphic
+  dispatch
+- splitting up big functions or classes into multiple smaller ones
+- moving code around, e.g. into other functions, classes, or components
+
+Martin Fowler describes such techniques and the entire process in his book
+_Refactoring: Improving the Design of Existing Code_ (Second Edition 2018, First
+Edition 2000) in much more detail.
+
+Refactoring is an ongoing process, and not something to be put on a schedule
+once the mess made of the code becomes unbearable. With continuous Refactoring,
+no big mess is ever made.
+
+There are requirements that make it necessary to change the design and structure
+of the code to a very large extent. In this case, bigger Refactorings must be
+applied to the code base.  Even though such Refactorings stretch over long
+periods, they still should be approached using the continuous approach, with all
+tests passing througout the entire process.
