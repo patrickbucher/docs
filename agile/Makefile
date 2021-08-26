@@ -1,5 +1,5 @@
 DOC_OPTS=--toc -N -s
-PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue --dpi=300
+PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue --dpi=300 -V lang=en
 FONT_OPTS=-V mainfont='Linux Libertine' -V sansfont='Linux Biolinum'
 DATE=-V date="`date +'%Y-%m-%d'`"
 
