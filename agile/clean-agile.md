@@ -778,3 +778,30 @@ of the code to a very large extent. In this case, bigger Refactorings must be
 applied to the code base.  Even though such Refactorings stretch over long
 periods, they still should be approached using the continuous approach, with all
 tests passing througout the entire process.
+
+## Simple Design
+
+The practice of _Simple Design_ aims to write only the code required, and its
+structure being as simple, small, and expressive as possible. Kent Beck has four
+rules to achieve this goal:
+
+1. _Pass all the tests._ The code must work as intended, of course.
+2. _Reveal the intent._ The code must be expressive, i.e. easy to read and
+   self-descriptive. Splitting up code into smaller units and applying cosmetic
+   refactorings helps in this respect.
+3. _Remove duplication._ The code should not say the same thing more than once.
+   Grouping common code into new functions and calling them from that code's
+   original place is a simple way to do this. Other situations require more
+   sophisticated solutions, such as the _Strategy_ or the _Decorator_ design
+   patterns.
+4. _Decrease elements._ The code must be freed from any superfluous structural
+   elements like classes, functions, variables, etc.
+
+Complex design puts the programmer under high cognitive load—the _Design
+Weight_. A system with a high Design Weight takes more effort to understand and
+to manipulate. Likewise, requirements with high complexity make it harder to
+understand and manipulate the system.
+
+However, a more elaborate design can help to handle more complex requirements,
+so a tradeoff between complexity in requirements and appropriate design must be
+found in order to achieve the goal of simple design.
