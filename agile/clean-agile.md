@@ -805,3 +805,43 @@ understand and manipulate the system.
 However, a more elaborate design can help to handle more complex requirements,
 so a tradeoff between complexity in requirements and appropriate design must be
 found in order to achieve the goal of simple design.
+
+## Pair Programming
+
+The practice of _Pair Programming_ or _Pairing_ is the act of two programmers
+working together on a single programming problem by sharing their keyboard and
+screen—physically by sitting at the same desk, or virtually using screen sharing
+software.
+
+Pairing is optional and intermittent: Some of the time you pair, then you
+program alone again. Whether or not to pair is an individual and team
+decision—not the manager's!
+
+The two programmers can take on different roles when pairing: one is the
+_driver_ with keyboard and mouse, following the directions of the _navigator_,
+giving recommendations and hints. The technique _Ping-Pong_ consists of one
+programmer writing a test, and the other programmer making it pass. Those roles
+can be switched frequently.
+
+Pairing is neither mandated nor scheduled, but done spontaneously. Pairs are
+short-lived and dissolve after a session of 30 minutes up to a full working day.
+
+The ultimate goal of pairing is sharing knowledge. This is achieved especially
+if seniors pair up with juniors. At first glance, pairing looks inefficient and
+costly: certainly, two programmers behind a single screen and keyboard cannot
+write as much code as if they'd have their own workstation. However, pairing not
+only distributes knowledge, it also reduces errors, improves the design, and
+strengthens collaboration within the team. In general, managers like to see
+their people collaborating and sharing knowledge, and won't complain about
+pairing.
+
+Pairing is not only useful for writing new, but also for reviewing existing
+code. It's also not strictly limited to two programmers, but called "mob
+programming" when done by three or more individuals.
+
+As with testing, refactoring, and designing, _do not ask for permission_ to
+pair. This is the programmer's domain, and the programmer is the expert.
+
+To sum up: The technical practices introduced in ths chapter are at the very
+core of Agile. With Agile, it's possible to make a big mess in a hurry, if you
+ignore these technical practices.
