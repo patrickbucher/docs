@@ -1,48 +1,21 @@
 .PS
 
-PP: box invis rad 0.25 wid 1 ht 0.5
-TDD: box invis same at PP + (1.0, 1.0)
-SD: box invis same at PP + (1.0, -1.0)
-RF: box invis same at PP + (2.0, 0)
+C0: ellipse wid 2 ht 1.1
+box fill 0.05 rad 0.25 wid 1 ht 0.5 same "Test-Driven" "Development" at C0.n
+box fill 0.05 same "Refactoring" at C0.e
+box fill 0.05 same "Simple" "Design" at C0.s
+box fill 0.05 same "Pair" "Programming" at C0.w
 
-arc cw rad 1.0 from PP to TDD 
-arc cw rad 1.0 from SD to PP
-arc cw rad 1.0 from TDD to RF
-arc cw rad 1.0 from RF to SD
+C1: ellipse wid 3.5 ht 2.2 at C0
+box fill 0.1 same "Collective" "Ownership" at C1.ne
+box fill 0.1 same "Sustainable" "Pace" at C1.se
+box fill 0.1 same "Metaphor" at C1.sw
+box fill 0.1 same "Continuous" "Integration" at C1.nw
 
-box fill 1.0 same at PP; box fill 0.05 same "Pair" "Programming" at PP
-box fill 1.0 same at TDD; box fill 0.05 same "Test-Driven" "Development" at TDD
-box fill 1.0 same at SD; box fill 0.05 same "Simple" "Design" at SD
-box fill 1.0 same at RF; box fill 0.05 same "Refactoring" at RF
-
-CI: box invis same at PP + (-0.25, 1.25)
-MT: box invis same at PP - (0.25, 1.25)
-CO: box invis same at RF + (0.25, 1.25)
-SP: box invis same at RF + (0.25, -1.25)
-
-arc cw rad 1.75 from CI to CO chop
-arc cw rad 1.75 from SP to MT
-arc cw rad 1.75 from MT to CI
-arc cw rad 1.75 from CO to SP
-
-box fill 1.0 same at CI; box fill 0.1 same "Continuous" "Integration" at CI
-box fill 1.0 same at MT; box fill 0.1 same "Metaphor" at MT
-box fill 1.0 same at CO; box fill 0.1 same "Collective" "Ownership" at CO
-box fill 1.0 same at SP; box fill 0.1 same "Sustainable" "Pace" at SP
-
-WT: box invis same "Whole" "Team" at TDD + (0.0, 1.5)
-SR: box invis same "Small" "Releases" at SD - (0.0, 1.5)
-AT: box invis same "Acceptance" "Tests" at PP - (1.5, 0)
-PG: box invis same "Planning" "Game" at RF + (1.5, 0)
-
-arc cw rad 2.5 from AT to WT
-arc cw rad 2.5 from SR to AT
-arc cw rad 2.5 from WT to PG
-arc cw rad 2.5 from PG to SR
-
-box fill 1.0 same at WT; box fill 0.15 same "Whole" "Team" at WT
-box fill 1.0 same at SR; box fill 0.15 same "Small" "Releases" at SR
-box fill 1.0 same at AT; box fill 0.15 same "Acceptance" "Tests" at AT
-box fill 1.0 same at PG; box fill 0.15 same "Planning" "Game" at PG
+C2: ellipse wid 4.75 ht 3 at C0
+box fill 0.15 same "Whole" "Team" at C2.n
+box fill 0.15 same "Planning" "Game" at C2.e
+box fill 0.15 same "Small" "Releases" at C2.s
+box fill 0.15 same "Acceptance" "Tests" at C2.w
 
 .PE
