@@ -155,6 +155,9 @@ three!—can now do the following adjustments:
 - _Scope_: If there's no other way, stakeholders can often be convinced to limit
   their demands to features that are absolutely needed.
 
+![The Iron Cross of Project Management (adjustments in
+parentheses)](iron-cross.png){width=1202px}
+
 Reducing the scope is often the only sensible choice. Make sure at the beginning
 of every sprint to only implement features that are really needed by the
 stakeholders. You might waste precious time on "nice to have" features

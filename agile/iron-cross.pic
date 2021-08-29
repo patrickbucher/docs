@@ -1,0 +1,14 @@
+.PS
+G: box wid 1 ht 0.5 "Good" "(Quality)"
+F: box same at G + (1.5, 1.0) "Fast" "(Schedule)"
+C: box same at G + (3.0, 0) "Cheap" "(Staff)"
+D: box same at G + (1.5, -1.0) "Done" "(Scope)"
+
+line dashed from G.e to F.s
+line dashed from F.s to C.w
+line dashed from C.w to D.n
+line dashed from D.n to G.e
+
+line from G.e to C.w
+line from F.s to D.n
+.PE
