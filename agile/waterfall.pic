@@ -1,0 +1,16 @@
+.PS
+SyR: box wid 1 ht 0.35 "System" "Requirements"
+SoR: box same at SyR.se + (0.25, -0.25) "Software" "Requirements"
+A: box same "Analysis" at SoR.se + (0.25, -0.25)
+PD: box same "Program" "Design" at A.se + (0.25, -0.25)
+C: box same "Coding" at PD.se + (0.25, -0.25)
+T: box same "Testing" at C.se + (0.25, -0.25)
+O: box same "Operations" at T.se + (0.25, -0.25)
+
+arc cw rad 0.25 from SyR.e to SoR.n ->
+arc cw rad 0.25 from SoR.e to A.n ->
+arc cw rad 0.25 from A.e to PD.n ->
+arc cw rad 0.25 from PD.e to C.n ->
+arc cw rad 0.25 from C.e to T.n ->
+arc cw rad 0.25 from T.e to O.n ->
+.PE

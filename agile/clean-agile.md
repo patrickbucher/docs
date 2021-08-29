@@ -34,6 +34,8 @@ industry. And Waterfall, with its emphasize on analysis, planning, and closely
 sticking to a plan, was a descendant of Scientific Management, not of Pre-Agile
 practices.
 
+![The Waterfall Model](waterfall.png)
+
 Waterfall dominated the industry since the 1970s for almost 30 years. Its
 subsequent phases of analysis, design, and implementation looked promising to
 developers working in endless "code and fix" cycles, lacking even the discipline
@@ -400,7 +402,7 @@ The stakeholders play the _four-quadrant game_ to pick the right stories, i.e.
 those with the highest return on invest (ROI). Along the two axes of cost and
 value, each story can be put in one of four quadrants:
 
-![The four-quadrant game](quadrants.png){width=921px}
+![The Four-Quadrant Game](quadrants.png){width=921px}
 
 1. Valuable, but cheap: those stories should be done right away.
 2. Valuable, but expensive: those stories should be done later on.
