@@ -12,7 +12,7 @@ all: clean-agile.pdf clean-agile.epub $(GRAPHICS)
 clean-agile.pdf: clean-agile.md $(GRAPHICS)
 	pandoc $(DOC_OPTS) $(PDF_OPTS) $(FONT_OPTS) $(DATE) $< -o $@
 
-clean-agile.epub: clean-agile.md quadrants.png
+clean-agile.epub: clean-agile.md $(GRAPHICS)
 	pandoc $(DOC_OPTS) $(DATE) $< -o $@
 
 .SUFFIXES: .pic .png
