@@ -1,32 +1,48 @@
 .PS
-PP: box invis wid 1 ht 0.5 "Pair" "Programming"
-TDD: box invis same "Test-Driven" "Development" at PP + (1.0, 0.5)
-SD: box invis same "Simple" "Design" at PP + (1.0, -0.5)
-RFT: box invis same "Refactoring" at PP + (2.0, 0)
 
-arc cw rad 0.5 from PP.n to TDD.w
-arc cw rad 0.5 from SD.w to PP.s
-arc cw rad 0.5 from TDD.e to RFT.n
-arc cw rad 0.5 from RFT.s to SD.e
+PP: box invis wid 1 ht 0.5
+TDD: box invis same at PP + (1.0, 1.0)
+SD: box invis same at PP + (1.0, -1.0)
+RF: box invis same at PP + (2.0, 0)
 
-CI: box invis same "Continuous" "Integration" at PP + (-0.5, 1.0)
-MT: box invis same "Metaphor" at PP - (0.5, 1.0)
-CO: box invis same "Collective" "Ownership" at RFT + (0.5, 1.0)
-SP: box invis same "Sustainable" "Pace" at RFT + (0.5, -1.0)
+arc cw rad 1.0 from PP to TDD 
+arc cw rad 1.0 from SD to PP
+arc cw rad 1.0 from TDD to RF
+arc cw rad 1.0 from RF to SD
 
-arc cw rad 5.0 from CI.ne to CO.nw
-arc cw rad 5.0 from SP.sw to MT.se
-arc cw rad 1.0 from MT.nw to CI.sw
-arc cw rad 1.0 from CO.se to SP.ne
+box fill 1.0 same at PP; box fill 0.05 same "Pair" "Programming" at PP
+box fill 1.0 same at TDD; box fill 0.05 same "Test-Driven" "Development" at TDD
+box fill 1.0 same at SD; box fill 0.05 same "Simple" "Design" at SD
+box fill 1.0 same at RF; box fill 0.05 same "Refactoring" at RF
+
+CI: box invis same at PP + (-0.25, 1.25)
+MT: box invis same at PP - (0.25, 1.25)
+CO: box invis same at RF + (0.25, 1.25)
+SP: box invis same at RF + (0.25, -1.25)
+
+arc cw rad 1.75 from CI to CO chop
+arc cw rad 1.75 from SP to MT
+arc cw rad 1.75 from MT to CI
+arc cw rad 1.75 from CO to SP
+
+box fill 1.0 same at CI; box fill 0.1 same "Continuous" "Integration" at CI
+box fill 1.0 same at MT; box fill 0.1 same "Metaphor" at MT
+box fill 1.0 same at CO; box fill 0.1 same "Collective" "Ownership" at CO
+box fill 1.0 same at SP; box fill 0.1 same "Sustainable" "Pace" at SP
 
 WT: box invis same "Whole" "Team" at TDD + (0.0, 1.5)
 SR: box invis same "Small" "Releases" at SD - (0.0, 1.5)
-AT: box invis same "Acceptance" "Tests" at PP - (2.0, 0)
-PG: box invis same "Planning" "Game" at RFT + (2.0, 0)
+AT: box invis same "Acceptance" "Tests" at PP - (1.5, 0)
+PG: box invis same "Planning" "Game" at RF + (1.5, 0)
 
-arc cw rad 2.5 from AT.n to WT.w
-arc cw rad 2.5 from SR.w to AT.s
-arc cw rad 2.5 from WT.e to PG.n
-arc cw rad 2.5 from PG.s to SR.e
+arc cw rad 2.5 from AT to WT
+arc cw rad 2.5 from SR to AT
+arc cw rad 2.5 from WT to PG
+arc cw rad 2.5 from PG to SR
+
+box fill 1.0 same at WT; box fill 0.15 same "Whole" "Team" at WT
+box fill 1.0 same at SR; box fill 0.15 same "Small" "Releases" at SR
+box fill 1.0 same at AT; box fill 0.15 same "Acceptance" "Tests" at AT
+box fill 1.0 same at PG; box fill 0.15 same "Sustainable" "Pace" at PG
 
 .PE
