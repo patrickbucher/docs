@@ -34,7 +34,7 @@ industry. And Waterfall, with its emphasize on analysis, planning, and closely
 sticking to a plan, was a descendant of Scientific Management, not of Pre-Agile
 practices.
 
-![The Waterfall Model](waterfall.png)
+![The Waterfall Model](waterfall.png){width=90%}
 
 Waterfall dominated the industry since the 1970s for almost 30 years. Its
 subsequent phases of analysis, design, and implementation looked promising to
@@ -169,7 +169,7 @@ Extreme Programming (XP), as described in Kent Beck's _Extreme Programming
 Explained", captures the essence of Agile. The practices of XP are organized in
 the _Circle of Life_, which consists of three rings.
 
-![The Circle of Life](circle-of-life.png)
+![The Circle of Life](circle-of-life.png){width=90%}
 
 The outer ring contains the _business-facing_ practices, which are quite similar
 to the Scrum process:
