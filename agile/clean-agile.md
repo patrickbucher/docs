@@ -169,6 +169,8 @@ Extreme Programming (XP), as described in Kent Beck's _Extreme Programming
 Explained", captures the essence of Agile. The practices of XP are organized in
 the _Circle of Life_, which consists of three rings.
 
+![The Circle of Life](circle-of-life.png)
+
 The outer ring contains the _business-facing_ practices, which are quite similar
 to the Scrum process:
 

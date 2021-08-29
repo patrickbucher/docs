@@ -3,11 +3,13 @@ PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlco
 FONT_OPTS=-V mainfont='Linux Libertine' -V sansfont='Linux Biolinum'
 DATE=-V date="`date +'%Y-%m-%d'`"
 
+GRAPHICS=circle-of-life.png iron-cross.png quadrants.png refactoring.png waterfall.png
+
 .PHONY: all clean
 
-all: clean-agile.pdf clean-agile.epub
+all: clean-agile.pdf clean-agile.epub $(GRAPHICS)
 
-clean-agile.pdf: clean-agile.md quadrants.png
+clean-agile.pdf: clean-agile.md $(GRAPHICS)
 	pandoc $(DOC_OPTS) $(PDF_OPTS) $(FONT_OPTS) $(DATE) $< -o $@
 
 clean-agile.epub: clean-agile.md quadrants.png
@@ -15,7 +17,7 @@ clean-agile.epub: clean-agile.md quadrants.png
 
 .SUFFIXES: .pic .png
 .pic.png:
-	pic $^ | pic2graph -density 300 -colorspace RGB -format png > $@
+	pic $^ | pic2graph -density 300 -colorspace HSL > $@
 
 clean:
-	rm -f clean-agile.pdf clean-agile.epub quadrants.png
+	rm -f clean-agile.pdf clean-agile.epub $(GRAPHICS)
