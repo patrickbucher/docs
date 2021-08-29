@@ -847,3 +847,42 @@ pair. This is the programmer's domain, and the programmer is the expert.
 To sum up: The technical practices introduced in ths chapter are at the very
 core of Agile. With Agile, it's possible to make a big mess in a hurry, if you
 ignore these technical practices.
+
+# Becoming Agile
+
+Even though becoming Agile looks easy—it's just a couple of disciplines and
+practices, after all—many organizations fail at it. The reason for this could be
+that those organizations trying to adopt Agile have misconceptions about what
+becoming Agile actually means.
+
+## Agile Values
+
+Kent Beck named the following four values that are at the very core of Agile:
+
+1. _Courage_: Agile teams don't sacrifice quality and opportunity in exchange
+   for policital safety. It takes courage to maintain high code quality and to
+   stay disciplined. However, deploying code without confidence in its quality
+   and design is reckless, which is not the same as being courageous.
+2. _Communication_: Agile teams value communication—not only within their team,
+   but also with stakeholders on the outside. Informal communication is
+   especially useful, for it helps teams to grow together and strengthens the
+   relationship to the stakeholders.
+3. _Feedback_: The Agile practices and disciplines have one common benefit: they
+   provide rapid feedback. This helps to detect when things go wrong early on,
+   so that ther's still space for corrections. This feedback also confronts the
+   team with the consequences of decisions made earlier.
+4. _Simplicity_: Being simple is being _direct_. Software problems are often
+   solved by introducing additional layers of indirection. Agile values reduce
+   the amount of problems to be solved, so less indirection is needed.
+   Indirection in communication—passive aggression or grudgingly acceding to
+   unreasonable demands instead of openly opposing them—just postpones conflicts
+   to a later date. Reduce indirection in the code to a sustainable level, but
+   eliminate indirection in personal communication completely.
+
+When adopting Agile, don't spend a lot of time evaluating different frameworks
+like XP or  Scrum. At the end, you'll tweak the framework in a way best fitting
+your organizations's needs.
+
+Adopt the Circle of Life, especially the technical practices in the innermost
+circle. Without those, the code will degrage, and the Agile practices in the two
+outer rings will make a mess of everything very quickly.
