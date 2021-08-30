@@ -891,3 +891,41 @@ your organizations's needs.
 Adopt the Circle of Life, especially the technical practices in the innermost
 circle. Without those, the code will degrage, and the Agile practices in the two
 outer rings will make a mess of everything very quickly.
+
+## Transformation
+
+The values of large organizations—safety, consistency, command-and-control, plan
+execution—are diametrically opposed to the values of Agile. Therefore, a
+transition to Agile is a transition in values.
+
+Such change is usually opposed the most by the middle-management layer, which is
+trained to avoid risks and direct communication. Middle management is a layer of
+indirection, after all—exactly what is to be avoided in Agile. Executives, on
+the other side, are risk takers that constantly seek out new opportunities, and
+therefore tend to be supportive of Agile transformations.
+
+Employees in special roles, such as tech leads, architects, or project managers,
+also tend to oppose Agile transformations, for they see their roles diminished in
+an Agile team. Actually, their skills and experience are especially needed in
+Agile teams.
+
+It is also possible for a development team to internally make the transition to
+Agile while still conforming the the process imposed by middle management
+towards the outside. Instead of arguing against writing analysis and design
+documents, those artifacts are just created during the first couple of sprints
+as a by-product of the code that already has been written. Analysis and design
+are done for every story, after all, especially in early stories.
+
+Even though this "faking it" can be considered dishonest, nobody will complain
+if it yields good results. The team just acts for the greater good of the
+company, as opposed to just complying to the demands of middle management.
+
+If the transition to Agile values only happens for a few individuals within a
+team, those employees tend to leave the team or the organization sooner or
+later, seeking out new opportunities better in alignment to their freshly
+acquired mindset.
+
+Large organizations usually don't adopt Agile as a whole entity, but create new,
+smaller organizations based on Agile values. Eventually, those new companies
+become bigger and grow out of the parent company, as the former thrives with
+Agile and the latter stagnates with its old ways.
