@@ -929,3 +929,44 @@ Large organizations usually don't adopt Agile as a whole entity, but create new,
 smaller organizations based on Agile values. Eventually, those new companies
 become bigger and grow out of the parent company, as the former thrives with
 Agile and the latter stagnates with its old ways.
+
+## Coaching
+
+An _Agile Trainer_ conducts the initial training with the team and inculcates
+Agile values. Agile trainers are usually hired from the outside for a short
+tenure, i.e. for a couple of weeks.
+
+The role of an _Agile Coach_, on the other hand, should be filled from someone
+within the team, even though an Agile trainer from the outside could initially
+take that role during a short transition period.
+
+The coach makes sure that the team sticks to the Agile way, acting as the team's
+consience. The role of the coach can be re-assigned to other team-members
+frequently, as long as it is taken seriously.
+
+The coach is not a manager and also not responsible for planning and budget.
+Neither do customers nor managers need to know who the coach is, for that role
+is strictly internal to the team.
+
+In Scrum, such a coach is called a _Scrum Master_. Since many project managers
+have taken the training and certification to become a Scrum Master, that role is
+often conflated with the role of the project manager.
+
+Even though the trainings that lead to such certificates are useful, the
+certificate itself proofs next to nothing, i.e. only that the certification fee
+has been paid. If formal training is given, not only a single person should
+receive it, but the entire team.
+
+### Coaching—An Alternative View (by Damon Poole)
+
+A big part of coaching is to ask questions. Agile training needs to take the
+learner's unique circumstances into account. Embracing Agile requires a shift in
+thinking. To overcome that hurdle, one needs to be shown "what's in for me".
+Coaching is not so much offering expertise, but rather pointing out how Agile
+can help to overcome challenges and solve problems.
+
+Coaching is not prescribing a solution, but to discover blind spots and to
+bring the underlying beliefs that stand in the way to the surface.
+
+An Agile transformation should be conducted in an Agile way, and not as a
+project with a clear goal, executed in a top-down manner.
