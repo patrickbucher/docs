@@ -970,3 +970,25 @@ bring the underlying beliefs that stand in the way to the surface.
 
 An Agile transformation should be conducted in an Agile way, and not as a
 project with a clear goal, executed in a top-down manner.
+
+## Agile in the Large
+
+Agile was intended for small teams of 4 to 12 developers, not for big ones.
+However, it was soon tried to adopt Agile for multiple teams and large
+organizations. First using a technique called _Scum of Scrums_, later with
+frameworks like _SAFe_ (Scaled Agile Framework) and _LeSS_ (Large Scale Scrum).
+
+The problem of managing big teams is as old as civilization and has been solved
+already rather well. (If this weren't the case, no pyramids would have been
+built.) The problem of organizing small teams that develop software, however, is
+rather new. Software is unique and requires a special set of disciplines. Agile
+was brought up to solve that particular problem of software development. It
+therefore isn't suitable for managing other endeavours, such as construction or
+hardware manufacturing.
+
+The problem of managing big software teams is just a matter of organizing them
+into smaller teams. The former is a standard management technique, i.e. a
+problem solved, the latter is done using Agile. Software organizations have very
+diverse teams, such as development, QA, marketing, research, etc. But even the
+problem of organizing very diverse teams has been solved long ago by many
+civilizations time and again, just think of organizing a big army.
