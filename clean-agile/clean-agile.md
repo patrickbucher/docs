@@ -992,3 +992,59 @@ problem solved, the latter is done using Agile. Software organizations have very
 diverse teams, such as development, QA, marketing, research, etc. But even the
 problem of organizing very diverse teams has been solved long ago by many
 civilizations time and again, just think of organizing a big army.
+
+## Agile Tools
+
+Carpenters first learn to master hand tools—hammer, measure, saw—before they
+move on to power tools—drill, nail gun, CAD. However, they never abandon their
+hand tools entirely, but always pick the appropriate tool for every job: simple
+task, simple tool.
+
+Mastery of every item in the toolbox allows us to focus on the problem at hand,
+as opposed to the tool that is in our hand: Through mastery, the tool becomes
+_transparent_. Without mastery, tools can become an impediment and even do harm
+to our project.
+
+Software developers use a lot of different tools (editors, compilers, version
+control, etc.), so it is unfeasible to master each and every tool. Therefor,
+only the tools should be picked that offer the most value for the least learning
+effort.
+
+Tools for the same purpose (e.g. version control) are replaced by better ones
+now and then, like CVS was replaced by Git in recent years. If you learn a tool
+like Git well enough—the 80/20 rule applies (20% of the effort gives you 80% of
+the benefit), such a tool becomes transparent, so that you can focus on the
+task instead of the tool.
+
+Better tools can influence and improve the way we're working. Git, for example,
+with its support for fast and cheap branching, allows for new workflows, such as
+`test && commit || revert`: the tool is _exapted_, i.e. used in a way the
+creator of the tool hadn't intended.
+
+> Great tools do the following:
+>
+> - Help people accomplish their objectives
+> - Can be learned "well enough" quickly
+> - Become transparent to users
+> - Allow adaptation and exaptation
+> - Are affordable
+
+For co-located Agile teams, simple physical tools like sticky notes, tape and
+a whiteboard often do the job. However, they fail for remote teams and don't
+automatically retain a history of the project.
+
+In IT, the tempation to use powerful software tools is always there. Before
+adopting such powerful tools, make sure that you really can handle the process.
+The tool you introduce must support your specific process. Shape the tools to
+your needs, not the other way around.
+
+Complicated tools for Agile Lifecycle Management (ALM) require constant
+attention and upfront training. They usually can only be changed in the ways
+their vendors intended—if at all. ALM tools usually are expensive and require
+maintenance and administration. Such tools never become transparent, and
+therefore don't help the developers doing their work. Instead, those tools offer
+powerful performance charts and statistics, which can be used as a weapon
+against programmers to shame them into working harder, because the tool suggests
+so. ALM tools should not replace or even stand in the way of personal, informal
+interactions. When in doubt, start with a simple tool, and consider switching to
+a more powerful one later if needed.
