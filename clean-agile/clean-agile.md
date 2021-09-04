@@ -1069,6 +1069,8 @@ while keeping up the quality of the code base in the process. Experimentation
 and self-learning are not enough, but must be combined with coaching and
 training.
 
+## The Software Craftsmanship Manifesto
+
 Developers and Agile moved apart over the years, so a new movement attempted to
 bring them back together in 2008: _Software Craftsmanship_, with its new
 [manifesto](https://manifesto.softwarecraftsmanship.org/) built on top of the
@@ -1089,3 +1091,34 @@ Agile manifesto:
 
 This is a developers' movement, and _Craftspeople_, as they call themselves,
 don't want it to be hijacked again.
+
+## Ideologies and Methodologies
+
+Ideologies are systems of ideas and define ideals to aim at. Methodologies are
+systems of methods and practices, which can be used to reach those ideals. Agile
+is an ideology, its goal is to provide business agility and customer
+satisfaction. Scrum and XP, among others, are methodologies for reaching those
+goals.
+
+Methodologies are like training wheels: useful to get started, they soon become
+a hindrance to further advancement. Too much focus on methods and practices
+distracts teams and organizations from reaching their goals. Still, practices
+are important, because professionals are defined by the way they work, i.e. by
+their practices.
+
+Unlike methodologies such as Scrum and XP, Software Craftsmanship does not focus
+on a fixed set of practices, but rather promotes a perpetual search for better
+ones. However, since its inception in 2008, the Software Craftsmanship community
+considers XP to povide the best set of practices. When discussing (better)
+practices, it's essential to first agree on the goals to be achieved by them,
+and only then to look at specific practices as ways to reach them.
+
+The members of the Software Craftsmanship movement don't see programming just as
+a job, but as their profession, which isn't just a way to get a regular
+paycheck, but a part of their identity: Craftspeople do not just _work as_
+programmers, they _are_ programmers. Therefore, they invest in their careers,
+which doesn't mean that they not also maintain a private life beyond their
+profession.
+
+Agile and Software Craftsmanship share the same goals. Combined, they are the
+perfect way to reach them.
