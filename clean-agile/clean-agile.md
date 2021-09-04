@@ -993,7 +993,7 @@ diverse teams, such as development, QA, marketing, research, etc. But even the
 problem of organizing very diverse teams has been solved long ago by many
 civilizations time and again, just think of organizing a big army.
 
-## Agile Tools
+## Agile Tools (by Tim Ottinger and Jeff Langr)
 
 Carpenters first learn to master hand tools—hammer, measure, saw—before they
 move on to power tools—drill, nail gun, CAD. However, they never abandon their
@@ -1048,3 +1048,44 @@ against programmers to shame them into working harder, because the tool suggests
 so. ALM tools should not replace or even stand in the way of personal, informal
 interactions. When in doubt, start with a simple tool, and consider switching to
 a more powerful one later if needed.
+
+# Craftsmanship (by Sandro Mancuso)
+
+Agile was quickly adopted, but its original idea also got distorted as a mere
+process to deliver software faster. Instead of working autonomously, the
+developers were micro-managed again, with the transparency provided by Agile
+used against them.
+
+Managers defined roadmaps and milestones, and the developers were coerced into
+making their estimates accordingly. One top-priority story after the other had
+to be done in a hurry, ignoring the technical pracrices in the process. This was
+the _Agile Hangover_: The divide between business and development that Agile was
+supposed to heal came back even stronger.
+
+Agile training only consisted of business- and team-facing practices, as if
+better communication and collaboration alone would make developers more skilled.
+It takes a large set of technical skills to release software in short cycles
+while keeping up the quality of the code base in the process. Experimentation
+and self-learning are not enough, but must be combined with coaching and
+training.
+
+Developers and Agile moved apart over the years, so a new movement attempted to
+bring them back together in 2008: _Software Craftsmanship_, with its new
+[manifesto](https://manifesto.softwarecraftsmanship.org/) built on top of the
+Agile manifesto:
+
+> As aspiring Software Craftsmen, we are raising the bar of professional
+> software development by practicing it and helping others learn the craft.
+> Through this work we have to come to value:
+>
+> - Not only working software, but also **well-crafted software**
+> - Not only responding to change, but also **steadily adding value**
+> - Not only individuals and interactions, but also a **community of
+>   professionals**
+> - Not only customer collaboration, but also **productive partnerships**
+>
+> That is, in pursuit of the items on the left we have found the items on the
+> right to be indispensable.
+
+This is a developers' movement, and _Craftspeople_, as they call themselves,
+don't want it to be hijacked again.
