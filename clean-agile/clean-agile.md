@@ -734,10 +734,10 @@ write bogus tests without meaningful assertions.
 
 The ultimate goal of TDD is _courage_, not coverage: Programmers with trust in
 their test suite fearlessly modify and improve existing code. Developers lacking
-that kind of trust will shy away from cleaning up messy code; the code base
-begins to rot. If the code becomes unmaintainable, further development becomes
-harder and, ultimately, comes to a halt. TDD, on the other hand, keeps the code
-orderly and gives the programmers confidence for further development.
+that kind of trust will shy away from cleaning up messy code; the code begins to
+rot. If the code becomes unmaintainable, further development becomes harder and,
+ultimately, comes to a halt. TDD, on the other hand, keeps the code orderly and
+gives the programmers confidence for further development.
 
 ## Refactoring
 
