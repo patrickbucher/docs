@@ -14,7 +14,7 @@ not always in the spirit of the original idea.
 ## History of Agile
 
 The basic idea of Agile—working with small, intermediate goals and measuring the
-process—might be as old as civilization. Agile practices might also have been
+progress—might be as old as civilization. Agile practices might also have been
 used in the early days of software development. However, the idea of _Scientific
 Management_, which is based on Taylorism, with its top-down approach and heavy
 planning, was prevalent in many industries at that time, conflicting with the
@@ -108,7 +108,7 @@ only have a rough goal, but don't know the detailed steps how to reach it.
 
 ## A Waterfall Project
 
-In the Waterfall days, a project was often split up into three pases of equal
+In the Waterfall days, a project was often split up into three phases of equal
 length: analysis, design, and implementation. In the analysis phase,
 requirements are gathered and planning is done. In the design phase, a solution
 is sketched and the planning is refined. Neither phase has hard and tangible
@@ -116,8 +116,8 @@ goals; they are done when the end date of the phase is reached.
 
 The implementation phase, however, needs to produce working software—a goal that
 is hard and tangible, and whose attainment is easy to judge. Schedule slips are
-only detected in this phase, and stakeholder only become aware of such issues
-when the project should be done almost finished.
+only detected in this phase, and stakeholders only become aware of such issues
+when the project should be almost finished.
 
 Such projects often end in a _Death March_: a hardly working solution is
 produced after a lot of overtime work, despite deadlines being moved forward
@@ -127,7 +127,7 @@ Process Inflation_).
 
 ## The Agile Way
 
-Like Waterfall, an Agile projects starts with analysis—but analysis never ends.
+Like Waterfall, an Agile project starts with analysis—but analysis never ends.
 The time is divided in iterations or sprints of typically one or two weeks.
 _Iteration Zero_ is used to write the initial stories, to estimate them, to set
 up the development environment, to draft a tentative design, and to come up with
@@ -243,14 +243,14 @@ becomes more important. Computers are almost everywhere nowadays, and so is
 software. Little gets accomplished without software.
 
 Software is written by programmers—and bad software can kill people. Therefore,
-programmers will be blames as people are getting killed due to erroneous
+programmers will be blamed as people are getting killed due to erroneous
 software. The disciplines of Agile development are a first step towards
 professionalism—which might save people's life in the long run.
 
 ## Reasonable Customer Expectations
 
 Managers, customers, and users have reasonable expectations of software and its
-programmers. The goal of Agile development is to meet t hose expectations, which
+programmers. The goal of Agile development is to meet those expectations, which
 is not an easy task:
 
 - **Do not ship bad software**: A system should not require from a user to think
@@ -289,11 +289,11 @@ is not an easy task:
 - **Test Automation**: Manual tests are expensive and, thus, will be reduced or
   skipped if the project's budget is cut. If development is late, QA has too
   little time to test. Parts of the system remain untested. Machines are better
-  at performing repetetive tasks like manual testing than humans (except for
+  at performing repetetive tasks like testing than humans (except for
   exploratory testing). It is a waste of time and money to let humans perform
   manual tests; it's also immoral.
 - **Cover for each other**: Developers must help each other; they must act as a
-  team. IF somebody fails or gets sick, the other team members must help out.
+  team. If somebody fails or gets sick, the other team members must help out.
   Every developer must ensure that others can cover for him or her by
   documenting the code, sharing knowledge, and helping others reciprocally.
 - **Honest Estimates**: Developers must be honest with their estimates based on
@@ -306,7 +306,7 @@ is not an easy task:
   trouble down the road.
 - **Continuous Learning**: Developers must keep up with an ever and fast
   changing industry by learning all the time. It's great if a company provides
-  training, byt the responsibility for learning remains with the developer.
+  training, but the responsibility for learning remains with the developer.
 - **Mentoring**: Existing team members must teach new team members. Both sides
   learn in the process, because teaching is a great way of learning.
 
@@ -403,7 +403,7 @@ probably way too high for the first iteration. The stakeholders choose the
 stories to fit in within the velocity estimated by the programmers. This
 estimate is _not_ a commitment!
 
-The stakeholders play the _four-quadrant game_ to pick the right stories, i.e.
+The stakeholders play the _Four-Quadrant Game_ to pick the right stories, i.e.
 those with the highest return on invest (ROI). Along the two axes of cost and
 value, each story can be put in one of four quadrants:
 
@@ -412,7 +412,7 @@ value, each story can be put in one of four quadrants:
 1. Valuable, but cheap: those stories should be done right away.
 2. Valuable, but expensive: those stories should be done later on.
 3. Not valuable, but expensive: don't do this stories, discard them.
-4. Not valuable, but cheap: consider doing those stories later.
+4. Not valuable, but cheap: consider doing those stories (much) later.
 
 At the midpoint of the iteration, half of the story points should be done. If
 less are done, which is to expect from the first iteration, the iteration is
@@ -437,7 +437,7 @@ writing stories:
   can be implemented in the order of their business value.
 - **N**: _Negotiable_. User stories should leave space for negotiations between
   business and development. Those negotiations can help to keep the cost low by
-  agreeing on simple features ans easy implementations.
+  agreeing on simple features and easy implementations.
 - **V**: _Valuable_. User stories must create clear and quantifiable value to
   the business. Soft quantifications like high/medium/low are fine, as long as
   stories can be compared in terms of their business value. Such stories usually
@@ -526,7 +526,7 @@ change.
 ## Acceptance Tests
 
 _Acceptance Tests_ are based on the idea that requirements should be specified
-by the business. The word "specify" has different meanings, deponding on who's
+by the business. The word "specify" has different meanings, depending on who's
 using it: business wants to keep the specification somewhat vague in natural
 language, whereas programmers prefer a specification as precise as needed for a
 machine to execute it.
@@ -560,7 +560,7 @@ Product Owner.
 
 Having the whole project team sitting in the same room not only makes
 communication more efficient, it also creates serendipity: People in different
-roles will get together by mere chance (watercooler, coffee machine). Hopefylly,
+roles will get together by mere chance (watercooler, coffee machine). Hopefully,
 those unplanned interactions create synergy within the team.
 
 The advantages of co-location—better communication, serendipity—fall off in
@@ -718,7 +718,7 @@ A comprehensive test suite is the best kind of documentation for programmers:
 working, self-contained, small code examples.
 
 Writing tests after the fact for code that already has been tested manually
-feels like boring busy work. It's more fu to test and program according to the
+feels like boring busy work. It's more fun to test and program according to the
 three rules of TDD. Code having been written under the rules of TDD is designed
 for testability. Writing tests for production code not designed for testability
 is hard—and therefor likely to be left away. This leaves holes in the test
@@ -734,7 +734,7 @@ write bogus tests without meaningful assertions.
 
 The ultimate goal of TDD is _courage_, not coverage: Programmers with trust in
 their test suite fearlessly modify and improve existing code. Developers lacking
-that kind of trust will shy away fro cleaning up messy code; the code base
+that kind of trust will shy away from cleaning up messy code; the code base
 begins to rot. If the code becomes unmaintainable, further development becomes
 harder and, ultimately, comes to a halt. TDD, on the other hand, keeps the code
 orderly and gives the programmers confidence for further development.
@@ -865,7 +865,7 @@ becoming Agile actually means.
 Kent Beck named the following four values that are at the very core of Agile:
 
 1. _Courage_: Agile teams don't sacrifice quality and opportunity in exchange
-   for policital safety. It takes courage to maintain high code quality and to
+   for political safety. It takes courage to maintain high code quality and to
    stay disciplined. However, deploying code without confidence in its quality
    and design is reckless, which is not the same as being courageous.
 2. _Communication_: Agile teams value communication—not only within their team,
@@ -874,7 +874,7 @@ Kent Beck named the following four values that are at the very core of Agile:
    relationship to the stakeholders.
 3. _Feedback_: The Agile practices and disciplines have one common benefit: they
    provide rapid feedback. This helps to detect when things go wrong early on,
-   so that ther's still space for corrections. This feedback also confronts the
+   so that there's still space for corrections. This feedback also confronts the
    team with the consequences of decisions made earlier.
 4. _Simplicity_: Being simple is being _direct_. Software problems are often
    solved by introducing additional layers of indirection. Agile values reduce
@@ -886,10 +886,10 @@ Kent Beck named the following four values that are at the very core of Agile:
 
 When adopting Agile, don't spend a lot of time evaluating different frameworks
 like XP or  Scrum. At the end, you'll tweak the framework in a way best fitting
-your organizations's needs.
+your organization's needs.
 
 Adopt the Circle of Life, especially the technical practices in the innermost
-circle. Without those, the code will degrage, and the Agile practices in the two
+circle. Without those, the code will degrade, and the Agile practices in the two
 outer rings will make a mess of everything very quickly.
 
 ## Transformation
@@ -910,11 +910,11 @@ an Agile team. Actually, their skills and experience are especially needed in
 Agile teams.
 
 It is also possible for a development team to internally make the transition to
-Agile while still conforming the the process imposed by middle management
-towards the outside. Instead of arguing against writing analysis and design
-documents, those artifacts are just created during the first couple of sprints
-as a by-product of the code that already has been written. Analysis and design
-are done for every story, after all, especially in early stories.
+Agile while still conforming to the process imposed by middle management towards
+the outside. Instead of arguing against writing analysis and design documents,
+those artifacts are just created during the first couple of sprints as a
+by-product of the code that already has been written. Analysis and design are
+done for every story, after all, especially in early stories.
 
 Even though this "faking it" can be considered dishonest, nobody will complain
 if it yields good results. The team just acts for the greater good of the
@@ -975,7 +975,7 @@ project with a clear goal, executed in a top-down manner.
 
 Agile was intended for small teams of 4 to 12 developers, not for big ones.
 However, it was soon tried to adopt Agile for multiple teams and large
-organizations. First using a technique called _Scum of Scrums_, later with
+organizations. First using a technique called _Scrum of Scrums_, later with
 frameworks like _SAFe_ (Scaled Agile Framework) and _LeSS_ (Large Scale Scrum).
 
 The problem of managing big teams is as old as civilization and has been solved
@@ -1058,7 +1058,7 @@ used against them.
 
 Managers defined roadmaps and milestones, and the developers were coerced into
 making their estimates accordingly. One top-priority story after the other had
-to be done in a hurry, ignoring the technical pracrices in the process. This was
+to be done in a hurry, ignoring the technical practices in the process. This was
 the _Agile Hangover_: The divide between business and development that Agile was
 supposed to heal came back even stronger.
 
