@@ -279,7 +279,8 @@ is not an easy task:
 - **Inexpensive Adoptability**: Software ("soft"), as opposed to hardware
   ("hard") is supposed to be easy to change. Often seen as a nuisance by some
   developers, changing requirements are the reason why the discipline of
-  software engineering exists. A good software system is easy to change.
+  software engineering exists. (If nothing ever changed, hardware could be
+  developed instead.) A good software system is easy to change.
 - **Continuous Improvement**: Software should become better as time goes.
   Design, architecture, code structure, efficiency, and throughput of a system
   should improve and not detoriate over time.

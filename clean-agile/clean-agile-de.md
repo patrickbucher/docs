@@ -287,3 +287,128 @@ Zusammenfassend:
 
 > Agile ist eine kleine Disziplin, welche kleinen Software-Teams beim Handhaben
 > kleiner Projekte hilft. Grosse Projekte sind aus kleinen Projekten gemacht.
+
+# Gründe für Agile
+
+Viele Entwickler, die aufgrund des Versprechens von Geschwindigkeit und Qualität
+auf Agile umsteigen, sind enttäuscht, wenn sich diese Ergebnisse nicht sofort
+einstellen. Die wichtigeren Gründe um auf Agile umzusteigen sind jedoch
+_Professionalität_ und _angemessene Erwartungen des Kunden_.
+
+## Professionalität
+
+In Agile wird eine hohe Hingabe zur Disziplin stärker gewichtet als Zeremonien.
+Diszipliniertes, professionelles Verhalten wird immer wichtiger, da auch
+Software selber immer wichtiger wird. Computer sind ‒ und darum ist auch
+Software ‒ heutzutage praktisch allgegenwärtig. Nur noch wenig kann ohne
+Software überhaupt erreicht werden.
+
+Software wird von Programmierern entwickelt ‒ und schlechte Software kann Leute
+umbringen. Darum werden Programmierer beschuldigt, wenn Leute aufgrund
+fehlerhafter Software um ihr Leben kommen. Die Disziplinen der agilen
+Softwareentwicklung sind ein erster Schritt in Richtung Professionalität ‒
+wodurch längerfristig das Leben von Menschen gerettet werden könnte.
+
+## Angemessene Erwartungen des Kunden
+
+Manager, Kunden und Benutzer haben angemessene Erwartungen an Software und an
+deren Entwickler. Das Ziel der agilen Softwareentwicklung ist es, diese
+Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
+
+- **Keine schlechte Software ausliefern:** Ein System soll einem Benutzer nicht
+  abverlangen wie ein Programmierer zu denken. Leute zahlen gutes Geld für
+  Software ‒ und sollten im Gegenzug hohe Qualität mit nur wenigen Defekten
+  erhalten.
+- **Ständige technische Bereitschaft:** Programmierer können häufig nicht
+  pünktlich nützliche Software ausliefern, weil sie an zu vielen Features
+  gleichzeitig arbeiten, statt sich zunächst auf die wichtigsten Features zu
+  konzentrieren. Agile verlangt, dass ein System am Ende einer jeden Iteration
+  technisch auslieferbar (_deployable_) ist. Der Code ist sauber, und alle Tests
+  laufen durch. Ob die Software ausgeliefert werden soll oder nicht ‒ das ist
+  keine technische, sondern eine geschäftliche Entscheidung.
+- **Beständige Produktivität:** Oftmals macht man zu Beginn eines Projekts
+  schnelle Fortschritte, doch dieser verlangsamt sich, da sich chaotischer
+  Code ansammelt. Dem Projekt weiteres Personal zuweisen hilft nur langfristig ‒
+  aber überhaut nichts, wenn diese neuen Programmierer von denjenigen
+  Programmierern instruiert werden, welche das Chaos ursprünglich angerichtet
+  haben. Mit dem Fortschreiten dieser Negativspirale gerät der Fortschritt ins
+  Stocken. Die Entwickler wollen nun noch einmal von vorne anfangen. Eine neue
+  Codebasis wird erstellt ‒ welche nur die alte, chaotische Codebasis als
+  zuverlässige Quelle für Anforderungen hat. Das alte System wird von der einen
+  Hälfte des Teams gewartet und weiterentwickelt, und die andere Hälfte hinkt
+  mit der Arbeit am neuen System hintennach; sie versuchen, ein sich bewegendes
+  Ziel zu treffen. Grosse Neuentwicklungen scheitern oft, nur wenige werden je
+  zu den Kunden ausgeliefert.
+- **Günstige Anpassung:** Software ("soft", "weich") soll im Gegensatz zu
+  Hardware ("hard", "hart") einfach zu verändern sein. Ändernde Anforderugen
+  werden von vielen Entwicklern als Ärgernis empfunden, sind aber der Grund,
+  warum die Disziplin _Software Engineering_ überhaupt existiert. (Änderte sich
+  nichts, könnte man gleich Hardware entwickeln.) Ein gutes Software-System soll
+  einfach zu ändern sein.
+- **Beständige Verbesserung:** Software soll mit der Zeit besser werden. Design,
+  Architektur, Code-Struktur, Effizienz und Durchsatz eines Systems sollen sich
+  verbessern und nicht mit der Zeit schlechter werden.
+- **Furtchlose Kompetenz:** Entwickler schrecken oft davor zurück, schlechten
+  Code anzupassen, und darum wird schlechter Code nicht verbessert. ("Fasst du
+  es an, machst du es kaputt. Machst du es kaputt, ist es deins.")
+  Testgetriebene Entwicklung ist hilfreich dabei, diese Furcht zu bewältigen, da
+  es eine automatisierte Qualitätsbewertung nach jeder Änderung des Codes
+  ermöglicht.
+- **Keine QA-Befunde:** Fehler sollten nicht von der QA-Abteilung (_Quality
+  Assurance_, Qualitätssicherung) gefunden, sondern im Voraus vom
+  Entwicklungsteam verhindert oder eliminiert werden. Wenn das QA Fehler findet,
+  muss das Entwicklungsteam diese nicht nur korrigieren, sondern auch den
+  eigenen Arbeitsprozess verbessern.
+- **Testautomatisierung:** Manuelle Tests sind teuer und werden deshalb
+  reduziert oder gleich ausgelassen, wenn das Projektbudget gekürzt wird. Wenn
+  die Entwicklung spät dran ist, hat die Qualitätssicherung zu wenig Zeit zum
+  Testen. Teile des Systems bleiben so ungetestet. Maschinen sind besser als
+  Menschen darin, repetitive Aufgaben wie das Testen durchzuführen (exploratives
+  Testen ausgenommen). Es ist eine Verschwendung von Zeit und Geld wenn man
+  Menschen manuelle Tests durchführen lässt; es ist ausserdem unmoralisch.
+- **Für einander einstehen:** Entwickler müssen einander helfen; sie müssen wie
+  ein Team handeln. Wenn jemand einen Fehler begeht oder krank wird, sollen die
+  andere Teammitglieder aushelfen. Die Entwickler müssen sicherstellen, dass die
+  anderen für sie einspringen können, indem sie Code dokumentieren, Wissen
+  teilen, und anderen im Gegenzug ebenfalls helfen.
+- **Aufrichtige Schätzungen:** Entwickler müssen auf Basis ihres Wissensstands
+  aufrichtige Aufwandsschätzungen abgeben. Bei Ungewissheit sollen Bandbreiten
+  ("5 bis 15 Tage") anstelle von genauen Schätzungen ("10 Tage") abgegeben
+  werden. Aufgaben können nicht immer genau geschätzt werden, jedoch in
+  Beziehung zu anderen Aufgaben ("dies braucht doppelt so lange wie das").
+- **"Nein" sagen:** Kann für ein Problem keine praktikable Lösung gefunden
+  werden, müssen Entwickler das so sagen. Das kann zwar unbequem sein, dafür
+  jedoch grössere Probleme im weiteren Projektverlauf verhindern.
+- **Beständiges Lernen:** Entwickler müssen mit einer sich beständig und schnell
+  verändernden Industrie schritthalten, indem sie ständig lernen. Es ist
+  grossartig, wenn eine Firma Weiterbildungen anbietet, doch die Verantwortung
+  für das Lernen bleibt beim Entwickler.
+- **Mentoring:** Bestehende Teammitglieder können neue Teammitglieder anlernen.
+  Bei diesem Vorgang lernen beide Seiten etwas, denn jemandem etwas beibringen
+  ist eine gute Methode um etwas zu lernen.
+
+## Die Freiheitsurkunde ("Bill of Rights")
+
+Agile soll die Spaltung zwischen dem Geschäft (_Business_) und der Entwicklung
+überwinden. Beide Seiten ‒ Kunden und Entwickler ‒ haben sich ergänzende Rechte.
+
+Kunden haben das Recht…
+
+- … auf einen Gesamtplan: was kann wann zu welchen Kosten erreicht werden?
+- … das Beste aus jeder Iteration zu bekommen.
+- … Fortschritt im Sinne von durchlaufenden, eigens definierter Tests zu sehen.
+- … auf Sinneswandel und Änderung der Prioritäten.
+- … bei Änderungen am Zeitplan oder an Schätzungen nformiert zu werden.
+- … das Projekt jederzeit abzubrechen und doch ein funktionierendes System zu
+  erhalten.
+
+Entwickler haben das Recht…
+
+- … zu wissen, was verlangt wird, und was die Prioritäten sind.
+- … qualitativ hochwertige Arbeit abzuliefern.
+- … um Hilfe zu Fragen und diese zu erhalten.
+- … ihre Schätzungen anzupassen.
+- … Verantwortung selber zu akzeptieren, als diese übertragen zu bekommen.
+
+Agile ist nicht ein Prozess, sondern eine Menge von Rechten, Erwartungen und
+Disziplinen, welche die Basis für eine ethische Berufung bilden.
