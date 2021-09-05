@@ -54,8 +54,8 @@ model in the mid-1990s, for example Grady Booch with his method of
 object-oriented design (OOD), the _Design Pattern_ movement, and the authors of
 the _Scrum_ paper. Kent Beck's _Extreme Programming_ (XP) and _Test-Driven
 Development_ (TDD) approaches of the late 1990s clearly moved away from
-Waterfall towards an Agile approach. Martin Fowler's take on _Refactoring_
-emphasizing continuous improvement certainly is a bad fit for Waterfall.
+Waterfall towards an Agile approach. Martin Fowler's take on _Refactoring_,
+emphasizing continuous improvement, certainly is a bad fit for Waterfall.
 
 ## The Agile Manifesto
 
@@ -72,6 +72,9 @@ those lightweight ideas. After two days, broad consensus was reached:
 > - **Working software** over comprehensive documentation
 > - **Customer collaboration** over contract negotiation
 > - **Responding to change** over following a plan
+>
+> That is, while there is value in the items on the right, we value the items on
+> the left more.
 
 This _Agile Manifesto_ was published after the gathering on
 [agilemanifesto.org](https://agilemanifesto.org/), where it still can be signed.
