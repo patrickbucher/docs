@@ -34,7 +34,7 @@ industry. And Waterfall, with its emphasize on analysis, planning, and closely
 sticking to a plan, was a descendant of Scientific Management, not of Pre-Agile
 practices.
 
-![The Waterfall Model](waterfall.png){width=90%}
+![The Waterfall Model](pic/waterfall.png){width=90%}
 
 Waterfall dominated the industry since the 1970s for almost 30 years. Its
 subsequent phases of analysis, design, and implementation looked promising to
@@ -156,7 +156,7 @@ three!—can now do the following adjustments:
   their demands to features that are absolutely needed.
 
 ![The Iron Cross of Project Management (adjustments in
-parentheses)](iron-cross.png){width=1202px}
+parentheses)](pic/iron-cross.png){width=1202px}
 
 Reducing the scope is often the only sensible choice. Make sure at the beginning
 of every sprint to only implement features that are really needed by the
@@ -169,7 +169,7 @@ Extreme Programming (XP), as described in Kent Beck's _Extreme Programming
 Explained_, captures the essence of Agile. The practices of XP are organized in
 the _Circle of Life_, which consists of three rings.
 
-![The Circle of Life](circle-of-life.png){width=90%}
+![The Circle of Life](pic/circle-of-life.png){width=90%}
 
 The outer ring contains the _business-facing_ practices, which are quite similar
 to the Scrum process:
@@ -407,7 +407,7 @@ The stakeholders play the _Four-Quadrant Game_ to pick the right stories, i.e.
 those with the highest return on invest (ROI). Along the two axes of cost and
 value, each story can be put in one of four quadrants:
 
-![The Four-Quadrant Game](quadrants.png){width=921px}
+![The Four-Quadrant Game](pic/quadrants.png){width=921px}
 
 1. Valuable, but cheap: those stories should be done right away.
 2. Valuable, but expensive: those stories should be done later on.
@@ -753,7 +753,7 @@ strongly encouraged.
 
 The process of Refactoring is described in the _Red/Green/Refactor_ cycle:
 
-![The Red/Green/Refactor Cycle](refactoring.png){width=486px}
+![The Red/Green/Refactor Cycle](pic/refactoring.png){width=486px}
 
 1. _Red_: Write a failing test.
 2. _Green_: Write as much production code as needed to pass the test.
