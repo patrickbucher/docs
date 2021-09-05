@@ -6,7 +6,7 @@ DATE=-V date="`date +'%Y-%m-%d'`"
 DATE_DE=-V date="`date +'%d.%m.%Y'`"
 
 GRAPHICS=pic/circle-of-life.png pic/iron-cross.png pic/quadrants.png pic/refactoring.png pic/waterfall.png
-GRAPHICS_DE=pic/circle-of-life.png pic-de/eisernes-kreuz.png pic-de/quadranten.png pic/refactoring.png pic-de/wasserfall.png
+GRAPHICS_DE=pic/circle-of-life.png pic-de/eisernes-kreuz.png pic-de/quadranten.png pic-de/refactoring.png pic-de/wasserfall.png
 ALL=clean-agile.pdf clean-agile.epub clean-agile-de.pdf clean-agile-de.epub $(GRAPHICS_EN) $(GRAPHICS_DE)
 
 .PHONY: all clean
