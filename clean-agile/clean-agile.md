@@ -90,20 +90,21 @@ Many software projects are managed using approaches based on faith and
 motivational techniques. As a result, such projects are chronically late,
 despite developers working overtime.
 
-All projects are constrained by a trade-off called the _Iron Cross_: good, fast,
-cheap, done—pick three! Good project managers understand this trade-off and
-strive for results that are done good enough within an acceptable time frame and
-budget, which provide the crucial features.
+All projects are constrained by a trade-off called the _Iron Cross of Project
+Management_: good, fast, cheap, done—pick three! Good project managers
+understand this trade-off and strive for results that are done good enough
+within an acceptable time frame and budget, which provide the crucial features.
 
 Agile produces data that helps managers taking good decisions. The _velocity_
 shows the amount of points a development team finishes within an iteration. A
 _burn-down chart_ shows the points remaining until the next milestone. The
 latter not necessarily shrinks at the rate of the velocity, because requirements
 and their estimations can change. Still, the burn-down chart's slope can be used
-to predict a likely date when the milestone is going to be reached. Agile is a
-feedback-driven approach. Even though the Agile Manifesto doesn't mention
-velocity or burn-down charts, collecting such data and taking decisions based on
-it is crucial. Make that data public, transparent, and obvious.
+to predict a likely date when the milestone is going to be reached.
+
+Agile is a feedback-driven approach. Even though the Agile Manifesto doesn't
+mention velocity or burn-down charts, collecting such data and taking decisions
+based on it is crucial. Make that data public, transparent, and obvious.
 
 A project's end date is usually given and not negotiable, often for good
 business reasons. The requirements, however, often change, because customers
@@ -131,7 +132,7 @@ Process Inflation_).
 ## The Agile Way
 
 Like Waterfall, an Agile project starts with analysis—but analysis never ends.
-The time is divided in iterations or sprints of typically one or two weeks.
+The time is divided in iterations or _sprints_ of typically one or two weeks.
 _Iteration Zero_ is used to write the initial stories, to estimate them, to set
 up the development environment, to draft a tentative design, and to come up with
 a rough plan. Analysis, design, and implementation take place in every
@@ -195,7 +196,7 @@ The middle ring contains the _team-facing_ practices:
 
 The inner ring contains _technical_ practices:
 
-- **Pairing**: sharing knowledge, reviewing, collaborating
+- **Pair Programming**/**Pairing**: sharing knowledge, reviewing, collaborating
 - **Simple Design**: preventing wasted efforts
 - **Refactoring**: refining and improving all work products continuously
 - **Test-Driven Development**: maintaining quality when going quickly
