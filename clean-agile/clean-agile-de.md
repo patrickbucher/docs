@@ -33,7 +33,7 @@ verwendet worden sind. Die Idee des wissenschaftlichen Managements (_Scientific
 Management_), welche auf dem Taylorismus basiert, von oben herab organisiert ist
 und auf eine detaillierte Planung setzt, war zu dieser Zeit weit verbreitet in
 der Industrie, wodurch sie in Konflikt zu den vor-agilen (_Pre-Agile_) Praktiken
-war, die zu dieser Zeit in der Softwareentwicklung so weit verbreitet waren.
+stand, die zu dieser Zeit in der Softwareentwicklung so weit verbreitet waren.
 
 Wissenschaftliches Management war für Projekte geeignet, bei denen Änderungen
 teuer waren und zu denen es eine genau definierte Problemdefinition mit extrem
@@ -122,12 +122,12 @@ bieten.
 
 Agile produziert Daten, welche Managern dabei helfen gute Entscheidungen zu
 treffen. Die _Velocity_ zeit die Menge der Punkte, die ein Entwicklungsteam
-innerhalb einer Iteration abarbeitet. Ein _Burn-Down Chart_ zeigt verbleibenden
-Punkte zur Erreichung des nächsten Meilensteins. Dieses schrumpft nicht
-notwendigerweise mit der Geschwindigkeit der Velocity, weil Anforderungen und
-deren Schätzung sich ändern können. Trotzdem kann das Gefälle des Burn-Down
-Charts dazu verwendet werden, um ein wahrscheinliches Release-Datum für den
-nächsten Meilenstein voerherzusagen.
+innerhalb einer Iteration abarbeitet. Ein _Burn-Down Chart_ zeigt die
+verbleibenden Punkte bis zur Erreichung des nächsten Meilensteins. Dieses
+schrumpft nicht notwendigerweise mit der Geschwindigkeit der Velocity, weil
+Anforderungen und deren Schätzung sich ändern können. Trotzdem kann das Gefälle
+des Burn-Down Charts dazu verwendet werden, um ein wahrscheinliches
+Release-Datum für den nächsten Meilenstein vorherzusagen.
 
 Agile ist ein Ansatz, der auf Rückkoppelung basiert (_feedback-driven
 approach_). Auch wenn im Agile-Manifest weder Velocity noch Burn-Down Charts
@@ -136,7 +136,7 @@ auf dieser Grundlage entscheidend. Solche Daten sollen öffentlich,
 offensichtlich und transparent gemacht werden.
 
 Das Enddatum eines Projekts ist normalerweise gegeben und kan nicht verhandelt
-werden, oft aus guten Gründen des Geschäftsinteresses. Die Anforderungen ähndern
+werden, oft aus guten Gründen des Geschäftsinteresses. Die Anforderungen ändern
 sich hingegen häufig, weil Kunden nur ein grobes Ziel haben, aber nicht die
 genauen Schritte kennen, um dieses zu erreichen.
 
@@ -152,12 +152,12 @@ Phase erreicht worden war.
 Die Umsetzungsphase muss jedoch funktionierende Software hervorbringen ‒ ein
 hartes und greifbares Ziel, dessen Erreichung einfach zu beurteilen ist.
 Verspätungen sind oft erst in dieser Phase zu erkennen, und Anspruchsgruppen
-(_stakeholders_) erfahren erst von solchen Problemen, wenn das Projekt
+(_Stakeholders_) erfahren erst von solchen Problemen, wenn das Projekt
 eigentlich schon beinahe fertig sein sollte.
 
 Solche Projekte enden häufig in einem _Todesmarsch_ (_Death March_): eine kaum
 funktionierende Lösung wird nach vielen Überstunden herausgebracht, obwohl die
-Abgabefrist (_deadline_) mehrmals verschoben worden ist. Die "Lösung" für das
+Abgabefrist (_Deadline_) mehrmals verschoben worden ist. Die "Lösung" für das
 nächste Projekt besteht normalerweise darin, dass noch mehr Analyse und Design
 gemacht wird ‒ mehr von dem, was schon vorher nicht funktioniert hat (_Runaway
 Process Inflation_).
@@ -173,9 +173,9 @@ entwerfen, und einen groben Plan zu machen. Analyse, Design und Umsetzung finden
 in jeder Iteration statt.
 
 Nach Abschluss der ersten Iteration sind normalerweise weniger Stories
-abgeschlossen als ursprünglich geschätzt. Das ist kein Misserfolg, sondern
-bietet eine erste Messung, die zur Anpassung des ursprünglichen Plans verwendet
-werden kann. Nach ein paar Iterationen kann eine realistische
+abgeschlossen worden als ursprünglich geschätzt. Das ist kein Misserfolg,
+sondern bietet eine erste Messung, die zur Anpassung des ursprünglichen Plans
+verwendet werden kann. Nach ein paar Iterationen kann eine realistische
 Durchschnittsvelocity berechnet und eine Schätzung des Releasedatums abgegeben
 werden. Das mag oft enttäuschend ausfallen, ist aber wenigstens realistisch.
 Hoffnung wird schon früh durch echte Daten ersetzt.
@@ -198,7 +198,7 @@ vornehmen:
   dadurch das Projekt verzögert, weil mehr Fehler eingebaut werden. _"Die
   einzige Möglichkeit schnell voranzukommen, ist gut voranzukommen."_ (_"The
   only way to go fast, is to go well."_)
-- _Umfang_ (_Scope_): Wenn es keine andere Möglichkeit git, können die
+- _Umfang_ (_Scope_): Wenn es keine andere Möglichkeit gibt, können die
   Anspruchsgruppen oft davon überzeugt werden, ihre Anforderungen auf Features
   einzuschränken, die unbedingt notwendig sind.
 
@@ -207,9 +207,9 @@ Klammern)](pic-de/eisernes-kreuz.png){width=1202px}
 
 Die Reduktion des Umfangs ist oftmals die einzige vernünftige Wahl. Darum soll
 man zu Beginn eines jeden Sprints sicherstellen, dass dabei nur Features
-umgesetzt werden, die wirklich von den Anspruchsgruppen benötigt werden.
-Andernfalls läuft man Gefahr wertvolle Zeit in optionale (_"nice to have"_)
-Features zu investieren.
+umgesetzt werden, die für Anspruchsgruppen wirklich wichtig sind.  Andernfalls
+läuft man Gefahr wertvolle Zeit in optionale Features (_"nice to have
+features"_) zu investieren.
 
 ## Der Kreis des Lebens
 
@@ -274,7 +274,7 @@ Manifest:
     - Planning Game (geschäftsorientiert)
     - Small Releases (geschäftsorientiert)
     - Acceptance Tests (geschäftsorientiert)
-    - Metaphor (team)
+    - Metaphor (teamorientiert)
 - **Reagieren auf Veränderung** mehr als das Befolgen eines Plans
     - Planning Game (geschäftsorientiert)
     - Small Releases (geschäftsorientiert)
@@ -286,7 +286,7 @@ Manifest:
 Zusammenfassend:
 
 > Agile ist eine kleine Disziplin, welche kleinen Software-Teams beim Handhaben
-> kleiner Projekte hilft. Grosse Projekte sind aus kleinen Projekten gemacht.
+> kleiner Projekte hilft. Grosse Projekte werden aus kleinen Projekten gemacht.
 
 # Gründe für Agile
 
@@ -299,7 +299,7 @@ _Professionalität_ und _angemessene Erwartungen des Kunden_.
 
 In Agile wird eine hohe Hingabe zur Disziplin stärker gewichtet als Zeremonien.
 Diszipliniertes, professionelles Verhalten wird immer wichtiger, da auch
-Software selber immer wichtiger wird. Computer sind ‒ und darum ist auch
+Software selbst immer wichtiger wird. Computer sind ‒ und darum ist auch
 Software ‒ heutzutage praktisch allgegenwärtig. Nur noch wenig kann ohne
 Software überhaupt erreicht werden.
 
@@ -327,8 +327,8 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   laufen durch. Ob die Software ausgeliefert werden soll oder nicht ‒ das ist
   keine technische, sondern eine geschäftliche Entscheidung.
 - **Beständige Produktivität:** Oftmals macht man zu Beginn eines Projekts
-  schnelle Fortschritte, doch dieser verlangsamt sich, da sich chaotischer
-  Code ansammelt. Dem Projekt weiteres Personal zuweisen hilft nur langfristig ‒
+  schnell Fortschritt, doch dieser verlangsamt sich, da sich chaotischer Code
+  ansammelt. Dem Projekt weiteres Personal zuzuweisen hilft nur langfristig ‒
   aber überhaut nichts, wenn diese neuen Programmierer von denjenigen
   Programmierern instruiert werden, welche das Chaos ursprünglich angerichtet
   haben. Mit dem Fortschreiten dieser Negativspirale gerät der Fortschritt ins
@@ -348,12 +348,12 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
 - **Beständige Verbesserung:** Software soll mit der Zeit besser werden. Design,
   Architektur, Code-Struktur, Effizienz und Durchsatz eines Systems sollen sich
   verbessern und nicht mit der Zeit schlechter werden.
-- **Furtchlose Kompetenz:** Entwickler schrecken oft davor zurück, schlechten
+- **Furchtlose Kompetenz:** Entwickler schrecken oft davor zurück, schlechten
   Code anzupassen, und darum wird schlechter Code nicht verbessert. ("Fasst du
   es an, machst du es kaputt. Machst du es kaputt, ist es deins.")
   Testgetriebene Entwicklung ist hilfreich dabei, diese Furcht zu bewältigen, da
   es eine automatisierte Qualitätsbewertung nach jeder Änderung des Codes
-  ermöglicht.
+  per Knopfdruck ermöglicht.
 - **Keine QA-Befunde:** Fehler sollten nicht von der QA-Abteilung (_Quality
   Assurance_, Qualitätssicherung) gefunden, sondern im Voraus vom
   Entwicklungsteam verhindert oder eliminiert werden. Wenn das QA Fehler findet,
@@ -377,15 +377,15 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   werden. Aufgaben können nicht immer genau geschätzt werden, jedoch in
   Beziehung zu anderen Aufgaben ("dies braucht doppelt so lange wie das").
 - **"Nein" sagen:** Kann für ein Problem keine praktikable Lösung gefunden
-  werden, müssen Entwickler das so sagen. Das kann zwar unbequem sein, dafür
-  jedoch grössere Probleme im weiteren Projektverlauf verhindern.
+  werden, müssen Entwickler das zur Aussprache bringen. Das kann zwar unbequem
+  sein, dafür jedoch grössere Probleme im weiteren Projektverlauf vermeiden.
 - **Beständiges Lernen:** Entwickler müssen mit einer sich beständig und schnell
   verändernden Industrie schritthalten, indem sie ständig lernen. Es ist
-  grossartig, wenn eine Firma Weiterbildungen anbietet, doch die Verantwortung
+  schön, wenn eine Firma Weiterbildungen anbietet, doch die Verantwortung
   für das Lernen bleibt beim Entwickler.
 - **Mentoring:** Bestehende Teammitglieder können neue Teammitglieder anlernen.
-  Bei diesem Vorgang lernen beide Seiten etwas, denn jemandem etwas beibringen
-  ist eine gute Methode um etwas zu lernen.
+  Bei diesem Vorgang lernen beide Seiten etwas, denn jemandem etwas beizubringen
+  ist eine gute Methode um selber etwas zu lernen.
 
 ## Die Freiheitsurkunde ("Bill of Rights")
 
@@ -398,7 +398,7 @@ Kunden haben das Recht…
 - … das Beste aus jeder Iteration zu bekommen.
 - … Fortschritt im Sinne von durchlaufenden, eigens definierter Tests zu sehen.
 - … auf Sinneswandel und Änderung der Prioritäten.
-- … bei Änderungen am Zeitplan oder an Schätzungen nformiert zu werden.
+- … bei Änderungen am Zeitplan oder an Schätzungen informiert zu werden.
 - … das Projekt jederzeit abzubrechen und doch ein funktionierendes System zu
   erhalten.
 
@@ -406,9 +406,9 @@ Entwickler haben das Recht…
 
 - … zu wissen, was verlangt wird, und was die Prioritäten sind.
 - … qualitativ hochwertige Arbeit abzuliefern.
-- … um Hilfe zu Fragen und diese zu erhalten.
+- … um Hilfe zu fragen und diese zu erhalten.
 - … ihre Schätzungen anzupassen.
-- … Verantwortung selber zu akzeptieren, als diese übertragen zu bekommen.
+- … Verantwortung selber zu akzeptieren, statt diese übertragen zu bekommen.
 
 Agile ist nicht ein Prozess, sondern eine Menge von Rechten, Erwartungen und
 Disziplinen, welche die Basis für eine ethische Berufung bilden.

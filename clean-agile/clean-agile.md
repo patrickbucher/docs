@@ -218,7 +218,7 @@ These practices closely match the values of the Agile Manifesto:
     - Planning Game (business-facing)
     - Small Releases (business-facing)
     - Acceptance Tests (business-facing)
-    - Metaphor (team)
+    - Metaphor (team-facing)
 - **Responding to change** over following a plan
     - Planning Game (business-facing)
     - Small Releases (business-facing)
