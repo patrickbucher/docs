@@ -53,7 +53,7 @@ Abkömmling des wissenschaftlichen Managements, nicht von vor-agilen Praktiken.
 
 Das Wasserfallmodell dominierte die Industrie ab den 1970er-Jahren für fast 30
 Jahre. Seine aufeinanderfolgenden Phasen von Analyse, Design und Umsetzung
-sah vielversprechend aus für Entwickler, welche in endlosen "Programmieren und
+sahen vielversprechend aus für Entwickler, welche in endlosen "Programmieren und
 Korrigieren"-Zyklen (_"code and fix" cycles_) arbeiteten, und dabei nicht einmal
 die vor-agile Disziplin aufbrachten.
 
@@ -412,3 +412,109 @@ Entwickler haben das Recht…
 
 Agile ist nicht ein Prozess, sondern eine Menge von Rechten, Erwartungen und
 Disziplinen, welche die Basis für eine ethische Berufung bilden.
+
+# Geschäftsorientierte Praktiken
+
+Die Entwicklung muss den folgenden geschäftsorientierten Praktiken folgen, um
+erfolgreich zu sein: Planning Game (Planugsspiel), Small Releases (kleine
+Releases), Acceptance Tests (Akzeptanztests) und Whole Team (Team als Ganzes).
+
+## Planung
+
+Ein Projekt kann geplant werden, indem es rekursiv in einzelne Teile zerlegt
+wird, und diese Teile geschätzt werden. Je weiter diese Teile heruntergebrochen
+werden ‒ im Extremfall bis zu einzelnen Codezeilen herunter ‒ desto zutreffender
+und genauer wird die Schätzung, aber desto mehr Zeit wird benötigt, um überhaupt
+eine Schätzung abgeben zu können. Eine Schätzung sollte so zutreffend wie
+möglich sein, aber nur so genau wie nötig.
+
+Indem eine Zeitspanne (z.B. 5-15 Tage) anstelle einer genauen Zeitdauer (z.B. 10
+Tage) angegeben wird, kann eine Schätzung ungenau, aber immer noch zutreffend
+sein. Eine _trivariate Schätzung_ (_Trivariate Estimation_) gibt für eine
+Aufgabe einen Idealfall, einen Normalfall, und einen ungünstigsten Fall an,
+sodass diese mit einer Wahrscheinlichkeit von 5%, 50% oder 95% innerhalb der
+geschätzen Zeit umgesetzt wird.
+
+Wird beispielsweise für eine Aufgabe geschätzt, dass sie 8 Tage (Idealfall), 12
+Tage (Normalfall) und 16 Tage (ungünstigster Fall) benötigt, hat sie eine Chance
+von 5% in von 8 Tagen, von 50% in 12 Tagen und von 95% in 16 Tagen abgeschlossen
+zu werden. Anders ausgedrückt: Von 100 vergleichbaren Aufgaben werden 5
+innerhalb vom Idealfall, 50 innerhalb vom Normalfall und 95 innerhalb vom
+ungünstigsten Fall abgeschlossen.
+
+### User Stories und Story Points
+
+Diese Technik funktioniert gut für die langfristige Planung, ist aber zu ungenau
+für die tägliche Planung innerhalb eines Projekts. Zu diesem Zweck wird eine
+Technik verwendet, die auf einer iterativ kalibrierendem Rückkopplungsschleife
+(_iteratively calibrating feedback loop_) basiert: _Story Points_.
+
+Eine _User Story_ wird aus der Perspektive des Benutzers geschrieben und
+beschreibt ein Feature des Systems, das zu entwickeln ist, beispielsweise: "Als
+Benutzer möchte ich gefragt werden, ob ich mein Dokument speichern möchte, wenn
+ich die Applikation schliesse ohne vorher gespeichert zu haben." Die Details
+werden zu Beginn weggelassen und erst geklärt, wenn die Entwickler die Story für
+die Umsetzung aufnehmen.
+
+Moderner Technologie zum Trotz erlaubt das Aufschreiben dieser Stories auf
+Karteikarten den physischen Umgang mit den Stories in Besprechungen, was sehr
+hilfreich sein kann. Karteikarten verlangen eine gewisse Disziplin, die Stories
+ungenau zu belassen, damit der Planungsvorgang nicht in lauter Details
+steckenbleibt. Diese Karten sollen nicht zu wertvoll werden, um entsorgt zu
+werden.
+
+Die Story-Karten, die in Iteration null geschrieben worden sind, werden in einer
+informellen Besprechung geschätzt, die anschliessend regelmässig stattfindet; in
+der Regel zu Beginn jedes Sprints. Das Schreiben und Schätzen der Stories ist
+ein andauernder Vorgang. Die Schätzung beginnt damit, dass eine Story von
+durchschnittlicher Grösse gewählt wird, welcher eine durchschnittliche Anzahl
+von Story Points zugewiesen wird, z.B. 3 Story Points, wenn man mit einer
+Bandbreite von 1-5 Story Points arbeitet.
+
+Die Grösse der anderen Stories wird im Vergleich zu dieser _goldenen Story_
+geschätzt und erhält die entsprechende Punktzahl zugewiesen. Diese Anzahl der
+Story Points wird auf die Karteikarte der Story geschrieben. Diese Punkte lassen
+sich _nicht_ in Zeiteinheiten umrechnen! Verschiedene Entwickler bräuchten
+unterschiedlich lange um die gleiche Story umzusetzen. Glücklicherweise gleichen
+sich diese Unterschiede dank dem _Gesetz der grossen Zahl_ (_Law of Large
+Numbers_) aus, wenn viele Stories über mehrere Sprints hinweg umgesetzt werden.
+
+### Iterationsplanung
+
+Eine Iteration beginnt mit der Iterationsplanungssitzung (_Iteration Planning
+Meeting_, _IPM_), welche höchstens einen Zwanzigstel der gesamten Iterationszeit
+einnehmen sollte, d.h. höchstens einen halben Tag für eine zweiwöchige
+Iteration. Das ganze Team ‒ Anspruchsgruppen, Programmierer, Tester, Business
+Analysten, Projektmanager ‒ nimmt an dieser Besprechung teil.
+
+Die Programmierer schätzen ihre Velocity für die anstehende Iteration, d.h. wie
+viele Story Points sie glauben umsetzen zu können. Hierbei handelt es sich um
+eine grobe Schätzung, welche für die erste Iteration viel zu hoch gegriffen ist.
+Die Anspruchsgruppen wählen die Stories, welche sich innerhalb der von den
+Programmierern geschätzten Velocity unterbringen lassen. Diese Schätzung ist
+_keine_ Verpflichtung!
+
+Die Anspruchsgruppen spielen das Vier-Quadranten-Spiel (_Four-Quadrant Game_) um
+die richtigen Stories auszuwählen, d.h. diejenigen mit der höchsten "Rendite"
+(_Return on Invest_, _ROI_). Entlang der beiden Achsen von Kosten und Wert kann
+jede Story in einen von vier Quadranten untergebracht werden:
+
+![Das Vier-Quadranten-Spiel](pic-de/quadranten.png){width=924px}
+
+1. Wertvoll, aber günstig: diese Stories sollten gleich umgesetzt werden.
+2. Wertvoll, aber teuer: diese Stories sollten erst später umgesetzt werden.
+3. Nicht wertvoll, aber teuer: diese Stories sollten gleich verworfen werden.
+4. Nicht wertvoll, aber günstig: diese Stories sollten, wenn überhaupt, erst
+   viel später umgesetzt werden.
+
+In der Mitte der ersten Iteration sollte die Hälfte der Story Points erledigt
+sein. Sollten weniger erledigt sein, was in der ersten Iteration zu erwarten
+ist, ist die Iteration _nicht_ gescheitert, denn sie erzeugt wertvolle Daten.
+Die erste Hälfte der Iteration ist, was die Velocity betrifft, eine gute
+Vorhersage für die zweite Hälfte; sowie das heutige Wetter die beste Vorhersage
+für das morgige Wetter ist. Ebenso ist die Velocity der aktuellen Iteration eine
+gute Vorhersage für die Velocity der darauffolgenden Iteration.
+
+Das Projekt ist beendet, wenn nicht mehr genug Stories, die es ihrer "Rendite"
+gemäss lohnen würde, sie umzusetzen, für eine weitere Iteration zusammengebracht
+werden können.
