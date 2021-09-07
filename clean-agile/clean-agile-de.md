@@ -518,3 +518,119 @@ gute Vorhersage für die Velocity der darauffolgenden Iteration.
 Das Projekt ist beendet, wenn nicht mehr genug Stories, die es ihrer "Rendite"
 gemäss lohnen würde, sie umzusetzen, für eine weitere Iteration zusammengebracht
 werden können.
+
+### INVEST-Stories
+
+User Stories sind keine detaillierte Beschreibung von Features, sondern eher
+eine Erinnerung an Features. Die Abkürzung INVEST steht für einfache
+Richtlinien, die man beim Schreiben von Stories befolgen kann:
+
+- **I**: _Independent_ (unabhängig). User Stories müssen nicht in einer
+  bestimmten Reihenfolge umgesetzt werden, weil sie voneinander unabhängig sind.
+  Obwohl Abhängigkeiten manchmal nicht vermieden werden können, so sollten sie
+  doch auf ein Minimum reduziert werden, damit Stories in der Reihenfolge ihres
+  wirtschaftlichen Nutzens (_Business Value_) umgesetzt werden können.
+- **N**: _Negotiable_ (verhandelbar). User Stories sollen Raum für Verhandlungen
+  zwischen dem Geschäft (_Business_) und der Entwicklung bieten. Mit diesen
+  Verhandlungen können die Kosten tief gehalten werden, indem man sich auf
+  einfache Features und eine einfache Implementierung einigt.
+- **V**: _Valuable_ (wertvoll). User Stories müssen klaren und messbaren
+  wirtschaftlichen Nutzen (_Business Value_) schaffen. "Weiche" Angaben wie
+  hoch/mittel/tief sind in Ordnung, so lange die Stories im Bezug auf ihren
+  wirtschaftlichen Nutzen miteinander verglichen werden können. Solche Stories
+  betreffen normalerweise alle Schichten: vom Frontend über das Backend zur
+  Datenbank und Middleware. Architektur, Refactoring und Aufräumarbeiten sind
+  keine User Stories!
+- **E**: _Estimable_ (schätzbar). User Stories müssen konkret genug sein, damit
+  sie von den Entwicklern geschätzt werden können. Stories müssen jedoch auch
+  verhandelbar sein, weshalb man die goldene Mitte Zwischen Spezifizität und
+  Unschärfe anstreben soll, indem man präzise über den wirtschaftlichen Nutzen
+  ist, Details über die Umsetzung jedoch auslässt.
+- **S**: _Small_ (klein). User Stories sollen maximal so gross sein, dass sie
+  von einem oder zwei Entwicklern innerhalb eines Sprints umgesetzt werden
+  können. Eine gute Faustregel ist es ungefähr so viele User Stories für eine
+  Iteration zu wählen, wie es Entwickler in einem Team hat.
+- **T**: _Testable_ (testbar). User Stories sollten jeweils mit Tests
+  einhergehen, welche von der Geschäftsseite (_by business_) definiert werden.
+  Eine Story ist dann abgeschlossen, well all ihre Tests durchlaufen. Diese
+  Tests werden normalerweise von der Qualitätssicherung (_QA_) geschrieben und
+  von den Entwicklern automatisiert. Die Spezifizierung der Tests kan später
+  erfolgen als die eigentliche Story geschrieben wird.
+
+### Story-Schätzung
+
+Es gibt verschiedene Möglichkeiten um User Stories zu schätzen. _Fliegende
+Finger_ (_Flying Fingers_) ist die einfachste: Nach dem Lesen und Diskutieren
+einer Story halten die Entwickler die Anzahl von Fingern noch, die ihrer
+Schätzung von Story Points entspricht. Das machen sie hinter ihrem Rücken, und
+auf Drei werden alle Hände gezeigt.
+
+_Planungspoker_ (_Planning Poker_) ist ein ähnlicher Ansatz, der auf
+nummerierten Karten basiert, welche die Menge an Story Points bezeichnen.
+Gewisse Kartensätze verwenden eine Fibonacci-Reihe (1, 2, 3, 5, 8), manchmal mit
+weiteren Bezeichnungen: unendlich (∞) für Stories, die zum Schätzen zu gross
+sind, ein Fragezeichen (?), falls nicht genügend Informationen vorhanden sind um
+eine Story zu schätzen, und null (0), falls die Story zu trivial zum Schätzen
+ist.
+
+Wenn die Finger oder Karten gezeigt werden, kann es einen Konsens geben. In
+diesem Fall wird die gemeinsame Zahl auf die Karteikarte geschrieben. Wenn es
+grosse Abweichungen gibt, sollen diese diskutiert werden, gefolgt von einer
+weiteren Schätzrunde, bis ein Konsens erreicht werden kann.
+
+Stories, welche zu trivial für eine Schätzung sind (0), können miteinander
+kombiniert werden, indem man ihre Karteikarten aneinanderheftet. Mehrere Nullen
+können tatsächlich zu etwas aufsummiert werden, das grösser als null ist.
+Stories, die zu gross sind (∞), können aufgeteilt werden, solange man dabei die
+INVEST-Richtlinien einhält.
+
+Stories, die zu unklar für eine Schätzung sind (?) erfordern oftmals weitere
+Abklärungen. Eine _Meta-Story_ ‒ ein sogenannter _spike_ ("Spitze"), der eine
+ganz dünne Scheibe durch das ganze System schneidet ‒ wird erstellt und als
+Abhängigkeit der ursprünglichen, unklaren Story referenziert.
+
+### Iteration und Release
+
+Eine Iteration produziert Daten, indem Stories umgesetzt werden. Der Fokus
+sollte darauf liegen, Stories komplett abzuschliessen, statt möglichst viele
+Aufgaben innerhalb verschiedener Stories: lieber 80% der Stories komplett
+umgesetzt, als 80% der Aufgaben aller Stories abgeschlossen zu haben. Stories
+werden nicht den Programmierern zugewiesen, sondern individuell ausgewählt,
+indem man innerhalb des Entwicklungsteam verhandelt. Erfahrene Programmierer
+sollten Neulinge davon abbringen, zu viele oder zu umfangreiche auszuwählen.
+
+Die Qualitätssicherung (_QA_) sollte gleich nach dem IPM damit beginnen die
+Akzeptanztests zu schreiben, damit sie bis zur Hälfte der Iteration
+abgeschlossen sind. Die Entwickler können diesen Prozess unterstützen, doch es
+sollte nie der gleiche Entwickler sein, der für die Umsetzung der Story und das
+Schreiben deren Akzeptanztests verantwortlich ist. QA und Entwickler sollten
+jedoch immer eng an den Akzeptanztests zusammenarbeiten. Eine Story ist fertig,
+wenn all ihre Akzeptanztests erfolgreich durchlaufen.
+
+Am Ende einer jeden Iteration wird den Anspruchsgruppen eine Demonstration
+gegeben. Die neu entwickelten Features und durchlaufenden (alte wie neue)
+Akzeptanztests werden gezeigt. Nach der Demo werden die Velocity und das
+Burn-Down Chart aktualisiert. Die Velocity mag zu Beginn stark fluktuieren,
+dürfte sich nach einigen Iterationen jedoch auf einen Wert einpendeln.
+
+Eine steigende Velocity kann ein Hinweis auf Inflation der Story Points (_Story
+Point Inflation_) sein: mit zunehmendem Druck, der auf das Enticklungsteam
+ausgeübt wird, um mehr zu erreichen, fangen die Entwickler an, den Stories mehr
+Punkte zuzuweisen. Die Velocity ist eine Messgrösse und kein Ziel: man soll
+niemals Druck auf etwas ausüben, was gemessen werden soll!
+
+Eine sinkende Velocity ist wahrscheinlich ein Hinweis auf schlechte
+Codequalität, welche die Weiterentwicklung herunterzieht. Werden zu wenige
+Unittests geschrieben, werden die Entwickler zögerlich beim Refactoring. Steigt
+der Druck, werden Entwickler dazu verleitet die Story Points hochzutreiben
+(Inflation). Hier sollte man an die _goldene Story_ von ganz zu Beginn denken,
+um der Inflation gegenzusteuern.
+
+Die Software soll so oft wie möglich freigegeben werden. Das Ziel des
+beständigen Auslieferns (_Continuous Delivery_) ist es, einen produktiven
+Release nach jeder Änderung zu machen. Früher waren diese Zyklen lang, da auch
+die Umschlagszeiten (Testen, Code auschecken) lang waren. Mit moderner
+Versionskontrolle, die optimistische Locks verwenden, tendiert die Checkout-Zeit
+gegen null, und beständiges Ausliefern wird möglich. Alte Organisationen müssen
+ihren Prozess entsprechend anpassen, um ihre Trägheit zu überwinden, was einen
+kulturellen Wandel erfordert.
