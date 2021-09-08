@@ -634,3 +634,59 @@ Versionskontrolle, die optimistische Locks verwenden, tendiert die Checkout-Zeit
 gegen null, und beständiges Ausliefern wird möglich. Alte Organisationen müssen
 ihren Prozess entsprechend anpassen, um ihre Trägheit zu überwinden, was einen
 kulturellen Wandel erfordert.
+
+## Akzeptanztests
+
+Akzeptanztests (_Acceptance Tests_) basieren auf der Idee, dass Anforderungen
+vom Geschäft (_by the business_) spezifiziert werden sollten. Das Wort
+"spezifizieren" (_to specify_) hat verschiedene Bedeutungen, je nach dem, wer es
+verwendet: auf geschäftlicher Seite will man die Spezifikation eher etwas
+schwammig in natürlicher Sprache halten, wogegen Programmierer eine
+Spezifikation bevorzugen, die so präzise ist, dass sie von einer Maschine
+ausgeführt werden kann.
+
+Die Lösung für diesen Konflikt ist, dass man auf geschäftlicher Seite einen Test
+in natürlicher Sprache definiert, aber eine formale Struktur wie _Gegeben, Wenn,
+Dann_ (_Given, When, Then_, wie sie im _Behaviour-Driven Development_, BDD zum
+Einsatz kommt). Die Entwickler setzen diese Tests dann in ihrer
+Programmiersprache um. Diese werden zur "Definition of Done" der User Story.
+
+- Eine Story ist nicht spezifiziert, bis Akzeptanztests geschrieben sind.
+- Eine Story ist nicht abgeschlossen, bis ihre Akzeptanztests durchlaufen.
+
+Auf Geschäftsseite definiert man normalerweise den "günstigen Ablauf" (_happy
+path_), welcher demonstriert, dass das System den vorgesehenen Mehrwert
+erzeugt. Die Qualitätssicherung erweitert diese Tests um die "ungünstigen
+Abläufe" (_unhappy path_), weil sie gut darin ist, Ausnahmefälle zu finden, und
+Möglichkeiten zu entdecken, wie ein Benutzer das System "kaputt" machen kann.
+
+Die Qualitätssicherung ist nicht mehr der Flaschenhals am Ende einer Iteration,
+sondern von Anfang an stark involviert. Viele Bugs am Ende einer Iteration zu
+finden wird nicht mehr als Nachweis dafür gesehen, dass die Qualitätssicherung
+ihre Arbeit gut erledigt. Stattdessen liefert die Qualitätssicherung der
+Entwicklung die Testspezifikationen, und die Entwicklung stellt sicher, dass
+diese Tests durchlaufen. Der Vorgang der Ausführung dieser Tests soll
+selbstverständlich automatisiert werden.
+
+## Team als Ganzes
+
+Die Praktik _Whole Team_ wurde früher als _Kunde vor Ort_ (_On-Site Customer_)
+bezeichnet. Sie basiert auf der Idee, dass eine Reduktion der physischen Distanz
+die Kummunikation verbessert. "Kunde" (_Customer_) ist in einem sehr weiten Sinn
+gemeint: es kann eine Anspruchsgruppe eines Projekts oder bei Scrum den Product
+Owner bezeichnen.
+
+Hat man das gesamte Projektteam im gleichen Raum sitzen, wird nicht nur die
+Kommunikation effizienter, es erzeugt auch glückliche Zufälle (_Serendipity_):
+Leute in verschiedenen Rollen werden aus reinem Zufall zusammenkommen (z.B. an
+der Kaffeemaschine). Es ist zu hoffen, dass solche ungeplanten Interaktionen
+Synergien im Team hervorbringen.
+
+Die Vorteile einer gemeinsamen Unterbringung ‒ bessere Kommunikation, glückliche
+Zufälle ‒ gehen in einer Outsourcing-Umgebung verloren. Mit wachsender Distanz ‒
+physisch, kulturell, sprachlich, verschiedene Zeitzonen ‒ wird die Kommunikation
+tendenziell schlechter. Da die Technologie jedoch Fortschritte gemacht hat, geht
+das Arbeiten von einem entfernten Ort heutzutage recht gut, gerade wenn es nur
+eine räumliche, aber keine kulturelle oder sprachliche Distanz gibt, und man
+sich in der gleichen Zeitzone befindet. Zufällige Gespräche und non-verbale
+Kommunikation sind bei der Telearbeit jedoch erheblich reduziert.
