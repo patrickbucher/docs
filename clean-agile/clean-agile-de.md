@@ -804,3 +804,88 @@ Opfer machen, indem sie Eier beitragen ‒ und Entwickler ‒ welche ein grosses
 Opfer machen, indem sie Fleisch beitragen ‒ nicht das gleiche Gewicht im
 Entscheidungsprozess haben sollten, wenn Entscheidungen über den (Menü-)plan
 getroffen werden.
+
+# Technische Praktiken
+
+Die technischen Praktiken von Agile greifen tief in das Verhalten des
+Programmierers beim Schreiben von Code ein, indem es eine Reihe von Ritualen
+einführt, die von vielen Programmierern als absurd empfunden werden. Diese
+Praktiken im Kern von Agile sind: Test-Driven Development, Refactoring, Simple
+Design und Pair Programming.
+
+## Test-Driven Development
+
+Programmieren ist der Buchhaltung sehr ähnlich: ein kleiner Fehler kann
+gewaltige negative Konsequenzen haben. Darum haben die Buchhalter die _doppelte
+Buchhaltung_ entwickelt, bei welcher jede Transaktion zweimal vermerkt werden
+muss: einmal aufseiten der Kreditoren, und einmal aufseiten der Debitoren. Die
+Summen der Konti auf beiden Seiten werden in der Bilanz gesammelt. Dort müssen
+die Differenzen der Kreditoren- und Debitorenkonti zusammengerechnet null
+ergeben, sonst wurde irgendwo ein Fehler gemacht. Solche Fehler lassen sich
+schnell erkennen, wenn man jede Transaktion einzeln eingibt, und die Differenzen
+der beiden Seiten nach jeder Transaktion überprüft, ob sie null ergeben.
+
+Test-Driven Development (TDD) ist die dementsprechende Technik beim
+Programmieren. Jedes verlangte Verhalten des Programms wird zweimal eingegeben:
+einmal als Testcode, und einmal als produktiver Code. Die Verhalten werden eines
+nach dem anderen eingegeben: zuerst als einen (vorerst scheiternden) Test,
+danach als funktionierender Produktivcode, der den Test zum Durchlaufen bringt.
+Wie in der Buchhaltung soll ein Ergebnis von null erreicht werden: null
+scheiternde Tests. Bei diesem Vorgehen können Fehler dabei entdeckt werden, wie
+sie sich in den Code einschleichen würden ‒ und dadurch rechtzeitig vermieden
+werden. Im Gegensatz zur doppelten Buchhaltung ist TDD (noch?) nicht von
+Gesetzeswegen verlangt.
+
+TDD kann mit den drei folgenden, einfachen Regeln beschrieben werden:
+
+1. Schreibe keinen Produktivcode, bis es einen Test gibt, der aufgrund dieses
+   fehlenden produktiven Codes scheitert.
+2. Schreibe nicht mehr Testcode, als nötig ist um den Test zum Scheitern zu
+   bringen ‒ und ein Kompilierfehler gilt als Scheitern.
+3. Schreibe nicht mehr Produktivcode, als nötig ist um den Test zum Durchlaufen
+   zu bringen.
+
+Wenn sich Programmierer an diese Regeln halten, wechseln sie in einer Frequenz
+von nur wenigen Sekunden zwischen Produktiv- und Testcode hin und her. Was zu
+Beginn wie eine Ablenkung wirken mag, stellt sicher, dass alles funktioniert ‒
+oder zumindest vor einer Minute noch alles funktioniert hat. Der Code, der einen
+Fehler eingeführt hat, ist einfach zu finden: er muss in de Zeilen sein, die
+gerade erst geschrieben worden sind.
+
+Einige Programmierer sind sehr gut darin mit einem Debugger zu arbeiten, weil
+sie sehr viel Zeit beim Debuggen verbracht haben. Man braucht nur viel zu
+debuggen, wenn man viele Bugs hat. Mit TDD werden weniger Bugs eingeführt,
+weshalb es für Programmierer, welche sich an die Disziplin von TDD halten, in
+Ordnung ist, wenn sie schlecht mit einem Debugger umgehen können. (Debugging ist
+immer noch ab und zu nötig, aber wesentlich seltener.)
+
+Eine umfassende Reihe von Tests (_Test Suite_) ist die beste Art von
+Dokumentation für Programmierer: funktionierende, eigenständige, kleine
+Codebeispiele.
+
+Tests nachträglich für Code zu schreiben, der bereits manuell getestet worden
+ist fühlt sich wie langweilige Beschäftigungstherapie an. Es macht mehr Freude,
+nach den drei Regeln von TDD zu testen und zu programmieren. Code, der unter den
+Regeln von TDD entwickelt worden ist, ist immer für gute Testbarkeit entworfen.
+Tests für Produktivcode zu schreiben, der nicht für Testbarkeit entworfen worden
+ist, ist schwierig ‒ und werden darum wahrscheinlich weggelassen. Dies
+hinterlässt Lücken in der Testreihe, und einer durchlaufenden Testreihe kann
+nicht länger vertraut werden. Eine gute Testreihe, die durchläuft, sollte
+hingegen der Erlaubnis zum Ausliefern der Software gleichkommen.
+
+Obwohl erwünschenswert, sollte eine hohe Testabdeckung von beispielsweise 90%
+und mehr keine Metrik für das Management, sondern für das Entwicklungsteam sein.
+Es erfordert ein gutes Verständnis der Codebasis um die Testabdeckung sinnvoll
+interpretieren zu können. Eine hohe Testabdeckung dadurch zu forcieren, indem
+bei einer für zu tief empfundenen Testabdeckung der Buildvorgang zum Scheitern
+gebracht wird, ist schädlich, weil es für Programmierer einen Anreiz schafft,
+fingierte Tests zu schreiben, bei denen gar nichts überprüft wird.
+
+Das höchste Ziel von TDD ist Mut, nicht Testabdeckung (_Courage, not Coverage_):
+Programmierer mit Vertrauen in ihre Testreihe verändern und verbessern
+bestehenden Code ohne Furcht. Entwickler ohne dieses Vertrauen schrecken
+hingegen davor zurück, unordentlichen Code aufzuräumen. Dadurch fängt die
+Codebasis zu "verfaulen" (_to rot_) an. Wird der Code unwartbar, wird die
+Weiterentwicklung schwieriger und kommt schlussendlich vollends zum Stillstand.
+TDD hingegen hält den Code in Ordnung und gibt dem Programmierer Zuversicht für
+die Weiterentwicklung.
