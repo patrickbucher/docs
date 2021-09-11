@@ -889,3 +889,131 @@ Codebasis zu "verfaulen" (_to rot_) an. Wird der Code unwartbar, wird die
 Weiterentwicklung schwieriger und kommt schlussendlich vollends zum Stillstand.
 TDD hingegen hält den Code in Ordnung und gibt dem Programmierer Zuversicht für
 die Weiterentwicklung.
+
+## Refactoring
+
+Refactoring ist eine Praktik, bei welcher die Struktur des Codes angepasst wird,
+ohne dabei dessen Verhalten zu verändern. Dieses Verhalten ist durch Testfälle
+definiert, welche nach dem Refactoring des Codes immer noch durchlaufen müssen.
+
+Die Praktik des Refactorings ist eng verknüpft mit der Praktik von TDD. Es
+benötigt eine gute Testreihe, damit der Code furchtlos verändert werden kann.
+Die dritte TDD-Regel besagt, dass man nicht mehr Produktivcode schreiben darf,
+als benötigt wird um den Test zum Durchlaufen zu bringen. Diesen Code jedoch zu
+verbessern ist nicht erlaubt, sondern wärmstens empfohlen.
+
+Der Ablauf des Refactorings ist im _Rot/Grün/Refactor_-Zyklus beschrieben:
+
+![Der Rot/Grün/Refactoring-Zyklus](pic-de/refactoring.png){width=478px}
+
+- _Rot_: Schreibe einen scheiternden Test.
+- _Grün_: Schreibe so viel Produktivcode, wie nötig ist, damit der Test
+  durchläuft.
+- _Refactor_: Räume den Code auf, ohne dabei Testfälle kaputt zu machen.
+
+Das Schreiben von funktionierendem Code alleine ist schon schwer genug, und so
+ist auch das Schreiben von sauberem Code. Darum können diese beiden Ziele ‒
+_funktionierender_ Code, _sauberer_ Code ‒ am besten in zwei getrennten
+Schritten erreicht werden.
+
+Die Änderungen, die beim Refactoring vorgenommen werden, können von trivialen,
+kosmetischen Verbesserungen bis zu tiefen Umstrukturierungen reichen, z.B.:
+
+- die Namen von Variablen, Funktionen, Klassen usw. ändern
+- eine `switch`-Anweisung mit mehreren Klassen und Polymorphie umschreiben
+- grosse Funktionen oder Klassen in mehrere kleinere aufteilen
+- Code verschieben, z.B. in andere Funktionen, Klassen oder Komponenten
+
+Martin Fowler beschreibt solche Techniken und den gesamten Vorgang in seinem
+Buch _Refactoring: Improving the Design of Existing Code_ (zweite Ausgabe 2018,
+erste Ausgabe 2000) wesentlich detaillierter.
+
+Refactoring ist ein andauernder Prozess, und nicht etwas, das man einplant, wenn
+das Chaos im Code untragbar geworden ist. Mit beständigem Refactoring wird die
+ein Chaos entstehen.
+
+Es gibt Anforderungen, welche grössere Änderungen im Design und in der Struktur
+des Codes erfordern. In diesem Fall müssen grössere Refactorings vorgenommen
+werden. Obwohl solche grossen Refactorings sich über eine lange Zeit strecken
+können, sollten sie dennoch mit einem kontinuierlichen Ansatz angegangen werden,
+indem man alle Tests während des Vorgangs am Laufen hält.
+
+## Einfaches Design
+
+Die Praktik des einfachen Designs zielt darauf ab, dass nur der Code geschrieben
+wird, der auch wirklich benötigt wird. Die Code-Struktur soll so einfach, klein
+und ausdrucksstark wie möglich gehalten werden. Kent Beck nennt vier Regeln um
+dieses Ziel zu erreichen:
+
+- **Alle Tests müssen durchlaufen.** (_Pass all the tests._) Der Code muss
+  natürlich wie beabsichtigt funktionieren.
+- **Die Absicht muss offenbart werden.** (_Reveal the intent._) Der Code muss
+  ausdrucksstark sein, d.h.  einfach zu lesen und selbsterklärend. Hier kann es
+  hilfreich sein, den Code in kleinere Einheiten zu unterteilen und kosmetische
+  Refactorings vorzunehmen.
+- **Duplikate müssen entfernt werden.** (_Remove duplication._) Der Code soll
+  nicht das Gleiche mehrmals sagen. Gemeinsamen Code in Funktionen auszulagern
+  und diese vom ursprünglichen Code her aufzurufen ist eine gute Möglichkeit das
+  zu erreichen. Andere Umstände verlangen nach fortgeschrittenen Lösungen, wie
+  z.B.  nach den Entwurfsmustern _Strategy_ oder _Decorator_.
+- **Elemente müssen reduziert werden.** (_Decrease elements._) Der Code soll von
+  allen überflüssigen strukturellen Elementen wie Klassen, Funktionen, Variablen
+  usw. bereinigt werden.
+
+Komplexes Design führt zu hoher kognitiven Last beim Programmieren, was man als
+"Gewicht des Designs" (_Design Weight_) bezeichnet. Ein "schweres" System
+erfordert mehr Verständnis um es verstehen und ändern zu können. Ebenso es
+machen Anforderungen mit hoher Komplexität schwieriger das System zu verstehen
+und zu ändern.
+
+Ein ausgeklügelteres Design kann jedoch dabei helfen, mit komplexeren
+Anforderungen umzugehen. Darum muss ein Kompromiss zwischen komplexen
+Anforderungen und dafür angemessenem Design gefunden werden, um das Ziel des
+einfachen Designs zu erreichen.
+
+## Pair Programming
+
+Man spricht von _Pair Programming_ oder _Pairing_, wenn zwei Programmierer
+gemeinsam an einem Programmierproblem arbeiten, indem sie sich Bildschirm und
+Tastatur teilen ‒ entweder physisch, indem sie am gleichen Schreibtisch sitzen,
+oder virtuell, indem sie eine Screen-Sharing-Software verwenden.
+
+Pairing ist optional und findet zeitweise statt: Manchmal programmiert man
+zusammen, dann macht man wieder alleine weiter. Ob man Pair Programming betreibt
+ist eine Entscheidung, die individuell und vom Team getroffen werden kann ‒
+nicht vom Vorgesetzten!
+
+Die beiden Programmierer können beim Pairing unterschiedliche Rollen einnehmen:
+der eine ist der _Fahrer_ (_Driver_) an Tastatur und Maus, welcher die Hinweise
+des _Navigators_ befolgt, der Empfehlungen und Tipps gibt. Die Technik
+_Ping-Pong_ besteht darin, dass ein Programmierer einen Test schreibt, und der
+andere Programmierer ihn zum Durchlaufen bringt. Diese Rollen können häufig
+gewechselt werden.
+
+Pairing wird weder verordnet noch eingeplant, sondern spontan gemacht. Solche
+Paare bleiben nur kurz zusammen und lösen sich nach einer Sitzung von 30 Minuten
+bis zu einem Arbeitstag wieder auf.
+
+Das höchste Ziel von Pairing ist der Wissensaustausch. Dies wird besonders dann
+erreicht, wenn erfahrene Programmierer (_Seniors_) sich mit unerfahrenen
+Programmierern (_Juniors_) zusammensetzen. Pairing mag auf den ersten Blick
+teuer anmuten: natürlich schreiben zwei Programmierer mit einem Bildschirm und
+einer Tastatur weniger Code, als wenn jeder an seinem eigenen Rechner arbeiten
+würde. Pairing dient aber nicht nur zur Wissensverteilung, sondern reduziert
+auch Fehler, verbessert das Design und stärkt die Zusammenarbeit innerhalb des
+Teams. Grundsätzlich sehen Manager es gerne, wenn ihre Leute zusammenarbeiten
+und Wissen austauschen, und werden sich nicht über das Pairing beschweren.
+
+Pairing ist nicht nur beim Schreiben von neuem, sondern auch beim Überprüfen von
+bestehendem Code hilfreich. Es ist auch nicht strikt auf zwei Programmierer
+begrenzt, sondern kann auch von mehreren Personen gemacht werden, was dann als
+"mob programming" bezeichnet wird.
+
+Wie beim Schreiben von Tests, Refactoring und beim Design braucht man nicht um
+Erlaubnis zu fragen, wenn man Pair Programming betreiben möchte. Dies fällt in
+die Domäne des Programmierers, und hier ist der Programmierer der Experte.
+
+Zusammengefasst: Die technischen Praktiken, die in diesem Kapitel eingeführt
+worden sind, machen den Kern der agilen Softwareentwicklung aus. Mit Agile ist
+es möglich, in kurzer Zeit unter Eile ein Chaos anzurichten, wenn man diese
+Praktiken ignoriert.

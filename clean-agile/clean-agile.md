@@ -772,7 +772,7 @@ The changes done to the code during the Refactoring step can range from trivial
 cosmetics to deep restructurings, e.g.:
 
 - changing the names of variables, functions, classes, etc.
-- rewriting switch statements in terms of multiple classes with polymorphic
+- rewriting `switch` statements in terms of multiple classes with polymorphic
   dispatch
 - splitting up big functions or classes into multiple smaller ones
 - moving code around, e.g. into other functions, classes, or components
