@@ -30,10 +30,11 @@ Die grundlegende Idee von Agile ‒ die Arbeit mit kleinen Zwischenzielen, wobei
 der Fortschritt gemessen wird ‒ könnte so alt sein wie unsere Zivilisation. Es
 ist auch möglich, dass agile Praktiken in den Anfängen der Softwareentwicklung
 verwendet worden sind. Die Idee des wissenschaftlichen Managements (_Scientific
-Management_), welche auf dem Taylorismus basiert, von oben herab organisiert ist
-und auf eine detaillierte Planung setzt, war zu dieser Zeit weit verbreitet in
-der Industrie, wodurch sie in Konflikt zu den vor-agilen (_Pre-Agile_) Praktiken
-stand, die zu dieser Zeit in der Softwareentwicklung so weit verbreitet waren.
+Management_), welche auf dem Taylorismus beruht, von oben herab organisiert ist
+und auf eine detaillierte Planung setzt, war zu dieser Zeit in der Industrie
+weit verbreitet, wodurch sie in Konflikt zu den vor-agilen (_Pre-Agile_)
+Praktiken stand, die zu dieser Zeit vielerorts in der Softwareentwicklung zum
+Einsatz kamen.
 
 Wissenschaftliches Management war für Projekte geeignet, bei denen Änderungen
 teuer waren und zu denen es eine genau definierte Problemdefinition mit extrem
@@ -45,7 +46,7 @@ Leider gab es zu dieser Zeit keine Diskussion darüber, welcher Ansatz für
 Softwareprojekte der bessere war. Stattdessen fand das Wasserfallmodell weite
 Verbreitung, das ursprünglich von Winston Royce in seinem Fachartikel _Managing
 the Development of Large Software Systems_ als Strohmannargument aufgebaut
-worden war, um dessen Unzulänglichkeit zu demonstrieren. Das Wasserfallmodell
+worden war, um dessen Unzulänglichkeiten zu demonstrieren. Das Wasserfallmodell
 mit seinem Fokus auf Analyse, Planung und genaues Einhalten von Plänen war ein
 Abkömmling des wissenschaftlichen Managements, nicht von vor-agilen Praktiken.
 
@@ -54,7 +55,7 @@ Abkömmling des wissenschaftlichen Managements, nicht von vor-agilen Praktiken.
 Das Wasserfallmodell dominierte die Industrie ab den 1970er-Jahren für fast 30
 Jahre. Seine aufeinanderfolgenden Phasen von Analyse, Design und Umsetzung
 sahen vielversprechend aus für Entwickler, welche in endlosen "Programmieren und
-Korrigieren"-Zyklen (_"code and fix" cycles_) arbeiteten, und dabei nicht einmal
+Korrigieren"-Zyklen (_"Code and Fix" Cycles_) arbeiteten, und dabei nicht einmal
 die vor-agile Disziplin aufbrachten.
 
 Was auf dem Papier gut aussah ‒ und zu vielversprechenden Ergebnissen nach der
@@ -70,7 +71,7 @@ Wasserfall-Denkweise passten.
 Einige Befürworter dieser Ideen begannen jedoch das Wasserfallmodell mitte der
 1990er-Jahre in Frage zu stellen, wie z.B. Grady Booch mit seiner Methode des
 objektorientierten Designs (OOD), die Entwurfsmuster-Bewegung (_Design Pattern
-movement_), und die Autoren des _Scrum_-Papers. Kent Becks Ansätze des _Extreme
+Movement_), und die Autoren des _Scrum_-Papers. Kent Becks Ansätze des _Extreme
 Programming_ (XP) und der testgetriebenen Entwicklung (_Test-Driven Development,
 TDD_) der späten 1990er-Jahre waren eine klare Abkehr vom Wasserfallmodell hin
 zu einem agilen Ansatz. Martin Fowlers Gedanken zum _Refactoring_ mit dessen
@@ -82,9 +83,9 @@ Wasserfallmodell.
 17 Vertreter verschiedener agiler Ideen ‒ Kent Beck, Robert C. Martin, Ward
 Cunningham (XP), Ken Schwaber, Mike Beedle, Jeff Sutherland (Scrum), Andrew
 Hunt, David Thomas ("Pragmatic Programmers") und weitere ‒ trafen sich anfangs
-2001 in Snowbird, Utah, um ein Manifest zu erarbeiten, dass die gemeinsame
-Essenz all dieser leichtgewichtigen Ideen erfassen sollte. Nach zwei Tagen
-konnte ein breiter Konsens erreicht werden:
+2001 in Snowbird, Utah, um ein Manifest zu erarbeiten, das die gemeinsame Essenz
+all dieser leichtgewichtigen Ideen erfassen sollte. Nach zwei Tagen konnte ein
+breiter Konsens erreichen werden:
 
 > Wir erschließen bessere Wege, Software zu entwickeln, indem wir es selbst tun
 > und anderen dabei helfen.  Durch diese Tätigkeit haben wir diese Werte zu
@@ -113,29 +114,29 @@ Viele Softwareprojekte werden mit einem Ansatz basierend auf Zuversicht und
 Motivationstechniken geführt. Das Ergebnis ist, dass solche Projekte chronisch
 verspätet sind, obwohl die Entwickler Überstunden leisten.
 
-Alle Projekte sind eingeschränkt von einem Kompromiss, den man als das _eiserne
-Kreuz des Projektmanagements_ (_Iron Cross of Project Management_) bezeichnet:
-gut, schnell, günstig, fertig ‒ wähle drei! Gute Projektmanager verstehen diesen
-Kompromiss und streben nach Ergebnissen die gut genug sind, in einem akzeptablen
-Zeitrahmen und Budget erreicht werden können und die wesentlichen Features
-bieten.
+Alle Projekte sind durch einem Kompromiss eingeschränkt, den man als das
+_eiserne Kreuz des Projektmanagements_ (_Iron Cross of Project Management_)
+bezeichnet: gut, schnell, günstig, fertig ‒ wähle drei! Gute Projektmanager
+verstehen diesen Kompromiss und streben nach Ergebnissen die gut genug sind, in
+einem akzeptablen Zeitrahmen und Budget erreicht werden können und die
+wesentlichen Features bieten.
 
-Agile produziert Daten, welche Managern dabei helfen gute Entscheidungen zu
-treffen. Die _Velocity_ zeit die Menge der Punkte, die ein Entwicklungsteam
+Agile produziert Daten, welche Managern dabei helfen, gute Entscheidungen zu
+treffen. Die _Velocity_ zeigt die Menge der Punkte auf, die ein Entwicklungsteam
 innerhalb einer Iteration abarbeitet. Ein _Burn-Down Chart_ zeigt die
-verbleibenden Punkte bis zur Erreichung des nächsten Meilensteins. Dieses
-schrumpft nicht notwendigerweise mit der Geschwindigkeit der Velocity, weil
-Anforderungen und deren Schätzung sich ändern können. Trotzdem kann das Gefälle
-des Burn-Down Charts dazu verwendet werden, um ein wahrscheinliches
+verbleibenden Punkte bis zur Erreichung des nächsten Meilensteins auf. Diese
+Punktzahl schrumpft nicht notwendigerweise mit der Geschwindigkeit der Velocity,
+weil Anforderungen und deren Schätzung sich ändern können. Trotzdem kann das
+Gefälle des Burn-Down Charts dazu verwendet werden, um ein wahrscheinliches
 Release-Datum für den nächsten Meilenstein vorherzusagen.
 
-Agile ist ein Ansatz, der auf Rückkoppelung basiert (_feedback-driven
-approach_). Auch wenn im Agile-Manifest weder Velocity noch Burn-Down Charts
+Agile ist ein Ansatz, der auf Rückkoppelung basiert (_Feedback-Driven
+Approach_). Auch wenn im Agile-Manifest weder Velocity noch Burn-Down Charts
 erwähnt werden, ist das Sammeln solcher Daten und das Treffen von Entscheidungen
 auf dieser Grundlage entscheidend. Solche Daten sollen öffentlich,
 offensichtlich und transparent gemacht werden.
 
-Das Enddatum eines Projekts ist normalerweise gegeben und kan nicht verhandelt
+Das Enddatum eines Projekts ist normalerweise gegeben und kann nicht verhandelt
 werden, oft aus guten Gründen des Geschäftsinteresses. Die Anforderungen ändern
 sich hingegen häufig, weil Kunden nur ein grobes Ziel haben, aber nicht die
 genauen Schritte kennen, um dieses zu erreichen.
@@ -146,16 +147,16 @@ Zu Zeiten des Wasserfallmodells wurde ein Projekt oft in drei Phasen gleicher
 Länge aufgeteilt: Analyse, Design und Umsetzung. In der Analysephase wurden
 Anforderungen gesammelt und die Planung wurde durchgeführt. In der Designphase
 wurde eine Lösung skizziert und die Planung verfeinert. Keine der beiden Phasen
-haben harte und greifbare Ziele; sie waren abgeschlossen, wenn das Enddatum der
-Phase erreicht worden war.
+haben harte oder greifbare Ziele; sie galten dann als abgeschlossen, wenn das
+Enddatum der Phase erreicht worden war.
 
 Die Umsetzungsphase muss jedoch funktionierende Software hervorbringen ‒ ein
 hartes und greifbares Ziel, dessen Erreichung einfach zu beurteilen ist.
 Verspätungen sind oft erst in dieser Phase zu erkennen, und Anspruchsgruppen
 (_Stakeholders_) erfahren erst von solchen Problemen, wenn das Projekt
-eigentlich schon beinahe fertig sein sollte.
+eigentlich schon beinahe abgeschlossen sein sollte.
 
-Solche Projekte enden häufig in einem _Todesmarsch_ (_Death March_): eine kaum
+Solche Projekte enden häufig in einem "Todesmarsch" (_Death March_): eine kaum
 funktionierende Lösung wird nach vielen Überstunden herausgebracht, obwohl die
 Abgabefrist (_Deadline_) mehrmals verschoben worden ist. Die "Lösung" für das
 nächste Projekt besteht normalerweise darin, dass noch mehr Analyse und Design
@@ -208,8 +209,8 @@ Klammern)](pic-de/eisernes-kreuz.png){width=1202px}
 Die Reduktion des Umfangs ist oftmals die einzige vernünftige Wahl. Darum soll
 man zu Beginn eines jeden Sprints sicherstellen, dass dabei nur Features
 umgesetzt werden, die für Anspruchsgruppen wirklich wichtig sind.  Andernfalls
-läuft man Gefahr wertvolle Zeit in optionale Features (_"nice to have
-features"_) zu investieren.
+läuft man Gefahr, wertvolle Zeit in optionale Features (_"Nice to Have
+Features"_) zu investieren.
 
 ## Der Kreis des Lebens
 
@@ -217,13 +218,13 @@ Extreme Programming (XP), wie es in Kent Becks _Extreme Programming Explained_
 beschrieben ist, erfasst die Essenz der agilen Softwareentwicklung. Die
 Praktiken von XP sind im _Kreis des Lebens_ (_Circle of Life_) organisert,
 welcher aus drei Ringen besteht. (Die übersetzten Begriffe werden hier nur
-ergänzend angegeben. Im weiteren Text werden die Originalbegriffe verwendet, da
-diese im deutschsprachigen Raum geläufig sind, zumindest in der
+ergänzend angegeben. Im weiteren Text werden zumeist die Originalbegriffe
+verwendet, da diese im deutschsprachigen Raum geläufig sind, zumindest in der
 Softwareentwicklung.)
 
 ![Der Kreis des Lebens](pic/circle-of-life.png){width=90%}
 
-Der äussere Ring beinhaltet die geschäftsorientierten (_business-facing_)
+Der äussere Ring umfasst die geschäftsorientierten (_business-facing_)
 Praktiken, welche ziemlich ähnlich sind wie der Scrum-Prozess:
 
 - **Planning Game** (Planungsspiel): das Projekt in Features, Stories und
@@ -231,22 +232,22 @@ Praktiken, welche ziemlich ähnlich sind wie der Scrum-Prozess:
 - **Small Releases** (kleine Releases): kleine, aber regelmässige Inkremente
   ausliefern
 - **Acceptance Tests** (Akzeptanztests): unmissverständliche Abschlusskriterien
-  angeben (_definition of "done"_)
+  angeben (_Definition of "Done"_)
 - **Whole Team** (Team als Ganzes): in verschiedenen Funktionen (Programmierer,
   Tester, Management) zusammenarbeiten
 
-Der mittlere Ring beinhaltet die teamorientierten (_team-facing_) Praktiken:
+Der mittlere Ring umfasst die teamorientierten (_team-facing_) Praktiken:
 
 - **Sustainable Pace** (nachhaltiges Tempo): Fortschritt machen und dabei das
-  Ausbrennen (_burnout_) des Entwicklugsteams verhindern
+  Ausbrennen (_Burnout_) des Entwicklugsteams verhindern
 - **Collective Ownership** (gemeinsamer Besitz): Wissen über das Projekt
   austauschen, um Wissenssilos zu vermeiden
 - **Continuous Integration** (kontinuierliche Integration): häufiges Schliessen
-  des _feedback loops_ und den Fokus des Teams aufrechterhalten
+  des _Feedback Loops_ und den Fokus des Teams aufrechterhalten
 - **Metaphor** (Metapher): mit einem gemeinsamen Wortschatz und mit einer gemeinsamen
   Sprache arbeiten
 
-Der innere Ring beinhaltet die technischen (_technical_) Praktiken:
+Der innere Ring umfasst die technischen (_technical_) Praktiken:
 
 - **Pair Programming**/**Pairing** (paarweises Programmieren): Wissen
   austauschen, Reviews durchführen, zusammenarbeiten
@@ -292,7 +293,7 @@ Zusammenfassend:
 
 Viele Entwickler, die aufgrund des Versprechens von Geschwindigkeit und Qualität
 auf Agile umsteigen, sind enttäuscht, wenn sich diese Ergebnisse nicht sofort
-einstellen. Die wichtigeren Gründe um auf Agile umzusteigen sind jedoch
+einstellen. Die wichtigeren Gründe, um auf Agile umzusteigen, sind jedoch
 _Professionalität_ und _angemessene Erwartungen des Kunden_.
 
 ## Professionalität
@@ -316,7 +317,7 @@ deren Entwickler. Das Ziel der agilen Softwareentwicklung ist es, diese
 Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
 
 - **Keine schlechte Software ausliefern:** Ein System soll einem Benutzer nicht
-  abverlangen wie ein Programmierer zu denken. Leute zahlen gutes Geld für
+  abverlangen, wie ein Programmierer zu denken. Leute zahlen gutes Geld für
   Software ‒ und sollten im Gegenzug hohe Qualität mit nur wenigen Defekten
   erhalten.
 - **Ständige technische Bereitschaft:** Programmierer können häufig nicht
@@ -336,7 +337,7 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   Codebasis wird erstellt ‒ welche nur die alte, chaotische Codebasis als
   zuverlässige Quelle für Anforderungen hat. Das alte System wird von der einen
   Hälfte des Teams gewartet und weiterentwickelt, und die andere Hälfte hinkt
-  mit der Arbeit am neuen System hintennach; sie versuchen, ein sich bewegendes
+  mit der Arbeit am neuen System hinterher; sie versuchen, ein sich bewegendes
   Ziel zu treffen. Grosse Neuentwicklungen scheitern oft, nur wenige werden je
   zu den Kunden ausgeliefert.
 - **Günstige Anpassung:** Software ("soft", "weich") soll im Gegensatz zu
@@ -350,9 +351,9 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   verbessern und nicht mit der Zeit schlechter werden.
 - **Furchtlose Kompetenz:** Entwickler schrecken oft davor zurück, schlechten
   Code anzupassen, und darum wird schlechter Code nicht verbessert. ("Fasst du
-  es an, machst du es kaputt. Machst du es kaputt, ist es deins.")
+  es an, machst du es kaputt. Machst du es kaputt, ist es deins.") Die
   Testgetriebene Entwicklung ist hilfreich dabei, diese Furcht zu bewältigen, da
-  es eine automatisierte Qualitätsbewertung nach jeder Änderung des Codes
+  sie eine automatisierte Qualitätsbewertung nach jeder Änderung des Codes
   per Knopfdruck ermöglicht.
 - **Keine QA-Befunde:** Fehler sollten nicht von der QA-Abteilung (_Quality
   Assurance_, Qualitätssicherung) gefunden, sondern im Voraus vom
@@ -364,7 +365,7 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   die Entwicklung spät dran ist, hat die Qualitätssicherung zu wenig Zeit zum
   Testen. Teile des Systems bleiben so ungetestet. Maschinen sind besser als
   Menschen darin, repetitive Aufgaben wie das Testen durchzuführen (exploratives
-  Testen ausgenommen). Es ist eine Verschwendung von Zeit und Geld wenn man
+  Testen ausgenommen). Es ist eine Verschwendung von Zeit und Geld, wenn man
   Menschen manuelle Tests durchführen lässt; es ist ausserdem unmoralisch.
 - **Für einander einstehen:** Entwickler müssen einander helfen; sie müssen wie
   ein Team handeln. Wenn jemand einen Fehler begeht oder krank wird, sollen die
@@ -381,11 +382,11 @@ Erwartungen zu erfüllen, was keine einfache Aufgabe ist:
   sein, dafür jedoch grössere Probleme im weiteren Projektverlauf vermeiden.
 - **Beständiges Lernen:** Entwickler müssen mit einer sich beständig und schnell
   verändernden Industrie schritthalten, indem sie ständig lernen. Es ist
-  schön, wenn eine Firma Weiterbildungen anbietet, doch die Verantwortung
+  lobenswert, wenn eine Firma Weiterbildungen anbietet, doch die Verantwortung
   für das Lernen bleibt beim Entwickler.
 - **Mentoring:** Bestehende Teammitglieder können neue Teammitglieder anlernen.
   Bei diesem Vorgang lernen beide Seiten etwas, denn jemandem etwas beizubringen
-  ist eine gute Methode um selber etwas zu lernen.
+  ist eine gute Methode, um selber etwas zu lernen.
 
 ## Die Freiheitsurkunde ("Bill of Rights")
 
@@ -416,17 +417,18 @@ Disziplinen, welche die Basis für eine ethische Berufung bilden.
 # Geschäftsorientierte Praktiken
 
 Die Entwicklung muss den folgenden geschäftsorientierten Praktiken folgen, um
-erfolgreich zu sein: Planning Game (Planugsspiel), Small Releases (kleine
-Releases), Acceptance Tests (Akzeptanztests) und Whole Team (Team als Ganzes).
+erfolgreich zu sein zu können: _Planning Game_ (Planugsspiel), _Small Releases_
+(kleine Releases), _Acceptance Tests_ (Akzeptanztests) und _Whole Team_ (Team
+als Ganzes).
 
 ## Planung
 
-Ein Projekt kann geplant werden, indem es rekursiv in einzelne Teile zerlegt
-wird, und diese Teile geschätzt werden. Je weiter diese Teile heruntergebrochen
+Ein Projekt kann geplant werden, indem es rekursiv in seine Einzelteile zerlegt
+wird, und diese dann geschätzt werden. Je weiter diese Teile heruntergebrochen
 werden ‒ im Extremfall bis zu einzelnen Codezeilen herunter ‒ desto zutreffender
 und genauer wird die Schätzung, aber desto mehr Zeit wird benötigt, um überhaupt
 eine Schätzung abgeben zu können. Eine Schätzung sollte so zutreffend wie
-möglich sein, aber nur so genau wie nötig.
+möglich, aber nur so genau wie nötig sein.
 
 Indem eine Zeitspanne (z.B. 5-15 Tage) anstelle einer genauen Zeitdauer (z.B. 10
 Tage) angegeben wird, kann eine Schätzung ungenau, aber immer noch zutreffend
@@ -447,7 +449,7 @@ ungünstigsten Fall abgeschlossen.
 Diese Technik funktioniert gut für die langfristige Planung, ist aber zu ungenau
 für die tägliche Planung innerhalb eines Projekts. Zu diesem Zweck wird eine
 Technik verwendet, die auf einer iterativ kalibrierendem Rückkopplungsschleife
-(_iteratively calibrating feedback loop_) basiert: _Story Points_.
+(_Iteratively Calibrating Feedback Loop_) basiert: _Story Points_.
 
 Eine _User Story_ wird aus der Perspektive des Benutzers geschrieben und
 beschreibt ein Feature des Systems, das zu entwickeln ist, beispielsweise: "Als
@@ -460,8 +462,8 @@ Moderner Technologie zum Trotz erlaubt das Aufschreiben dieser Stories auf
 Karteikarten den physischen Umgang mit den Stories in Besprechungen, was sehr
 hilfreich sein kann. Karteikarten verlangen eine gewisse Disziplin, die Stories
 ungenau zu belassen, damit der Planungsvorgang nicht in lauter Details
-steckenbleibt. Diese Karten sollen nicht zu wertvoll werden, um entsorgt zu
-werden.
+steckenbleibt. Diese Karten sollen nicht zu wertvoll werden, um bei Bedarf nicht
+entsorgt zu werden zu können.
 
 Die Story-Karten, die in Iteration null geschrieben worden sind, werden in einer
 informellen Besprechung geschätzt, die anschliessend regelmässig stattfindet; in
@@ -474,8 +476,8 @@ Bandbreite von 1-5 Story Points arbeitet.
 Die Grösse der anderen Stories wird im Vergleich zu dieser _goldenen Story_
 geschätzt und erhält die entsprechende Punktzahl zugewiesen. Diese Anzahl der
 Story Points wird auf die Karteikarte der Story geschrieben. Diese Punkte lassen
-sich _nicht_ in Zeiteinheiten umrechnen! Verschiedene Entwickler bräuchten
-unterschiedlich lange um die gleiche Story umzusetzen. Glücklicherweise gleichen
+sich _nicht_ in Zeiteinheiten umrechnen! Verschiedene Entwickler benötigen 
+unterschiedlich lange, um die gleiche Story umzusetzen. Glücklicherweise gleichen
 sich diese Unterschiede dank dem _Gesetz der grossen Zahl_ (_Law of Large
 Numbers_) aus, wenn viele Stories über mehrere Sprints hinweg umgesetzt werden.
 
@@ -527,14 +529,14 @@ Richtlinien, die man beim Schreiben von Stories befolgen kann:
 
 - **I**: _Independent_ (unabhängig). User Stories müssen nicht in einer
   bestimmten Reihenfolge umgesetzt werden, weil sie voneinander unabhängig sind.
-  Obwohl Abhängigkeiten manchmal nicht vermieden werden können, so sollten sie
-  doch auf ein Minimum reduziert werden, damit Stories in der Reihenfolge ihres
+  Obwohl Abhängigkeiten manchmal nicht vermieden werden können, sollten sie doch
+  auf ein Minimum reduziert werden, damit Stories in der Reihenfolge ihres
   wirtschaftlichen Nutzens (_Business Value_) umgesetzt werden können.
 - **N**: _Negotiable_ (verhandelbar). User Stories sollen Raum für Verhandlungen
   zwischen dem Geschäft (_Business_) und der Entwicklung bieten. Mit diesen
   Verhandlungen können die Kosten tief gehalten werden, indem man sich auf
   einfache Features und eine einfache Implementierung einigt.
-- **V**: _Valuable_ (wertvoll). User Stories müssen klaren und messbaren
+- **V**: _Valuable_ (wertvoll). User Stories müssen einen klaren und messbaren
   wirtschaftlichen Nutzen (_Business Value_) schaffen. "Weiche" Angaben wie
   hoch/mittel/tief sind in Ordnung, so lange die Stories im Bezug auf ihren
   wirtschaftlichen Nutzen miteinander verglichen werden können. Solche Stories
@@ -551,11 +553,11 @@ Richtlinien, die man beim Schreiben von Stories befolgen kann:
   können. Eine gute Faustregel ist es ungefähr so viele User Stories für eine
   Iteration zu wählen, wie es Entwickler in einem Team hat.
 - **T**: _Testable_ (testbar). User Stories sollten jeweils mit Tests
-  einhergehen, welche von der Geschäftsseite (_by business_) definiert werden.
-  Eine Story ist dann abgeschlossen, well all ihre Tests durchlaufen. Diese
+  einhergehen, welche von der Geschäftsseite (_by Business_) definiert werden.
+  Eine Story ist dann abgeschlossen, wenn all ihre Tests durchlaufen. Diese
   Tests werden normalerweise von der Qualitätssicherung (_QA_) geschrieben und
-  von den Entwicklern automatisiert. Die Spezifizierung der Tests kan später
-  erfolgen als die eigentliche Story geschrieben wird.
+  von den Entwicklern automatisiert. Die Spezifizierung der Tests kann später
+  erfolgen, als die eigentliche Story geschrieben wird.
 
 ### Story-Schätzung
 
@@ -563,15 +565,15 @@ Es gibt verschiedene Möglichkeiten um User Stories zu schätzen. _Fliegende
 Finger_ (_Flying Fingers_) ist die einfachste: Nach dem Lesen und Diskutieren
 einer Story halten die Entwickler die Anzahl von Fingern noch, die ihrer
 Schätzung von Story Points entspricht. Das machen sie hinter ihrem Rücken, und
-auf Drei werden alle Hände gezeigt.
+auf drei werden alle Hände gezeigt.
 
 _Planungspoker_ (_Planning Poker_) ist ein ähnlicher Ansatz, der auf
 nummerierten Karten basiert, welche die Menge an Story Points bezeichnen.
 Gewisse Kartensätze verwenden eine Fibonacci-Reihe (1, 2, 3, 5, 8), manchmal mit
 weiteren Bezeichnungen: unendlich (∞) für Stories, die zum Schätzen zu gross
-sind, ein Fragezeichen (?), falls nicht genügend Informationen vorhanden sind um
-eine Story zu schätzen, und null (0), falls die Story zu trivial zum Schätzen
-ist.
+sind, ein Fragezeichen (?), falls nicht genügend Informationen vorhanden sind,
+um eine Story schätzen zu können, und null (0), falls die Story zu trivial zum
+Schätzen ist.
 
 Wenn die Finger oder Karten gezeigt werden, kann es einen Konsens geben. In
 diesem Fall wird die gemeinsame Zahl auf die Karteikarte geschrieben. Wenn es
@@ -584,8 +586,8 @@ können tatsächlich zu etwas aufsummiert werden, das grösser als null ist.
 Stories, die zu gross sind (∞), können aufgeteilt werden, solange man dabei die
 INVEST-Richtlinien einhält.
 
-Stories, die zu unklar für eine Schätzung sind (?) erfordern oftmals weitere
-Abklärungen. Eine _Meta-Story_ ‒ ein sogenannter _spike_ ("Spitze"), der eine
+Stories, die zu unklar für eine Schätzung sind (?), erfordern oftmals weitere
+Abklärungen. Eine _Meta-Story_ ‒ ein sogenannter _Spike_ ("Spitze"), der eine
 ganz dünne Scheibe durch das ganze System schneidet ‒ wird erstellt und als
 Abhängigkeit der ursprünglichen, unklaren Story referenziert.
 
@@ -597,7 +599,8 @@ Aufgaben innerhalb verschiedener Stories: lieber 80% der Stories komplett
 umgesetzt, als 80% der Aufgaben aller Stories abgeschlossen zu haben. Stories
 werden nicht den Programmierern zugewiesen, sondern individuell ausgewählt,
 indem man innerhalb des Entwicklungsteam verhandelt. Erfahrene Programmierer
-sollten Neulinge davon abbringen, zu viele oder zu umfangreiche auszuwählen.
+sollten Neulinge davon abbringen, zu viele oder zu umfangreiche Stories
+auszuwählen.
 
 Die Qualitätssicherung (_QA_) sollte gleich nach dem IPM damit beginnen die
 Akzeptanztests zu schreiben, damit sie bis zur Hälfte der Iteration
@@ -638,26 +641,26 @@ kulturellen Wandel erfordert.
 ## Akzeptanztests
 
 Akzeptanztests (_Acceptance Tests_) basieren auf der Idee, dass Anforderungen
-vom Geschäft (_by the business_) spezifiziert werden sollten. Das Wort
+vom Geschäft (_by the Business_) spezifiziert werden sollten. Das Wort
 "spezifizieren" (_to specify_) hat verschiedene Bedeutungen, je nach dem, wer es
 verwendet: auf geschäftlicher Seite will man die Spezifikation eher etwas
 schwammig in natürlicher Sprache halten, wogegen Programmierer eine
 Spezifikation bevorzugen, die so präzise ist, dass sie von einer Maschine
-ausgeführt werden kann.
+überprüft werden kann.
 
 Die Lösung für diesen Konflikt ist, dass man auf geschäftlicher Seite einen Test
 in natürlicher Sprache definiert, aber eine formale Struktur wie _Gegeben, Wenn,
-Dann_ (_Given, When, Then_, wie sie im _Behaviour-Driven Development_, BDD zum
+Dann_ (_Given, When, Then_, wie sie im _Behaviour-Driven Development_, BDD, zum
 Einsatz kommt). Die Entwickler setzen diese Tests dann in ihrer
-Programmiersprache um. Diese werden zur "Definition of Done" der User Story.
+Programmiersprache um. Diese werden zur _Definition of Done_ der User Story.
 
-- Eine Story ist nicht spezifiziert, bis Akzeptanztests geschrieben sind.
+- Eine Story ist nicht spezifiziert, bis Akzeptanztests dafür geschrieben sind.
 - Eine Story ist nicht abgeschlossen, bis ihre Akzeptanztests durchlaufen.
 
-Auf Geschäftsseite definiert man normalerweise den "günstigen Ablauf" (_happy
-path_), welcher demonstriert, dass das System den vorgesehenen Mehrwert
+Auf Geschäftsseite definiert man normalerweise den "günstigen Ablauf" (_Happy
+Path_), welcher demonstriert, dass das System den vorgesehenen Mehrwert
 erzeugt. Die Qualitätssicherung erweitert diese Tests um die "ungünstigen
-Abläufe" (_unhappy path_), weil sie gut darin ist, Ausnahmefälle zu finden, und
+Abläufe" (_Ynhappy Path_), weil sie gut darin ist, Ausnahmefälle zu finden, und
 Möglichkeiten zu entdecken, wie ein Benutzer das System "kaputt" machen kann.
 
 Die Qualitätssicherung ist nicht mehr der Flaschenhals am Ende einer Iteration,
@@ -672,9 +675,9 @@ selbstverständlich automatisiert werden.
 
 Die Praktik _Whole Team_ wurde früher als _Kunde vor Ort_ (_On-Site Customer_)
 bezeichnet. Sie basiert auf der Idee, dass eine Reduktion der physischen Distanz
-die Kummunikation verbessert. "Kunde" (_Customer_) ist in einem sehr weiten Sinn
-gemeint: es kann eine Anspruchsgruppe eines Projekts oder bei Scrum den Product
-Owner bezeichnen.
+die Kommunikation verbessert. "Kunde" (_Customer_) ist in einem sehr weiten Sinn
+gemeint: es kann eine Anspruchsgruppe eines Projekts, oder bei Scrum den
+_Product Owner_ bezeichnen.
 
 Hat man das gesamte Projektteam im gleichen Raum sitzen, wird nicht nur die
 Kommunikation effizienter, es erzeugt auch glückliche Zufälle (_Serendipity_):
@@ -686,8 +689,8 @@ Die Vorteile einer gemeinsamen Unterbringung ‒ bessere Kommunikation, glückli
 Zufälle ‒ gehen in einer Outsourcing-Umgebung verloren. Mit wachsender Distanz ‒
 physisch, kulturell, sprachlich, verschiedene Zeitzonen ‒ wird die Kommunikation
 tendenziell schlechter. Da die Technologie jedoch Fortschritte gemacht hat, geht
-das Arbeiten von einem entfernten Ort heutzutage recht gut, gerade wenn es nur
-eine räumliche, aber keine kulturelle oder sprachliche Distanz gibt, und man
+das Arbeiten von einem entfernten Ort aus heutzutage recht gut, gerade wenn es
+nur eine räumliche, aber keine kulturelle oder sprachliche Distanz gibt, und man
 sich in der gleichen Zeitzone befindet. Zufällige Gespräche und non-verbale
 Kommunikation sind bei der Telearbeit jedoch erheblich reduziert.
 
