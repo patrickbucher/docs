@@ -1245,3 +1245,86 @@ werden können, weil das Werkzeug dies vorschlägt. ALM-Werkzeuge sollten der
 persönlichen, informellen Kommunikation nicht im Weg stehen oder diese gar
 ersetzen. Im Zweifel sollte man ein einfaches Werkzeug verwenden, und mächtigere
 Werkzeug falls nötig zu einem späteren Zeitpunkt in Betracht ziehen.
+
+# Craftsmanship (von Sandro Mancuso)
+
+Agile fand bald weite Verbreitung, doch die ursprüngliche Idee davon wurde dabei
+verzerrt zu einem blossen Prozess, womit sich Software schneller entwickeln
+lässt. Statt autonom zu arbeiten, wurden die Entwickler unter sehr detaillierten
+und striken Vorgaben geleitet (_Micromanagement_), und die Transparenz von Agile
+wurde gegen sie verwendet.
+
+Manager definierten Leitpläne (_Roadmaps_) und Meilensteine (_Milestones_), und
+die Entwickler wurden dazu genötigt, ihre Schätzungen entsprechend abzugeben.
+Eine Story höchster Priorität nach der anderen mussten in Eile umgesetzt werden,
+wobei die technischen Praktiken ignoriert worden waren. Dies führte zur
+_Agile-Katerstimmung_ (_Agile Hangover_): Die Spaltung zwischen Geschäft und
+Entwicklung, die durch Agile hätte überwunden werden sollen, wurde bloss noch
+grösser.
+
+Schulungen in Agile bestanden nur aus geschäfts- und teamorientierten Praktiken,
+als ob bessere Kommunikation und Zusammenarbeit die Entwickler kompetenter
+machen würden. Es erfordert jedoch eine Reihe technischer Fertigkeiten, um
+Software in kurzen Zyklen freizugeben, und dabei die Qualität des Codes
+hochzuhalten. Experimentieren und selbständiges Lernen sind nicht genug, sondern
+müssen mit Coaching und Schulung kombiniert werden.
+
+## Das Software-Craftsmanship-Manifest
+
+Entwickler und Agile haben sich über die Jahre entfremdet, weshalb eine neue
+Bewegung im Jahr 2009 sich darin versucht hat, sie wieder zusammenzubringen:
+_Software Craftsmanship_ (etwa: Software-Handwerk), mit einem neuen
+[Manifest](https://manifesto.softwarecraftsmanship.org/#/de), das auf dem
+_Manifest für die Agile Softwareentwicklung_ basiert:
+
+> Als engagierte Software-Handwerker heben wir die Messlatte für professionelle
+> Softwareentwicklung an, indem wir üben und anderen dabei helfen, das Handwerk
+> zu erlernen. Durch diese Tätigkeit haben wir diese Werte zu schätzen gelernt: 
+>
+> - Nicht nur funktionierende Software, sondern **auch gut gefertigte Software**
+> - Nicht nur auf Veränderung zu reagieren, sondern **stets Mehrwert zu
+>   schaffen**
+> - Nicht nur Individuen und Interaktionen, sondern **auch eine Gemeinschaft aus
+>   Experten**
+> - Nicht nur Zusammenarbeit mit dem Kunden, sondern **auch produktive
+>   Partnerschaften**
+>
+> Das heißt, beim Streben nach den Werten auf der linken Seite halten wir die
+> Werte auf der rechten Seite für unverzichtbar. 
+
+Dies soll eine Bewegung von Entwicklern sein, und _Craftspeople_, wie sie sich
+selber bezeichnen, wollen diese nicht wieder kapern lassen.
+
+## Ideologien und Methodiken
+
+Ideologien sind Systeme von Ideen und definieren Ideale, die man anstreben soll.
+Methodiken sind Systeme von Methoden und Praktiken, womit man diese Ideale
+erreichen kann. Agile ist eine Ideologie, und ihr Ziel ist die Erreichung von
+geschäftlicher Beweglichkeit (_Business Agility_) und Kundenzufriedenheit
+(_Customer Satisfaction_). Scrum und XP, wie auch andere, sind Methodiken um
+diese Ziele zu erreichen.
+
+Methodiken sind wie Stützräder: hilfreich zu Beginn hindern sie einem bald am
+weiteren Vorwärtskommen. Ein zu starker Fokus auf Methoden und Praktiken lenkt
+das Team und die Organisation von deren Zielerreichung ab. Praktiken sind
+dennoch wichtig, weil Profis dadurch definiert sind, _wie_ sie arbeiten, d.h.
+durch deren Praktiken.
+
+Im Gegensatz zu Methodiken wie Scrum und XP steht bei Software Craftsmanship
+nicht eine bestimmte Reihe von Praktiken im Mittelpunkt. Stattdessen treibt es
+eine ständige Suche nach besseren Praktiken an. Dennoch gilt in der
+Software-Craftsmanship-Gemeinschaft seit ihrem Beginn in 2009 XP als beste
+Sammlung von Praktiken. Wenn (bessere) Praktiken diskutiert werden, ist es
+wesentlich, sich zunächst auf Ziele zu verständigen, die damit erreicht werden
+sollen, und sich erst dann spezifische Praktiken anzuschauen, um diese Ziele 
+erreichen zu können.
+
+Die Mitglieder der Software-Craftsmanship-Bewegung sehen das Programmieren nicht
+nur als Job, sondern als Berufung; spricht nicht nur als Möglichkeit, ein
+regelmässiges Gehalt zu beziehen, sondern als Teil ihrer Identität. Craftspeople
+arbeiten nicht nur _als_ Programmierer, sie _sind_ Programmierer. Darum
+investieren sie in ihre Karriere, was nicht heissen soll, dass sie nebenher
+nicht auch noch ein Privatleben jenseits ihrer Arbeit führen können.
+
+Agile und Software Craftsmanship haben die gleichen Ziele. Kombiniert sind sie
+das perfekte Mittel, um diese zu erreichen.
