@@ -698,24 +698,24 @@ Kommunikation sind bei der Telearbeit jedoch erheblich reduziert.
 
 In den agilen Team-Praktiken  geht es um die Beziehungen zwischen den einzelnen
 Teammitgliedern zueinander und zu dem Produkt, das erschaffen wird. Dies sind
-Metaphor (Metapher), Sustainable Pace (nachhaltiges Tempo), gemeinsame
-Inhaberschaft (Collective Ownership) und beständige Integration (Continuous
+_Metaphor_ (Metapher), _Sustainable Pace_ (nachhaltiges Tempo), _Collective
+Ownership_ (gemeinsame Inhaberschaft) und _Continuous Integration_ (beständige
 Integration).
 
 ## Metapher
 
 Eine effektive Kommunikation innerhalb des Teams setzt eine gemeinsame Sprache
-voraus, was einen wohldefinierten Wortschatz vom Begriffen und Konzepten
-beinhaltet. Metaphern zu gebrauchen, beispielsweise, indem man etwa einen
-Prozess in mehreren Schritten mit einem Fliessband vergleicht, kann die
-Kommunikation sowohl innerhalb des Teams als auch mit dem Kunden verbessern.
-Lächerliche und unpassende Metaphern, andererseits, können peinlich oder sogar
-den Anspruchsgruppen gegenüber beleidigend sein.
+voraus, was einen wohldefinierten Wortschatz von Begriffen und Konzepten
+beinhaltet. Metaphern zu gebrauchen, indem man beispielsweise einen Prozess in
+mehreren Schritten mit einem Fliessband vergleicht, kann die Kommunikation
+sowohl innerhalb des Teams als auch mit dem Kunden verbessern. Lächerliche und
+unpassende Metaphern andererseits können peinlich oder sogar den
+Anspruchsgruppen gegenüber beleidigend sein.
 
 Der Begriff _allgegenwärtige Sprache_ (_Ubiquitous Language_), der von Eric
 Evans in seinem Buch _Domain-Driven Design_ geprägt worden ist, definiert sehr
 gut, was ein Team braucht: ein Modell der Problemdomäne, das von einem
-Wortschatz beschrieben wird, der allgemein akzeptierten ist, d.h. von
+Wortschatz beschrieben wird, der allgemein akzeptiert ist, d.h. von
 Programmierern, der Qualitätssicherung, Managern, Kunden, Benutzern ‒ von allen,
 die mit dem Projekt zu tun haben.
 
@@ -725,7 +725,7 @@ Viele Stunden bis tief in die Nacht hinein zu arbeiten kann Programmierer stolz
 machen. Schliesslich sind sie wertvoll und werden gebraucht, und manchmal wird
 ein Projekt sogar dadurch gerettet, dass Überstunden geleistet werden. Leider
 kann diese gutgemeinte Hingabe ins Burnout führen, was negative Langzeitfolgen
-sowohl für den Programmierer als auch den Arbeitgeber zur Folge haben kann.
+sowohl für den Programmierer als auch für den Arbeitgeber zur Folge haben kann.
 
 Die Urteilsfähigkeit ist oft eingeschränkt, wenn man nach einem ganzen
 Arbeitstag noch tief bis in die Nacht hinein arbeitet. Oftmals werden zu dieser
@@ -737,7 +737,7 @@ kurz vor dem Erreichen der Ziellinie noch Energie vorrätig ist, ist es in
 Ordnung auf dem letzten Abschnitt zu rennen.
 
 Die Entwickler dürfen sich nicht fügen, wenn sie vom Management dazu angehalten
-werden schneller forwärts zu machen. Viele Überstunden zu leisten ist keine
+werden, schneller vorwärts zu machen. Viele Überstunden zu leisten ist keine
 Demonstration von Hingabe des Entwicklers, sondern die Konsequenz einer
 schlechten Planung, und häufig die Folge daraus, dass sich manipulierbare
 Entwickler zu unrealistischen Abgabefristen nötigen lassen.
@@ -749,7 +749,7 @@ Wert darauf legen, dass sie diese Menge an Schlaf durchwegs bekommen.
 
 In einem agilen Projekt gehört der Code nicht Einzelnen, sondern dem Team als
 ganzes. Obwohl Spezialisierung erlaubt ist und mit wachsender Systemgrösse gar
-zwingend wird, muss die Fähigkeitaufrecht erhalten werden, ausserhalb seines
+zwingend wird, muss die Fähigkeit aufrecht erhalten werden, ausserhalb seines
 eigenen Spezialgebiets zu arbeiten.
 
 Die Notwendigkeit von Generalisierung in einem System wächst mit dessen
@@ -758,20 +758,20 @@ Picture_) sehen. Mit gemeinsamer Inhaberschaft wird das Wissen über das Team
 verteilt, welches dann seine Fähigkeiten im Kommunizieren und Treffen von
 Entscheidungen verbessert.
 
-Teams, welche individuellen Codebesitz mit hohen Hürden für das Modifizieren oder
-sogar Lesen des Codes von anderen Leuten haben, werden mit der Zeit oft
-dysfunktional. Beschuldigungen und Fehlkommunikation grassieren in solchen
-Teams. Code, der das gleiche Problem löst, wird mehrmals geschrieben, statt
-geteilt zu werden.
+Teams, welche individuellen Codebesitz praktizieren, und hohe Hürden für das
+Modifizieren oder sogar das Lesen von Code anderer Leute errichten, werden mit
+der Zeit oft dysfunktional. Beschuldigungen und Fehlkommunikation grassieren in
+solchen Teams. Code, der das gleiche Problem löst, wird mehrmals geschrieben,
+statt geteilt zu werden.
 
 ## Beständige Integration
 
 Die Praxis der beständigen Integration bestand ursprünglich darin, dass
 Quellcode alle paar Stunden eingecheckt und mit dem Hauptentwicklungszweig
-zusammengeführt worden ist. Für Änderungen, die bereits technisch ausgeliefert
+zusammengeführt worden war. Für Änderungen, die bereits technisch ausgeliefert
 worden sind, aber noch nicht aktiv sein sollen, werden Schalter für deren
 (De)aktivierung (_Feature Toggles_) eingesetzt. Später hat die Einführung von
-_Continuous Build_-Werkzeugen, welche alle Tests bei einem Code-Checkin
+_Continuous-Build_-Werkzeugen, welche alle Tests bei einem Code-Checkin
 automatisch ausführen, diesen Zyklus auf Minuten reduziert.
 
 Programmierer sollten alle Tests lokal laufen lassen, bevor sie den Code
@@ -781,14 +781,15 @@ wieder zum Laufen kommt, und dass alle Tests wieder durchlaufen. Wenn die
 Disziplin einmal nachlässt und der Buildvorgang in einem kaputten Zustand
 belassen wird, wird es sehr unwahrscheinlich, dass sich das Team "später einmal"
 darum bemühen wird, das Problem zu lösen. Dies führt dazu, dass früher oder
-später ein nicht funktionstüchtiges System ausgeliefert werden wird.
+später ein nicht funktionstüchtiges System an den Kunden ausgeliefert werden
+wird.
 
 ## Standup Meetings
 
 Das _Standup Meeting_ oder _Daily Scrum_ ist optional. Es kann auch weniger
-häufig als täglich abgehalten werden; in der Frequenz, die am besten für Team
-passt. Die Besprechung sollte ungefähr zehn Minuten dauern, egal wie gross das
-Team ist.
+häufig als täglich abgehalten werden; in der Frequenz, die am besten für das
+Team passt. Die Besprechung sollte maximal ungefähr zehn Minuten dauern, egal
+wie gross das Team ist.
 
 Die Teammitglieder stehen in einem Kreis und beantworten die folgenden Fragen:
 
