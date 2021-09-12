@@ -1017,3 +1017,231 @@ Zusammengefasst: Die technischen Praktiken, die in diesem Kapitel eingeführt
 worden sind, machen den Kern der agilen Softwareentwicklung aus. Mit Agile ist
 es möglich, in kurzer Zeit unter Eile ein Chaos anzurichten, wenn man diese
 Praktiken ignoriert.
+
+# Agil werden
+
+Obwohl es auf den ersten Blick einfach anmuten mag, agil zu werden ‒ es sind ja
+bloss ein paar Disziplinen und Praktiken ‒ scheitern viele Unternehmen dabei.
+Der Grund für dieses Scheitern kann daran liegen, dass die Organisationen, die
+agil werden wollen, Missverständnisse darüber haben, was es eigentlich bedeutet,
+agil zu werden.
+
+## Agile Werte
+
+Kent Beck nannte die folgenden vier Werte, die den harten Kern von Agile
+ausmachen:
+
+1. Mut (_Courage_): Agile Teams opfern nicht Qualität gute Gelegenheiten im
+   Austausch gegen politische Sicherheit. Es erfordert Mut, um eine hohe
+   Codequalität aufrechtzuerhalten und diszipliniert zu bleiben. Es ist jedoch
+   nicht mutig, sondern bloss leichtsinnig, wenn man Code ausliefert, von dessen
+   Qualität und Design man nicht überzeugt ist.
+2. Kommunikation (_Communication_): Agile Teams legen Wert auf Kommunikation ‒
+   nicht nur innerhalb des Teams, sondern auch mit Anspruchsgruppen und der
+   Aussenwelt. Informelle Kommunikation ist besonders hilfreich, da es den Teams
+   dabei hilft, besser zusammenzuwachsen und die Beziehung zu den
+   Anspruchsgruppen stärkt.
+3. Rückmeldung/Rückkopplung (_Feedback_): Die agilen Praktiken und Disziplinen haben einen
+   gemeinsamen Nutzen: sie gewähren schnelle Rückmeldungen. Dies hilft dabei,
+   früh zu erkennen, wenn Sachen schief gehen, sodass es noch eine Möglichkeit
+   gibt, Korrekturen durchzuführen. Diese Rückmeldungen konfrontieren das Team
+   auch mit den Konsequenzen ihrer früheren Entscheidungen.
+4. Einfachheit (_Simplicity_): Einfach zu sein bedeutet, _direkt_ zu sein.
+   Software-Probleme werden oft damit gelöst, dass weitere Indirektionsschichten
+   eingeführt werden. Die agilen Werte verringern die Anzahl vo Problemen, die
+   gelöst werden müssen, wodurch weniger Indirektion nötig ist. Indirektion in
+   der Kommunikation ‒ passige Aggressivität, oder sich widerwillig unzumutbaren
+   Forderungen fügen, statt sich offen dagegen zu wehren ‒ schiebt Konflikte
+   bloss auf einen späteren Zeitpunkt heraus. Indirektion soll im Code auf ein
+   tragfähiges Mass reduziert, aus der persönlichen Kommunikation jedoch
+   komplett verbannt werden.
+
+Wenn man auf Agile umstellen will, sollte man nicht viel Zeit dafür verwenden,
+Frameworks wie XP oder Scrum zu evaluieren. Schlussendlich wird man das
+Framework so anpassen, wie es am besten auf die Bedürfnisse der jeweiligen
+Organisation passt.
+
+Den Kreis des Lebens sollte man übernehmen, insbesondere die technischen
+Praktiken im innersten Kreis. Ohne diese wird der Code schlechter werden, und
+die agilen Praktiken in den beiden äusseren Kreisen werden ein Chaos anrichten ‒
+und das sehr effizient.
+
+## Transformation
+
+Die Werte grosser Organisationen ‒ Sicherheit, Konsistenz, Führung von oben
+herab (_Command and Control_), sich an Pläne halten (_Plan Execution_) ‒ stehen
+den agilen Werten diametral entgegengesetzt. Darum erfordert eine Umstellung zu
+Agile auch immer einen Wandel der Werte.
+
+Ein solcher Wandel wird normalerweise am stärksten von der mittlere
+Führungsstufe (_Middle Management_) bekämpft, welche darauf trainiert ist,
+Risiken und direkte Kommunikation zu vermeiden. Die mittlere Führungsstufe ist
+bloss eine Indirektionsschicht ‒ genau das, was man in Agile vermeiden will. Die
+obere Führungsstufe (_Executives_) hingegen, gehen gerne Risiken ein, und sind
+auf der ständigen Suche nach neuen Chancen, weshalb sie tendenziell Umstellungen
+auf Agile gegenüber positiv eingestellt sind.
+
+Angestellte in Spezialrollen wie "technischer Lead", Architekten oder
+Projektleiter sind tendenziell gegen Transformationen zu Agile, weil sie ihre
+Rolle in einem agilen Team als herabgesetzt empfinden. In Wahrheit sind deren
+Fähigkeiten und Erfahrungen in agilen Teams besonders gefragt.
+
+Es ist auch möglich, dass ein Entwicklungsteam intern auf Agile umstellt,
+während es sich gegen aussen an den Prozess hält, der ihm von der mittleren
+Führungsstufe auferlegt wird. Statt lange gegen das Schreiben von Analyse- und
+Designdokumenten anzudiskutieren, werden diese Artefakte einfach während der
+ersten Sprints als Nebenprodukts des Codes erstellt, der dabei geschrieben
+worden ist. Analyse und Design wird für jede Story gemacht, besonders bei
+Stories, die früh umgesetzt werden.
+
+Obwohl dieses "Vortäuschen" als unaufrichtig verstanden werden kann, wird sich
+niemand beschweren, wenn es zu guten Ergebnisse führt. Das Team handelt im
+Interesse der Firma als Ganzes, statt sich bloss nach den Anforderungen der
+mittleren Führungsstufe zu richten.
+
+Sollte die Umstellung auf agile Werte nur bei ein paar wenigen Teammitgliedern
+stattfinden, dürften diese Angestellten das Team oder die Organisation früher
+oder später verlassen, und sich nach Möglichkeiten umschauen, die besser zu
+ihrer neu erlangten Einstellung passen.
+
+Grosse Organisationen stellen in der Regel nicht als Ganzes auf Agile um.
+Stattdessen gründen sie neue, kleinere Organisationen, welche auf agilen Werten
+basieren. Mit der Zeit werden diese neuen Firmen grössen, ja entwachsen dem
+Mutterhaus, denn erstere blühen mit Agile, während letztere unter ihren
+althergebrachten Methoden stagnieren.
+
+## Coaching
+
+Ein _Agile-Trainer_ leitet die grundlegende Ausbildung des Teams und schärft
+dieses auf die agilen Werte ein. Agile-Trainer sind normalerweise externe
+Berater, die für eine kurze Zeitspanne gebucht werden, etwa für ein paar Wochen.
+
+Die Rolle eines _Agile-Coaches_ sollte hingegen mit jemandem aus dem Team
+besetzt werden. Ein externer Agile-Trainer kann diese Rolle jedoch zu Beginn für
+eine kurze Übergangszeit einnehmen.
+
+Der Coach stellt sicher, dass sich das Team an die agile Methodik hält und
+agiert dabei als das Gewissen des Teams. Die Rolle des Coaches kann öfters an
+andere Teammitglieder übertragen werden, so lange sie ernst genommen wird.
+
+Der Coach ist kein Manager und nicht verantwortlich für die Planung oder das
+Budget. Weder Kunden noch Manager braucen zu wissen, wer der Coach ist, denn
+diese Rolle ist strikt teamintern.
+
+In Scrum wird ein solcher Coach als _Scrum Master_ bezeichnet. Da viele
+Projektleiter die Ausbildung und Zertifizierung absolviert haben, um Scrum
+Master zu werden, wird diese Rolle oft mit derjenigen eines Projektleiters
+verwechselt.
+
+Obwohl die Ausbildungen, die zu einer solchen Zertifizierung führen, nützlich
+sind, beweist das Zertifikat alleine praktisch nichts, d.h. nur, dass die
+Zertifizierungsgebühr entrichtet worden ist. Wenn eine formelle Ausbildung
+erteilt wird, sollte diese nicht nur eine Einzelperson erhalten, sondern das
+gesamte Team.
+
+### Coaching ‒ eine alternative Sicht (von Damon Poole)
+
+Ein grosser Teil des Coachings besteht darin, Fragen zu stellen. Eine
+Agile-Ausbildung muss den einzigartigen Umständen der Lernenden Rechnung
+tragen. Agil zu werden erfordert eine Umstellung des Denkens. Um diese Hürde
+bewältigen zu können, muss einem aufgezeigt werden, was dabei für einen drin
+liegt. Im Coaching geht es weniger darum Expertenwissen anzubieten, als
+aufzuzeigen, wie Agile dabei helfen kann, Herausforderungen zu meistern und
+Probleme zu lösen.
+
+Im Coaching geht es nicht darum, Lösungen zu verschreiben, sondern blinde
+Flecken zu entdecken, und die zugrundeliegenden, hemmenden Überzeugungen dafür
+an die Oberfläche zu bringen.
+
+Eine Umstellung auf Agile sollte auf eine agile Art und Weise durchgeführt
+werden, nicht als Projekt mit vorgegebenen Zielen, das von oben heraub
+durchgeführt wird.
+
+## Agile im Grossen
+
+Agile ist für kleine Teams von 4 bis 12 Entwickler gedacht, nicht für grosse. Es
+wurde jedoch bald versucht, in grossen Teams und Organisationen auf Agile
+umzustellen; zunächst mit einer Technik namens _Scrum of Scrums_, später mit
+Frameworks wie _SAFe_ (Scaled Agile Framework) und _LeSS_ (Large Scale Scrum).
+
+Das Problem der Organisation grosser Teams ist so alt wie unsere Zivilisation
+und wurde bereits recht gut gelöst. (Wäre das nicht der Fall, gäbe es auch keine
+Pyramiden.) Das Problem der Organisation kleiner Teams, welche Software
+entwickeln, ist jedoch eher neu. Software ist einzigartig und erfordert einige
+spezielle Disziplinen. Agile wurde dafür geschaffen, um die besonderen Probleme
+der Softwareentwicklung zu lösen. Darum ist es für die Organisation anderer
+Unterfangen wie Bauwesen oder Hardwareproduktion nicht geeignet
+
+Das Problem der Organisation grosser Softwareteams ist nur eine Frage derer
+Umorganisation in kleinere Teams. Das erste ist eine gebräuchliche
+Managementtechnik, sprich ein gelöstes Problem, das zweite wird mit Agile
+gemacht. Software-Organisatinen haben sehr vielfältige Teams, wie Entwickler,
+Qualitätssicherung, Marketing, Forschung usw. Doch auch das Problem der
+Organisation sehr vielfältiger Teams worde schon lange von verschiedenen
+Zivilisationen immer und immer wieder gelöst, man denke nur an die Organisation
+einer grossen Armee.
+
+## Agile Werkzeuge (von Tim Ottinger und Jeff Langr)
+
+Schreiner meistern zuerst dem Umgang mit einfachen Werkzeugen ‒ Hammer,
+Zollstock, Handsäge ‒ befor sie auf mächtigere Werkzeuge umstellen ‒
+Bohrmaschine, Nagelpistole, CAD. Sie geben die einfachen Werkzeuge jedoch nie
+komplett auf, sondern wählen für jede Aufgabe das richtige Werkzeug: einfache
+Werkzeuge für einfache Aufgaben.
+
+Hat man den Umgang mit jedem Gegenstand in der Werkzeugkiste gemeistert, kann
+man sich auf das eigentliche Problem konzentrieren, nicht auf das Werkzeug, mit
+dem man arbeitet: Durch Beherrschung eines Werkzeugs wird dessen Gebrauch
+_transparent_. Ohne Beherrschung eines Werkzeugs wird dieses zu einem Hemmnis
+und kann einem Unterfangen sogar abträglich sein.
+
+Softwareentwickler verwenden eine Menge verschiedener Werkzeuge (Texteditoren,
+Compiler, Versionskontrolle usw.), wodurch es unmöglich wird, jedes Werkzeug
+komplett zu beherrschen. Darum sollten nur diejenigen Werkzeuge ausgewählt
+werden, die den grössten Nutzen für den geringsten Lernaufwand bieten.
+
+Werkzeuge für den gleichen Zweck (z.B. Versionskontrolle) werden mit der Zeit
+durch bessere ersetzt, wie z.B. CVS in den letzten Jahren von Git verdrängt
+worden ist. Lernt man ein Werkzeug wie Git gut genug ‒ hier gilt die 80/20-Regel
+(20% des Aufwands ergeben 80% des Nutzens), wird der Gebrauch eines solchen
+Werkzeugs transparent, und man kann sich auf die Aufgabe statt auf das Werkzeug
+konzentrieren.
+
+Bessere Werkzeuge können auch die Art und Weise wie wir arbeite beeinflussen und
+sogar verbessern. Git beispielsweise mit seiner Unterstützung für schnelles und
+günstiges Branching erlaubt neue Arbeitsabläufe, wie z.B. `test && commit ||
+revert`: das Werkzeug wird "exaptiert" (_exapted_), nicht bloss adaptiert
+(_adapted_); d.g. es wird auf eine Art verwendet, die so vom Schöpfer des
+Werkzeugs nicht vorgesehen worden ist.
+
+Grossartige Werkzeuge haben die folgenden Eingeschaften:
+
+- Sie helfen Leuten dabei, ihre Ziele zu erreichen.
+- Ihr Gebrauch kann schnell "gut genug" erlernt werden.
+- Sie werden für ihre Nutzer transparent.
+- Sie erlauben Adaption und "Exaption".
+- Sie sind erschwinglich.
+
+Für agile Teams, die am gleichen Ort arbeiten, reichen einfache physische Werkzeuge
+wie Postit-Zettel, Klebeband und ein Whiteboard oftmals aus. Diese funktionieren
+jedoch nicht für Teams, die an verschiedenen Orten arbeiten, und speichern den
+Projektverlauf nicht automatisch ab.
+
+In der Informatik ist die Verlockung mächtige Softwarelösungen einzusetzen immer
+gross. Bevor man solche mächtigen Werkzeuge einführt, sollte man aber zuerst
+sicherstellen, dass man den Prozess im Griff hat. Das Werkzeug, das man
+einführt, muss den jeweiligen Prozess unterstützen. Die Werkzeuge sollten an das
+jeweilige Bedürfnis angepasst werden, nicht umgekehrt.
+
+Komplizierte Werkzeuge für _Agile Lifecycle Management_ (ALM) erfordern ständige
+Aufmerksamkeit und vorgängige Schulung. Diese können normalerweise ‒ wenn
+überhaupt ‒ nur so angepasst werden, wie es der Anbieter vorsieht. ALM-Werkzeuge
+sind normalerweise teuer und erfordern Wartung und Administration. Solche
+Werkzeuge werden nie transparent, und helfen darum dem Entwickler nicht dabei,
+seine Arbeit zu erledigen. Stattdessen liefern solche Werkzeuge mächtige
+Performance-Charts und Statistiken, welche als Waffe gegen Entwickler verwendet
+werden können, um diese zu beschämen und dadurch zu härterem Arbeiten gedrängt
+werden können, weil das Werkzeug dies vorschlägt. ALM-Werkzeuge sollten der
+persönlichen, informellen Kommunikation nicht im Weg stehen oder diese gar
+ersetzen. Im Zweifel sollte man ein einfaches Werkzeug verwenden, und mächtigere
+Werkzeug falls nötig zu einem späteren Zeitpunkt in Betracht ziehen.
