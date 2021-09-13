@@ -812,10 +812,10 @@ getroffen werden.
 # Technische Praktiken
 
 Die technischen Praktiken von Agile greifen tief in das Verhalten des
-Programmierers beim Schreiben von Code ein, indem es eine Reihe von Ritualen
-einführt, die von vielen Programmierern als absurd empfunden werden. Diese
-Praktiken im Kern von Agile sind: Test-Driven Development, Refactoring, Simple
-Design und Pair Programming.
+Programmierers beim Schreiben von Code ein, indem eine Reihe von Ritualen
+eingeführt wird, die viele Programmierern als absurd empfinden. Diese Praktiken
+im Kern von Agile sind: _Test-Driven Development_, _Refactoring_, _Simple
+Design_ und _Pair Programming_.
 
 ## Test-Driven Development
 
@@ -829,7 +829,7 @@ ergeben, sonst wurde irgendwo ein Fehler gemacht. Solche Fehler lassen sich
 schnell erkennen, wenn man jede Transaktion einzeln eingibt, und die Differenzen
 der beiden Seiten nach jeder Transaktion überprüft, ob sie null ergeben.
 
-Test-Driven Development (TDD) ist die dementsprechende Technik beim
+Test-Driven Development (TDD) ist die dazu entsprechende Technik beim
 Programmieren. Jedes verlangte Verhalten des Programms wird zweimal eingegeben:
 einmal als Testcode, und einmal als produktiver Code. Die Verhalten werden eines
 nach dem anderen eingegeben: zuerst als einen (vorerst scheiternden) Test,
@@ -844,16 +844,16 @@ TDD kann mit den drei folgenden, einfachen Regeln beschrieben werden:
 
 1. Schreibe keinen Produktivcode, bis es einen Test gibt, der aufgrund dieses
    fehlenden produktiven Codes scheitert.
-2. Schreibe nicht mehr Testcode, als nötig ist um den Test zum Scheitern zu
+2. Schreibe nicht mehr Testcode, als nötig ist, um den Test zum Scheitern zu
    bringen ‒ und ein Kompilierfehler gilt als Scheitern.
-3. Schreibe nicht mehr Produktivcode, als nötig ist um den Test zum Durchlaufen
+3. Schreibe nicht mehr Produktivcode, als nötig ist, um den Test zum Durchlaufen
    zu bringen.
 
 Wenn sich Programmierer an diese Regeln halten, wechseln sie in einer Frequenz
 von nur wenigen Sekunden zwischen Produktiv- und Testcode hin und her. Was zu
 Beginn wie eine Ablenkung wirken mag, stellt sicher, dass alles funktioniert ‒
-oder zumindest vor einer Minute noch alles funktioniert hat. Der Code, der einen
-Fehler eingeführt hat, ist einfach zu finden: er muss in de Zeilen sein, die
+oder zumindest vor einer Minute noch funktioniert hat. Der Code, der einen
+Fehler eingeführt hat, ist einfach zu finden: er muss in den Zeilen sein, die
 gerade erst geschrieben worden sind.
 
 Einige Programmierer sind sehr gut darin mit einem Debugger zu arbeiten, weil
@@ -868,18 +868,18 @@ Dokumentation für Programmierer: funktionierende, eigenständige, kleine
 Codebeispiele.
 
 Tests nachträglich für Code zu schreiben, der bereits manuell getestet worden
-ist fühlt sich wie langweilige Beschäftigungstherapie an. Es macht mehr Freude,
+ist, fühlt sich wie langweilige Beschäftigungstherapie an. Es macht mehr Freude,
 nach den drei Regeln von TDD zu testen und zu programmieren. Code, der unter den
 Regeln von TDD entwickelt worden ist, ist immer für gute Testbarkeit entworfen.
 Tests für Produktivcode zu schreiben, der nicht für Testbarkeit entworfen worden
-ist, ist schwierig ‒ und werden darum wahrscheinlich weggelassen. Dies
+ist, ist schwierig ‒ weswegen solche Tests oft weggelassen werden. Dies
 hinterlässt Lücken in der Testreihe, und einer durchlaufenden Testreihe kann
 nicht länger vertraut werden. Eine gute Testreihe, die durchläuft, sollte
 hingegen der Erlaubnis zum Ausliefern der Software gleichkommen.
 
 Obwohl erwünschenswert, sollte eine hohe Testabdeckung von beispielsweise 90%
 und mehr keine Metrik für das Management, sondern für das Entwicklungsteam sein.
-Es erfordert ein gutes Verständnis der Codebasis um die Testabdeckung sinnvoll
+Es erfordert ein gutes Verständnis der Codebasis, um die Testabdeckung sinnvoll
 interpretieren zu können. Eine hohe Testabdeckung dadurch zu forcieren, indem
 bei einer für zu tief empfundenen Testabdeckung der Buildvorgang zum Scheitern
 gebracht wird, ist schädlich, weil es für Programmierer einen Anreiz schafft,
@@ -903,12 +903,12 @@ definiert, welche nach dem Refactoring des Codes immer noch durchlaufen müssen.
 Die Praktik des Refactorings ist eng verknüpft mit der Praktik von TDD. Es
 benötigt eine gute Testreihe, damit der Code furchtlos verändert werden kann.
 Die dritte TDD-Regel besagt, dass man nicht mehr Produktivcode schreiben darf,
-als benötigt wird um den Test zum Durchlaufen zu bringen. Diesen Code jedoch zu
-verbessern ist nicht erlaubt, sondern wärmstens empfohlen.
+als benötigt wird, um den Test zum Durchlaufen zu bringen. Diesen Code jedoch zu
+verbessern ist nicht bloss erlaubt, sondern wärmstens empfohlen.
 
 Der Ablauf des Refactorings ist im _Rot/Grün/Refactor_-Zyklus beschrieben:
 
-![Der Rot/Grün/Refactoring-Zyklus](pic-de/refactoring.png){width=478px}
+![Der Rot/Grün/Refactor-Zyklus](pic-de/refactoring.png){width=478px}
 
 - _Rot_: Schreibe einen scheiternden Test.
 - _Grün_: Schreibe so viel Produktivcode, wie nötig ist, damit der Test
@@ -933,21 +933,21 @@ Buch _Refactoring: Improving the Design of Existing Code_ (zweite Ausgabe 2018,
 erste Ausgabe 2000) wesentlich detaillierter.
 
 Refactoring ist ein andauernder Prozess, und nicht etwas, das man einplant, wenn
-das Chaos im Code untragbar geworden ist. Mit beständigem Refactoring wird die
+das Chaos im Code untragbar geworden ist. Mit beständigem Refactoring wird nie
 ein Chaos entstehen.
 
 Es gibt Anforderungen, welche grössere Änderungen im Design und in der Struktur
 des Codes erfordern. In diesem Fall müssen grössere Refactorings vorgenommen
-werden. Obwohl solche grossen Refactorings sich über eine lange Zeit strecken
+werden. Obwohl solche grossen Refactorings sich über eine lange Zeit erstrecken
 können, sollten sie dennoch mit einem kontinuierlichen Ansatz angegangen werden,
-indem man alle Tests während des Vorgangs am Laufen hält.
+indem man alle Tests während des Vorgangs am Durchlaufen hält.
 
 ## Einfaches Design
 
 Die Praktik des einfachen Designs zielt darauf ab, dass nur der Code geschrieben
-wird, der auch wirklich benötigt wird. Die Code-Struktur soll so einfach, klein
-und ausdrucksstark wie möglich gehalten werden. Kent Beck nennt vier Regeln um
-dieses Ziel zu erreichen:
+wird, der auch wirklich benötigt wird. Die Code-Struktur soll so einfach,
+schlank und ausdrucksstark wie möglich gehalten werden. Kent Beck nennt vier
+Regeln, um dieses Ziel zu erreichen:
 
 - **Alle Tests müssen durchlaufen.** (_Pass all the tests._) Der Code muss
   natürlich wie beabsichtigt funktionieren.
@@ -957,18 +957,18 @@ dieses Ziel zu erreichen:
   Refactorings vorzunehmen.
 - **Duplikate müssen entfernt werden.** (_Remove duplication._) Der Code soll
   nicht das Gleiche mehrmals sagen. Gemeinsamen Code in Funktionen auszulagern
-  und diese vom ursprünglichen Code her aufzurufen ist eine gute Möglichkeit das
-  zu erreichen. Andere Umstände verlangen nach fortgeschrittenen Lösungen, wie
-  z.B.  nach den Entwurfsmustern _Strategy_ oder _Decorator_.
+  und diese vom ursprünglichen Code her aufzurufen ist eine gute Möglichkeit,
+  das zu erreichen. Andere Umstände verlangen nach fortgeschrittenen Lösungen,
+  wie z.B.  nach den Entwurfsmustern _Strategy_ oder _Decorator_.
 - **Elemente müssen reduziert werden.** (_Decrease elements._) Der Code soll von
   allen überflüssigen strukturellen Elementen wie Klassen, Funktionen, Variablen
   usw. bereinigt werden.
 
-Komplexes Design führt zu hoher kognitiven Last beim Programmieren, was man als
-"Gewicht des Designs" (_Design Weight_) bezeichnet. Ein "schweres" System
-erfordert mehr Verständnis um es verstehen und ändern zu können. Ebenso es
-machen Anforderungen mit hoher Komplexität schwieriger das System zu verstehen
-und zu ändern.
+Komplexes Design führt zu einer hohen kognitiven Last beim Programmieren, was
+man als "Gewicht des Designs" (_Design Weight_) bezeichnet. Ein "schweres"
+System erfordert mehr Verständnis um es verstehen und ändern zu können. Ebenso
+machen es Anforderungen mit hoher Komplexität schwieriger, das System zu
+verstehen und zu ändern.
 
 Ein ausgeklügelteres Design kann jedoch dabei helfen, mit komplexeren
 Anforderungen umzugehen. Darum muss ein Kompromiss zwischen komplexen
@@ -1011,11 +1011,11 @@ und Wissen austauschen, und werden sich nicht über das Pairing beschweren.
 Pairing ist nicht nur beim Schreiben von neuem, sondern auch beim Überprüfen von
 bestehendem Code hilfreich. Es ist auch nicht strikt auf zwei Programmierer
 begrenzt, sondern kann auch von mehreren Personen gemacht werden, was dann als
-"mob programming" bezeichnet wird.
+"Mob Programming" bezeichnet wird.
 
-Wie beim Schreiben von Tests, Refactoring und beim Design braucht man nicht um
-Erlaubnis zu fragen, wenn man Pair Programming betreiben möchte. Dies fällt in
-die Domäne des Programmierers, und hier ist der Programmierer der Experte.
+Wie beim Schreiben von Tests, beim Refactoring und beim Design braucht man nicht
+um Erlaubnis zu fragen, wenn man Pair Programming betreiben möchte. Dies fällt
+in die Domäne des Programmierers, und hier ist der Programmierer der Experte.
 
 Zusammengefasst: Die technischen Praktiken, die in diesem Kapitel eingeführt
 worden sind, machen den Kern der agilen Softwareentwicklung aus. Mit Agile ist
@@ -1026,16 +1026,16 @@ Praktiken ignoriert.
 
 Obwohl es auf den ersten Blick einfach anmuten mag, agil zu werden ‒ es sind ja
 bloss ein paar Disziplinen und Praktiken ‒ scheitern viele Unternehmen dabei.
-Der Grund für dieses Scheitern kann daran liegen, dass die Organisationen, die
+Der Grund für dieses Scheitern kann darin liegen, dass die Organisationen, die
 agil werden wollen, Missverständnisse darüber haben, was es eigentlich bedeutet,
-agil zu werden.
+agil zu sein.
 
 ## Agile Werte
 
 Kent Beck nannte die folgenden vier Werte, die den harten Kern von Agile
 ausmachen:
 
-1. Mut (_Courage_): Agile Teams opfern nicht Qualität gute Gelegenheiten im
+1. Mut (_Courage_): Agile Teams opfern nicht Qualität und gute Gelegenheiten im
    Austausch gegen politische Sicherheit. Es erfordert Mut, um eine hohe
    Codequalität aufrechtzuerhalten und diszipliniert zu bleiben. Es ist jedoch
    nicht mutig, sondern bloss leichtsinnig, wenn man Code ausliefert, von dessen
@@ -1043,18 +1043,18 @@ ausmachen:
 2. Kommunikation (_Communication_): Agile Teams legen Wert auf Kommunikation ‒
    nicht nur innerhalb des Teams, sondern auch mit Anspruchsgruppen und der
    Aussenwelt. Informelle Kommunikation ist besonders hilfreich, da es den Teams
-   dabei hilft, besser zusammenzuwachsen und die Beziehung zu den
+   dabei hilft, besser zusammenzuwachsen, und die Beziehung zu den
    Anspruchsgruppen stärkt.
 3. Rückmeldung/Rückkopplung (_Feedback_): Die agilen Praktiken und Disziplinen haben einen
    gemeinsamen Nutzen: sie gewähren schnelle Rückmeldungen. Dies hilft dabei,
    früh zu erkennen, wenn Sachen schief gehen, sodass es noch eine Möglichkeit
    gibt, Korrekturen durchzuführen. Diese Rückmeldungen konfrontieren das Team
-   auch mit den Konsequenzen ihrer früheren Entscheidungen.
+   auch mit den Konsequenzen früherer Entscheidungen.
 4. Einfachheit (_Simplicity_): Einfach zu sein bedeutet, _direkt_ zu sein.
    Software-Probleme werden oft damit gelöst, dass weitere Indirektionsschichten
-   eingeführt werden. Die agilen Werte verringern die Anzahl vo Problemen, die
+   eingeführt werden. Die agilen Werte verringern die Anzahl von Problemen, die
    gelöst werden müssen, wodurch weniger Indirektion nötig ist. Indirektion in
-   der Kommunikation ‒ passige Aggressivität, oder sich widerwillig unzumutbaren
+   der Kommunikation ‒ passive Aggressivität, oder sich widerwillig unzumutbaren
    Forderungen fügen, statt sich offen dagegen zu wehren ‒ schiebt Konflikte
    bloss auf einen späteren Zeitpunkt heraus. Indirektion soll im Code auf ein
    tragfähiges Mass reduziert, aus der persönlichen Kommunikation jedoch
@@ -1111,7 +1111,7 @@ ihrer neu erlangten Einstellung passen.
 Grosse Organisationen stellen in der Regel nicht als Ganzes auf Agile um.
 Stattdessen gründen sie neue, kleinere Organisationen, welche auf agilen Werten
 basieren. Mit der Zeit werden diese neuen Firmen grössen, ja entwachsen dem
-Mutterhaus, denn erstere blühen mit Agile, während letztere unter ihren
+Mutterhaus, denn erstere erblühen unter Agile, während letztere unter ihren
 althergebrachten Methoden stagnieren.
 
 ## Coaching
@@ -1129,7 +1129,7 @@ agiert dabei als das Gewissen des Teams. Die Rolle des Coaches kann öfters an
 andere Teammitglieder übertragen werden, so lange sie ernst genommen wird.
 
 Der Coach ist kein Manager und nicht verantwortlich für die Planung oder das
-Budget. Weder Kunden noch Manager braucen zu wissen, wer der Coach ist, denn
+Budget. Weder Kunden noch Manager brauchen zu wissen, wer der Coach ist, denn
 diese Rolle ist strikt teamintern.
 
 In Scrum wird ein solcher Coach als _Scrum Master_ bezeichnet. Da viele
@@ -1158,13 +1158,13 @@ Flecken zu entdecken, und die zugrundeliegenden, hemmenden Überzeugungen dafür
 an die Oberfläche zu bringen.
 
 Eine Umstellung auf Agile sollte auf eine agile Art und Weise durchgeführt
-werden, nicht als Projekt mit vorgegebenen Zielen, das von oben heraub
+werden, nicht als Projekt mit vorgegebenen Zielen, das von oben herab
 durchgeführt wird.
 
 ## Agile im Grossen
 
-Agile ist für kleine Teams von 4 bis 12 Entwickler gedacht, nicht für grosse. Es
-wurde jedoch bald versucht, in grossen Teams und Organisationen auf Agile
+Agile ist für kleine Teams von 4 bis 12 Entwicklern gedacht, nicht für grosse.
+Es wurde jedoch bald versucht, in grossen Teams und Organisationen auf Agile
 umzustellen; zunächst mit einer Technik namens _Scrum of Scrums_, später mit
 Frameworks wie _SAFe_ (Scaled Agile Framework) und _LeSS_ (Large Scale Scrum).
 
@@ -1179,16 +1179,16 @@ Unterfangen wie Bauwesen oder Hardwareproduktion nicht geeignet
 Das Problem der Organisation grosser Softwareteams ist nur eine Frage derer
 Umorganisation in kleinere Teams. Das erste ist eine gebräuchliche
 Managementtechnik, sprich ein gelöstes Problem, das zweite wird mit Agile
-gemacht. Software-Organisatinen haben sehr vielfältige Teams, wie Entwickler,
+gemacht. Software-Organisationen haben sehr vielfältige Teams, wie Entwickler,
 Qualitätssicherung, Marketing, Forschung usw. Doch auch das Problem der
-Organisation sehr vielfältiger Teams worde schon lange von verschiedenen
+Organisation sehr vielfältiger Teams wurde schon lange von verschiedenen
 Zivilisationen immer und immer wieder gelöst, man denke nur an die Organisation
 einer grossen Armee.
 
 ## Agile Werkzeuge (von Tim Ottinger und Jeff Langr)
 
 Schreiner meistern zuerst dem Umgang mit einfachen Werkzeugen ‒ Hammer,
-Zollstock, Handsäge ‒ befor sie auf mächtigere Werkzeuge umstellen ‒
+Zollstock, Handsäge ‒ bevor sie auf mächtigere Werkzeuge umstellen ‒
 Bohrmaschine, Nagelpistole, CAD. Sie geben die einfachen Werkzeuge jedoch nie
 komplett auf, sondern wählen für jede Aufgabe das richtige Werkzeug: einfache
 Werkzeuge für einfache Aufgaben.
@@ -1211,11 +1211,11 @@ worden ist. Lernt man ein Werkzeug wie Git gut genug ‒ hier gilt die 80/20-Reg
 Werkzeugs transparent, und man kann sich auf die Aufgabe statt auf das Werkzeug
 konzentrieren.
 
-Bessere Werkzeuge können auch die Art und Weise wie wir arbeite beeinflussen und
-sogar verbessern. Git beispielsweise mit seiner Unterstützung für schnelles und
-günstiges Branching erlaubt neue Arbeitsabläufe, wie z.B. `test && commit ||
+Bessere Werkzeuge können auch die Art und Weise wie wir arbeiten beeinflussen
+und sogar verbessern. Git beispielsweise, mit seiner Unterstützung für schnelles
+und günstiges Branching, erlaubt neue Arbeitsabläufe, wie z.B. `test && commit ||
 revert`: das Werkzeug wird "exaptiert" (_exapted_), nicht bloss adaptiert
-(_adapted_); d.g. es wird auf eine Art verwendet, die so vom Schöpfer des
+(_adapted_); d.h. es wird auf eine Art verwendet, die so vom Schöpfer des
 Werkzeugs nicht vorgesehen worden ist.
 
 Grossartige Werkzeuge haben die folgenden Eingeschaften:
@@ -1231,9 +1231,9 @@ wie Postit-Zettel, Klebeband und ein Whiteboard oftmals aus. Diese funktionieren
 jedoch nicht für Teams, die an verschiedenen Orten arbeiten, und speichern den
 Projektverlauf nicht automatisch ab.
 
-In der Informatik ist die Verlockung mächtige Softwarelösungen einzusetzen immer
-gross. Bevor man solche mächtigen Werkzeuge einführt, sollte man aber zuerst
-sicherstellen, dass man den Prozess im Griff hat. Das Werkzeug, das man
+In der Informatik ist die Verlockung, mächtige Softwarelösungen einzusetzen,
+immer gross. Bevor man solche mächtigen Werkzeuge einführt, sollte man aber
+zuerst sicherstellen, dass man den Prozess im Griff hat. Das Werkzeug, das man
 einführt, muss den jeweiligen Prozess unterstützen. Die Werkzeuge sollten an das
 jeweilige Bedürfnis angepasst werden, nicht umgekehrt.
 
@@ -1244,8 +1244,8 @@ sind normalerweise teuer und erfordern Wartung und Administration. Solche
 Werkzeuge werden nie transparent, und helfen darum dem Entwickler nicht dabei,
 seine Arbeit zu erledigen. Stattdessen liefern solche Werkzeuge mächtige
 Performance-Charts und Statistiken, welche als Waffe gegen Entwickler verwendet
-werden können, um diese zu beschämen und dadurch zu härterem Arbeiten gedrängt
-werden können, weil das Werkzeug dies vorschlägt. ALM-Werkzeuge sollten der
+werden können, um diese zu beschämen und dadurch zu härterem Arbeiten drängen zu
+können, weil das Werkzeug dies vorschlägt. ALM-Werkzeuge sollten der
 persönlichen, informellen Kommunikation nicht im Weg stehen oder diese gar
 ersetzen. Im Zweifel sollte man ein einfaches Werkzeug verwenden, und mächtigere
 Werkzeug falls nötig zu einem späteren Zeitpunkt in Betracht ziehen.
@@ -1260,23 +1260,23 @@ wurde gegen sie verwendet.
 
 Manager definierten Leitpläne (_Roadmaps_) und Meilensteine (_Milestones_), und
 die Entwickler wurden dazu genötigt, ihre Schätzungen entsprechend abzugeben.
-Eine Story höchster Priorität nach der anderen mussten in Eile umgesetzt werden,
+Eine Story höchster Priorität nach der anderen musste in Eile umgesetzt werden,
 wobei die technischen Praktiken ignoriert worden waren. Dies führte zur
 _Agile-Katerstimmung_ (_Agile Hangover_): Die Spaltung zwischen Geschäft und
 Entwicklung, die durch Agile hätte überwunden werden sollen, wurde bloss noch
 grösser.
 
 Schulungen in Agile bestanden nur aus geschäfts- und teamorientierten Praktiken,
-als ob bessere Kommunikation und Zusammenarbeit die Entwickler kompetenter
-machen würden. Es erfordert jedoch eine Reihe technischer Fertigkeiten, um
-Software in kurzen Zyklen freizugeben, und dabei die Qualität des Codes
-hochzuhalten. Experimentieren und selbständiges Lernen sind nicht genug, sondern
-müssen mit Coaching und Schulung kombiniert werden.
+als ob bessere Kommunikation und Zusammenarbeit alleine die Entwickler
+kompetenter machen würden. Es erfordert jedoch eine Reihe technischer
+Fertigkeiten, um Software in kurzen Zyklen freigeben und dabei die Qualität des
+Codes hochhalten zu können. Experimentieren und selbständiges Lernen sind nicht
+genug, sondern müssen mit Coaching und Schulung kombiniert werden.
 
 ## Das Software-Craftsmanship-Manifest
 
 Entwickler und Agile haben sich über die Jahre entfremdet, weshalb eine neue
-Bewegung im Jahr 2009 sich darin versucht hat, sie wieder zusammenzubringen:
+Bewegung im Jahr 2008 sich darin versucht hat, sie wieder zusammenzubringen:
 _Software Craftsmanship_ (etwa: Software-Handwerk), mit einem neuen
 [Manifest](https://manifesto.softwarecraftsmanship.org/#/de), das auf dem
 _Manifest für die Agile Softwareentwicklung_ basiert:
@@ -1308,7 +1308,7 @@ geschäftlicher Beweglichkeit (_Business Agility_) und Kundenzufriedenheit
 (_Customer Satisfaction_). Scrum und XP, wie auch andere, sind Methodiken um
 diese Ziele zu erreichen.
 
-Methodiken sind wie Stützräder: hilfreich zu Beginn hindern sie einem bald am
+Methodiken sind wie Stützräder: hilfreich zu Beginn, hindern sie einem bald am
 weiteren Vorwärtskommen. Ein zu starker Fokus auf Methoden und Praktiken lenkt
 das Team und die Organisation von deren Zielerreichung ab. Praktiken sind
 dennoch wichtig, weil Profis dadurch definiert sind, _wie_ sie arbeiten, d.h.
@@ -1317,14 +1317,14 @@ durch deren Praktiken.
 Im Gegensatz zu Methodiken wie Scrum und XP steht bei Software Craftsmanship
 nicht eine bestimmte Reihe von Praktiken im Mittelpunkt. Stattdessen treibt es
 eine ständige Suche nach besseren Praktiken an. Dennoch gilt in der
-Software-Craftsmanship-Gemeinschaft seit ihrem Beginn in 2009 XP als beste
+Software-Craftsmanship-Gemeinschaft seit ihrem Beginn in 2008 XP als beste
 Sammlung von Praktiken. Wenn (bessere) Praktiken diskutiert werden, ist es
 wesentlich, sich zunächst auf Ziele zu verständigen, die damit erreicht werden
 sollen, und sich erst dann spezifische Praktiken anzuschauen, um diese Ziele 
 erreichen zu können.
 
 Die Mitglieder der Software-Craftsmanship-Bewegung sehen das Programmieren nicht
-nur als Job, sondern als Berufung; spricht nicht nur als Möglichkeit, ein
+nur als Job, sondern als Berufung; sprich nicht nur als Möglichkeit, ein
 regelmässiges Gehalt zu beziehen, sondern als Teil ihrer Identität. Craftspeople
 arbeiten nicht nur _als_ Programmierer, sie _sind_ Programmierer. Darum
 investieren sie in ihre Karriere, was nicht heissen soll, dass sie nebenher
