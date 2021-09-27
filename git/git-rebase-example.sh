@@ -80,4 +80,4 @@ sleep 2
 # Bob
 cd /tmp/bob
 git fetch origin
-git merge origin/topic-alice
+git merge origin/topic-alice # XXX: this will cause a merge conflict
