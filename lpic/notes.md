@@ -137,4 +137,36 @@
 
 ## 101.3 Change Runlevels/Boot Targets and Shutdown or Reboot the System
 
+### Change Your Working Environment: runlevels
+
+- runlevels:
+    - 0: halt
+    - 1: single user mode
+    - 2: multi-user mode (without networking)
+    - 3: multi-user mode (with networking)
+    - 4: unused
+    - 5: multi-user (networking, GUI)
+    - 6: reboot
+- `runlevel` shows the runlevel
+- `telinit [runlevel]` changes the runlevel (only as `root`)
+    - `telinit 0` halts the system
+    - `telinit 6` reboots the system
+- see `/etc/inittab` for default runlevel
+
+### Change Your Working Environment: targets
+
+- target unit: get the system into a new state
+- `multi-user.traget`: like runlevel 3
+- `graphical.target`: like runlevel 5
+- `rescue.target`: like runlevel 1
+- `basic.target`: during boot process (before other targets)
+- `sysint.target`: system initialization
+- see `man 5 systemd.target` and `man 7 systemd.special`
+- list target unit files: `systemctl list-unit-files -t target`
+- list target units : `systemctl list-units -t target`
+- show default target: `systemctl get-default`
+- set default target: `systemctl set-default multi-user.target`
+- change to target: `systemctl isolate multi-user.target`
+
+
 # LPIC-1 (Exam 102)
