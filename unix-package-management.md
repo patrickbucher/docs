@@ -19,7 +19,7 @@ operating systems I use.
 | List Package Files         | `pacman -Ql [name]`                       | `dpkg -L [name]`        | `repoquery -l [name]`   |                                            | `pkg_info -L [name]` |
 | Remove Unused Dependencies | n/a                                       | `apt autoremove`        | `yum autoremove`        |                                            | `pkg_delete -a`      |
 | Cleanup Cache              | `pacman -Sc`                              | `apt autoclean`         | `yum clean all`         |                                            |                      |
-| Consistency Check          | `pacman -Dk`                              | n/a                     | `yum check`             |                                            |                      |
+| Consistency Check          | `pacman -Dk`                              | n/a                     | `yum check`             |                                            | `pkg_check`       |
 
 ## Notes
 
