@@ -139,3 +139,8 @@ bzw. ob er automatisch oder manuell gestartet wird:
 
     $ systemctl is-enabled ntpd.service
     $ systemctl is-active  ntpd.service
+
+# Quellen
+
+- Donald A. Tevault: _Linux Service Management Made Easy with systemd_. (Packt
+  Publishing, 2022)
