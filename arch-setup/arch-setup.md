@@ -400,10 +400,6 @@ Install postgresql:
 
     pacman -S postgresql
 
-Switch password of user postgres:
-
-    passwd postgres
-
 Initialize the database cluster as `postgres` user with appropriate locale and
 encoding settings:
 
@@ -414,7 +410,7 @@ Enable and start service:
     systemctl enable postgresql.service
     systemctl start postgresql.service
 
-Create a database user:
+Create a database user (call it `demo`, for example):
 
     sudo -u postgres createuser --interactive
 
@@ -422,9 +418,16 @@ Create a database (as `postgres` user):
 
     sudo -u postgres createdb demo
 
+Set a password for the new user (called `demo`) and grant all rights on database
+`demo`:
+
+    sudo -u postgres psql
+    # alter user demo with encrypted password 'topsecret';
+    # grant all privileges on database demo to semo;
+
 Start interactive SQL prompt:
 
-    psql demo postgres
+    psql demo demo
 
 Perform SQL operation non-interactively:
 
