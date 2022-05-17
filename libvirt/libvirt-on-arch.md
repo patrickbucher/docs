@@ -135,3 +135,20 @@ Then consider adding this IP address to your `/etc/hosts` file:
 Also consider copying your SSH key to the VM:
 
     $ ssh-copy-id -i ~/.ssh/id_ed25519 debian
+
+## OpenBSD
+
+The keyboard only works when run with the `--graphics vnc` option on this
+particular setup. Also, for the `os-variant`, the older `openbsd7.0` had to be
+used, because `openbsd7.1` wasn't provided yet.
+
+    # virt-install --virt-type kvm \
+        --name openbsd \
+        --memory 1024 \
+        --vcpus=2,maxvcpus=4 \
+        --cpu host \
+        --cdrom /opt/vms/cd71.iso \
+        --disk /opt/vms/openbsd.qcow2,size=10,format=qcow2 \
+        --network network=default \
+        --os-variant=openbsd7.0 \
+        --graphics vnc
