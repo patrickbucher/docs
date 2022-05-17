@@ -140,6 +140,78 @@ bzw. ob er automatisch oder manuell gestartet wird:
     $ systemctl is-enabled ntpd.service
     $ systemctl is-active  ntpd.service
 
+### Direktiven
+
+Jede Unit besteht aus einer Reihe von _Direktiven_. Diese sind in der
+Manpage `systemd.directives(7)` aufgelistet. Zu jeder Direktive ist eine
+weiterführende Manpage aufgelistet; z.B. wird für die Direktive `ExecStart` auf
+die Manpage `systemd.service(5)` verwiesen, weil diese Direktive für
+Service-Units von Belang ist.
+
+### Service Units
+
+Eine minimale Konfigurationsdatei für eine Service-Unit sieht folgendermassen
+aus:
+
+```
+[Unit]
+Description=prints "Hello, World" repeatedly
+
+[Service]
+ExecStart=/usr/local/bin/hello-loop
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Die Unit besteht aus drei Bereichen:
+
+- `[Unit]`: Allgemeine Einstellungen über die Unit. Diese
+  Konfigurationseinstellungen können unabhängig von der Art der Unit gesetzt
+  werden.
+- `[Service]`: Spezifische Einstellungen für eine Service-Unit.
+- `[Install]`: Informationen, wie die Unit installiert werden soll.
+
+Informationen über die einzelnen Abschnitte finden sich in der Manpage
+`systemd.unit(5)`.
+
+Die einzelnen Direktiven haben die folgende Bedeutung:
+
+- `Description`: Diese Zeichenkette soll den Zweck der Unit kurz und prägnant
+  beschreiben. Diese Zeile wird von `systemctl status [unit]` angezeigt.
+- `ExecStart`: Der Befehl zur Ausführung des Service-Programms.
+- `WantedBy`: Das Target, das die vorliegende Unit aktivieren soll.
+  (Vergleichbar mit einem Runlevel.)
+
+Häufig sind im `[Unit]`-Abschnitt auch folgende Direktiven gesetzt:
+
+- `Documentation`: Ein Verweis auf die Dokumentation zur Unit, oftmals eine URL
+  oder der Verweis auf eine Manpage.
+- `After`: Eine Reihe von Targets, die aktiviert sein müssen, damit die
+  vorliegende Unit aktiviert werden kann.
+
+Der `[Service]`-Abschnitt bietet eine Vielzahl von Einstellungsmöglichkeiten,
+wovon hier einige der wichtigsten erläutert werden:
+
+- `Type`: Steuert, wie der Prozess gestartet werden soll. Hierfür gibt es u.a.
+  folgende Möglichkeiten:
+    - `simple` (Standard): Sobald der durch `ExecStart` definierte Prozess
+      gestartet worden ist, gilt der Service als laufend. (Es wird davon
+      ausgegangen, dass es sich beim gestarteten Prozess um den Hauptprozess des
+      Services handelt.) Die Ausführung (`systemctl start`) gilt auch dann als
+      Erfolgreich, wenn etwa die unter `ExecStart` angegebene Binärdatei _nicht_
+      gefunden wird.
+    - `exec`: Vergleichbar mit `simple`, mit einigen Unterschieden; so gilt die
+      Ausführung nur als erfolgreich, wenn der Prozess gestartet werden konnte.
+    - `notify`: Vergleichbar mit `exec`, doch es wird gewartet, bis der
+      gestartete Prozess den Erfolg seines Starts mit `sd_notify(3)` (o.ä.)
+      zurückmeldet.
+    - `forking`: Es wird davon ausgegangen, dass der durch `ExecStart`
+      gestartete Prozess selbst einen Fork erzeugt, und der Elternprozess sich
+      dann selbst beendet. Diese Einstellung sollte im Zusammenhang mit der
+      Direktive `PIDFile` verwendet werden, damit `systemd` den Elternprozess
+      identifizieren kann.
+
 # Quellen
 
 - Donald A. Tevault: _Linux Service Management Made Easy with systemd_. (Packt
