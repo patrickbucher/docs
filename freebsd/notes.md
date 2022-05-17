@@ -80,6 +80,12 @@ boot after 3 instead of 10 seconds (`/boot/loader.conf`):
 
 (p. 430, Abolute FreeBSD, 3rd Edition)
 
+If you're using `bash` as a login shell, switch to `csh` for the upgrade. Unlike
+`csh`, `bash` is not part of the base system, and might not be available during
+the update:
+
+    $ chsh -s `which csh` [username]
+
 Download the latest patch:
 
     # freebsd-update fetch
