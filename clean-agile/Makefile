@@ -20,7 +20,7 @@ clean-agile.epub: clean-agile.md $(GRAPHICS)
 	pandoc $(DOC_OPTS) $(DATE) $< -o $@
 
 clean-agile.docx: clean-agile.md $(GRAPHICS)
-	pandoc $(DATE) $< -o $@
+	pandoc -N --toc $(DATE) $< -o $@
 
 clean-agile-de.pdf: clean-agile-de.md $(GRAPHICS_DE)
 	pandoc $(DOC_OPTS) $(PDF_OPTS_DE) $(FONT_OPTS) $(DATE_DE) $< -o $@
@@ -29,7 +29,7 @@ clean-agile-de.epub: clean-agile-de.md $(GRAPHICS_DE)
 	pandoc $(DOC_OPTS) $(DATE_DE) $< -o $@
 
 clean-agile-de.docx: clean-agile-de.md $(GRAPHICS_DE)
-	pandoc $(DATE_DE) $< -o $@
+	pandoc -N --toc $(DATE_DE) $< -o $@
 
 .SUFFIXES: .pic .png
 .pic.png:
