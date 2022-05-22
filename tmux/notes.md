@@ -25,11 +25,29 @@ Shortcut:
 Call the new session 'workspace':
 
     tmux new-session -s 'workspace'
+    tmux new -s 'workspace'
 
 Create a new session 'other':
 
     Prefix + :
     new-session -s 'other'
+
+List current sessions:
+
+    tmux list-sessions
+    tmux ls
+
+Attach to a session (the last active?):
+
+    tmux attach
+
+Attach to a specific session:
+
+    tmux attach -t second_session
+
+Destroy a session:
+
+    tmux kill-session -t workspace
 
 Switch betweeen sessions:
 
