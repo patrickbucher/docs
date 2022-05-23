@@ -287,6 +287,10 @@ Create a file `.my-pwds` with the mailbox password for `[SECRET]`:
 
     set my_pw_personal="[SECRET]"
 
+Or if you use `pass`:
+
+    echo set my_pw_personal=\"$(pass show mailbox)\" >.my-pwds
+
 Encrypt it:
 
     gpg -e .my-pwds > .my-pwds.gpg
@@ -423,7 +427,7 @@ Set a password for the new user (called `demo`) and grant all rights on database
 
     sudo -u postgres psql
     # alter user demo with encrypted password 'topsecret';
-    # grant all privileges on database demo to semo;
+    # grant all privileges on database demo to demo;
 
 Start interactive SQL prompt:
 
