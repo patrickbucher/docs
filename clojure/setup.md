@@ -47,6 +47,12 @@ Use another shell to start your repl:
 Back in Emacs, connect to the REPL using the indications given by Leiningen:
 
     M-x cider-connect [RET] localhost [RET] 39711
+
+Or simpler, use `cider-jack-in`, which automatically figures out the parameters
+from the `.nrepl-port` file:
+
+    M-x cider-jack-in
+
 # Links
 
 - [Clojure](https://clojure.org/)
