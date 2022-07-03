@@ -49,7 +49,7 @@ In `index.html`:
 
 Run it with a REPL:
 
-    $ clj --main cljs.main --watch src --compile app --repl
+    $ clj -M --main cljs.main --watch src --compile app --repl
 
 Notice that the namespace (`(ns app)`), the file name (`app.cljs`), and the
 compile target (`--compile app`) all use the name `app`.
