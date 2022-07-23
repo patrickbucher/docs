@@ -10,7 +10,7 @@ operating systems I use.
 | List Installed Packages    | `pacman -Q`                               | `dpkg -l`               | `yum list --installed`  | `pkg info -a`                              | `pkg_info`           |
 | Search Package             | `pacman -Ss [name]`                       | `apt search [name]`     | `yum search [name]`     | `pkg search [name]`                        | `pkg_info -Q [name]` |
 | Show Package Details       | `pacman -Qi [name]`                       | `apt show [name]`       | `yum info [name]`       | `pkg info [name]`                          | `pkg_info [name]`    |
-| Install Package            | `pacman -S [name]`                        | `apt install [name]`    | `yum install [name]`    | `pkg add [name]`                           | `pkg_add [name]`     |
+| Install Package            | `pacman -S [name]`                        | `apt install [name]`    | `yum install [name]`    | `pkg install [name]`                       | `pkg_add [name]`     |
 | Update Package Index       | `pacman -Sy`                              | `apt update`            | `yum update`            | `freebsd-update fetch`                     | n/a                  |
 | Upgrade Packages           | `pacman -Su`                              | `apt upgrade`           | `yum upgrade`           | `freebsd-update install` and `pkg upgrade` | `pkg_add -u`         |
 | Remove Package             | `pacman -R [name]`                        | `apt remove [name]`     | `yum remove [name]`     | `pkg delete [name]`                        | `pkg_delete [name]`  |

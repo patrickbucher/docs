@@ -20,7 +20,7 @@ In order to install `geiser`, add the following package archive to your `~/.emac
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
     (package-initialize)
 
-Save the file (`C-c C-s`) and evaluate it (`M-x eval-buffer`.
+Save the file (`C-c C-s`) and evaluate it (`M-x eval-buffer`).
 
 Run `M-x package-install RET geiser RET` to install `geiser`.
 
