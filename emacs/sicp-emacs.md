@@ -7,11 +7,29 @@ lot. Here's how to set it up and how to use it.
 
 ## Prerequisites
 
-Install `emacs` and `mit-scheme` (Arch Linux):
+Install `emacs`:
 
-    # pacman -S emacs-nox mit-scheme
+    # pacman -S emacs-nox
 
-## Install geiser
+Install `mit-scheme` from [Arch AUR](https://aur.archlinux.org/packages/mit-scheme):
+
+    $ git clone https://aur.archlinux.org/mit-scheme.git
+    $ cd mit-scheme
+    $ makepkg -si
+
+You might need to add a missing GPG key using `gpg --recv-keys [fingerprint]`:
+
+    $ gpg --recv-key C9E40BAAFD0CB132
+
+Then `mit-scheme` should be installed under `/usr/bin/scheme`:
+
+    $ which scheme
+    /usr/bin/scheme
+    $ scheme --version
+    MIT/GNU Scheme 11.2
+    [...]
+
+## Install Geiser
 
 In order to install `geiser`, add the following package archive to your `~/.emacs` file:
 
@@ -23,6 +41,8 @@ In order to install `geiser`, add the following package archive to your `~/.emac
 Save the file (`C-c C-s`) and evaluate it (`M-x eval-buffer`).
 
 Run `M-x package-install RET geiser RET` to install `geiser`.
+
+And, run `M-x package-install RET geiser-mit RET` to install `geiser-mit`.
 
 ## Configure geiser
 
@@ -54,5 +74,5 @@ definition `once` should be available:
     ;Value: 3
 
 See the [geiser cheat
-sheet](http://nongnu.org/geiser/geiser_5.html#Cheat-sheet) for further usage
-information.
+sheet](https://www.nongnu.org/geiser/Cheat-sheet.html#Cheat-sheet) for further
+usage information.
