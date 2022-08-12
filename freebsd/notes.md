@@ -134,3 +134,9 @@ upgrade attempt):
 Destroy a boot environment no longer needed:
 
     # beadm destroy 12.2-to-13.0
+
+# Security Check
+
+Run:
+
+    $ pkg audit
