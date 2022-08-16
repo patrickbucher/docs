@@ -31,5 +31,6 @@ operating systems I use.
     - The `repoquery` tool is provided by `yum-utils`.
 - FreeBSD
     - The `pkg check` command has various flags to check different things.
+    - The `pkg audit` command shows possible security issues
 - OpenBSD
     - Use `syspatch` for security updates.
