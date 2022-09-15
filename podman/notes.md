@@ -16,9 +16,63 @@
 - Podman supports Pods (like Kubernetes) and runs Kubernetes YAML.
 - The `docker` group virtually has root rights; not so with Podman.
 
+Ressources:
+
+- [podman.io](https://podman.io/)
+- [What is Podman?](https://www.redhat.com/en/topics/containers/what-is-podman)
+- [Podman in Action](https://www.manning.com/books/podman-in-action)
+
 # Setup
 
 Install Podman (on Arch Linux):
 
-    # pacman -S podman
+    # pacman -S podman buildah skopeo fuse-overlayfs slirp4netns
 
+Allow unprivileged users to run containers:
+
+    # sysctl kernel.unprivileged_userns_clone=1
+
+Set `subuid` and `subgid` for user to run containers (e.g. `patrick`):
+
+    # touch /etc/subuid /etc/subgid
+    # chmod 644 /etc/subuid /etc/subgid
+    # usermod --add-subuids 100000-165535 --add-subgids 100000-165535 patrick
+
+Propagate changes to Podman:
+
+    $ podman system migrate
+
+## Command Line Usage
+
+Test using the alpine container:
+
+    $ podman run -it docker.io/alpine
+
+Build an image:
+
+    $ podman build . -t whatever
+
+Run a container (which exposes port `8080`):
+
+    $ podman run -p 8080:8080 --name whatever whatever
+
+### systemd Integration
+
+Generate a systemd unit:
+
+    $ podman generate systemd --name whatever
+
+Save the output as a unit file:
+
+    $ podman generate systemd --name whatever --new --files
+    ./container-whatever.service
+
+Copy the unit file to user's systemd config folder:
+
+    $ mv container-whatever.service ~/.config/systemd/user/
+
+Reload the daemon, and start container using systemd unit:
+
+    $ systemctl --user daemon-reload
+    $ systemctl --user enable --now container-whatever.service
+    $ systemctl --user restart container-whatever.service
