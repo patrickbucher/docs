@@ -1,3 +1,5 @@
+Redis: REmote DIctionary Service
+
 # Setup
 
 On Arch Linux:
@@ -46,4 +48,65 @@ List all keys:
 
     > keys *
     1) "name"
+
+# Command Overview
+
+See the official [list of all commands](https://redis.io/commands/).
+
+- Meta
+    - PING
+    - HELP
+    - AUTH
+    - FLUSHALL
+- Key Retrieval
+    - KEYS
+    - RANDOMKEY
+    - EXISTS
+    - TYPE
+- Basic Usage
+    - SET
+        - MSET
+    - GET
+    - DEL
+    - RENAME
+- Arithmetic
+    - INCR
+        - INCRBY
+    - DECR
+        - DECRBY
+- Transaction Handling
+    - MULTI
+    - EXEC
+    - DISCARD
+- Lists: Prefixes L/R (left/right)
+    - LPUSH/RPUSH
+    - LRANGE
+    - LLEN
+    - LPOP/RPOP
+    - LREM
+    - RPOPLPUSH
+    - BLPOP/BRPOP
+    - BRPOPLPUSH
+- Sets
+    - SADD
+    - SMEMBERS
+    - SPOP
+    - SREM
+    - SINTER
+    - SUNION
+    - SDIFF
+    - SINTERSTORE
+    - SUNIONSTORE
+    - SDIFFSTORE
+- Hashes
+- Databases
+    - SELECT
+    - MOVE
+    - FLUSHDB
+- Timeouts
+    - EXPIRE
+    - EXPIREAT
+    - SETEX
+    - TTL
+    - PERSIST
 
