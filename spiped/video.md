@@ -42,7 +42,7 @@ Verschlüsselnde Verbindung einrichten:
 
 Auf die verschlüsselnde Verbindung hören:
 
-    nc -l 3000
+    nc -l -p 3000
 
 Eine Nachricht zur Verschlüsselung übertragen:
 
@@ -52,9 +52,9 @@ Entschlüsselnde Verbindung einrichten:
 
     spiped -d -s 127.0.0.1:3000 -t 127.0.0.1:4000 -k secret.key
 
-Auf die entschlüsselnde Verbindug hören:
+Auf die entschlüsselnde Verbindung hören:
 
-    nc -l 4000
+    nc -l -p 4000
 
 Eine Nachricht zur Ver- und Entschlüsselung übertragen:
 
