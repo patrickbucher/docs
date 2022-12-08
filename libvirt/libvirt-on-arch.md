@@ -152,3 +152,12 @@ used, because `openbsd7.1` wasn't provided yet.
         --network network=default \
         --os-variant=openbsd7.0 \
         --graphics vnc
+
+## Virt Viewer
+
+In case you locked yourself out (by running `ufw enable` without opening port
+22 first, for example), you can fix the problem using the graphical
+`virt-viewer` (using the VM name `debian`):
+
+    # virt-viewer --connect qemu:///session debian
+
