@@ -14,3 +14,5 @@
 | gesicherte Quellen          | steht auch so in der New York Times              |
 | Gemeinplätze verbreiten     | selbstreferenzielle Intertextualität             |
 | intellektuell brillant      | der gleichen Meinung wie Eric Gujer              |
+| Schalmeienklänge            | stichhaltige Argumente der Gegenseite            |
+
