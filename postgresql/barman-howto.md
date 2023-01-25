@@ -295,3 +295,11 @@ archiving):
     ----------------------
      
     (1 row)
+
+## Further Considerations for Production
+
+- Run `barman cron` once in a while (once per minute is suggested).
+- Run `barman backup` on a regular basis (daily).
+    - Run `barman check-backup` afterwards.
+    - Run `barman delete` to get rid of older base backups.
+- Replicate backup folder to S3.
