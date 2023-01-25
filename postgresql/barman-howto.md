@@ -36,7 +36,7 @@ Switch to user `postgres` to perform the following step:
 
 Make a link for convenience with your regular user:
 
-    $ sudo ln /opt/barman/env/bin/barman /usr/sbin/barman
+    $ sudo ln /opt/barman/env/bin/barman /usr/local/bin/barman
 
 The WAL should be archived into a separate folder:
 
