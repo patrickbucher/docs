@@ -225,21 +225,25 @@ be used:
     $ sudo -iu postgres barman list-backups pg | cut -d' ' -f 1,2
     pg 20230125T111904
 
-Recover the database from the point in time before (`before.timestamp`):
+Recover the database from the point in time before (see `before.timestamp`):
 
     $ sudo -iu postgres barman recover \
         --target-action pause \
         --target-time='2023-01-25 11:25:00' \
         pg 20230125T111904 /var/lib/postgres/data
 
-    TODO: --target-action promote
+With `--target-action pause`, WAL archiving is paused for the time being.
 
-    TODO postgresql.conf line 244: archive_command = false
+The command will issue a warning like this:
 
-replace `archive_command = false` by commented out line later on
+    postgresql.conf line 244: archive_command = false
+
+WAL archiving is currently deactivated.
 
 A file `/var/lib/postgres/data/postgresql.auto.conf` has been created, which
 will run the recovery upon start of the PostgreSQL service.
+
+Double-check the `restore_command` and `recovery_target_time` in that file.
 
 Follow the journal of PostreSQL in one terminal:
 
@@ -249,14 +253,8 @@ And start PostgreSQL in another terminal:
 
     $ sudo systemctl start posgresql.service
 
-TODO:
-    - check if current state is ok
-    - if so, modify config
-    - restart db
-    - promote as below
-
-If everything works fine, the database will be in readonly mode after the
-recovery:
+If everything worked fine, test the recovered data. Notice that the database
+could be in recovery mode, which can be figured out as follows:
 
     $ sudo -iu postgres psql -c 'select pg_is_in_recovery()'
      pg_is_in_recovery 
@@ -264,11 +262,34 @@ recovery:
      t
     (1 row)
 
-If so, finish the recovery and continue normal operation:
+During recovery mode, writing operations are restricted, because WAL archiving
+has been deactivated.
+
+If the data was recovered as intended (double-check directly in the database or
+with read-only operations from the application), it's time to continue normal
+operations.
+
+Stop the server:
+
+    $ sudo systemctl stop postgresql.service
+
+First, fix the PostgreSQL configuration (`/var/lib/postgres/data/postgresql.conf`) replacing:
+
+    archive_command = false
+
+With the original command (commented directly above):
+
+    archive_command = 'test ! -f /var/lib/barman/pg/incoming/%f && cp %p /var/lib/barman/pg/incoming/%f'
+    
+Then start the server again:
+
+    $ sudo systemctl start postgresql.service
+
+Second, finish recovery mode and continue normal operation (including WAL
+archiving):
 
     $ sudo -iu postgres psql -c 'select pg_wal_replay_resume()'
      pg_wal_replay_resume 
     ----------------------
      
     (1 row)
-
