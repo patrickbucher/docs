@@ -94,7 +94,7 @@ compression = gzip
 
 Make sure to create the log file:
 
-    $ sudo mkdir /var/log/barman.log
+    $ sudo touch /var/log/barman.log
     $ sudo chown postgres:postgres /var/log/barman.log
 
 Notice that the _data_ directory `/var/lib/barman` is used (rather then the
