@@ -44,7 +44,7 @@ barman_home = /var/lib/barman
 log_file = /var/log/barman/barman.log
 log_level = INFO
 compression = gzip
-recovery_options get-wal
+recovery_options = get-wal
 ```
 
 server config:
