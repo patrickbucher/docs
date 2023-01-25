@@ -12,9 +12,9 @@ Python (version 3.10.9) with Pip and venv is installed.
 The deployment shown here is **against the recommendations** of the Barman
 project: A [local backup](https://docs.pgbarman.org/release/3.3.0/#local-backup)
 is used, not a remote backup to a dedicated host! The goal of the setup shown
-here is to restore the database to undo database operations that have been
-performed erroneously in the application managing the database, not to handle
-issues related to the entire host.
+here is to restore the database in order to undo database operations that have
+been performed erroneously in the application managing the database, not to
+handle issues related to the entire host.
 
 This makes a lot of things easier, since no separate user or management of SSH
 keys is needed.
@@ -205,8 +205,7 @@ Save the current timestamp to be used for the recovery:
 Run your application and do something harmful (e.g. deleting an entry, or
 modifying some values).
 
-Stop your application as soon as possible and take a deep breath. Also stop the
-database server:
+Stop your application as soon as possible. Also stop the database server:
 
     $ sudo systemctl stop postgresql.service
 
@@ -253,8 +252,11 @@ And start PostgreSQL in another terminal:
 
     $ sudo systemctl start posgresql.service
 
-If everything worked fine, test the recovered data. Notice that the database
-could be in recovery mode, which can be figured out as follows:
+If everything worked fine, test the recovered data.
+
+### Reinstate WAL Archive 
+
+Notice that the database is in recovery mode, which can be shown as follows:
 
     $ sudo -iu postgres psql -c 'select pg_is_in_recovery()'
      pg_is_in_recovery 
