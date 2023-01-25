@@ -40,7 +40,7 @@ Make a link for convenience with your regular user:
 
 The WAL should be archived into a separate folder:
 
-    $ sudo mkdir /var/lib/barman
+    $ sudo mkdir -p /var/lib/barman/pg/incoming
     $ sudo chown -R postgres:postgres /var/lib/barman
 
 ## Configuration
@@ -98,10 +98,10 @@ Make sure to create the log file:
     $ sudo chown postgres:postgres /var/log/barman.log
 
 Notice that the _data_ directory `/var/lib/barman` is used (rather then the
-program directory `/opt/barman`). The `log_level` can be reduced to `INFO` for
-production.
+installation directory `/opt/barman`). The `log_level` can be reduced to `INFO`
+for production.
 
-The barman documentation uses `pg` as a placeholder for the server name. Since
+The Barman documentation uses `pg` as a placeholder for the server name. Since
 only the local server is configured in the setup described here, it can be
 literally called `pg`. The according server config file `/etc/barman.d/pg.conf`
 is set up as follows:
@@ -122,9 +122,13 @@ the documentation without further consideration.)
 
 ## Prepare WAL Archive
 
-Not that everything is configured, the WAL Archive can be initialized.
+Not that everything is configured, the WAL archive can be initialized.
 
-First, make sure to enforce the WAL export from PostgreSQL:
+Create the initial WAL archive as follows:
+
+    $ sudo -iu postgres barman switch-wal --force --archive pg
+
+If this doesn't work, enforce the switch to a new WAL file:
 
     $ sudo -iu postgres psql [your db] -c 'select pg_switch_wal()'
      pg_switch_wal
@@ -132,18 +136,9 @@ First, make sure to enforce the WAL export from PostgreSQL:
      0/3000000
     (1 row)
 
-Second, run the barman maintenance program:
+Then retry the abover `barman switch-wal` command.
 
-    $ sudo -iu postgres barman cron
-
-**NOTE: for some yet unknown reason, some interaction with the database (start
-application, load some entries) is needed for the next step to work.**
-
-Third, create the initial WAL archive:
-
-    $ sudo -iu postgres barman switch-wal --force --archive pg
-
-Fourth, check the current configuration and archive:
+Check the current configuration and archive:
 
     $ sudo -iu postgres barman check pg
     Server pg:
@@ -182,7 +177,8 @@ The backups can be listed as follows:
 The shown date is the **earliest** point in time for point in time recoveries;
 the WAL archive is written continuously from that point.
 
-Use the second column as the identifier to show and check a backup:
+Use the first (server) and second (timestamp) columns as the identifier to show
+and check a backup:
 
     $ sudo -iu postgres barman show-backup pg 20230125T111904
     $ sudo -iu postgres barman check-backup pg 20230125T111904
@@ -218,8 +214,8 @@ Now empty the PostgreSQL data directory:
 
     $ sudo find /var/lib/postgres/data -mindepth 1 -delete
 
-For the recovery, you need the barman server name and timestamp of the backup to
-be used:
+For the recovery, you need the barman server name (first column) and timestamp
+of the backup (second column name) to be used:
 
     $ sudo -iu postgres barman list-backups pg | cut -d' ' -f 1,2
     pg 20230125T111904
@@ -298,8 +294,10 @@ archiving):
 
 ## Further Considerations for Production
 
-- Run `barman cron` once in a while (once per minute is suggested).
+- Run `select pg_switch_wal()` using `psql` to enforce switching to a new WAL file.
+- Run `barman cron` every minute to archive the WAL files.
 - Run `barman backup` on a regular basis (daily).
     - Run `barman check-backup` afterwards.
-    - Run `barman delete` to get rid of older base backups.
+    - Run `barman delete` to get rid of older base backups (consider keeping two
+      or three).
 - Replicate backup folder to S3.
