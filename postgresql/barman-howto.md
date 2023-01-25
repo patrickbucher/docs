@@ -19,29 +19,52 @@ handle issues related to the entire host.
 This makes a lot of things easier, since no separate user or management of SSH
 keys is needed.
 
+## Setting up `barman` User
+
+Create a new user `barman` and set a password (e.g. `ospw`):
+
+    $ sudo useradd -m -s `which bash` barman
+    $ sudo passwd barman
+
+Create a super user for PostgreSQL:
+
+    $ sudo -u postgres createuser -s -P barman
+
+**TODO**: consider creating a user without superuser privileges (but grant them separately)
+
+And enter a password (not the same as above) when prompted (e.g. `pgpw`).
+
+Store this password in the user's home directory:
+
+    $ sudo su - barman
+    $ echo '[password]' > ~barman/.pgpass
+
 ## Installing Barman
 
 Barman is installed in the most recent version (3.3) into `/opt/barman`:
 
     $ sudo mkdir /opt/barman
-    $ sudo chown -R postgres:postgres /opt/barman
+    $ sudo chown -R barman:barman /opt/barman
 
-Switch to user `postgres` to perform the following step:
+Switch to user `barman` to perform the following step:
 
-    $ sudo su - postgres
-    postgres$ cd /opt/barman
-    postgres$ python -m venv env
-    postgres$ . env/bin/activate
-    postgres$ pip install barman==3.3.0
+    $ sudo su - barman 
+    barman$ cd /opt/barman
+    barman$ python3 -m venv env
+    barman$ . env/bin/activate
+    barman$ pip install barman==3.3.0
 
-Make a link for convenience with your regular user:
+With your regular user, make a link within `$PATH` for convenience, e.g.:
 
     $ sudo ln /opt/barman/env/bin/barman /usr/local/bin/barman
 
 The WAL should be archived into a separate folder:
 
-    $ sudo mkdir -p /var/lib/barman/pg/incoming
-    $ sudo chown -R postgres:postgres /var/lib/barman
+    $ sudo mkdir -p /var/lib/barman/[database]/incoming
+
+Replace `[database]` with the proper database name.
+
+    $ sudo chown -R barman:barman /var/lib/barman
 
 ## Configuration
 
@@ -54,12 +77,14 @@ into barman's directory (edit `/var/lib/postgres/data/postgresql.conf`):
 
     archive_mode = on
     wal_level = replica
-    archive_command = 'test ! -f /var/lib/barman/pg/incoming/%f && cp %p /var/lib/barman/pg/incoming/%f'
+    archive_command = 'test ! -f /var/lib/barman/[database]/incoming/%f && cp %p /var/lib/barman/[database]/incoming/%f'
     archive_timeout = 900
+
+Again, `[database]` has to be replaced **twice** with the prober name.
 
 The WAL archive is activated at replica level. The `archive_command` makes sure
 that the current WAL file does not already exist under the target directory, and
-copies it thereinto. The operation is allowed to take up to 900 seconds (i.e. 15
+copies it in there. The operation is allowed to take up to 900 seconds (i.e. 15
 minutes), which should be plenty.
 
 Having saved those changes, restart PostgreSQL and check its status:
@@ -77,14 +102,14 @@ Barman has a global (`/etc/barman.conf`) and a per-server
 
     $ sudo touch /etc/barman.conf
     $ sudo mkdir /etc/barman.d
-    $ sudo chown postgres:postgres /etc/barman.conf
-    $ sudo chown -R postgres:postgres /etc/barman.d
+    $ sudo chown barman:barman /etc/barman.conf
+    $ sudo chown -R barman:barman /etc/barman.d
 
 The main config file (`/etc/barman.conf`) is configured as follows:
 
 ```ini
 [barman]
-barman_user = postgres
+barman_user = barman
 configuration_files_directory = /etc/barman.d
 barman_home = /var/lib/barman
 log_file = /var/log/barman.log
@@ -92,48 +117,36 @@ log_level = DEBUG
 compression = gzip
 ```
 
-Make sure to create the log file:
-
-    $ sudo touch /var/log/barman.log
-    $ sudo chown postgres:postgres /var/log/barman.log
-
 Notice that the _data_ directory `/var/lib/barman` is used (rather then the
 installation directory `/opt/barman`) for the `barman_home`. The `log_level` can
 be reduced to `INFO` for production.
 
+Make sure to create the log file:
+
+    $ sudo touch /var/log/barman.log
+    $ sudo chown barman:barman /var/log/barman.log
+
 The Barman documentation uses `pg` as a placeholder for the server name. Since
 only the local server is configured in the setup described here, it can be
-literally called `pg`. The according server config file `/etc/barman.d/pg.conf`
-is set up as follows:
+literally called `pg`. As an alternative, use the name of your application or
+database. The according server config file `/etc/barman.d/pg.conf` is set up as
+follows:
 
 ```ini
-[pg]
+[database]
 description = "local PostgreSQL server"
-conninfo = host=localhost user=[username] password=[password] dbname=[database]
+conninfo = host=localhost user=barman password=pgpw dbname=[database]
 backup_method = local-rsync
 parallel_jobs = 1
 archiver = on
 backup_options = concurrent_backup
 ```
 
+Replace `pgpw` with the real PostgreSQL password for `barman`, and use the
+actual name for `[datbase]`.
+
 As the `backup_method`, `local-rsync` is used. (The other options have been
 taken from the documentation without further consideration.)
-
-Make sure to replace `[username]`, `[password]`, and `[database]` with the
-proper information.
-
-The user must be granted several rights in order to perform backups and
-restores:
-
-```sql
-GRANT EXECUTE ON FUNCTION pg_start_backup(text, boolean, boolean) to [username];
-GRANT EXECUTE ON FUNCTION pg_stop_backup() to [username];
-GRANT EXECUTE ON FUNCTION pg_stop_backup(boolean, boolean) to [username];
-GRANT EXECUTE ON FUNCTION pg_switch_wal() to [username];
-GRANT EXECUTE ON FUNCTION pg_create_restore_point(text) to [username];
-GRANT pg_read_all_settings TO [username];
-GRANT pg_read_all_stats TO [username];
-```
 
 ## Prepare WAL Archive
 
@@ -141,18 +154,20 @@ Not that everything is configured, the WAL archive can be initialized.
 
 Create the initial WAL archive as follows:
 
-    $ sudo -iu postgres barman switch-wal --force --archive pg
+    $ sudo -iu barman barman switch-wal --force --archive [database]
 
 If this doesn't work (follow `/var/log/barman.log` for details), enforce the
 switch to a new WAL file:
 
-    $ sudo -iu postgres psql [your db] -c 'select pg_switch_wal()'
+    $ sudo -iu barman psql [your db] -c 'select pg_switch_wal()'
      pg_switch_wal
     ---------------
      0/3000000
     (1 row)
 
 Then retry the above `barman switch-wal` command.
+
+**TODO**: still doesn't work
 
 Check the current configuration and archive:
 
