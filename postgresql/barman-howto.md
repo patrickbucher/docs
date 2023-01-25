@@ -109,18 +109,31 @@ is set up as follows:
 ```ini
 [pg]
 description = "local PostgreSQL server"
-conninfo = host=localhost user=postgres password=[password] dbname=[database]
+conninfo = host=localhost user=[username] password=[password] dbname=[database]
 backup_method = local-rsync
 parallel_jobs = 1
 archiver = on
 backup_options = concurrent_backup
 ```
 
-Make sure to set the `[password]`, if needed, and to replace `[database]` with
-the real database name.
-
 As the `backup_method`, `local-rsync` is used. (The other options have been
 taken from the documentation without further consideration.)
+
+Make sure to replace `[username]`, `[password]`, and `[database]` with the
+proper information.
+
+The user must be granted several rights in order to perform backups and
+restores:
+
+```sql
+GRANT EXECUTE ON FUNCTION pg_start_backup(text, boolean, boolean) to [username];
+GRANT EXECUTE ON FUNCTION pg_stop_backup() to [username];
+GRANT EXECUTE ON FUNCTION pg_stop_backup(boolean, boolean) to [username];
+GRANT EXECUTE ON FUNCTION pg_switch_wal() to [username];
+GRANT EXECUTE ON FUNCTION pg_create_restore_point(text) to [username];
+GRANT pg_read_all_settings TO [username];
+GRANT pg_read_all_stats TO [username];
+```
 
 ## Prepare WAL Archive
 
