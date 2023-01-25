@@ -59,7 +59,7 @@ archiver = on
 backup_options = concurrent_backup
 ```
 
-encorce wal export:
+enforce wal export:
 
     sudo -u postgres psql aect -c 'select pg_switch_wal()'
 
@@ -82,3 +82,5 @@ run
     $ barman status pg
 
     $ barman recover --get-wal --target-time='2023-01-18 17:26:00' pg 20230118T172515 /var/lib/postgres/data/
+
+TODO: what does `barman cron` do?
