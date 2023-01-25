@@ -98,8 +98,8 @@ Make sure to create the log file:
     $ sudo chown postgres:postgres /var/log/barman.log
 
 Notice that the _data_ directory `/var/lib/barman` is used (rather then the
-installation directory `/opt/barman`). The `log_level` can be reduced to `INFO`
-for production.
+installation directory `/opt/barman`) for the `barman_home`. The `log_level` can
+be reduced to `INFO` for production.
 
 The Barman documentation uses `pg` as a placeholder for the server name. Since
 only the local server is configured in the setup described here, it can be
@@ -109,16 +109,18 @@ is set up as follows:
 ```ini
 [pg]
 description = "local PostgreSQL server"
-conninfo = host=localhost user=postgres dbname=[your database name]
+conninfo = host=localhost user=postgres password=[password] dbname=[database]
 backup_method = local-rsync
 parallel_jobs = 1
 archiver = on
 backup_options = concurrent_backup
 ```
 
-Make sure to replace `[your database name]` with the real one. As the
-`backup_method`, `local-rsync` is used. (The other options have been taken from
-the documentation without further consideration.)
+Make sure to set the `[password]`, if needed, and to replace `[database]` with
+the real database name.
+
+As the `backup_method`, `local-rsync` is used. (The other options have been
+taken from the documentation without further consideration.)
 
 ## Prepare WAL Archive
 
@@ -128,7 +130,8 @@ Create the initial WAL archive as follows:
 
     $ sudo -iu postgres barman switch-wal --force --archive pg
 
-If this doesn't work, enforce the switch to a new WAL file:
+If this doesn't work (follow `/var/log/barman.log` for details), enforce the
+switch to a new WAL file:
 
     $ sudo -iu postgres psql [your db] -c 'select pg_switch_wal()'
      pg_switch_wal
@@ -136,7 +139,7 @@ If this doesn't work, enforce the switch to a new WAL file:
      0/3000000
     (1 row)
 
-Then retry the abover `barman switch-wal` command.
+Then retry the above `barman switch-wal` command.
 
 Check the current configuration and archive:
 
@@ -301,3 +304,4 @@ archiving):
     - Run `barman delete` to get rid of older base backups (consider keeping two
       or three).
 - Replicate backup folder to S3.
+- Consider configuring `last_backup_maximum_age` option in `/etc/barman.conf`.
