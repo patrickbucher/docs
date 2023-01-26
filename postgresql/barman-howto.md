@@ -21,9 +21,10 @@ keys is needed.
 
 ## Setting up `barman` User
 
-Create a new user `barman` and set a password (e.g. `ospw`):
+Create a new user `barman` as a member of the `postgres` group, and set a
+password (e.g. `ospw`):
 
-    $ sudo useradd -m -s `which bash` barman
+    $ sudo useradd -m -g postgres -s `which bash` barman
     $ sudo passwd barman
 
 Create a super user for PostgreSQL:
@@ -44,7 +45,7 @@ Store this password in the user's home directory:
 Barman is installed in the most recent version (3.3) into `/opt/barman`:
 
     $ sudo mkdir /opt/barman
-    $ sudo chown -R barman:barman /opt/barman
+    $ sudo chown -R barman:postgres /opt/barman
 
 Switch to user `barman` to perform the following step:
 
@@ -54,9 +55,10 @@ Switch to user `barman` to perform the following step:
     barman$ . env/bin/activate
     barman$ pip install barman==3.3.0
 
-With your regular user, make a link within `$PATH` for convenience, e.g.:
+With your regular user, make a some links within `$PATH` for convenience, e.g.:
 
-    $ sudo ln /opt/barman/env/bin/barman /usr/local/bin/barman
+    $ sudo ln -s /opt/barman/env/bin/barman /usr/local/bin/barman
+    $ sudo ln -s /opt/barman/env/bin/barman-wal-archive /usr/local/bin/barman-wal-archive
 
 The WAL should be archived into a separate folder:
 
@@ -64,7 +66,10 @@ The WAL should be archived into a separate folder:
 
 Replace `[database]` with the proper database name.
 
-    $ sudo chown -R barman:barman /var/lib/barman
+Own the directory by `barman`, and give write permission to its group:
+
+    $ sudo chown -R barman:postgres /var/lib/barman
+    $ sudo chmod -R 770 /var/lib/barman
 
 ## Configuration
 
@@ -80,7 +85,7 @@ into barman's directory (edit `/var/lib/postgres/data/postgresql.conf`):
     archive_command = 'test ! -f /var/lib/barman/[database]/incoming/%f && cp %p /var/lib/barman/[database]/incoming/%f'
     archive_timeout = 900
 
-Again, `[database]` has to be replaced **twice** with the prober name.
+Again, `[database]` has to be replaced **twice** with the proper name.
 
 The WAL archive is activated at replica level. The `archive_command` makes sure
 that the current WAL file does not already exist under the target directory, and
@@ -102,8 +107,8 @@ Barman has a global (`/etc/barman.conf`) and a per-server
 
     $ sudo touch /etc/barman.conf
     $ sudo mkdir /etc/barman.d
-    $ sudo chown barman:barman /etc/barman.conf
-    $ sudo chown -R barman:barman /etc/barman.d
+    $ sudo chown barman:postgres /etc/barman.conf
+    $ sudo chown -R barman:postgres /etc/barman.d
 
 The main config file (`/etc/barman.conf`) is configured as follows:
 
@@ -124,13 +129,13 @@ be reduced to `INFO` for production.
 Make sure to create the log file:
 
     $ sudo touch /var/log/barman.log
-    $ sudo chown barman:barman /var/log/barman.log
+    $ sudo chown barman:postgres /var/log/barman.log
 
 The Barman documentation uses `pg` as a placeholder for the server name. Since
 only the local server is configured in the setup described here, it can be
 literally called `pg`. As an alternative, use the name of your application or
-database. The according server config file `/etc/barman.d/pg.conf` is set up as
-follows:
+database. The according server config file `/etc/barman.d/[database].conf` is
+set up as follows:
 
 ```ini
 [database]
@@ -143,10 +148,22 @@ backup_options = concurrent_backup
 ```
 
 Replace `pgpw` with the real PostgreSQL password for `barman`, and use the
-actual name for `[datbase]`.
+actual name for `[database]` (in square brackets, e.g. `[foobar]`).
 
 As the `backup_method`, `local-rsync` is used. (The other options have been
 taken from the documentation without further consideration.)
+
+Check the current configuration:
+
+    $ sudo -iu barman barman check [database]
+    Server [database]:
+        WAL archive: FAILED (please make sure WAL shipping is setup)
+        PostgreSQL: OK
+        superuser or standard user with backup privileges: OK
+        ...
+
+The WAL archive is on `FAILED`, but will be initialized in the next step. **The
+other lines must say `OK`!**
 
 ## Prepare WAL Archive
 
