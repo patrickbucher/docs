@@ -19,37 +19,37 @@ handle issues related to the entire host.
 This makes a lot of things easier, since no separate user or management of SSH
 keys is needed.
 
-## Setting up `barman` User
+The `postgres` user is used for all tasks, because it doesn't work in another
+way using the local deployment.
 
-Create a new user `barman` as a member of the `postgres` group, and set a
-password (e.g. `ospw`):
+## Password for `postgres` User
 
-    $ sudo useradd -m -g postgres -s `which bash` barman
-    $ sudo passwd barman
+If the `pg_hba.conf` [is set to
+`trust`](https://dba.stackexchange.com/q/322568/267829), this step can be
+skipped.
 
-Create a super user for PostgreSQL:
+Otherwise, set a password for the `postgres` user (`pgpw` is used as a weak
+password here, standing for "postgres password"):
 
-    $ sudo -u postgres createuser -s -P barman
+    $ sudo -u postgres psql
+    postgres=# ALTER USER postgres WITH PASSWORD 'pgpw';
 
-**TODO**: consider creating a user without superuser privileges (but grant them separately)
+Save the same password into `~postgres/.pgpass`:
 
-And enter a password (not the same as above) when prompted (e.g. `pgpw`).
-
-Store this password in the user's home directory:
-
-    $ sudo su - barman
-    $ echo '[password]' > ~barman/.pgpass
+    $ sudo su - postgres
+    $ echo 'localhost:5432:*:postgres:pgpw' > ~postgres/.pgpass
+    $ chmod 600 ~postgres/.pgpass
 
 ## Installing Barman
 
 Barman is installed in the most recent version (3.3) into `/opt/barman`:
 
     $ sudo mkdir /opt/barman
-    $ sudo chown -R barman:postgres /opt/barman
+    $ sudo chown -R postgres:postgres /opt/barman
 
 Switch to user `barman` to perform the following step:
 
-    $ sudo su - barman 
+    $ sudo su - postgres
     barman$ cd /opt/barman
     barman$ python3 -m venv env
     barman$ . env/bin/activate
@@ -58,7 +58,6 @@ Switch to user `barman` to perform the following step:
 With your regular user, make a some links within `$PATH` for convenience, e.g.:
 
     $ sudo ln -s /opt/barman/env/bin/barman /usr/local/bin/barman
-    $ sudo ln -s /opt/barman/env/bin/barman-wal-archive /usr/local/bin/barman-wal-archive
 
 The WAL should be archived into a separate folder:
 
@@ -68,8 +67,8 @@ Replace `[database]` with the proper database name.
 
 Own the directory by `barman`, and give write permission to its group:
 
-    $ sudo chown -R barman:postgres /var/lib/barman
-    $ sudo chmod -R 770 /var/lib/barman
+    $ sudo chown -R postgres:postgres /var/lib/barman
+    $ sudo chmod -R 700 /var/lib/barman
 
 ## Configuration
 
@@ -85,12 +84,8 @@ into barman's directory (edit `/var/lib/postgres/data/postgresql.conf`):
     archive_command = 'test ! -f /var/lib/barman/[database]/incoming/%f && cp %p /var/lib/barman/[database]/incoming/%f'
     archive_timeout = 900
 
-Again, `[database]` has to be replaced **twice** with the proper name.
-
-The WAL archive is activated at replica level. The `archive_command` makes sure
-that the current WAL file does not already exist under the target directory, and
-copies it in there. The operation is allowed to take up to 900 seconds (i.e. 15
-minutes), which should be plenty.
+Notice that the `barman-wal-archive` variant of the `archive_command` does not
+work in the `local-rsync` setup.
 
 Having saved those changes, restart PostgreSQL and check its status:
 
@@ -107,14 +102,14 @@ Barman has a global (`/etc/barman.conf`) and a per-server
 
     $ sudo touch /etc/barman.conf
     $ sudo mkdir /etc/barman.d
-    $ sudo chown barman:postgres /etc/barman.conf
-    $ sudo chown -R barman:postgres /etc/barman.d
+    $ sudo chown postgres:postgres /etc/barman.conf
+    $ sudo chown -R postgres:postgres /etc/barman.d
 
 The main config file (`/etc/barman.conf`) is configured as follows:
 
 ```ini
 [barman]
-barman_user = barman
+barman_user = postgres
 configuration_files_directory = /etc/barman.d
 barman_home = /var/lib/barman
 log_file = /var/log/barman.log
@@ -129,7 +124,7 @@ be reduced to `INFO` for production.
 Make sure to create the log file:
 
     $ sudo touch /var/log/barman.log
-    $ sudo chown barman:postgres /var/log/barman.log
+    $ sudo chown postgres:postgres /var/log/barman.log
 
 The Barman documentation uses `pg` as a placeholder for the server name. Since
 only the local server is configured in the setup described here, it can be
@@ -140,14 +135,14 @@ set up as follows:
 ```ini
 [database]
 description = "local PostgreSQL server"
-conninfo = host=localhost user=barman password=pgpw dbname=[database]
+conninfo = host=localhost user=postgres password=pgpw dbname=[database]
 backup_method = local-rsync
 parallel_jobs = 1
 archiver = on
 backup_options = concurrent_backup
 ```
 
-Replace `pgpw` with the real PostgreSQL password for `barman`, and use the
+Replace `pgpw` with the real PostgreSQL password for `postgres`, and use the
 actual name for `[database]` (in square brackets, e.g. `[foobar]`).
 
 As the `backup_method`, `local-rsync` is used. (The other options have been
@@ -155,7 +150,7 @@ taken from the documentation without further consideration.)
 
 Check the current configuration:
 
-    $ sudo -iu barman barman check [database]
+    $ sudo -iu postgres barman check [database]
     Server [database]:
         WAL archive: FAILED (please make sure WAL shipping is setup)
         PostgreSQL: OK
@@ -171,7 +166,7 @@ Not that everything is configured, the WAL archive can be initialized.
 
 Create the initial WAL archive as follows:
 
-    $ sudo -iu barman barman switch-wal --force --archive [database]
+    $ sudo -iu postgres barman switch-wal --force --archive [database]
 
 If this doesn't work (follow `/var/log/barman.log` for details), enforce the
 switch to a new WAL file:
@@ -184,12 +179,10 @@ switch to a new WAL file:
 
 Then retry the above `barman switch-wal` command.
 
-**TODO**: still doesn't work
-
 Check the current configuration and archive:
 
-    $ sudo -iu postgres barman check pg
-    Server pg:
+    $ sudo -iu postgres barman check [database]
+    Server [database]:
         PostgreSQL: OK
         superuser or standard user with backup privileges: OK
         wal_level: OK
@@ -215,12 +208,12 @@ If everything is `OK`, you're set.
 
 Now it's time to create the initial backup:
 
-    $ sudo -iu postgres barman backup pg
+    $ sudo -iu postgres barman backup [database]
 
 The backups can be listed as follows:
 
-    $ sudo -iu postgres barman list-backups pg
-    pg 20230125T111904 - Wed Jan 25 11:19:05 2023 - Size: 43.4 MiB - WAL Size: 0 B
+    $ sudo -iu postgres barman list-backups [database]
+    [database] 20230125T111904 - Wed Jan 25 11:19:05 2023 - Size: 43.4 MiB - WAL Size: 0 B
 
 The shown date is the **earliest** point in time for point in time recoveries;
 the WAL archive is written continuously from that point.
@@ -228,14 +221,14 @@ the WAL archive is written continuously from that point.
 Use the first (server) and second (timestamp) columns as the identifier to show
 and check a backup:
 
-    $ sudo -iu postgres barman show-backup pg 20230125T111904
-    $ sudo -iu postgres barman check-backup pg 20230125T111904
+    $ sudo -iu postgres barman show-backup [database] 20230125T111904
+    $ sudo -iu postgres barman check-backup [database] 20230125T111904
     $ echo $?
     0
 
 Check the status of your server anytime:
 
-    $ sudo -iu postgres barman status pg
+    $ sudo -iu postgres barman status [database]
 
 ## Recovery
 
@@ -265,8 +258,8 @@ Now empty the PostgreSQL data directory:
 For the recovery, you need the barman server name (first column) and timestamp
 of the backup (second column name) to be used:
 
-    $ sudo -iu postgres barman list-backups pg | cut -d' ' -f 1,2
-    pg 20230125T111904
+    $ sudo -iu postgres barman list-backups [database] | cut -d' ' -f 1,2
+    [database] 20230125T111904
 
 Recover the database from the point in time before (see `before.timestamp`):
 
@@ -294,7 +287,7 @@ Follow the journal of PostreSQL in one terminal:
 
 And start PostgreSQL in another terminal:
 
-    $ sudo systemctl start posgresql.service
+    $ sudo systemctl start postgresql.service
 
 If everything worked fine, test the recovered data.
 
