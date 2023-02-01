@@ -171,7 +171,7 @@ Create the initial WAL archive as follows:
 If this doesn't work (follow `/var/log/barman.log` for details), enforce the
 switch to a new WAL file:
 
-    $ sudo -iu barman psql [your db] -c 'select pg_switch_wal()'
+    $ sudo -iu postgres psql [your db] -c 'select pg_switch_wal()'
      pg_switch_wal
     ---------------
      0/3000000
