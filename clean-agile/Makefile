@@ -1,7 +1,7 @@
 DOC_OPTS=--toc -N -s
 PDF_OPTS=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue --dpi=300 -V lang=en
 PDF_OPTS_DE=--pdf-engine=xelatex -V documentclass=scrartcl -V papersize=a4 -V urlcolor=blue --dpi=300 -V lang=de
-FONT_OPTS=-V mainfont='Linux Libertine' -V sansfont='Linux Biolinum'
+FONT_OPTS=-V mainfont='Libertinus Serif' -V sansfont='Libertinus Sans' -V monofont='Libertinus Mono'
 DATE=-V date="`date +'%Y-%m-%d'`"
 DATE_DE=-V date="`date +'%d.%m.%Y'`"
 
