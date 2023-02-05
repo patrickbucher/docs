@@ -1,0 +1,24 @@
+\documentclass{standalone}
+\usepackage{pst-all}
+\usepackage{fontspec}
+    \setmainfont{Fantasque Sans Mono}
+
+\begin{document}
+
+\begin{pspicture}(16,9)
+    \rput[tl](0.5,8.0){global env}
+    \psline{->}(2.1,7.9)(3.0,7.9)
+    \psframe(3,8.5)(15.5,6.5)
+    \rput[tl](3.1,8.4){factorial:}
+
+    \pscircle(2,3){0.5}
+    \pscircle[fillstyle=solid,fillcolor=black](2,3){0.1}
+    \pscircle(3,3){0.5}
+    \pscircle[fillstyle=solid,fillcolor=black](3,3){0.1}
+
+    \psline{->}(2,3)(2,2)
+    \psline{->}(3,3)(3.75,3)(3.75,5)
+    \rput[tl](1,2){\parbox{8cm}{parameters: n\\body:\\(if (= n 1) 1 (* n (factorial (- n 1))))}}
+\end{pspicture}
+
+\end{document}
