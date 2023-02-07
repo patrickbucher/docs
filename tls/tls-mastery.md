@@ -1890,9 +1890,9 @@ which redirects and captures the communication between client and server using
 an attacker's proxy. Even a server redirecting all HTTP traffic to HTTPS won't
 help, because the proxy still offers the client weak HTTPS or HTTP.
 
-A website only serving HTTPS can use HSTS to inform the client that there's
-won't be served anything under plain, unencrypted HTTP. A client receiving this
-information will switch to HTTPS—and reject further wekly encrypted or entirely
+A website only serving HTTPS can use HSTS to inform the client that there won't
+be served anything under plain, unencrypted HTTP. A client receiving this
+information will switch to HTTPS—and reject further weakly encrypted or entirely
 unencrypted communication.
 
 Since the HSTS header is cached on the client side, no fallback to HTTP will be
