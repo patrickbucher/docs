@@ -15,20 +15,20 @@ And reload it:
 
     $ . ~/.bashrc
 
-Install Ruby 2.6.5:
+Install Ruby 2.7.7:
 
-    $ rbenv install 2.6.5
+    $ rbenv install 2.7.7
 
 Make it the global default:
 
-    $ rbenv global 2.6.5
+    $ rbenv global 2.7.7
 
 Install Rails:
 
-    $ gem install rails --version=6.0.1 --no-document
+    $ gem install rails --version=6.1.7.3 --no-document
 
 Check your setup:
 
     $ rails --version
-    Rails 6.0.1
+    Rails 6.1.7.3
 
