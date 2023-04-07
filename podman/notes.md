@@ -76,3 +76,9 @@ Reload the daemon, and start container using systemd unit:
     $ systemctl --user daemon-reload
     $ systemctl --user enable --now container-whatever.service
     $ systemctl --user restart container-whatever.service
+
+# Networking
+
+Figure out the standard gateway of a network:
+
+    podman network inspect [network] --format '{{ (index .Subnets 0).Gateway }}'
