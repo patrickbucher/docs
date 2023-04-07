@@ -2,9 +2,9 @@
 
 ## Create a Rails Application
 
-Create a new Rails 6 application called `demo`:
+Create a new Rails 6 _API only_ application called `demo`:
 
-    $ rails new demo
+    $ rails new demo --api
     $ cd demo
 
 Examine the installation to check versions and the like:
@@ -28,23 +28,3 @@ Check out more parameters using the `--help` flag:
     $ bin/rails server --help
 
 And check `http://localhost:3000/`, which should display a welcome page.
-
-## Add a Controler
-
-Create a controller called `Say` with two endpoints `hello` and `goodbye`:
-
-    bin/rails generate controller Say hello goodbye
-
-Which generates the controller `app/controllers/say_controller.rb`. Two
-new endpoints are now available:
-
-- `http://localhost:3000/say/hello`
-- `http://localhost:3000/say/goodbye`
-
-If accessing one of those endpoints results in an error concerning Webpacker,
-run the following:
-
-    TODO: unverified
-
-    $ bin/rails webpacker:install
-    $ yarn
