@@ -285,7 +285,7 @@ is not an easy task:
   Design, architecture, code structure, efficiency, and throughput of a system
   should improve and not detoriate over time.
 - **Fearless Competence**: Developers are often afraid of modifying bad code,
-  and therefor, bad code isn't improved. ("You touch it, you break it. You break
+  and therefore, bad code isn't improved. ("You touch it, you break it. You break
   it, you own it.") Test-Driven Development is helpful to overcome this fear by
   allowing for an automated quality assessment after every change to the code.
 - **No QA Findings**: Bugs should not be discovered by QA, but avoided or
@@ -607,7 +607,7 @@ Judgement is often impeded when working late at night after a full working day;
 often grave mistakes are made and bad decisions are taken at that point.
 
 A software project is more like a marathon than a sprint or a series of sprints,
-and therefor must be approached at a sustainable pace. If there's spare energy
+and therefore must be approached at a sustainable pace. If there's spare energy
 just before the finish line, it's ok to sprint for this last stretch.
 
 Developers must not comply when asked by the management to go faster. Working a
@@ -726,7 +726,7 @@ Writing tests after the fact for code that already has been tested manually
 feels like boring busy work. It's more fun to test and program according to the
 three rules of TDD. Code having been written under the rules of TDD is designed
 for testability. Writing tests for production code not designed for testability
-is hard—and therefor likely to be left away. This leaves holes in the test
+is hard—and therefore likely to be left away. This leaves holes in the test
 suite, and a passing test suite can no longer be trusted. However, a good test
 suite that passes should be the go ahead for deployment.
 
@@ -907,7 +907,7 @@ Such change is usually opposed the most by the middle-management layer, which is
 trained to avoid risks and direct communication. Middle management is a layer of
 indirection, after all—exactly what is to be avoided in Agile. Executives, on
 the other side, are risk takers that constantly seek out new opportunities, and
-therefore tend to be supportive of Agile transformations.
+thereforee tend to be supportive of Agile transformations.
 
 Employees in special roles, such as tech leads, architects, or project managers,
 also tend to oppose Agile transformations, for they see their roles diminished in
@@ -988,7 +988,7 @@ already rather well. (If this weren't the case, no pyramids would have been
 built.) The problem of organizing small teams that develop software, however, is
 rather new. Software is unique and requires a special set of disciplines. Agile
 was brought up to solve that particular problem of software development. It
-therefore isn't suitable for managing other endeavours, such as construction or
+thereforee isn't suitable for managing other endeavours, such as construction or
 hardware manufacturing.
 
 The problem of managing big software teams is just a matter of organizing them
@@ -1047,7 +1047,7 @@ Complicated tools for Agile Lifecycle Management (ALM) require constant
 attention and upfront training. They usually can only be changed in the ways
 their vendors intended—if at all. ALM tools usually are expensive and require
 maintenance and administration. Such tools never become transparent, and
-therefore don't help the developers doing their work. Instead, those tools offer
+thereforee don't help the developers doing their work. Instead, those tools offer
 powerful performance charts and statistics, which can be used as a weapon
 against programmers to shame them into working harder, because the tool suggests
 so. ALM tools should not replace or even stand in the way of personal, informal
