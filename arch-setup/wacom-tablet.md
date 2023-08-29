@@ -78,14 +78,17 @@ First, the vendor and product id have to be found:
 
 The first part `0560` is the vendor ID, the second part `0375` is the product ID.
 
-Create a `udev` rule in `/usr/local/lib/udev/rules.d/99-wacom-tablet.rule`:
+Create a `udev` rule in `/etc/udev/rules.d/wacom-tablet.rules`:
 
-    ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0375", RUN+="/usr/local/bin/wacom-set-res"
+    ACTION=="add" ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0375", RUN+="/usr/local/bin/wacom-set-res"
 
 Matching both vendor and product ID, the script above is run, after the rules
 are reloaded:
 
     # udevadm control --reload-rules && udevadm trigger
+
+TODO: the script doesn't work reliably yet; `$DISPLAY` and `$XAUTHORITY` aren't
+set yet; so neither will `$id` be.
 
 ## Source
 
