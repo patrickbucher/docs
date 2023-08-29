@@ -65,6 +65,28 @@ fi
 xsetwacom set $id Area 0 0 21600 12150
 ```
 
+Save it under `/usr/local/bin/wacom-set-res` and make it executable:
+
+    # chmod +x /usr/local/bin/wacom-set-res
+
+To invoke it automatically, a `udev` rule shall be defined.
+
+First, the vendor and product id have to be found:
+
+    $ lsusb | grep Wacom | grep -Eo 'ID [[:digit:]]{4}:[[:digit:]]{4}'
+    ID 056a:0375
+
+The first part `0560` is the vendor ID, the second part `0375` is the product ID.
+
+Create a `udev` rule in `/usr/local/lib/udev/rules.d/99-wacom-tablet.rule`:
+
+    ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0375", RUN+="/usr/local/bin/wacom-set-res"
+
+Matching both vendor and product ID, the script above is run, after the rules
+are reloaded:
+
+    # udevadm control --reload-rules && udevadm trigger
+
 ## Source
 
 - [Easily Setup Your Wacom Tablet Under Linux](https://www.youtube.com/watch?v=dzplf-0RJDE)
