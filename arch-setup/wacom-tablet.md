@@ -49,6 +49,22 @@ Which can be set as follows:
 
     $ xsetwacom set 9 Area 0 0 21600 12150
 
+## Automation
+
+This script will set the resolution automatically:
+
+```bash
+#!/usr/bin/bash
+
+id="$(xsetwacom --list devices | grep STYLUS | grep -Eo 'id: .+' | grep -Eo '[[:digit:]]+')"
+if [ -z id ]
+then
+    exit 1
+fi
+
+xsetwacom set $id Area 0 0 21600 12150
+```
+
 ## Source
 
 - [Easily Setup Your Wacom Tablet Under Linux](https://www.youtube.com/watch?v=dzplf-0RJDE)
