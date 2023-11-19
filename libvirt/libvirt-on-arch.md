@@ -161,3 +161,8 @@ In case you locked yourself out (by running `ufw enable` without opening port
 
     # virt-viewer --connect qemu:///session debian
 
+## Cleanup
+
+Remove a VM:
+
+    # virsh undefine [name]
