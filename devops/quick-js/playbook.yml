@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  tasks:
+  - name: 'install pre-requisite packages for QuickJS build (as root)'
+    apt:
+      name: '{{ packages }}'
+      state: present
+    become: true
+    vars:
+      packages:
+      - vim 
+      - gcc
+      - make
+      - libc6-dev-i386
+  - name: 'unpack the QuickJS source code'
+    unarchive:
+      src: https://bellard.org/quickjs/quickjs-2019-07-21.tar.xz
+      dest: /home/vagrant
+      remote_src: yes
+  - name: 'build QuickJS from sources'
+    make:
+      chdir: /home/vagrant/quickjs-2019-07-21
+  - name: 'install QuickJS (as root)'
+    make:
+      chdir: /home/vagrant/quickjs-2019-07-21
+      target: install
+    become: true

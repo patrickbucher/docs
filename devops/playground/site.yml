@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+
+  tasks:
+
+  - apt: package={{item }} state=present
+    with_items:
+    - vim-nox
+    - htop
+
+  - alternatives: name=editor path=/usr/bin/vim.tiny
