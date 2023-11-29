@@ -168,5 +168,48 @@
 - set default target: `systemctl set-default multi-user.target`
 - change to target: `systemctl isolate multi-user.target`
 
+# Lektion 1
 
-# LPIC-1 (Exam 102)
+[Quelle](https://learning.lpi.org/de/learning-materials/101-500/101/101.1/101.1_01/)
+
+Befehle:
+
+- `lspci`: PCI-Geräte anzeigen
+    - `-s [address]`: Gerät mit bestimmter Adresse anzeigen
+    - `-k`: Kernelmodule zum Gerät auflisten
+- `lsusb`: USB-Geräte anzeigen
+    - `-s [address]`: Gerät mit bestimmter Adresse anzeigen
+    - `-d [id]`: Gerät mit bestimmter ID anzeigen
+    - `-t`: Darstellung als Baum
+- `lsmod`: Kernel-Module auflisten
+- `modprobe`: Kernel-Module verwalten
+    - `-r [module]`: Modul Entladen
+- TODO: `modinfo`: Beschreibung von Kernel-Modul anzeigen
+- `fgrep`: Alias für `grep -F` (Filterung nach fixer Zeichenkette)
+
+Dateien:
+
+- `/etc/modprobe.d`
+- `/etc/modprobe.conf`
+- `/etc/modprobe.d/blacklist.conf`
+- `/etc/modprobe.d/[module_name].conf`
+
+- `/dev`
+- `/proc`
+- `/sys`
+
+- `/sys/devices/system/cpu/vulnerabilities/meltdown`
+
+# Lektion 2
+
+[Quelle](https://learning.lpi.org/de/learning-materials/101-500/101/101.2/101.2_01/)
+
+- UEFI: Unified Extensible Firmware Interface
+- ESP: EFI-System-Partition
+
+- `dmesg`
+	- `--clear`: Meldungen löschen
+- `journalctl`
+	- `--list-boots`: Startvorgänge auflisten
+	- `-b`: Initialisierungsnachrichten anzeigen
+	- `-b=n`: Initialisierungsnachrichten von Boot `n` anzeigen
