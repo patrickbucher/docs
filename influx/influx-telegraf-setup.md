@@ -47,12 +47,12 @@ Extend the initial config (`/etc/telegraf/telegraf.conf`):
 ```ini
 [[outputs.influxdb_v2]]
 urls = ["http://127.0.0.1:8086"]
-token = "TODO: `figure out using influx auth ls`"
+token = "TOKEN"
 organization = "acme"
 bucket = "metrics"
 ```
 
-Replace the token value (`topsecret`) with the proper token as shown here:
+Replace the token value above (`TOKEN`) with the proper token as shown here:
 
     $ influx auth ls
 
