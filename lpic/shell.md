@@ -26,3 +26,12 @@ nachname=Meyerhans
 $ env | grep nachname
 nachname=Meyerhans
 ```
+
+# Lektion 3
+
+- `bzcat`: `cat` für BZIP2-komprimierte Daten
+- `xzcat`: `cat` für XZ-komprimierte Daten
+- `zcat`: `cat` für GZIP-komprimierte Daten
+- `nl`: Zeilen durchnummerieren
+- `od -x`: hexadezimale Ausgabe
+- `od -c`: Ausgabe der Bytes (characters)
