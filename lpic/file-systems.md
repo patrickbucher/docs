@@ -1,0 +1,86 @@
+- MBR
+    - DOS
+    - Partitionstabelle im ersten Sektor (Boot-Sektor)
+    - max 2 TB und 4 primäre Partitionen pro Disk
+    - bootfähig: erste Partition muss "primär" sein
+    - erweiterte Partition als Container für logische Partitionen
+- GPT
+    - UEFI
+    - max. 128 Partitionen
+    - Einschränkungen praktisch nur durch das Betriebssystem
+    - Partitionen müssen nicht zusammenhängend sein
+- `gdisk`
+    - Installation (Arch Linux): `# pacman -S gptfdisk`
+    - Erlaubt Konvertiertung von MBR zu GPT und Wiederherstellung bei Problemen
+- `mkfs.fat`
+    - Installation (Arch Linux): `# pacman -S dosfstools`
+- `mke2fs -t [fs]` entspricht `mkfs.[fs]`
+    - `-b SIZE`
+    - `-c` oder `-c -c`: check bzw. double check
+    - `-d DIR`: Dateisystem mit `DIR` befüllen
+    - `-F`: force (erzwingen)
+    - `-L LABEL`
+    - `-n`: dry run
+    - `-q`: quiet
+    - `-V`: verbose
+    - `-U ID/clear/random/time`: `ID` als neue UUID setzen
+- XFS
+    - `# pacman -S xfsprogs` 
+    - Dateisysteme in zwei Teilen
+        - Log-Sektion (Journal)
+        - Daten-Sektion
+        - möglicherweise auf verschiedenen Geräten
+    - `mkfs.xfs`
+        - `-b size=SIZE`: Grösse
+        - `-m`: Meta-Parameter
+            - `-m crc=[0/1]`: CRC aktiv (1, standardmässig) oder inaktiv (0)
+            - `-m uuid=UUID`
+        - `-f`: force
+        - `-l logdev=LOGDEV`: Log auf ein anderes Gerät schreiben
+        - `-l size=SIZE`: Grösse des Logs
+        - `-N`: dry ryn
+        - `-L LABEL`
+        - `q`: quiet
+- `xfs_repair`: `fschk` für XFS
+- `xfs_db`: Debugging
+- `xfs_fsr`: Defragmentierung
+- exFAT: Weiterentwicklung von FAT
+    - `mkfs.exfat`
+    - Interoperabilität (macOS, Linux, Windows), z.B. für USB-Sticks, SD-Karten
+- BTRFS (B-Tree File System)
+    - Copy on Write (absturzsicher)
+    - `mkfs.btrfs`
+    - unterstützt Subvolumes und Snapshots sowie automatische Kompression auf Dateiebene
+- GNU parted (`parted`)
+    - mächtige Alternative zu fdisk/gdisk
+    - unterstützt Wiederherstellung, Grössenänderung
+- Swap-Partitionen
+    - Memory auf Disk auslagern
+    - `fdisk`: Typ 82
+    - `gdisk`: Typ 8200
+    - `mkswap DEVICE`: Formatierung
+    - `swapon DEVICE`: Aktivierung
+    - `wapoff DEVICE`: Deaktivierung
+    - Swap-Dateien: mit `dd` in gewünschter Grösse erzeugen und mit `swapon`/`swapoff` (de)aktivieren
+        - `dd if=/dev/zero of=swapfile bs=1M count=1024`: 1 GB grosse Swap-Datei
+          erzeugen
+- Journal: internes Protokoll, welches anstehende Änderungen vermerkt
+- `du`: disk usage
+    - `du -S`: Dateien ohne Unterverzeichnisse
+    - `du -Sc`: Summe inkl. Unterverzeichnisse
+- `df`: free space
+    - `df -h`: Inodes
+    - `df -T`: auch FS-Typ ausgeben
+    - `df -hx FS`: ohne Dateisystem FS
+    - `df -tx FS`: nur mit Dateisystem FS
+- `fsck DEVICE`
+    - nur auf ungemounteten Dateisystemen ausführen!
+    - `e2fsck` für EXT2/EXT3/EXT4
+        - Links: `fsck.ext2` usw.
+        - Behebung von Fehlern mit Parametern
+            - `-p`: automatisch beheben
+            - `-y`: alle Fragen mit "Ja" beantworten
+            - `-n`: alle Fragen mit "Nein" beantworten
+- `tune2fs`: "Tuning" von Dateisystem-Parametern
+    - Anzeigen: `tune2fs -l DEVICE`
+    - Einstellen: `tunefs -J OPTION=VALUE,OPTION=VALUE`
