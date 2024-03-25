@@ -25,7 +25,7 @@ The socio-sexual hierarchy ([Voxiversity](https://www.youtube.com/watch?v=vhTFkU
 - constantly try to fool themselves and others, but fail to do so
 - had to deal with a lot of rejection
 - "I could have been successful, but I didn't want to."
-- conflict- and failure-avoidant, retreat to their dilusion bubble
+- conflict- and failure-avoidant, retreat to their delusion bubble
 - highly romantic, "big gesture"
     - "the more I like a woman, the more she should be attracted to me"
 - fundamentally passive
