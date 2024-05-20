@@ -429,6 +429,11 @@ Set a password for the new user (called `demo`) and grant all rights on database
     # alter user demo with encrypted password 'topsecret';
     # grant all privileges on database demo to demo;
 
+Since PostgreSQL 15, the the `demo` user is unable to create tables in the
+public schema. Making him the owner solves the issue:
+
+    # alter database demo owner to demo;
+
 Start interactive SQL prompt:
 
     psql demo demo
