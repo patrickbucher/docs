@@ -236,6 +236,10 @@ For HDMI output, find out the the card and device number:
 
     aplay -l
 
+If no soundcards are found, install the `sof-firmware` and reboot:
+
+    pacman -S sof-firmware
+
 Configure them accordingly in `~/.asoundrc`:
 
     pcm.!default {
