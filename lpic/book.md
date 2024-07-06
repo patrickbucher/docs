@@ -154,3 +154,51 @@ Weitere Quellen:
 | SGID Bit     | Binärdatei  | Ausführen mit Besitzerrechten (User)      |   `2` | `g+s`      |
 | SGID Bit     | Verzeichnis | Besitz neuer Datei an Verzeichnisbesitzer |   `2` | `g+s`      |
 | SUID Bit     | Binärdatei  | Ausführen mit Besitzerrechten (Group)     |   `4` | `u+s`      |
+
+### Dateien finden
+
+Der _Filesystem Hierarchy Standard_ klassifiziert Dateien nach zwei Kriterien:
+
+- Müssen diese lokal vorhanden sein, oder können sie auch remote eingebunden
+  werden?
+- Werden Schreib- (dynamisch) oder nur Leserechte (statisch) auf diese Dateien
+  benötigt?
+
+Mit `find` lassen sich u.a. Datien anhand des Modifikationsdatums finden:
+
+- `-mmin 10`: genau vor zehn Minuten
+- `-mmin +10`: vor mindestens zehn Minuten
+- `-mmin -10`: vor weniger als zehn Minuten
+
+Regeln lassen sich mit `-a` (and), `-o` (or) und `!` (not) und Klammernpaaren
+(mit Escaping: `\( … \)`) verknüpfen.
+
+Die Option `-ok` verhält sich wie `-exec`, fragt aber vor der Ausführung
+interaktiv nach.
+
+Mit `whereis` lassen sich Dateien nach Namen finden, wobei z.B. auch
+dazugehörige Manpages gefunden werden.
+
+### Kompression
+
+Das Program `tar` arbeitet mit verschiedenen Modi:
+
+- `-c` (create): Archive erstellen
+    - Mit `-f` kann eine Zieldatei angegeben werden, andernfalls wird auf die
+      Standardausgabe geschrieben.
+    - Bei absoluten Pfaden wird das führende `/` immer entfernt.
+    - Der Algorithmus kann per Option gewählt werden, wodurch `tar` selbständig
+      das passende Programm zur Kompression aufruft:
+        - `-Z`: `compress` (veraltet, patentbehaftet)
+        - `-z`: `gzip` (frei)
+        - `-j`: `bzip2` (starke Kompression)
+        - `-x`: `xz` (stark, aber rechenintensiv)
+    - Alternativ können Befehle wie `gzip` und `gunzip` bzw. `xz` und `unxz` in
+      Kombination mit einer Pipe manuell aufgerufen werden.
+- `-x` (extract): Archive entpacken
+    - Für die entpackten Daten wird die `umask` angewendet, was mit der Option
+      `-p` verhindert werden kann.
+- `-t` (table): Archivinnhalt auflisten.
+
+Mit `cpio` können ebenfalls Dateien und Verzeichnisse zu Archiven
+zusammengeführt werden.
