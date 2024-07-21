@@ -202,3 +202,24 @@ Das Program `tar` arbeitet mit verschiedenen Modi:
 
 Mit `cpio` können ebenfalls Dateien und Verzeichnisse zu Archiven
 zusammengeführt werden.
+
+## Pipelines und Filter
+
+- `set -o noclobber` verhindert das Überschreiben von Dateien bei Umleitungen
+  mit `>`.
+- Übergibt man `tee` mehrere Dateinamen, wird die Ausgabe in alle Dateien
+  umgeleitet.
+- Die Anzahl der von `xargs` zu konsumierenden Argumente kann mit dem Parameter
+  `-n` gesteuert werden.
+- Mit `split` wird eine Datei standardmässig in Teile von 1000 Zeilen
+  aufgeteilt. Mit `-l` kann eine alternative Zeilenlänge angegeben werden. Mit
+  `-b` wird die Anzahl von Bytes definiert, z.B. Blöcke von 512 Bytes mit dem
+  Suffix `b`, Kibibyte und Mebibyte mit dem Suffix `k` bzw. `m`.
+- `cat` kann Zeilen mit `-n` nummerieren, Zeilenenden mit `-E` als `$` anzeigen
+  und Tabs mit `-t` durch die Zeichenfogle `^I` ersetzten.
+- `tac` listet Dateien rückwärts auf.
+- Mit `paste` können Dateien zeilenweise kombiniert werden. Mit `-s` erfolgt die
+  Kombination spaltenweise.
+- Mit `wc -m` können UTF-8 Zeichen gezählt werden.
+- Mit `od` können Dateien oktal ausgegeben werden, bzw. mit diversen
+  `-t`-Optionen in einer anderen Codierung.
