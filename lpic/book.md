@@ -223,3 +223,34 @@ zusammengeführt werden.
 - Mit `wc -m` können UTF-8 Zeichen gezählt werden.
 - Mit `od` können Dateien oktal ausgegeben werden, bzw. mit diversen
   `-t`-Optionen in einer anderen Codierung.
+
+## Reguläre Ausdrücke und Editoren
+
+- Bei der Shell funktioniert die Negierung von Zeichenklassen mittels `[!abc]`,
+  bei regulären Ausdrücken mit `[^abc]`.
+- Wortgrenzen können mit `\<` und `\>` gematched werden.
+- Bei `grep` kann mit `-n` die Zeilennummer mit ausgegeben, mit `-v` die Logik
+  des Musters negiert, mit `-c` die Anzahl Matches und mit `-l` (bei mehreren
+  Dateien) der Dateiname ausgegeben werden.
+- `sed` verfügt u.a. über folgende Kommandos:
+    - `p`: print (Ausgabe)
+    - `a`: append (Einfügen _nach_ einer Zeile)
+    - `i`: insert (Einfügen _vor_ einer Zeile)
+    - `y`: Ersetzen einzelner Zeichen
+    - `s`: substitute (Ersetzen)
+- `sed` verfügt u.a. über folgende Parameter:
+    - `-f`: Skriptdatei
+    - `-e`: Skript-Literale
+    - `-n`: automatisches Ausgeben unterdrücken
+- Die Umgebungsvariable `VISUAL` definiert den visuellen Texteditor; mit
+  `EDITOR` wird der Zeileneditor gesetzt.
+- Bei `vi` wird mit `H`, `L` und `M` zur obersten, zur untersten bzw. zur
+  mittleren dargestellten Bildschirmzeile gesprungen. Mit `I` und `A` wird am
+  Anfang bzw. am Ende einer Zeile Text eingefügt. Mit `cc` wird die aktuelle
+  Zeile gelöscht und in den Einfügemodus gewechselt.
+    - Bei ex-Befehlen kann die aktuelle Zeile mit `.` referenziert werden.
+    - Die Ausgabe eines Programms kann mit `:r! BEFEHL` eingefügt werden, z.B.
+      `:r date` zum Einfügen des aktuellen Datums.
+    - Ein Zeilenbereich (z.B. 1 bis 5) kann an einen externen Befehl gesendet
+      und durch dessen Ausgabe ersetzt werden, z.B. `1,5 ! sort` zum Sortieren
+      der ersten fünf Zeilen.
