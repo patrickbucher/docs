@@ -254,3 +254,35 @@ zusammengeführt werden.
     - Ein Zeilenbereich (z.B. 1 bis 5) kann an einen externen Befehl gesendet
       und durch dessen Ausgabe ersetzt werden, z.B. `1,5 ! sort` zum Sortieren
       der ersten fünf Zeilen.
+
+## Prozesse
+
+- `ps` zeigt mit `-l` mehr Details an. Mit `ps ax` bzw. `ps -e` werden alle
+  laufende Prozesse angezeigt. Mit der Option `o` können Felder wie z.B. `uid`,
+  `pid` usw. ausgewählt werden. Mit `-C NAME` können Prozesse anhand ihres
+  Befehlnamens ermittelt werden.
+- Mit `pstree` kann die Prozesshierarchie angezeigt werden; `-p` gibt die
+  Prozessnummer und `-u` den Besitzer aus.
+- Mit `jobs` aufgelistete Prozesse können mit `bg %N` in den Hintergrund
+  verschoben werden, wobei `N` die Jobnummer bezeichnet.
+- Mit `nohup` ausgeführte Befehle ignorieren `SIGHUP` und bleiben auch nach dem
+  Unterbruch einer Verbindung laufen. Die Ausgabe wird in die Datei `nohup.out`
+  geschrieben.
+- Die wichtigsten Signale, die mit `kill`, `killall` oder `pkill` an einen
+  Prozess gesendet werden können, lauten:
+    - `SIGHUP` (1, hang up): Kindprozesse und Terinal beenden
+    - `SIGINT` (2, interrupt): Unterbruch (wie Ctrl-C)
+    - `SIGKILL` (9, kill): Prozess forciert beenden
+    - `SIGTERM` (15, terminate): Prozess beenden
+    - `SIGCONT` (18, continue): angehaltenen Prozess fortsetzen
+    - `SIGSTOP` (19, stop): Prozess anhalten
+    - `SIGSTP` (20, terminal stop): Prozess in den Hintergrund schicken (wie Ctrl-Z)
+- Mit `pgrep` können anhand verschiedener Kriterien (z.B. `-u USER`, `-G GROUP`
+  usw.) Prozess-IDs gefunden werden.
+- Mit `nice` kann die Priorität von Prozessen von -20 (höhere Priorität) bis +19
+  (tiefere Priorität) gesetzt werden. (Nur `root` darf negative Werte
+  verwenden.) Mit `renice` kann die Priorität eines laufenden Prozesses geändert
+  werden. (Nur `root` darf tiefere Werte verwenden, andere Benutzer nur höhere.)
+- Mit `watch` kann ein Befehl wiederholt ausgeführt werden. Die Frequenz in
+  Sekunden kann mit `-n` angegeben werden. Unterschiede der Ausgabe können mit
+  `-d` hervorgehoben werden.
