@@ -286,3 +286,28 @@ zusammengeführt werden.
 - Mit `watch` kann ein Befehl wiederholt ausgeführt werden. Die Frequenz in
   Sekunden kann mit `-n` angegeben werden. Unterschiede der Ausgabe können mit
   `-d` hervorgehoben werden.
+
+## Hardware
+
+- PCI-Geräte können mit `lspci` aufgelistet werden. Mit `-v` erfolgt eine
+  ausführlichere Ausgabe, mit `-t` eine baumartige Ausgabe und mit `-n` werden
+  die Gerätecodes ausgegeben.
+- Mit `lsusb` (und `-v` für eine ausführlichere Ausgabe) werden USB-Geräte
+  aufgelistet.
+- Kernel-Module können mit `modprobe MODUL` geladen und mit `modprobe -r MODUL`
+  wieder entladen werden. Die Konfiguration für das automatische Laden befindet
+  sich in der Datei `/etc/modprobe.conf` und in den Dateien unterhalb des
+  Verzeichnisses `/etc/modprobe.d`. Die Module des laufenden Kernels sind in
+  `/lib/modules` aufgelistet.
+- Das Verzeichnis `/sys` ist ein Pseudodateisystem, welches den Zugriff auf
+  Geräte nach Anschlusstyp (`/sys/bus`, `/sys/pci`, `/sys/pci`, `/sys/scsi`)
+  bzw allgemein (`/sys/devices`) bietet.
+- Mit `udev`, bestehend aus dem Daemon `udevd` und der Bibliothek `namedev`,
+  wird das `/dev`-Dateisystem automatisch und dynamisch mit Geräten befüllt
+  (hotplugging im laufenden System & coldplugging beim Systemstart). Das Ein-
+  und Ausstecken von Geräten wird mit sog. "uevents" behandelt.
+- Der alte Hardware-Abstraction Layer (HAL) wurde u.a. durch `udisks` ersetzt,
+  welches sich um Speichermedien kümmert. Es besteht aus dem Daemon `udisksd`
+  und dem Anwendungsprogramm `udiskctl`). Via D-Bus können Prozesse
+  untereinander kommunizieren, z.B. Programme untereinander oder der Kernel mit
+  der grafischen Benutzeroberfläche.
