@@ -311,3 +311,91 @@ zusammengeführt werden.
   und dem Anwendungsprogramm `udiskctl`). Via D-Bus können Prozesse
   untereinander kommunizieren, z.B. Programme untereinander oder der Kernel mit
   der grafischen Benutzeroberfläche.
+
+## Plattenspeicher
+
+- Die traditionelle Partitionsmethode _Master Boot Record_ (MBR) erlaubt vier
+  primäre Partitionen. Eine primäre Partition kann zu einer erweiterten
+  Partition gemacht werden, innerhalb welcher mehrere logische Partitionen
+  angelegt weden können, was die Obergrenze von 4 Partitionen lockert. Aufgrund
+  der 32-Bit-Adressierung sind Partitionen auf eine Grösse 2 TiB begrenzt.
+- Die moderne Partitionsmethode _GUID Partition Table_ (GPT) reserviert den
+  ersten Sektor aus Kompatibilitätsgründen für den MBR. Die
+  Partitionierungsinformationen folgen anschliessend, sowie zusätzlich am Ende
+  der Platte. Pro Partition werden 128 Bytes abgespeichert: 16 Bytes für
+  die GUID, je 8 Bytes für den Partitionstyp, die Partition, Anfangs- und
+  Endblocknummer sowie Attribute, 72 Byte für den Partitionsnamen.
+- Die Benennung der Speichergeräte (`/dev/sda1`, `/dev/sda2`) erlaubt maximal 15
+  Partitionen pro Gerät. Die Nummerierung erfolgt gemäss der Reihenfolge des
+  Erscheinens der Geräte. Alternativ bietet `/dev` die Unterverzeichnisse
+  `block`, `disk/by-id`, `disk/by-path`, `disk/by-uuid` und `disk/by-label` mit
+  stabileren Zugriffspfaden.
+- Ein Swap Space von der Grösse des physischen Arbeitsspeichers ermöglicht einen
+  "Tiefschlaf" des Rechners (Hibernate). Wird der Auslagerungsspeicher über
+  mehrere Geräte verteilt, kann das System jeweils auf den Swap Space zugreifen,
+  dessen Gerät gerade unter geringer Last steht.
+- Gängige Partitionierungsprogramme sind `fdisk` (interaktiv), `parted`
+  (interaktiv und nicht-interaktiv), `gdisk` (auf GPT ausgelegt, erlaubt
+  MBR-Konvertierung, interaktiv/nicht-interaktiv), `cfdisk`
+  (bildschirmorientiert), `sfdisk` (nicht-interaktiv, nur für MBR) und `sgdisk`
+  (nicht-interaktiv, nur für GPT).
+- Zu Beginn eines Dateisystems steht ein Superblock, der Informationen über das
+  Dateisystem enthält. Partitionen werden via `mkfs` erstellt, wobei der Wert
+  des `-t`-Parameters den Aufruf zu einem entsprechenden Programm delegiert
+  (z.B. `mkfs -t ext2` -> `mkfs.ext2`). Integritätsprüfungen erfolgen über das
+  Programm `fschk`, welches wiederum Aufrufe anhand des `-t`-Parameters an ein
+  entsprechendes Programm delegiert.
+- Journaling-Dateisysteme wie `ext3` protokollieren Schreibzugriffe als
+  Transaktionen, welche als ganzes erfolgreich sein oder scheitern können. Im
+  Fehlerfall kann anhand des Transaktionsprotokolls wieder ein konsistenter
+  Zustand erzeugt werden. Ab `ext4` ist das Journal mit Prüfsummen abgesichert.
+  Partitionen werden mit `e2fsck` geprüft (Link: `fsck.ext2`).
+- Mit `tune2fs` können Partitionsparameter angepasst werden, wobei äusserste
+  Vorsicht geboten ist.
+- XFS ist ein alternatives Dateisystem von SGI, welches über den Befehl
+  `xfs_repair` repariert und mit `xfs_fsr` "aufgeräumt" (defragmentiert) wird.
+  Mit `xfs_info` erhält man Informationen zu einem XFS-Dateisystem; mit
+  `xfsdump` und `xfsrestore` bzw. mit `xfs_copy` können XFS-Dateisysteme
+  gesichert/geladen bzw. kopiert werden, wozu `dd` bei XFS _nicht_ verwendet
+  werden sollte! Mit `xfs_db` kann ein Dateisystem inspiziert werden.
+- Btrfs ist ein an ZFS angelegtes, modernes Dateisystem, das u.a. einen Logical
+  Volume Manager (LVM) unterstützt, Dateien transparent komprimiert,
+  Konsistenzprüfungen durchführt und Snapshots erlaubt. Mithilfe von _copy on
+  write_ erfolgen diese Snapshots kostenkünstig. Btrfs-Partitionen werden
+  mittels `mkfs -t btrfs` angelegt und unterstützen redundante Speicherung über
+  ein Software-RAID. Innerhalb eines Btrfs-Dateisystems können Subvolumes
+  (`btrfs subvolume create /home`) und Snapshots (`btrfs subvolume snapshot
+  /foo/bar /foo/bar-snap`) angelegt werden. Eine Konsistenzprüfung kann mit
+  `btrfs scrub start/status/cancel/resume` gestartet, angezeigt, abgebrochen
+  bzw. fortgesetzt werden. Die Prüfung des Dateisystems bzw. dessen Korrektur
+  erfolgt mit `btrfs check` bzw. `btrfs check --repair`.
+- Ein `tmpfs` ist ein Dateisystem, das auf dem Memory liegt.
+- VFAT und exFAT eignen sich für externe Datenträger, gerade wenn diese auch auf
+  anderen Geräten zum Einsatz kommen (Digitalkameras, USB-Sticks). Die
+  exFAT-Dienstprogramme laufen aus Patentgründen im Userspace (FUSE).
+- Ein Logical Volume Manager (LVM) erlaubt das Anlegen, Anpassen, Verschieben,
+  Vergrössern und Verkleinern von Partitionen im laufenden Betrieb sowie
+  geräteübergreifende Partitionen. Ein oder mehrere Geräte (_physical volumes_,
+  PV) können zu einer _volume group_ (VG) zusammengefasst werden, woraus
+  _logical volumes_ (LV) erstellt werden. Die Verteilung einer Partition auf
+  mehrere Platten bezeichnet man als _stripping_; die redundante Speicherung
+  eienr Partition auf mehreren Geräten als _mirroring_ (ein limitiertes RAID).
+  Sicherheitskopien können über Snapshots erstellt werden.
+- Ein- und Aushängevorgänge (`mount`/`umount`) werden in `/etc/mtab`
+  protokolliert, was in modernen Systemen ein symbolischer Link auf
+  `/proc/self/mounts` darstellt.
+- Das automatische Einhängen von Partitionen kann via systemd über Mount-Units
+  (`What`: Gerät, `Where`: Einhängepunkt) oder klassisch via `/etc/fstab` mit
+  folgenden Spalten erfolgen:
+    1. Gerät, z.B. `/dev/sda1` oder `LABEL=...` bzw. `UUID=...`
+    2. Einhängepunkt, z.B. `/`, `/var`, `/home`
+    3. Dateisystemtyp, z.B. `ext4`, `swap`
+    4. Mount-Optionen, z.b. `noexec`
+    5. Sicherheitskopien über `dump`: 0
+    6. automatische Integriätsprürung: 1 bei `/`, sonst i.d.R. 2
+- Die UUID einer Partition kann via `tune2fs -l DEVICE | grep UUID` ermittelt werden.
+- Mit `blkid --label=...` bzw. `blkid --uuid=...` kann das Gerät anhand eines
+  Labels bzw. einer UUID ermittelt werden.
+- Mit `lsblk` können Blockgeräte aufgelistet werden.
+- Die Befehle `df` und `du` unterstützen die Parameter `-h` (Zweier-) und `-H`
+  (Zehnerpotenz), welche die Grössen menschenlesbar ausgeben.
