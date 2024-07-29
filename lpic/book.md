@@ -399,3 +399,27 @@ zusammengeführt werden.
 - Mit `lsblk` können Blockgeräte aufgelistet werden.
 - Die Befehle `df` und `du` unterstützen die Parameter `-h` (Zweier-) und `-H`
   (Zehnerpotenz), welche die Grössen menschenlesbar ausgeben.
+
+## Systemstart und Init-System
+
+- Das Init-System kann per `init=`-Kernel-Parameter ausgewählt bzw.
+  überschrieben werden. Kernel-Parameter, mit dem der Kernel selber nichts
+  anfangen kann, werden an das Init-Programm weitergereicht.
+- Die Grub-Konfigurationsdatei `grub.cfg` kann über das Hilfsprogramm
+  `grub-mkconfig` erzeugt werden. Nach einem Kernel-Update soll diese mithilfe
+  von `update-grub` aktualisiert werden. Eigene Konfigurationsoptionen können in
+  `/etc/grub.d/40_custom` definiert werden, welche dann eins zu eins in die
+  Grub-Konfiguration übernommen werden.
+- Der `init`-Prozess mit der PID 1 kann als einziger nicht mit `kill -9`
+  abgeschossen werden.
+- System-V-Init arbeitet normalerweise mit den folgenden Runlevels:
+    - 1 (oder S): Ein-Benutzer-Modus
+    - 2: Mehrbenutzerbetrieb
+    - 3: Mehrbenutzerbetrieb mit Netzwerk
+    - 4: unbenutzt (für eigene Bedürfnisse nutzbar)
+    - 5: Mehrbenutzerbetrieb mit Netzwerk und grafischer Oberfläche
+    - 6: Systemneustart
+    - 0: Systemhalt
+- Upstart arbeitet mit zwei Arten von _Jobs_: _Tasks_ (kurzlebige Aufgaben) und
+  _Services_ (dauerhaft "im Hintergrund" laufende Vorgänge). Jobs können mit
+  `initctl` gesteuert werden.
