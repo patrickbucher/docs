@@ -423,3 +423,32 @@ zusammengeführt werden.
 - Upstart arbeitet mit zwei Arten von _Jobs_: _Tasks_ (kurzlebige Aufgaben) und
   _Services_ (dauerhaft "im Hintergrund" laufende Vorgänge). Jobs können mit
   `initctl` gesteuert werden.
+
+## Software- und Paketverwaltung
+
+- `file` angewendet auf ausführbare Dateien zeigt an, ob diese dynamisch oder
+  statisch gelinkt ist; `ldd` listet die gelinkten Libraries auf, die vom
+  dynamischen Linker `ld-linux.so` bei der Programmausführung nachgeladen
+  werden. Die Bibliotheken werden aus einem Index geladen, der mit `ldconfig`
+  gemäss der in `/etc/ld.so.conf` aufgeführten sowie in `/lib` und `/usr/lib`
+  liegenden Verzeichnis aufgebaut wird. Mit `ldconfig -p` kann der aktuelle
+  Zustand von diesem Index angezeigt werden. Soll eine Library für einen
+  bestimmten Programmaufruf angegeben werden, kann deren Pfad in der
+  Umgebungsvariable `LD_LIBRARY_PATH` gesetzt werden (analog zu `PATH`). Dies
+  funktioniert aus Sicherheitsgründen jedoch nicht auf Programmen, die Set-UID
+  und Set-GID verwenden, da der unpriviligierte Benutzer ansonsten eine
+  manipulierte Library mit höheren Rechten ausführen könnte. Die im Index
+  aufgelisteten Major-Versionen (z.B. `libncurses.so.5.4`) verweisen per
+  symbolischen Link auf die spezifische Datei, sodass Minor-Versionen (z.B.
+  `5.3`) einfach aktualisiert werden können.
+- TODO: p. 261-296
+
+## Virtualisierung
+
+- Beim Klonen von virtuellen Maschinen ist darauf zu achten, dass Eigenschaften
+  wie die MAC-Adresse, die Systemkennung in `/etc/machine-id` oder der
+  SSH-Schlüssel in der kopierten Instanz angepasst werden, damit es nicht zu
+  Konflikten kommt.
+- Mithilfe von `cloud-init` können virtuelle Maschinen anhand von
+  bereitgestellten Metadaten automatisch an die Bedürfnisse der jeweiligen
+  Cloud-Umgebung angepasst werden.
