@@ -236,6 +236,10 @@ For HDMI output, find out the the card and device number:
 
     aplay -l
 
+If no soundcards are found, install the `sof-firmware` and reboot:
+
+    pacman -S sof-firmware
+
 Configure them accordingly in `~/.asoundrc`:
 
     pcm.!default {
@@ -428,6 +432,11 @@ Set a password for the new user (called `demo`) and grant all rights on database
     sudo -u postgres psql
     # alter user demo with encrypted password 'topsecret';
     # grant all privileges on database demo to demo;
+
+Since PostgreSQL 15, the the `demo` user is unable to create tables in the
+public schema. Making him the owner solves the issue:
+
+    # alter database demo owner to demo;
 
 Start interactive SQL prompt:
 
