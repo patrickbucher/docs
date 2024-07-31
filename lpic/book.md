@@ -441,7 +441,29 @@ zusammengeführt werden.
   aufgelisteten Major-Versionen (z.B. `libncurses.so.5.4`) verweisen per
   symbolischen Link auf die spezifische Datei, sodass Minor-Versionen (z.B.
   `5.3`) einfach aktualisiert werden können.
-- TODO: p. 261-296
+- Debian-Pakete sind `ar`-Archive mit normalerweise drei Bestandteilen:
+    1. `debian-binary`: Versionsnummer des Paketformats
+    2. `conttrol.tar.gz`: Skripte/Steuerdateien (z.B. `preinst`/`postinst`)
+    3. `data.tar.xz`: Paketinhalt
+- Debian-Pakete unterscheiden zwischen verschiedenen Arten von Abhängigkeiten,
+  u.a.:
+    - `Depends`: Ein Paket benötigt ein anderes Paket, damit es lauffähig ist.
+    - `Pre-Depends`: Ein Paket benötigt ein anderes Paket, damit es installiert
+      werden kann.
+    - `Recommends`, `Suggests`, `Enhances`
+    - `Conflicts`: Pakete, die in Konflikt zu einem Paket stehen.
+- Mit `apt-get` können Pakete mit dem Suffix `+` (Installation) oder `-`
+  versehen werden (z.B. `apt install vim- emacs+`).
+- Die Abhängigkeiten von einem Paket können mit `apt-cache depends PAKET`
+  angezeigt werden; `apt-cache rdepends PAKET` zeigt an, welche andere Pakete
+  davon abhängen.
+- Wird ein transitiv installiertes Paket mit `apt-mark` markiert, wird es bei
+  der Installation des Elternpakets nicht deinstalliert.
+- `rpm` verwendet die Modi `-i` (install), `-U` (upgrade, inkl. Entfernung
+  älterer Versionen), `-F` (freshen, ohne Entfernung älterer Versionen), `-e`
+  (erase) und `-q` (query) zum Installieren, Aktualisieren, Löschen und Abfragen
+  von Paketen bzw. Paketinformationen. `-c` und `-d` sind analog zu `-q`,
+  beziehen sich jedoch auf Konfigurations- und Dokumentationsdateien.
 
 ## Virtualisierung
 
