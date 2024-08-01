@@ -330,6 +330,9 @@ zusammengeführt werden.
   Erscheinens der Geräte. Alternativ bietet `/dev` die Unterverzeichnisse
   `block`, `disk/by-id`, `disk/by-path`, `disk/by-uuid` und `disk/by-label` mit
   stabileren Zugriffspfaden.
+- SCSI-Geräte stehen unter `/dev/sdX` (Festplatten), `/dev/scdX`
+  (CD/DVD-Laufwerke), `/dev/stX` (Bandlaufwerke) und `/dev/stX` (generische
+  Geräte) zur Verfügung.
 - Ein Swap Space von der Grösse des physischen Arbeitsspeichers ermöglicht einen
   "Tiefschlaf" des Rechners (Hibernate). Wird der Auslagerungsspeicher über
   mehrere Geräte verteilt, kann das System jeweils auf den Swap Space zugreifen,
@@ -472,7 +475,12 @@ zusammengeführt werden.
   älterer Versionen), `-F` (freshen, ohne Entfernung älterer Versionen), `-e`
   (erase) und `-q` (query) zum Installieren, Aktualisieren, Löschen und Abfragen
   von Paketen bzw. Paketinformationen. `-c` und `-d` sind analog zu `-q`,
-  beziehen sich jedoch auf Konfigurations- und Dokumentationsdateien.
+  beziehen sich jedoch auf Konfigurations- und Dokumentationsdateien. Mit `-V`
+  kann die Integrität von Paketen geprüft werden.
+- RPM-Pakete sind spezifisch auf die Dateisystemarchitektur, das Init-System und
+  die Paketabhängigkeiten einer Distribution ausgelegt und lassen sich nicht
+  distributionsübergreifend oder über verschiedene Versionen der gleichen
+  Distribution installieren.
 
 ### Debian-Howto (`dpkg`, `apt-get` etc.)
 
