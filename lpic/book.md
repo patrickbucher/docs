@@ -1,6 +1,7 @@
 # LPIC-1
 
-Anselm Lingnau: LPIC-1. Optimale Vorbereitung auf die LPI-Prüfungen 101 und 102. 7. Auflage (ISBN-13: 978-3-95845-956-4)
+Anselm Lingnau: LPIC-1. Optimale Vorbereitung auf die LPI-Prüfungen 101 und 102.
+7. Auflage (ISBN-13: 978-3-95845-956-4)
 
 ## Dokumentation
 
@@ -9,7 +10,7 @@ Gegenüberstellung Manual Pages und GNU Info:
 |                             | Manual Pages     | GNU Info          |
 |-----------------------------|------------------|-------------------|
 | Befehl                      | `man`            | `info`            |
-| Verzeichnis                 | `/usr/share/man` | /`usr/share/info` |
+| Verzeichnis                 | `/usr/share/man` | `/usr/share/info` |
 | Umgebungsvariable für Pfade | `MANPATH`        | `INFOPATH`        |
 
 Kapitel der Manual Pages:
