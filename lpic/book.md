@@ -443,15 +443,24 @@ zusammengeführt werden.
   `5.3`) einfach aktualisiert werden können.
 - Debian-Pakete sind `ar`-Archive mit normalerweise drei Bestandteilen:
     1. `debian-binary`: Versionsnummer des Paketformats
-    2. `conttrol.tar.gz`: Skripte/Steuerdateien (z.B. `preinst`/`postinst`)
+    2. `control.tar.gz`: Skripte/Steuerdateien (z.B. `preinst`/`postinst`)
     3. `data.tar.xz`: Paketinhalt
 - Debian-Pakete unterscheiden zwischen verschiedenen Arten von Abhängigkeiten,
   u.a.:
-    - `Depends`: Ein Paket benötigt ein anderes Paket, damit es lauffähig ist.
+    - `Depends`: Ein Paket benötigt ein anderes Paket, damit es lauffähig ist,
+      wie z.B. `make` die `libc6` benötigt.
     - `Pre-Depends`: Ein Paket benötigt ein anderes Paket, damit es installiert
-      werden kann.
-    - `Recommends`, `Suggests`, `Enhances`
-    - `Conflicts`: Pakete, die in Konflikt zu einem Paket stehen.
+      werden kann, wie z.B. `python3` zur Installation `python3-minimal`
+      benötigt.
+    - `Recommends`: Ein Paket benötigt ein anderes Paket _höchstwahrscheinlich_,
+      wie z.B. `gcc` die `libc-dev` benötigt.
+    - `Suggests`: Ein Paket wird sinnvollerweise durch ein anderes Paket
+      ergänzt, wie z.B. das Paket `ffmpeg` durch `ffmpeg-doc` ergänzt wird.
+    - `Enhances`: Die Umkehrung von `Suggests`, das vorliegende Paket ergänzt
+      ein anderes Paket sinnvollerweise, wie z.B. `openssl` das Paket
+      `ca-certificates` ergänzt.
+    - `Conflicts`: Pakete, die in Konflikt zu einem Paket stehen, wie z.B. das
+      Paket `openssh-client` mit `sftp` im Konflikt steht.
 - Mit `apt-get` können Pakete mit dem Suffix `+` (Installation) oder `-`
   versehen werden (z.B. `apt install vim- emacs+`).
 - Die Abhängigkeiten von einem Paket können mit `apt-cache depends PAKET`
@@ -464,6 +473,137 @@ zusammengeführt werden.
   (erase) und `-q` (query) zum Installieren, Aktualisieren, Löschen und Abfragen
   von Paketen bzw. Paketinformationen. `-c` und `-d` sind analog zu `-q`,
   beziehen sich jedoch auf Konfigurations- und Dokumentationsdateien.
+
+### Debian-Howto (`dpkg`, `apt-get` etc.)
+
+Inhalte eines `.deb`-Pakets auflisten:
+
+    $ ar t /var/cache/apt/archives/whois_5.5.17_amd64.deb
+    debian-binary
+    control.tar.xz
+    data.tar.xz
+
+Die Konfigurationsdateien liegen im Unterverzeichnis `conffiles` im Archiv
+`control.tar.xz`.
+
+Ein Debian-Paket von der `.deb`-Datei installieren (Kurz- und Langform):
+
+    # dpkg -i whois_5.5.17_amd64.de
+    # dpkg --install whois_5.5.17_amd64.de
+
+Bei Konflikten kann der Installationsvorgang mit `--force-depends` trotz
+fehlender Abhängigkeiten und mit `--force-overwrite` trotz einer dabei
+vorzunehmenden Überschreibung einer existierenden Datei forciert werden
+
+Ein Debian-Paket anhand des Namens deinstallieren:
+
+    # dpkg --remove whois
+    # dpkg -r whois
+
+Ein Debian-Paket anhand des Namens _inklusive Konfiguration_ deinstallieren:
+
+    # dpkg --purge whois
+    # dpkg -P whois
+
+Ein Debian-Paket von der `.deb`-Datei extrahieren:
+
+    $ dpkg --extract /var/cache/apt/archives/whois_5.5.17_amd64.deb whois
+    $ dpkg -e /var/cache/apt/archives/whois_5.5.17_amd64.deb whois
+
+Installierte Pakete auflisten:
+
+    $ dpkg --list
+    $ dpkg -l
+
+Die Werte in der ersten Spalte haben die folgende Bedeutung:
+
+- `un`: noch nicht installiert
+- `pn`: installiert, aber wieder entfernt
+- `rc`: nur noch Konfigurationsdateien vorhanden (komplett entfernt)
+- `ii`: installiert
+
+Den Zustand eines Pakets anzeigen:
+
+    $ dpkg --status whois
+
+Die Dateien in einem Paket auflisten:
+
+    $ dpkg --listfiles whois
+    $ dpkg -L whois
+
+Die Pakete auflisten, welche eine Datei zur Verfügung stellen:
+
+    $ dpkg --search /usr/bin/ffmpeg
+    $ dpkg -S /usr/bin/ffmpeg
+
+Mit dem Zusatzwerkzeug `debsums` können die MD5-Prüfsummen der Dateien in einem
+Paket-Archiv gegen die hinterlegten Prüfsummen in
+`/var/lib/dpkg/info/PAKET.md5sums` geprüft werden:
+
+    $ debsums ffmpeg
+
+Lokale Informationen über Pakete aus einer Paketquelle aktualisieren:
+
+    # apt-get update
+
+Ein Paket von einer Paketquelle installieren:
+
+    # apt-get install ffmpeg
+
+Pakete in einem Schritt installieren (Suffix `+`) und deinstallieren (`-`):
+
+    # apt-get install vim+ emacs-
+
+Ein Paket entfernen:
+
+    # apt-get remove ffmpeg
+
+Alle Pakete aktualisieren, ohne automatischer Entfernung unnötig gewordener Pakete:
+
+    # apt-get upgrade
+
+Alle Pakete aktualisieren mit automatischer Konfliktauflösung
+(Installation und Deinstallation von Paketen gemäss Priorität):
+
+    # apt-get dist-upgrade
+
+Quelleocde zu einem Paket installieren:
+
+    # apt-get source ffmpeg
+
+Paketlisten durchsuchen und Paketinformationen anzeigen:
+
+    $ apt-cache search ffmpeg
+    $ apt-cache show ffmpeg
+
+Abhängigkeiten eines Pakets betrachten ‒ was benötigt `ffmpeg`?
+
+    $ apt-cache depends ffmpeg
+
+Umgekehrte Abhängigkeiten eines Pakets betrachten ‒ wovon wird `ffmpeg`
+benötigt?
+
+    $ apt-cache rdepends ffmpeg
+
+Statistiken zum Paket-Cache anzeigen:
+
+    $ apt-cache stats
+
+Das Programm `apt` kombiniert die Funktionalität von `apt-get` und `apt-cache`
+mit einigen derer Befehle (z.B. `apt search`, `apt list`, `apt install`). Es
+unterstützt u.a. weiter den Befehl `full-upgrade`, das im Gegensatz zu `upgrade`
+wenn nötig auch installierte Pakete entfernt.
+
+Installation einer bestimmten Paket-Version oder für eine bestimmte
+Debian-Version:
+
+    # apt install foo=1.2.3
+    # apt install foo/bookworm
+
+Entfernen nicht länger benötigter Abhängigkeiten, die _nicht_ mit `apt-mark`
+nachträglich als "manuell installiert" markiert worden sind:
+
+    # apt autoremove
 
 ## Virtualisierung
 
