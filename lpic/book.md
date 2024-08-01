@@ -88,7 +88,7 @@ Weitere Quellen:
 
 - Die Zugriffsrechte eines symbolischen Links sind weitgehend irrelevant, da die
   Rechte der Zieldatei berücksichtigt werden.
-- Die inode-Nummer mithilfe von `ls -li` angezeigt werden.
+- Die inode-Nummer kann mithilfe von `ls -li` angezeigt werden.
 - Ein Verzeichnis ist eine Tabelle von inodes.
 - Symbolische Links können mit den Optionen `-H` und `-L` von `ls` aufgelöst werden.
 - Mit `cp -l VERZEICHNIS/*` kann für alle Dateien im Verzeichnis ein harter Link
@@ -119,7 +119,7 @@ Weitere Quellen:
 - Der Befehl `umask` zeigt ohne Parameter den aktuellen `umask`-Wert an. Mit
   einem oktalen Argument kann die `umask` gesetzt werden; diese wirkt wie ein
   Sieb, das Rechte von der Einstellung 666 und 777 (für Dateien bzw. Ordner)
-  entfernt. Die `umask`-Einstellung wird durch eine Unterschell geerbt. Mit
+  entfernt. Die `umask`-Einstellung wird durch eine Untershell geerbt. Mit
   `umask -S` kann die aktuelle Einstellung symbolisch angezeigt werden.
 
 #### Spezialberechtigungen
@@ -271,7 +271,7 @@ zusammengeführt werden.
   geschrieben.
 - Die wichtigsten Signale, die mit `kill`, `killall` oder `pkill` an einen
   Prozess gesendet werden können, lauten:
-    - `SIGHUP` (1, hang up): Kindprozesse und Terinal beenden
+    - `SIGHUP` (1, hang up): Kindprozesse und Terminal beenden
     - `SIGINT` (2, interrupt): Unterbruch (wie Ctrl-C)
     - `SIGKILL` (9, kill): Prozess forciert beenden
     - `SIGTERM` (15, terminate): Prozess beenden
@@ -306,7 +306,7 @@ zusammengeführt werden.
 - Mit `udev`, bestehend aus dem Daemon `udevd` und der Bibliothek `namedev`,
   wird das `/dev`-Dateisystem automatisch und dynamisch mit Geräten befüllt
   (hotplugging im laufenden System & coldplugging beim Systemstart). Das Ein-
-  und Ausstecken von Geräten wird mit sog. "uevents" behandelt.
+  und Ausstecken von Geräten wird mit sog. _uevents_ behandelt.
 - Der alte Hardware-Abstraction Layer (HAL) wurde u.a. durch `udisks` ersetzt,
   welches sich um Speichermedien kümmert. Es besteht aus dem Daemon `udisksd`
   und dem Anwendungsprogramm `udiskctl`). Via D-Bus können Prozesse
@@ -351,9 +351,9 @@ zusammengeführt werden.
   entsprechendes Programm delegiert.
 - Journaling-Dateisysteme wie `ext3` protokollieren Schreibzugriffe als
   Transaktionen, welche als ganzes erfolgreich sein oder scheitern können. Im
-  Fehlerfall kann anhand des Transaktionsprotokolls wieder ein konsistenter
-  Zustand erzeugt werden. Ab `ext4` ist das Journal mit Prüfsummen abgesichert.
-  Partitionen werden mit `e2fsck` geprüft (Link: `fsck.ext2`).
+  Fehlerfall kann anhand des Transaktionsprotokolls ein konsistenter Zustand
+  wiederhergestellt werden. Ab `ext4` ist das Journal mit Prüfsummen
+  abgesichert. Partitionen werden mit `e2fsck` geprüft (Link: `fsck.ext2`).
 - Mit `tune2fs` können Partitionsparameter angepasst werden, wobei äusserste
   Vorsicht geboten ist.
 - XFS ist ein alternatives Dateisystem von SGI, welches über den Befehl
@@ -382,7 +382,7 @@ zusammengeführt werden.
   geräteübergreifende Partitionen. Ein oder mehrere Geräte (_physical volumes_,
   PV) können zu einer _volume group_ (VG) zusammengefasst werden, woraus
   _logical volumes_ (LV) erstellt werden. Die Verteilung einer Partition auf
-  mehrere Platten bezeichnet man als _stripping_; die redundante Speicherung
+  mehrere Platten bezeichnet man als _striping_; die redundante Speicherung
   eienr Partition auf mehreren Geräten als _mirroring_ (ein limitiertes RAID).
   Sicherheitskopien können über Snapshots erstellt werden.
 - Ein- und Aushängevorgänge (`mount`/`umount`) werden in `/etc/mtab`
@@ -466,7 +466,7 @@ zusammengeführt werden.
     - `Conflicts`: Pakete, die in Konflikt zu einem Paket stehen, wie z.B. das
       Paket `openssh-client` mit `sftp` im Konflikt steht.
 - Mit `apt-get` können Pakete mit dem Suffix `+` (Installation) oder `-`
-  versehen werden (z.B. `apt install vim- emacs+`).
+  (Deinstallation) versehen werden (z.B. `apt install vim+ emacs-`).
 - Die Abhängigkeiten von einem Paket können mit `apt-cache depends PAKET`
   angezeigt werden; `apt-cache rdepends PAKET` zeigt an, welche andere Pakete
   davon abhängen.
@@ -495,10 +495,10 @@ Inhalte eines `.deb`-Pakets auflisten:
 Die Konfigurationsdateien liegen im Unterverzeichnis `conffiles` im Archiv
 `control.tar.xz`.
 
-Ein Debian-Paket von der `.deb`-Datei installieren (Kurz- und Langform):
+Ein Debian-Paket von der `.deb`-Datei installieren (Lang- und Kurzform):
 
-    # dpkg -i whois_5.5.17_amd64.de
     # dpkg --install whois_5.5.17_amd64.de
+    # dpkg -i whois_5.5.17_amd64.de
 
 Bei Konflikten kann der Installationsvorgang mit `--force-depends` trotz
 fehlender Abhängigkeiten und mit `--force-overwrite` trotz einer dabei
@@ -527,8 +527,8 @@ Installierte Pakete auflisten:
 Die Werte in der ersten Spalte haben die folgende Bedeutung:
 
 - `un`: noch nicht installiert
-- `pn`: installiert, aber wieder entfernt
-- `rc`: nur noch Konfigurationsdateien vorhanden (komplett entfernt)
+- `pn`: einst installiert, aber wieder entfernt
+- `rc`: nur noch Konfigurationsdateien vorhanden (Paket entfernt)
 - `ii`: installiert
 
 Den Zustand eines Pakets anzeigen:
