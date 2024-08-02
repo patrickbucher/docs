@@ -147,6 +147,124 @@ TODO: p. 315
 
 ### Was ist ein Shell-Skript?
 
+Ein Shell-Skript ist eine Textdatei, welche Shell-Befehle, Kontrollstrukturen,
+Funktionen usw. enthält. Alle Befehle und Kontrollstrukturen, die man interaktiv
+verwenden kann, lassen sich auch in Shell-Skripten verwenden, sodass sich diese
+hervorragend zur Automatisierung manueller Tätigkeiten eignen.
+
 ### Wie starten Sie Skripte?
 
+Ein Skript (z.B. `script.sh`) kann direkt über die jeweilige Shell aufgerufen werden:
+
+```bash
+$ bash script.sh
+```
+
+Ein Skript kann auch ausführbar gemacht und dann ohne expliziten Aufruf der
+Shell gestartet werden:
+
+```bash
+$ chmod +x script.sh
+$ ./script.sh
+```
+
+Das Skript sollte hierzu auf der ersten Zeile den absoluten Pfad zum Interpreter
+mit einer speziellen Kommentar-Zeile, der _Shebang_, angeben:
+
+```bash
+#!/bin/bash
+```
+
+Liegt das Skript in einem Verzeichnis, das von `$PATH` referenziert wird (z.B.
+`~/bin`, welches sich anzulegen und in `$PATH` aufzunehmen für
+benutzerdefinierte Skripte lohnt), kann es direkt unter seinem Dateinamen
+aufgerufen werden:
+
+```bash
+$ script.sh
+```
+
+Die Endung `.sh` ist optional, vermeidet aber Verwechslungen mit eingebauten
+Befehlen.
+
+Auf den Rückgabewert eines Skripts oder Befehls kann über die Variable `$?`
+des Elternprozesses zugegriffen werden, wobei 0 Erfolg und alle anderen Werte
+Misserfolg signalisieren. Der Befehl `test`  bietet eine Vielzahl von
+Möglichkeiten, diesen Rückgabewert auszuwerten.
+
+In Shell-Skripten wird `test` unter dem Alias `[` angesprochen, welches durch
+eine schliessende Klammern am Ende des Aufrufs ergänzt wird:
+
+```bash
+test $x -gt 7
+[ $x -gt 7 ]
+```
+
 ### Was sind wichtige Kontrollstrukturen in Shell-Skripten?
+
+Befehle können mit den logischen Operatoren `&&` und `||` verkettet werden:
+
+```bash
+mkdir foo && touch foo/bar.txt
+stat qux || mkdir qux
+```
+
+Im ersten Fall wird die Datei `foo/bar.txt` nur angelegt, wenn das Erzeugen von
+`foo` funktioniert hat. Im zweiten Fall wird `qux` nur angelegt, wenn es nicht
+bereits existiert.
+
+Mit `;` auf einer Zeile verkettete Befehle werden als Sequenz ausgeführt.
+
+Mit dem Konstrukt `if`/`then`/`else`/`fi` lassen sich Fallunterscheidungen
+formulieren:
+
+```bash
+if [ -d foobar ]
+then
+    chmod 750 foobar
+else
+    mkdir foobar
+fi
+```
+
+Mit dem `while`/`do`/`done`-Konstrukt können Befehle wiederholt ausgeführt
+werden, solange eine Bedingung zutrifft:
+
+```bash
+i=$1
+n=$2
+while [ $i -le $2 ]
+do
+    echo $i
+    i=$(( $i+1 ))
+done
+```
+
+Mit dem `for`/`do`/`done`-Konstrukt kann über die Werte einer Liste iteriert
+werden:
+
+```bash
+for i in {1..10}
+do
+    echo $i
+done
+```
+
+Sequenzen können mit dem Befehl `seq` erzeugt werden. Wird keine Liste
+angegeben, erfolgt die Iteration über die Parameter `$1`, `$2` usw.
+
+Wird ein Befehl mithilfe von `exec` aufgerufen, wird der aktuelle Prozess für
+die Ausführung dieses Befehls wiederverwendet:
+
+```bash
+$ echo $$
+21578
+
+$ bash
+$ echo $$
+21582
+
+$ exec bash
+$ echo $$
+21582
+```
