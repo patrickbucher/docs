@@ -268,3 +268,152 @@ $ exec bash
 $ echo $$
 21582
 ```
+
+# Oberflächen und Desktops
+
+## (106.1) X11 installieren und konfigurieren
+
+### Was ist ein X-Server? Ein X-Client?
+
+Ein X-Server ist ein Dienst, der auf einem Arbeitsplatzrechner mit
+Peripherie-Hardware (Ein- und Ausgabegeräten) läuft.
+
+Ein X-Client ist ein Anwendungsprogramm, das auf dem gleichen oder auf einem
+entfernten Rechner läuft.
+
+X-Server und -Client tauschen Grafikbefehle (Zeichnen von Linien, Textzeichen)
+und Ereignisse (Tastendrücke, Mausbewegungen) über das X-Protokoll aus, welches
+lokal über eine Unix-Domain-Socket-Verbindung läuft bzw. über TCP/IP bei einer
+Verbindung zu einem entfernten Server auf Port 6000.
+
+### Gibt es unter Linux «Grafikkartentreiber»?
+
+Ja, es gibt Kernel-Treiber für Grafikchips und einen Treiber für X.org für die
+Konfiguration der Grafikausgabe.
+
+### Was ist Wayland?
+
+Da X11 keine 3D-Grafik unterstützt, lässt es Anwendungen ihre 3D-Darstellungen
+selber berechnen und zeichen, wozu es dem jeweiligen Client Arbeitsspeicher auf
+der Grafikkarte zur Verfügung stellt. Der _Compositor_ ist ein spezieller
+X11-Client, der sich darum kümmert, dass die Ausgaben verschiedener Clients in
+der richtigen Reihenfolge dargestellt werden.
+
+Wayland ist ein Protokoll zur Kommunikation zwischen dem Compositor und dem
+Kernel. Wayland-Clients zeichnen ihre Grafikinhalte selber und benachrichtigen
+den Compositor über neue Inhalte.
+
+X11-Clients können mit einem X11-Server namens XWayland kommunizieren, der
+Clients per Wayland rendert, um X11-Grafikprimitiven verwenden zu können.
+Moderne Grafik-Toolkits (GTK, Qt) unterstützen Wayland direkt.
+
+### Wozu dient die Umgebungsvariable `DISPLAY`?
+
+Die Umgebungsvariable `DISPLAY` enthält eine Referenz auf einen Server inkl.
+Displaynamen und bezeichnet den X-Server, mit dem ein X-Client kommuniziert. Es
+können auf einem Rechner mehrere X-Server laufen, und verschiedene X-Clients
+können verschiedene X-Server verwenden, aber jeweils nur auf einen.
+
+Bei einem lokal laufenden X-Server hat `DISPLAY` den Wert `:0`.; bei einem
+entfernten X-Server geht diesem Displaynamen eine Domain voraus (z.B.
+`host.domain.com:0`). Mehrere Bildschirme können mit `:0.0`, `:0.1` usw.
+angesprochen werden. Alternativ unterstützen X-Clients die Option `-display`,
+der entsprechende Referenzen auf den X-Server mitgegeben werden können. (Dank
+Xinerama werden mehrere Bildschirme wie ein einziger grosser Bildschirm
+verwaltet.)
+
+### Wie halten Sie andere lokale Benutzer von Ihrer Grafiksitzung fern?
+
+Mit `xhost` kann rechnerbasierter Zugriff auf einzelne Hosts erlaubt (+) bzw.
+verboten (-) werden:
+
+```bash
+$ xhost +good.domain.com # Erlaubnis
+$ xhost good2.domain.com # Erlaubnis
+$ xhost -evil.domain.com # Verwehrung
+```
+
+Da `xhost` _allen_ Benutzern des jeweiligen Hosts Zugriff gewährt, sollte es
+nicht eingesetzt werden.
+
+Bei `xauth` wird beim Start beim Start des X-Servers ein Cookie erzeugt und in
+der Datei `~/.Xauthority` des angemeldeten Benutzers abgelegt, worauf nur dieser
+Zugriff hat. Der Server akzeptiert nur Verbindungen von Servern, die diesen
+Cookie vorweisen können.
+
+Über die Option `-nolisten tcp` werden TCP-Verbindungen zum X-Server nicht
+erlaubt, was heutzutage bei vielen Distributionen standardmässig so
+voreingestellt ist.
+
+### Wie können Sie ein auf einem anderen entfernten Rechner laufendes Programm lokal X11-Grafik anzeigen lassen?
+
+Das standardmässig unverschlüsselte X-Protokoll wird über SSH per _X11
+Forwarding_ per verschlüsselter Verbindung angeboten. X11 Forwarding wird mit
+dem Flag `-X` (restriktiver) bzw. `-Y` (weniger restriktiv) aufgebaut:
+
+```bash
+$ ssh -X host.domain.com
+$ ssh -Y host.domain.com
+```
+
+## (106.2) Grafische Arbeitsumgebungen
+
+### Was sind die wichtigsten grafischen Arbeitsplatzumgebungen?
+
+Die wichtigsten Umgebungen sind GNOME (basierend auf GTK) und KDE (basierend auf
+Qt). Schlankere Umgebungen sind Xfce, LXDE und LXQt. Die Cinnamon-Umgebung ist
+ähnlich zur grafischen Benutzeroberfläche von Windows. MATE basiert auf einer
+älteren Version von GNOME. Gemeinsame Standards werden vom
+Freedesktop.org-Projekt gesetzt.
+
+### Was ist XDMCP? VNC? SPICE?
+
+- XDMCP: Das _X Display Manager Control Protocol_ dient dazu, dass ein
+  Terminal-Client, auf dem selber kein X-Server läuft, eine Textkonsole auf
+  einem entfernten X-Server ausführen kann (heutzutage ungebräuchlich).
+- VNC: Mit _Virtual Network Computing_ kann ein Fernzugriff über verschiedene
+  Rechnerplattformen hinweg bewerkstelligt werden, mittlerweile auch
+  verschlüsselt oder als read-only-Verbindung. Hierbei werden nicht
+  Render-Anweisungen sondern direkt Bildschirminhalte übertragen.
+- SPICE: Das _Simple Protocol for Independent Computing Environments_ wurde zur
+  grafischen Kommunikation mit virtuellen Maschinen erschaffen. Es arbeitet
+  hybrid, d.h. unterstützt die Übertragung von Render-Anweisungen als auch
+  von Bildschirminhalten (mit Optimierungen).
+
+## (106.3) Hilfen für Behinderte
+
+### Welche Hilfsmittel gibt es bei der Tastatureingabe?
+
+- Klebende Tasten (_sticky keys_) erlauben das Eingeben von Tastenkombinationen
+  als Sequenz anstelle gleichzeitiger Tastendrücke, was die Bedienung mit einem
+  Stock ermöglicht.
+- Langsame Tasten (_slow keys_) lassen das System versehentliche (kurze)
+  Tastendrücke ignorieren.
+- Zurückschnellende Tasten (_bounce keys_) lassen das System überzählige
+  Betätigungen derselben Taste ignorieren.
+- Wiederholungstasten (_repeat keys_) erlauben es einzustellen, ob eine
+  lang gedrückte Taste als ein Tastendruck oder als mehrere Tastendrücke
+  behandelt werden sollen.
+- Maustasten (_mouse keys_) lassen die Maus über den numerischen Tastaturblock
+  steuern.
+
+Diese Hilfsmittel können über die XKEYBOARD-Erweiterung und das
+Konfigurationsprogramm `xkbset` aktiviert und konfiguriert werden. Grafische
+Benutzeroberflächen bieten hierzu zusätzliche Werkzeuge (Stichwort
+"Zugangshilfen").
+
+Bildschirmtastaturprogramme (GOK für GNOME, XVKBD usw.) zeigen eine Tastatur an,
+die sich per Maus bedienen lässt.
+
+### Wie können Grafikoberflächen für Sehbehinderte angepasst werden?
+
+- Mauszeiger können angepasst werden (Grösse, Design) damit diese besser
+  sichtbar werden.
+- Die Schriftgrösse lässt sich umstellen (erhöhen).
+- Der Kontrast kann durch spezielle Farbschemas erhöht werden.
+- Bildschirmlupen (z.B. KMagnifier für KDE) erlauben das Vergrössern einzelner
+  Bildschirmausschnitte.
+- Sprachausgabe und Braille-Zeilen erlauben Blinden das Anhören bzw. Ertasten
+  textueller Ausgaben.
+- Spracherkennung und -steuerung steckt unter Linux noch in den Kinderschuhen
+  und ist v.a. auf Englisch und Chinesisch verfügbar.
