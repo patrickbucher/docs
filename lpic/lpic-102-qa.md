@@ -424,11 +424,77 @@ die sich per Maus bedienen lässt.
 
 ### Wie und wo werden Kennwörter gespeichert?
 
+Kennwörter für Benutzer werden in `/etc/shadow` gespeichert. Für (heute eher
+ungebräuchliche) Gruppenkennwörter gibt es die Datei `/etc/gshadow`. Zwar
+verfügen die Dateien `/etc/passwd` (Benuterkonti) und `/etc/group` (Gruppen)
+auch über ein Kennwortfeld, dieses enthält aber unter Linux nicht das Kennwort,
+sondern den Wert `x` als Verweis auf die entsprechende Shadow-Datei.
+
 ### Was bedeuten die Einträge in `/etc/passwd` und `/etc/shadow`?
+
+In der Datei `/etc/passwd` steht jede Zeile für einen Benutzer gemäss der
+folgenden Form:
+
+    Benutzername:Kennwort:UID:GID:GECOS:Heim-Verzeichnis:Login-Shell
+
+Die Felder haben die folgende Bedeutung:
+
+- Benutzername (Pflicht): Der eindeutige, textuelle Benutzernamen des Benutzers.
+- Kennwort: Der Wert `x` als Hinweis, dass das verschlüsselte Kennwort in
+  `/etc/shadow` abgelegt ist.
+- UID (Pflicht): Die eindeutige, numerische Identifikation des Benutzers (0:
+  `root`, 0-99: Systembenutzer, 100-499: für Softwarepakete, ab 1000: echte
+  Benutzer)
+- GID (Pflicht): Die numerische Identifikation der primären Gruppe des Benutzers
+- GECOS: Eine komma-separierte Liste von zusätzlichen Informationen über den
+  Benutzer: u.a. Vollname, Zimmer- & Telefonnummer. (Die Bezeichnung stammt vom
+  Hersteller GECOS, dessen Geräte in den Bell Labs verwendet wurden.)
+- Heim-Verzeichnis (Pflicht): Der absolute Pfad zum Heim-Verzeichnis des
+  Benutzers, in dem er sich nach dem Login befindet (z.B. `/home/patrick`).
+- Login-Shell: Der absolute Pfad zum Shell-Programm, das nach dem Login
+  gestartet wird (z.B. `/bin/bash`). Verfügbare Shells sind in `/etc/shells`
+  aufgelistet. Soll der Benutzer keinen Shell-Zugang haben, können Programme wie
+  `/bin/true` oder `/usr/bin/nologin` verwendet werden.
+
+In der Datei `/etc/shadow` steht jede Zeile für ein Benutzerpasswort gemäss der
+folgenden Form:
+
+    Benutzername:Kennwort:Änderung:Min:Max:Warnung:Frist:Sperre:Reserviert
+
+Die Felder haben die folgende Bedeutung:
+
+- Benutzername: siehe oben (`/etc/passwd`)
+- Kennwort: Das verschlüsselte (genauer: gehashte) Kennwort des Benutzers. Ist
+  das Feld leer, kann sich der Benutzer ohne Kennwort einloggen. Ein `*` oder
+  `!` bedeutet, dass sich der Benutzer nicht einloggen kann (gesperrter
+  Benutzer).
+- Änderung: Das Datum der letzten Kennwortänderung in Tagen seit dem 01.01.1970.
+- Min: Mindestanzahl Tage, nach denen ein Kennwort erneut geändert werden kann.
+- Max: Höchstanzahl Tage, innert denen ein Kennwort geändert werden muss.
+- Warnung: Anzahl Tage vor der Max-Frist, an denen der Benutzer eine Warnung zum
+  Zurücksetzen seines Kennworts erhält.
+- Frist: Anzahl Tage nach dem Ablauf der Max-Frist, nach denen der Benutzer nach
+  verpasster Kennwortänderung gesperrt wird.
+- Sperre: Datum, an dem das Konto definitiv gesperrt wird in Tagen seit dem
+  01.01.1970.
 
 ### Wie würden Sie die UID eines Benutzers ändern?
 
+Das Editieren der Benutzerinformationen in der Datei `/etc/passwd` ist
+fehleranfällig, weswegen besser der Befehl `usermod` verwendet werden sollte.
+
+Die UID eines Benutzers kann folgendermassen geändert werden, wozu der
+betreffende Benutzer ausgeloggt sein muss:
+
+    # usermod -u NEUE-UID BENUTZERNAME
+    # usermod --uid NEUE-UID BENUTZERNAME
+
 ### Wozu dient `vipw`?
+
+Das Programm `vipw` dient zum Editieren der Datei `/etc/passwd`, welche hierzu
+geschützt wird, damit niemand anderes diese Datei gleichzeitig mit `vipw`
+bearbeiten kann. Der aufzurufende Texteditor wird anhand der Umgebungsvariablen
+`VISUAL` und `EDITOR` bestimmt; sind diese nicht gesetzt, wird `vi` verwendet.
 
 ## (107.2) Systemadministrationsaufgaben durch Einplanen von Jobs automatisieren
 
