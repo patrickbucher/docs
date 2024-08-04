@@ -1,4 +1,4 @@
-# Shells, Skripte und Datenverwaltung
+# Shells und Skripte
 
 ## (105.1) Die Shell-Umgebung anpassen und verwenden
 
@@ -417,3 +417,37 @@ die sich per Maus bedienen lässt.
   textueller Ausgaben.
 - Spracherkennung und -steuerung steckt unter Linux noch in den Kinderschuhen
   und ist v.a. auf Englisch und Chinesisch verfügbar.
+
+# Administrative Aufgaben
+
+## (107.1) Benutzer-und Gruppenkonten und dazugehörige Systemdateien verwalten
+
+### Wie und wo werden Kennwörter gespeichert?
+
+### Was bedeuten die Einträge in `/etc/passwd` und `/etc/shadow`?
+
+### Wie würden Sie die UID eines Benutzers ändern?
+
+### Wozu dient `vipw`?
+
+## (107.2) Systemadministrationsaufgaben durch Einplanen von Jobs automatisieren
+
+### Wozu dient `at`? `cron`?
+
+### Wie ist der Zugriff auf `at` und `cron` geregelt?
+
+### Wie sehen `crontab`-Dateien aus?
+
+### Wofür ist das Programm `crontab` gut? Warum wird es gebraucht?
+
+### Wie funktionieren systemd-Timer-Units?
+
+## (107.3) Lokalisierung und Internationalisierung
+
+### Welche Zeichencodierungen gibt es und wie unterscheiden sie sich?
+
+### Wie können Sie Dateien in andere Zeichencodierungen konvertieren?
+
+### Wie wird eine Linux-Sitzung an einen Kulturkreis angepasst?
+
+### Wie funktionieren Zeitzonen in Linux?
