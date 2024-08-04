@@ -500,7 +500,48 @@ bearbeiten kann. Der aufzurufende Texteditor wird anhand der Umgebungsvariablen
 
 ### Wozu dient `at`? `cron`?
 
+Mit `at` lassen sich Kommandozeilenbefehle _einmalig_ an einem bestimmten
+Zeitpunkt in der Zukunft ausführen:
+
+```bash
+$ at 20:11
+> systemd-cat echo 'Hello, at!'
+> [Ctrl]-[D]
+```
+
+Hierzu muss der _at daemon_ (`atd`) laufen.
+
+Die Zeit kann um relative (z.B. `today` oder `tomorrow`) oder absolute
+Datumsangaben (z.B. `August 10`, `10.08.2024`, `2024-08-10` oder `08/10/2024`)
+ergänzt werden:
+
+Wird die Uhrzeit weggelassen, gilt die aktuelle Uhrzeit am jeweiligen Datum.
+
+```bash
+$ at 20:15 tomorrow
+> systemd-cat echo 'Good evening, at!'
+> [Ctrl]-[D]
+```
+
+Zeitangaben können auch relativ angegeben werden, z.B. als `now + 3 hours` oder
+`noon + 2 days` (erlaubte Einheiten: `minutes`, `hours`, `days`, `weeks`).
+
+Sollen die Befehle nicht interaktiv eingegeben sondern aus einer Datei gelesen
+werden, kann hierzu die Option `-f SKRIPT` verwendet werden.
+
+Die Befehle werden mit der Umgebung ausgeführt, in welcher `at` ursprünglich
+instruiert worden ist.
+
+TODO: p. 384
+
+Mit `cron` lassen sich Kommandozeilenbefehle _mehrmals_ zu wiederkehrenden
+Zeiten ausführen.
+
+TODO
+
 ### Wie ist der Zugriff auf `at` und `cron` geregelt?
+
+TODO: p. 385
 
 ### Wie sehen `crontab`-Dateien aus?
 
