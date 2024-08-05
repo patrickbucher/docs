@@ -500,6 +500,8 @@ bearbeiten kann. Der aufzurufende Texteditor wird anhand der Umgebungsvariablen
 
 ### Wozu dient `at`? `cron`?
 
+#### `at`
+
 Mit `at` lassen sich Kommandozeilenbefehle _einmalig_ an einem bestimmten
 Zeitpunkt in der Zukunft ausführen:
 
@@ -508,8 +510,6 @@ $ at 20:11
 > systemd-cat echo 'Hello, at!'
 > [Ctrl]-[D]
 ```
-
-Hierzu muss der _at daemon_ (`atd`) laufen.
 
 Die Zeit kann um relative (z.B. `today` oder `tomorrow`) oder absolute
 Datumsangaben (z.B. `August 10`, `10.08.2024`, `2024-08-10` oder `08/10/2024`)
@@ -532,22 +532,118 @@ werden, kann hierzu die Option `-f SKRIPT` verwendet werden.
 Die Befehle werden mit der Umgebung ausgeführt, in welcher `at` ursprünglich
 instruiert worden ist.
 
-TODO: p. 384
+Zu `at` gibt es eine Reihe von Hilfsprogrammen:
+
+- `atd`: _at daemon_; Verwaltung und Aufstarten der Aufträge im Hintergrund
+- `atq`: Inspektion der Aufträge in der Warteschlange
+- `atrm`: Aufträge anhand derer Nummer stornieren
+- `batch`: Verwaltung von Aufträgen _ohne_ Zeitangabe, die baldmöglichst
+  ausgeführt werden sollen (d.h. sobald genügend Systemressourcen dafür zur
+  Verfügung stehen)
+
+Die Aufträge liegen im Verzeichnis `/var/spool/atjobs`. Die Ausgaben der
+Aufträge werden im Verzeichnis `/var/spool/atspool` zwischengespeichert.
+
+#### `cron`
 
 Mit `cron` lassen sich Kommandozeilenbefehle _mehrmals_ zu wiederkehrenden
 Zeiten ausführen.
 
-TODO
-
 ### Wie ist der Zugriff auf `at` und `cron` geregelt?
 
-TODO: p. 385
+Für `at` gibt es zwei Dateien zur Zugangskontrolle, in welcher Benutzer
+aufgelistet werden:
+
+1. `/etc/at.allow`: Die aufgelisteten Benutzer dürfen Aufträge einreichen.
+2. `/etc/at.deny`: Die aufgelisteten Benutzer dürfen _keine_ Aufträge einreichen.
+
+Existiert die erste Datei nicht, sind alle Benutzer berechtigt, die _nicht_ in
+der zweiten Datei stehen. Ist die erste Datei leer, dürfen _alle_ Benutzer
+Aufträge einreichen.
+
+Bei `cron` gibt es analog dazu die Dateien `/etc/cron.allow` und
+`/etc/cron.deny`.
 
 ### Wie sehen `crontab`-Dateien aus?
 
+Die Aufträge sind pro Benutzer im Verzeichnis `/var/spool/cron` abgelegt, z.B.
+`var/spool/cron/patrick`. Diese `crontab`-Dateien sind folgendermassen
+aufgebaut:
+
+- Jede Zeile steht für eine wiederkehrende Aufgabe (bzw. für eine
+  Kommentarzeile, wenn diese mit `#` beginnt).
+- Es gibt sechs Spalten, fünf für die Zeitangabe und eine für den Befehl:
+    1. Minute (0-59)
+    2. Stunde (0-23)
+    3. Tag im Monat (1-31)
+    4. Monat (1-12 bzw. englischer Name)
+    5. Wochentag (0-7, wobei 0 und 7 für den Sonntag stehen bzw. englischer Name)
+    6. der auszuführende Befehl, der mit `/bin/sh` bzw. der `SHELL`
+       referenzierten Shell ausgeführt wird
+
+Die systemweite Datei `/etc/crontab` darf nur durch den Administrator geändert
+werden und hat eine zusätzliche Spalte für den auszuführenden Benutzer vor der
+Befehlsspalte.
+
+Es kann entweder der Tag im Monat (Spalte 3) oder der Wochentag (Spalte 5)
+definiert werden; ist eine Zeitangabe unerheblich, gibt man `*` an. Es können
+auch Listen (`0,30`), Bereiche (`3-5`) Kombinationen davon (`1,3,5-10`) oder
+Schrittweiten (`*/10`) angegeben werden. Monats- und Wochentage können mit den
+jeweils ersten drei Buchstaben abgekürzt werden (`jan`, `feb`, `mar`, … bzw.
+`mon`, `tue`, `wed`, …)
+
+Beispiele:
+
+    # täglich um 20:15 Uhr
+    15 20 * * * echo "Movie Prime-Time"
+
+    # alle fünf Minuten
+    */5 * * * * echo "fünf Minuten sind um"
+
+    # wochentags vor Mitternacht
+    59 23 * * 1-5 echo "ein Werktag ist vorbei"
+
+    # Adventskalender
+    0 8 1-24 12 * echo "es weihnachtet gar sehr"
+
+Oben an einer `crontab`-Datei können die folgenden Umgebungsvariablen gesetzt
+werden:
+
+- `SHELL`: Shell zur Ausführung der Befehle (absoluter Pfad; standardmässig
+  `/bin/sh`)
+- `LOGNAME`: Name des Benutzers aus `/etc/passwd` (kann nicht geändert werden)
+- `HOME`: Arbeitsverzeichnis für Befehle (standardmässig das Home-Verzeichnis
+  aus `/etc/passwd`)
+- `MAILTO`: Nachrichtenempfänger der Befehlsausgaben; `""` damit keine
+  Nachrichten verschickt werden
+
+Weitere Aufgaben können in `/etc/cron.d` definiert werden. In
+`/etc/cron.hourly`, `/etc/cron.weekly` usw. können Skripte zur periodischen
+Ausführung abgelegt werden. Die Aufgabenliste wird einmal pro Minute auf
+Änderungen der genannten Dateien geprüft.
+
 ### Wofür ist das Programm `crontab` gut? Warum wird es gebraucht?
 
+Die `crontab`-Datei wird sinnvollerweise mit dem Programm `crontab` editiert:
+
+    $ crontab -e
+
+Dadurch wird die jeweilige `crontab`-Datei des Benutzers im bevorzugten
+Texteditor (`VISUAL`/`EDITOR`) geöffnet, vorher gesichert und beim Verlassen des
+Texteditors automatisch installiert.
+
+Weitere Parameter von `crontab` sind u.a.:
+
+- `-T PFAD`: syntaktische Validierung der angegebenen `crontab`-Datei
+- `-l`: Auflistung der jeweiligen `crontab`-Datei
+- `-r`: Entfernung der jeweiligen `crontab`-Datei
+- `-u BENUTZER`: Verwendung der `crontab`-Datei eines anderen Benutzers (v.a.
+  durch die Benutzung von `root` sinnvoll); kann z.B. mit `-l`, `-r` und `-e`
+  kombiniert werden
+
 ### Wie funktionieren systemd-Timer-Units?
+
+TODO: p. 390 ff.
 
 ## (107.3) Lokalisierung und Internationalisierung
 
