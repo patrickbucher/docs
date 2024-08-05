@@ -143,8 +143,6 @@ Form) an.
 
 ## (105.2) Einfache Skripte anpassen und schreiben
 
-TODO: p. 315
-
 ### Was ist ein Shell-Skript?
 
 Ein Shell-Skript ist eine Textdatei, welche Shell-Befehle, Kontrollstrukturen,
@@ -643,7 +641,144 @@ Weitere Parameter von `crontab` sind u.a.:
 
 ### Wie funktionieren systemd-Timer-Units?
 
-TODO: p. 390 ff.
+Systemd kombiniert die Funktionen von `at` und `cron` und erlaubt die Ausführung
+von Service-Units wie z.B. der folgenden (`/etc/systemd/system/hello.service`):
+
+```ini
+[Unit]
+Description=demonstrate timer units
+
+[Service]
+Type=oneshot
+ExecStart=systemd-cat -t hello echo "Hello from systemd timer"
+User=patrick
+Group=patrick
+```
+
+Wird eine dazugehörige Timer-Unit definiert (`hello.timer`), startet diese
+standardmässig die dazugehörige Service-Unit (`hello.service`). Der
+auszuführende Service kann jedoch mit der Einstellung `Unit=` überschrieben
+werden.
+
+Timer-Units müssen nach ihrer Definition aktiviert und gestartet werden:
+
+```bash
+# systemctl daemon-reload
+# systemctl enable --now hello.timer
+```
+
+Die Unit-Datei kann folgendermassen überprüft werden, wozu der Daemon _nicht_
+neu geladen werden muss (das Programm arbeitet direkt auf der Datei):
+
+```bash
+$ systemd-analyze verify hello.timer
+```
+
+#### Einmalige Ausführung (analog `at`)
+
+Einmalige Ereignisse (analog zu `at`) werden mithilfe der Ausführungszeit
+`OnActivateSec=` definiert:
+
+```ini
+[Timer]
+OnActiveSec=1m
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Die Zeitangabe (hier `1m` für "eine Minute") kann auf verschiedene Weisen
+erfolgen. Ob ein Wert gültig ist, und wie er interpretiert wird, lässt sich am
+besten mit `systemd-analyze timespan ZEITANGABE` überprüfen:
+
+```bash
+$ systemd-analyze timespan "2d1h45m20m5s"
+Original: 2d1h45m20m5s
+      μs: 180305000000
+   Human: 2d 2h 5min 5s
+```
+
+Die Zeiten werden aufaddiert, sodass `45m` und `20m` als eine Stunde und fünf
+Minuten interpretiert werden.
+
+Mit `OnBoot=` kann die Zeitspanne ab dem Systemstart angegeben werden.
+
+#### Periodische Ausführung (analog `cron`)
+
+Mehrmalige Ereignisse (analog zu `cron`) werden mithilfe der Kalenderangabe
+`OnCalendar=` definiert:
+
+```bash
+[Timer]
+OnCalendar=minutely
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Die Kalender-Angaben können mit `systemd-analyze calendar` überprüft werden:
+
+```bash
+$ systemd-analyze calendar "2024-*-01 08:00"
+  Original form: 2024-*-01 08:00
+Normalized form: 2024-*-01 08:00:00
+    Next elapse: Sun 2024-09-01 08:00:00 CEST
+       (in UTC): Sun 2024-09-01 06:00:00 UTC
+       From now: 3 weeks 5 days left
+```
+
+Hier einige Beispiele:
+
+- `*-12-1..24 08:00`: Vom 1. bis 24. Dezember jeweils um 8 Uhr morgens.
+- `Fri 17:00`: Jeweils freitags um 17 Uhr.
+- `Mon..Fri 23:59`: wochentags vor Mitternacht
+- `*:00/5`: alle fünf Minuten
+
+Hierbei gibt es folgende Regeln zu beachten:
+
+- Der Wochentag ist optional; wird er angegeben, muss er zum Datum passen.
+- Datum und Uhrzeit sind optional; standardmässig gilt `00:00:00`.
+- Die Zeitzone ist optional; standardmässig gilt die aktuell eingestellte
+  Zeitzone.
+- Komplizierte Regeln können mit mehreren `OnCalendar=`-Regeln modelliert
+  werden, die dann alle gelten.
+
+#### Startgenauigkeit und -Verzögerung
+
+Systemd versucht die Ausführung von Services zu bündeln, weshalb Timer-Units
+nicht sofort, sondern innerhalb eines Aktivierungsfensters `AccuracySec=`
+gestartet wird (standardmässig innerhalb einer Minute: `1m`).
+
+Möchte man sicherstellen, dass nicht alle Timer-Units gleichzeitig getriggert
+werden, kann man mit `RandomizedDelaySec=` ein maximales Wartefenster definiert
+werden, innerhalb dessen eine zufällige Zeitspanne abgewartet wird.
+
+### Aktivierung ohne Timer-Unit
+
+Mithilfe `systemd-run` können einzelne Kommandos ohne die vorherige Definition
+einer Timer-Unit definiert werden:
+
+```bash
+# systemd-run --on-active=10s \
+    --timer-property=AccuracySec=1s \
+    --timer-property=RandomizedDelaySec=5s \
+    systemd-cat -t hello echo 'Hello, once.'
+
+# systemd-run --on-calendar='*:00/1' \
+    --timer-property=AccuracySec=1s \
+    --timer-property=RandomizedDelaySec=5s \
+    systemd-cat -t hello echo 'Hello, again.'
+```
+
+Für die Angaben `OnActive=` bzw. `OnCalendar=` stehen die entsprechenden
+Optionen `--on-active=` und `--on-calendar=` zur Verfügung. Die weiteren
+Eigenschaften für die Timer-Unit werden mittels `--timer-property=KEY=VALUE`
+bzw. für die Service-Unit mittels `--property=KEY=VALUE` angegeben.
+
+Mittels `systemd-run` gestartete Units sind nur temporär vorhanden. Die
+Funktionsweise von `at` kann dadurch abgedeckt werden; als `cron`-Ersatz taugt
+`systemd-run` zum Experimentieren, benötigt aber für den produktiven Betrieb
+Timer-Unit-Dateien.
 
 ## (107.3) Lokalisierung und Internationalisierung
 
