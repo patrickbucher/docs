@@ -782,6 +782,8 @@ Timer-Unit-Dateien.
 
 ## (107.3) Lokalisierung und Internationalisierung
 
+TODO: Kapitel 16.1-16.5
+
 ### Welche Zeichencodierungen gibt es und wie unterscheiden sie sich?
 
 ### Wie können Sie Dateien in andere Zeichencodierungen konvertieren?
@@ -789,3 +791,97 @@ Timer-Unit-Dateien.
 ### Wie wird eine Linux-Sitzung an einen Kulturkreis angepasst?
 
 ### Wie funktionieren Zeitzonen in Linux?
+
+# Grundlegende Systemdienste
+
+## (108.1) Die Systemzeit verwalten
+
+### Wie stellt Linux die Zeit dar?
+
+TODO
+
+### Was ist die CMOS-Uhr und wie benutzt Linux sie?
+
+Beim Systemstart liest der Linux-Kernel die Zeit aus der CMOS-Uhr vom BIOS,
+welche mit `hwclock` ausgelesen werden kann:
+
+```
+# hwclock
+2024-08-05 08:47:06.514425+02:00
+```
+
+### Wie könne Sie die Uhr stellen?
+
+Die aktuelle Kernelzeit kann mit `date` ausgelesen und im Format
+`MMDDhhmmYYYY.ss` gesetzt werden; mit der Option `-u` wird die Zeit als UTC
+interpretiert:
+
+```
+$ date
+Mon Aug  5 08:51:18 AM CEST 2024
+$ date -u
+Mon Aug  5 06:51:18 AM UTC 2024
+# date 080508512024.18
+```
+
+Die Systemzeit kann auf die CMOS-Uhr geschrieben werden ("system to hardware
+clock"):
+
+```
+# hwclock --systohc
+```
+
+Die Systemzeit kann von der CMOS-Uhr übernommen werden ("hardware clock to
+system"):
+
+```
+# hwclock --hctosys
+```
+
+### Was tut NTP ud wofür ist es nötig?
+
+Um plötzliche Zeitsprünge zu vermeiden und die Ungenauigkeiten der CMOS-Uhr zu
+umgehen empfiehlt sich die Synchronisation mittels _Network Time Protocol_
+(NTP) über den `ntpd`-Daemon, der über die Datei `/etc/ntp.conf` konfiguriert
+wird:
+
+```
+server 0.pool.ntp.org
+server 1.pool.ntp.org
+server 2.pool.ntp.org
+server 3.pool.ntp.org
+
+driftfile /var/lib/ntp/ntp.drift
+```
+
+Mit `ntpdate SERVER` kann die Systemzeit vom angegebenen Server übernommen
+werden. Die Option `-q` zeigt die empfangene Zeit an ohne sie zu setzen.
+
+Im _Driftfile_ werden systematische Abweichungen von der CMOS-Uhr gespeichert,
+sodass beim Systemstart eine relativ genaue Systemzeit angenommen werden kann,
+bevor ein Abgleich per NTP stattfindet.
+
+In einem grösseren Netzwerk lohnt es sich, interne Zeitserver zu betreiben, die
+ihre Zeit dann wiederum mit einem öffentlichen NTP-Server synchronisieren.
+
+### Was ist der NTP-Pool?
+
+Der NTP-Pool ist eine Reihe öffentlicher Zeitserver, die nicht direkt über die
+IP-Adresse eines konkreten Systems, sondern über eine Pool-Adresse angesprochen
+werden. Die einzelnen Servers, die zu einem Pool gehören, werden im
+"Ringelreihen"-Verfahren abwechslungsweise verwendet. Dadurch gleicht sich die
+Last zwischen den Servern besser aus.
+
+### Was ist Chrony?
+
+Chrony (mit dem `chronyd`-Daemon, der Konfigurationsdatei `/etc/chrony.conf` und
+dem Steuerprogramm `chronyc`) ist eine Alternative zu `ntpd`, welche auch als
+Zeitserver agieren kann.
+
+### Wie können Sie mit `timedatectl` die Zeitsynchronisierung aktivieren?
+
+Systemd kann die Systemzeit mit dem NTP-Client `systemd-timesyncd` und dem
+Kommando `timedatectl` verwalten:
+
+- Aktivierung: `# timedatectl set-ntp true`
+- Statusprüfung: `# timedatectl timesync-status`
