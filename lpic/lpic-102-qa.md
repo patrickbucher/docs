@@ -79,7 +79,7 @@ Die `bash` kennt u.a. folgende nur lesbare vordefinierte Variablen:
 Auf einem virtuellen Terminal kann das Tastaturlayout mit dem Befehl `loadkeys`
 mit `root`-Berechtigungen umgestellt werden:
 
-```bash
+```
 # loadkeys en
 # loadkeys en us
 ```
@@ -154,14 +154,14 @@ hervorragend zur Automatisierung manueller Tätigkeiten eignen.
 
 Ein Skript (z.B. `script.sh`) kann direkt über die jeweilige Shell aufgerufen werden:
 
-```bash
+```
 $ bash script.sh
 ```
 
 Ein Skript kann auch ausführbar gemacht und dann ohne expliziten Aufruf der
 Shell gestartet werden:
 
-```bash
+```
 $ chmod +x script.sh
 $ ./script.sh
 ```
@@ -169,7 +169,7 @@ $ ./script.sh
 Das Skript sollte hierzu auf der ersten Zeile den absoluten Pfad zum Interpreter
 mit einer speziellen Kommentar-Zeile, der _Shebang_, angeben:
 
-```bash
+```
 #!/bin/bash
 ```
 
@@ -178,7 +178,7 @@ Liegt das Skript in einem Verzeichnis, das von `$PATH` referenziert wird (z.B.
 benutzerdefinierte Skripte lohnt), kann es direkt unter seinem Dateinamen
 aufgerufen werden:
 
-```bash
+```
 $ script.sh
 ```
 
@@ -254,7 +254,7 @@ angegeben, erfolgt die Iteration über die Parameter `$1`, `$2` usw.
 Wird ein Befehl mithilfe von `exec` aufgerufen, wird der aktuelle Prozess für
 die Ausführung dieses Befehls wiederverwendet:
 
-```bash
+```
 $ echo $$
 21578
 
@@ -325,7 +325,7 @@ verwaltet.)
 Mit `xhost` kann rechnerbasierter Zugriff auf einzelne Hosts erlaubt (+) bzw.
 verboten (-) werden:
 
-```bash
+```
 $ xhost +good.domain.com # Erlaubnis
 $ xhost good2.domain.com # Erlaubnis
 $ xhost -evil.domain.com # Verwehrung
@@ -349,7 +349,7 @@ Das standardmässig unverschlüsselte X-Protokoll wird über SSH per _X11
 Forwarding_ per verschlüsselter Verbindung angeboten. X11 Forwarding wird mit
 dem Flag `-X` (restriktiver) bzw. `-Y` (weniger restriktiv) aufgebaut:
 
-```bash
+```
 $ ssh -X host.domain.com
 $ ssh -Y host.domain.com
 ```
@@ -418,7 +418,7 @@ die sich per Maus bedienen lässt.
 
 # Administrative Aufgaben
 
-## (107.1) Benutzer-und Gruppenkonten und dazugehörige Systemdateien verwalten
+## (107.1) Benutzer- und Gruppenkonten und dazugehörige Systemdateien verwalten
 
 ### Wie und wo werden Kennwörter gespeichert?
 
@@ -503,7 +503,7 @@ bearbeiten kann. Der aufzurufende Texteditor wird anhand der Umgebungsvariablen
 Mit `at` lassen sich Kommandozeilenbefehle _einmalig_ an einem bestimmten
 Zeitpunkt in der Zukunft ausführen:
 
-```bash
+```
 $ at 20:11
 > systemd-cat echo 'Hello, at!'
 > [Ctrl]-[D]
@@ -515,7 +515,7 @@ ergänzt werden:
 
 Wird die Uhrzeit weggelassen, gilt die aktuelle Uhrzeit am jeweiligen Datum.
 
-```bash
+```
 $ at 20:15 tomorrow
 > systemd-cat echo 'Good evening, at!'
 > [Ctrl]-[D]
@@ -662,7 +662,7 @@ werden.
 
 Timer-Units müssen nach ihrer Definition aktiviert und gestartet werden:
 
-```bash
+```
 # systemctl daemon-reload
 # systemctl enable --now hello.timer
 ```
@@ -670,7 +670,7 @@ Timer-Units müssen nach ihrer Definition aktiviert und gestartet werden:
 Die Unit-Datei kann folgendermassen überprüft werden, wozu der Daemon _nicht_
 neu geladen werden muss (das Programm arbeitet direkt auf der Datei):
 
-```bash
+```
 $ systemd-analyze verify hello.timer
 ```
 
@@ -691,7 +691,7 @@ Die Zeitangabe (hier `1m` für "eine Minute") kann auf verschiedene Weisen
 erfolgen. Ob ein Wert gültig ist, und wie er interpretiert wird, lässt sich am
 besten mit `systemd-analyze timespan ZEITANGABE` überprüfen:
 
-```bash
+```
 $ systemd-analyze timespan "2d1h45m20m5s"
 Original: 2d1h45m20m5s
       μs: 180305000000
@@ -708,7 +708,7 @@ Mit `OnBoot=` kann die Zeitspanne ab dem Systemstart angegeben werden.
 Mehrmalige Ereignisse (analog zu `cron`) werden mithilfe der Kalenderangabe
 `OnCalendar=` definiert:
 
-```bash
+```ini
 [Timer]
 OnCalendar=minutely
 
@@ -718,7 +718,7 @@ WantedBy=multi-user.target
 
 Die Kalender-Angaben können mit `systemd-analyze calendar` überprüft werden:
 
-```bash
+```
 $ systemd-analyze calendar "2024-*-01 08:00"
   Original form: 2024-*-01 08:00
 Normalized form: 2024-*-01 08:00:00
@@ -758,7 +758,7 @@ werden, innerhalb dessen eine zufällige Zeitspanne abgewartet wird.
 Mithilfe `systemd-run` können einzelne Kommandos ohne die vorherige Definition
 einer Timer-Unit definiert werden:
 
-```bash
+```
 # systemd-run --on-active=10s \
     --timer-property=AccuracySec=1s \
     --timer-property=RandomizedDelaySec=5s \
