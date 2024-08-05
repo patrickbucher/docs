@@ -798,7 +798,8 @@ TODO: Kapitel 16.1-16.5
 
 ### Wie stellt Linux die Zeit dar?
 
-TODO
+Die Kernel-Uhr zählt die Zeit in fortlaufenden Sekunden seit dem 01.01.1970 um
+00:00 Uhr UTC.
 
 ### Was ist die CMOS-Uhr und wie benutzt Linux sie?
 
@@ -885,3 +886,27 @@ Kommando `timedatectl` verwalten:
 
 - Aktivierung: `# timedatectl set-ntp true`
 - Statusprüfung: `# timedatectl timesync-status`
+
+## (108.2) Systemprotokollierung
+
+## (108.3) Grundlagen von Mal Transfer Agents (MTAs)
+
+## (108.4) Drucker und Drockvorgänge verwalten
+
+# Netz-Grundlagen
+
+## (109.1) Grundlagen von Internet-Protokollen
+
+## (109.2) Dauerhafte Netz-Konfiguration
+
+## (109.3) Grundlegende Netz-Fehlersuche
+
+## (109.4) Clientseitiges DNS konfigurieren
+
+# Sicherheit
+
+## (110.1) Administrationsaufgaben für Sicherheit durchführen
+
+## (110.2) Einen Rechner absichern
+
+## (110.3) Daten durch Verschlüsselung schützen
