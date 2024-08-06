@@ -860,7 +860,105 @@ Eine Liste der unterstützten Codierungen erhält man mittels Parameter
 
 ### Wie wird eine Linux-Sitzung an einen Kulturkreis angepasst?
 
+Die Sprache einer Sitzung wird mit der Umgebungsvariable `LANG` spezifiziert und
+an Unterprozesse vererbt. Erlaubte Werte von `LANG` setzen sich folgendermassen
+zusammen:
+
+- zwingend: Sprachcode (ISO 639)
+- optional (nach einem `_`): Ländercode (ISO 3166)
+- optional (nach einem `.`): Zeichencodierung
+- optional (nach einem `@`): Variante
+
+Mögliche Beispiele sind:
+
+- `de` (nur Sprachcode)
+- `de_CH` (Sprach- und Ländercode)
+- `de_CH.UTF-8` (Sprach-, Ländercode und Codierung)
+- `de_DE@euro` (Sprach-, Ländercode und Variante)
+
+Durch `LANG` wird nicht nur die Sprachausgabe sondern auch u.a. die
+Datumsausgabe, die Zahlenformatierung oder die Sortierreihenfolge von Zeichen
+beeinflusst. Beispiel mit dem Datum 01.01.1970 (Timestamp 0):
+
+```
+$ LANG=de_CH.UTF-8 date +'%d. %B %Y' --date '@0'
+01. Januar 1970
+$ LANG=en_US date +'%d. %B %Y' --date '@0'
+01. January 1970
+$ LANG=ru_RU.UTF-8 date +'%d. %B %Y' --date '@0'
+01. января 1970
+```
+
+Programme, die GNU-gettext verwenden, beachten die Umgebungsvariable `LANGUAGE`,
+die als Präferenzliste fungiert und mehrere durch `:` getrennte Angaben erlaubt:
+
+    LANGUAGE=de_CH.UTF-8:de_DE:UTF-8:de_AT.UTF-8:en_US.UTF-8
+
+Um einzelne Aspekte der Lokalisierung feingranularer einstellen zu können,
+stehen verschiedene Umgebungsvariablen mit dem Präfix `LC_` zur Verfügung, z.B.:
+
+- `LC_CTYPE`: Zeichenklassifizierungen, Gross- und Kleinschreibung
+- `LC_MONETARY`: Formatierung von Geldbeträgen
+- `LC_TIME`: Formatierung von Datums- und Zeitangaben
+- `LC_ALL`: alle Einstellungen
+
+Die aktuell geltenden Einstellungen können mit dem Befehl `locale` ausgegeben
+werden. Einzelne Einstellungen können im Detail betrachtet werden:
+
+```
+$ locale -k LC_PAPER
+height=279
+width=216
+paper-codeset="UTF-8"
+```
+
+Mit `locale -a` können alle verfügbaren Einstellungen ausgegeben werden. Der
+Wert `C` sollte in jedem Fall existieren und kann verwendet werden um
+sicherzustellen, dass die Ausgabe einheitlich erfolgt (z.B. bei `ls -l`, das
+u.a. das Änderungsdatum der Dateien ausgibt).
+
+Die verschiedenen Variablen werden nach folgenden Regeln ausgewertet:
+
+1. Ist `LC_ALL` gesetzt, gilt dessen Wert.
+2. Ist `LC_ALL` _nicht_ gesetzt, gilt die jeweilige `LC_`-Variable für den
+   Anwendungsbereich.
+3. Ist weder `LC_ALL` noch die passende `LC_`-Variable gesetzt, gilt der Wert
+   von `LANG`.
+4. Ist keine der genannten Variablen gesetzt, wird ein Standardwert des
+   jeweiligen Programms verwendet.
+
 ### Wie funktionieren Zeitzonen in Linux?
+
+Wie bei der Sprache ist auch die Zeitzone ein prozessweiter Wert, der an
+Unterprozesse weitervererbt wird. Die Zeitzone ist in `/etc/timezone` definiert
+
+Zeitzonen sind in `/usr/share/zoneinfo` definiert, z.B.
+in der Datei `/usr/share/zoneinfo/Europe/Zurich` für die Zeitzone, die in der
+Schweiz verwendet wird.
+
+Es gibt zwei Dateien, über welche die aktuell gültige Zeitzone gesetzt werden
+kann:
+
+1. `/etc/localtime`: indem ein symbolischer Link zu einer Datei in oben
+   genannten Verzeichnis gesetzt, oder indem die entsprechende Datei kopiert
+   wird.
+2. `/etc/timezone`: indem ein Wert wie `Europe/Zurich` (relative Pfade innerhalb
+   von `/usr/share/zoneinfo`) in die Datei eingetragen wird.
+
+Auf Prozessebene kann die Zeitzone über die Variable `TZ` eingestellt werden
+(als Name einer Zeitzone, oder als Offset):
+
+```
+$ TZ=Asia/Tokyo date
+Wed Aug  7 04:29:19 AM JST 2024
+$ TZ=America/New_York date
+Tue Aug  6 03:29:41 PM EDT 2024
+
+$ TZ=UTC date
+Tue Aug  6 07:30:55 PM UTC 2024
+$ TZ=CET-2 date
+Tue Aug  6 09:31:32 PM CET 2024
+```
 
 # Grundlegende Systemdienste
 
