@@ -782,11 +782,81 @@ Timer-Unit-Dateien.
 
 ## (107.3) Lokalisierung und Internationalisierung
 
-TODO: Kapitel 16.1-16.5
-
 ### Welche Zeichencodierungen gibt es und wie unterscheiden sie sich?
 
+ISO 10646 ist eine Untermenge von Unicode; ersteres definiert eine
+Zeichentabelle, letzteres auch Aspekte wie Sortierung, Normalisierung und
+bidirektionales Schreiben (etwa für Arabisch und Hebräisch). Der Standard
+definiert Codepunkte, insgesamt 1.1 Mio., wovon die ersten 65'536 (die _basic
+multilingual plane_ BMP) weit verbreitet sind.
+
+Für die Darstellung dieser Zeichen gibt es verschiedene Codierungen:
+
+- **UCS-2** codiert jeden Codepunkt mit zwei Bytes, d.h. kann nur die 65'536
+  Zeichen der BMP codieren. Für ASCII-Zeichen, die sich auch mit einem Byte
+  darstellen liessen, ist das eine Platzverschwendung. (UTF-16 ist eine
+  Abwandlung von UCS-2, die mehr Zeichen codieren kann.)
+- **UTF-8** kann den kompletten Unicode-Zeichensatz codieren, wofür je nach
+  Zeichen 1-4 Bytes verwendet werden. Zeichen der Zeichensätze ASCII ISO-8859-1
+  (latin-1) werden mit einem Byte codiert, wodurch UTF-8 zu ASCII
+  vorwärtskompatibel ist. UTF-8 ist effizienter, einfacher und robuster als
+  UTF-16, im Gegensatz zu welchem es keine _Byte Order Marks_ (BOM) verwendet.
+
+UTF-8 hat sich auf Linux-Systemen weitgehend durchgesetzt.
+
 ### Wie können Sie Dateien in andere Zeichencodierungen konvertieren?
+
+Mit `iconv` kann eine Datei oder ein Datenstrom von einer Ausgangscodierung
+(`-f`/`--from-code`) in eine Zielcodierung (`-t`/`--to-code`) umgewandelt
+werden:
+
+```
+$ iconv -f UTF-8 -t ISO-8859-1 -o out.txt in.txt
+$ iconv --from-code=UTF-8 --to-code=ISO-8859-1 --output=out.txt in.txt
+```
+
+Wird keine Eingabedatei angegeben, liest das Programm von der Standardeingabe.
+Wird die Ausgabedatei weggelassen, wird das Ergebnis auf die Standardausgabe
+geschrieben.
+
+Enthält die Eingabe Zeichen, die in der Zielkodierung nicht dargestellt werden
+können, wird ein Fehler ausgegeben:
+
+```
+$ echo 'äöü' | iconv -f UTF-8 -t ASCII
+iconv: illegal input sequence at position 0
+$ echo $?
+1
+```
+
+Zum Umgang mit solchen Zeilen kann der Codierung eines der folgenden beide
+Suffixe mitgegeben werden:
+
+- `//TRANSLIT`: das Zeichen wird als Umschreibung ausgegeben.
+- `//IGNORE`: das Zeichen wird in der Ausgabe weggelassen.
+
+Mit `-c` werden nicht kodierbare Zeichen kommentarlos ignoriert.
+
+```
+$ echo 'Döner' | iconv -f UTF-8 -t ASCII//TRANSLIT
+Doner
+$ echo $?
+0
+
+$ echo 'Döner' | iconv -f UTF-8 -t ASCII//IGNORE
+Dner
+iconv: illegal input sequence at position 7
+$ echo $?
+1
+
+$ echo 'Döner' | iconv -f UTF-8 -t ASCII -c
+Dner
+$ echo $?
+0
+```
+
+Eine Liste der unterstützten Codierungen erhält man mittels Parameter
+`-l`/`--list`.
 
 ### Wie wird eine Linux-Sitzung an einen Kulturkreis angepasst?
 
