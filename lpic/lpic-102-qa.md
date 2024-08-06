@@ -1057,6 +1057,22 @@ Kommando `timedatectl` verwalten:
 
 ## (108.2) Systemprotokollierung
 
+TODO
+
+### Wozu dient `rsyslogd`?
+
+### Wo erscheinen Protokollmeldungen von `su`?
+
+### Wie unterscheiden Syslog und Syslog-NG sich von `rsyslogd`?
+
+### Was macht `logrotate` und wie wird es konfiguriert?
+
+### Wie können Sie den Protokolldienst testen?
+
+### Was ist «das Journal» und wie unterscheidet es sich vom traditionellen Systemprotokollmechanismus?
+
+### Was tut `systemd-cat`?
+
 ## (108.3) Grundlagen von Mal Transfer Agents (MTAs)
 
 ## (108.4) Drucker und Drockvorgänge verwalten
