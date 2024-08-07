@@ -1057,21 +1057,107 @@ Kommando `timedatectl` verwalten:
 
 ## (108.2) Systemprotokollierung
 
-TODO
-
 ### Wozu dient `rsyslogd`?
+
+Hintergrundprozesse haben kein Terminal für Ausgaben angehängt und benötigen
+einen anderen Mechanismus zum Festhalten von Meldungen. Der Syslog-Daemon
+`rsyslogd` bietet eine Schnittstelle, damit solche Prozesse ihre Meldungen
+abliefern können. Die Meldungen können in Dateien gespeichert oder übers
+Netzwerk an ein anderes System weitergeleitet werden und dienen zur späteren
+Fehlersuche und -analyse. Dies funktioniert folgendermassen:
+
+- _Quellen_ leiten _Nachrichten_ an _Regelsätze_ weiter.
+- Ein _Regelsatz_ besteht aus beliebig vielen _Regeln_.
+- Jede Regel besteht aus einem _Filter_ und aus einer _Aktionsliste_.
+- Ein Filter entscheidet darüber, ob für eine eingehende Meldung eine Aktion
+  ausgeführt werden soll.
+- Für jede Nachricht werden alle Regeln im Regelsatz sequenziell
+  abgearbeitet.
+- Eine Aktionsliste besteht aus einer oder mehreren Aktionen, die bestimmen, was
+  mit der jeweiligen Meldung geschieht.
+- Die Ausgabe der Meldung lässt sich per _Templates_ (Vorlagen) steuern.
+
+Die Konfiguration erfolgt in der Datei `/etc/rsyslog.conf` auf drei mögliche
+Arten:
+
+1. in der traditionellen Syntax vom Vorgänger `sysklogd`
+2. in einer veralteten Syntax ("legacy rsyslog"), wobei Befehle mit `$` beginnen
+3. in der aktuellen Syntax ("RainerScript"), die am mächtigsten ist
+
+Meldungen können _synchron_ (sinnvoll bei kritischen Nachrichten) oder
+_asynchron_ in eine Datei, auf ein Gerät (z.B. `/dev/tty0`), über eine _benannte
+Pipe_, direkt auf ein Benutzer-Terminal oder per UDP bzw. TCP übers Netzwerk
+weitergeleitet werden, wobei TCP nicht vom offiziellen Syslog-Protokoll sondern
+nur von der Implementierung `rsyslog` unterstützt wird.
 
 ### Wo erscheinen Protokollmeldungen von `su`?
 
+TODO
+
 ### Wie unterscheiden Syslog und Syslog-NG sich von `rsyslogd`?
+
+- `syslogd` ist der Vorgänger von Rsyslog und unter BSD-Systemen verbreitet.  Es
+  wird in der Datei `/etc/syslog.conf` konfiguriert, wobei nur einer Untermenge
+  der Konfigurationsmöglichkeiten von `rsyslogd` zur Verfügung stehen. Mittels
+  `klogd` und `imklog` können auch Kernel-Meldungen entgegengenommen und
+  verarbeitet werden.
+- Syslog-NG ("New Generation") ist ein Nachfolger vom alten Syslog und bietet
+  ähnliche Möglichkeiten wie Rsyslog. Das ausführbare Programm heisst
+  `syslog-ng` und wird unter `/etc/syslog-ng/syslog-ng.conf` konfiguriert.
 
 ### Was macht `logrotate` und wie wird es konfiguriert?
 
+Mithilfe von `logrotate` werden Logdateien periodisch auf bestimmte Kriterien
+(z.B. Grösse) überwacht und bei Bedarf gekürzt, wobei alte Meldungen gelöscht
+oder archiviert werden. `logrotate` ist kein Daemon, sondern wird über einen
+Cronjob regelmässig ausgeführt. Es wird über `/etc/logrotate.conf` und die
+Dateien in `/etc/logrotate.d/` konfiguriert
+
 ### Wie können Sie den Protokolldienst testen?
+
+Mit dem Programm `logger` können Syslog-Meldungen auf der Kommandozeile erstellt
+werden. Es werden verschiedene Optionen wie `-p` für die Priorität oder `-t` für
+einen _Tag_ unterstützt:
+
+```
+$ logger -p local0.err -t TEST "Hello, World!"
+```
 
 ### Was ist «das Journal» und wie unterscheidet es sich vom traditionellen Systemprotokollmechanismus?
 
+Das systemd-Journal erlaubt es Programmen, ihre Meldungen auf die
+Standardfehlerausgabe zu schreiben, worauf diese eingesammelt und festgehalten
+werden. Das Journal ist eine binäre Datenbank und lässt sich nach verschiedenen
+Kriterien filtern. (Diese Kriterien müssen nicht selber Teil der Meldung
+sondern können auch Metadaten sein.) Meldungen werden in `/var/log/journal`
+abgelegt, sofern dieses Verzeichnis existiert; ansonsten werden sie temporär in
+`/run/log/journal` gesammelt.
+
+Das Journal wird in `/etc/systemd/journald.conf` konfiguriert
+(Grössenbeschränkung, Rotationsregeln usw.) und kann mit dem Programm
+`journalctl` abgefragt und bearbeitet werden. Der Aufrufer bekommt nur die
+Meldungen zu sehen, für die er Berechtigt ist: `root` sieht alle Meldungen,
+andere Benutzer sehen nur eine Untermenge davon. Die Ausgabe kann nach
+systemd-Unit (mit `-u UNIT`), nach Priorität (`-p`) oder vielen weiteren
+Kriterien wie einem Zeitfenster (`-since`/`-until`) eingeschränkt werden. Mit
+`--output=verbose` werden auch die (sehr umfassenden) Metadaten zu jeder Meldung
+angezeigt. Die Filterung kann auch direkt nach diesen Metadaten-Feldern
+erfolgen, wie z.B. mittels `_PID=3121` oder `_SYSTEMD_UNIT=nginx.service`
+
 ### Was tut `systemd-cat`?
+
+Das Programm `systemd-cat` nimmt für das systemd-Journal die Rolle ein, die
+`logger` für Rsyslog hat. Es kann mit Prioritäten und Tags arbeiten:
+
+```
+$ systemd-cat -t foobar -p info echo 'Hello, World!'
+```
+
+Meldungen lassen sich nach dem Tag filtern:
+
+```
+$ journalctl -f -t foobar
+```
 
 ## (108.3) Grundlagen von Mal Transfer Agents (MTAs)
 
