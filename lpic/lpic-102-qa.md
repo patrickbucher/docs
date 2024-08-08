@@ -1092,7 +1092,8 @@ nur von der Implementierung `rsyslog` unterstützt wird.
 
 ### Wo erscheinen Protokollmeldungen von `su`?
 
-TODO
+Diese Meldungen erscheinen in der Datei `/var/log/auth.log`, zumindest unter
+Debian GNU/Linux.
 
 ### Wie unterscheiden Syslog und Syslog-NG sich von `rsyslogd`?
 
