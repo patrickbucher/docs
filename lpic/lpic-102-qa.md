@@ -1162,6 +1162,90 @@ $ journalctl -f -t foobar
 
 ## (108.3) Grundlagen von Mal Transfer Agents (MTAs)
 
+### Wozu dient ein MTA?
+
+E-Mail-Systeme bestehen aus drei verschiedenartigen Komponenten:
+
+- **MTA**: Ein _Mail Transfer Agent_ kann E-Mails empfangen und weiterleiten.
+  (z.B. Sendmail, Exim, Postfix, Qmail)
+    - Ein MTA verwendet das SMTP-Protokoll (TCP-Port 25), worüber er mit anderen
+      MTAs übers Internet kommuniziert und als Daemon im Hintergrund fungiert.
+    - E-Mails von lokalen MUAs leitet er direkt an lokale Benutzer bzw. via SMTP
+      an andere zuständige MTAs weiter.
+    - _Sendmail_ ist alt, komplex zu konfigurieren und hat eine lange Geschichte
+      von Sicherheitslücken. Wie auch bei _Exim_ läuft der komplette MTA als ein
+      einziger Prozess, was sicherheitstechnisch problematisch ist.
+    - _Postfix_ teilt die MTA-Funktionalität auf mehrere Prozesse auf, die mit
+      minimalen Rechten laufen und über wohldefinierte Schnittstellen
+      untereinander kommunizieren.
+- **MUA**: Ein _Mail User Agent_ dient dem Endbenutzer zum Lesen, Schreiben und
+  Verwalten von E-Mails. (z.B. KMail, Mutt, Outlook)
+    - Ein MUA benötigt einen MTA, damit die E-Mails befördert werden können.
+- **MDA**: Ein _Mail Delivery Agent_ schreibt E-Mails in die Postfächer von
+  Empfängern und leitet diese bei Bedarf weiter.
+
+E-Mails an lokale Benutzer landen in deren Postfächer unter `/var/mail`, wo
+jeder Benutzer über eine Datei entsprechend seinem Benutzernamen verfügt (z.B.
+`/var/mail/patrick`). Neue Nachrichten werden unten an die Datei angehängt. Als
+Alternativformat bieten Postfix und Exim _Maildir_, das die E-Mails in einer
+Verzeichnisstruktur verwaltet und so etwa eine Auslagerung in die
+Home-Verzeichnisse der Benutzer ermöglicht.
+
+### Wie können Sie systemweite und benutzerbezogene Mail-Weiterleitung konfigurieren?
+
+Sollen E-Mails an lokale Empfänger _nicht_ in `/var/mail` landen, gibt es
+verschiedene WeiterleitungsmÖglichkeiten:
+
+Systemweit kann die Datei `/etc/aliases` bzw. `/etc/mail/aliases` mit folgenden
+Regeln ausgestattet werden:
+
+```
+root:   joe
+joe:    \joe, joe@acme.org
+```
+
+1. E-Mails an `root` werden an den Benutzer `joe` weitergeleitet, da `root` aus
+   Sicherheitsgründen nicht selber E-Mails lesen sollte.
+2. E-Mails an `joe` werden einerseits lokal an die Mailbox von `joe`
+   eingereicht, andererseits aber auch an seine E-Mail-Adresse `joe@acme.org`
+   weitergeleitet. (Mit dem `\` vor `joe` wird eine Endlosschleife unterbunden.)
+
+Es können auch andersartige Regeln formuliert werden:
+
+```
+mike:   /tmp/mikes-mail.txt
+robert: "!/usr/local/bin/robmail --foo --bar"
+dudes:  :include:/var/lib/everybody.txt
+```
+
+1. E-Mails an `mike` werden der Datei `/tmp/mikes-mail.txt` angehängt.
+2. E-Mails an `robert` werden an das angegebene Programm per Standardeingabe
+   durchgegeben, was sicherheitstechnisch problematisch sein kann.
+3. E-Mails an `dudes` werden anhand der Regeln in der Datei
+   `/var/lib/everybody.txt` verarbeitet, was etwa bei Mailinglisten sinnvoll
+   sein kann.
+
+MUAs arbeiten nicht direkt mit `/etc/aliases`, sondern kompilieren diese Regeln
+in ein schneller lesbares Binärformat mit dem Programm `newaliases` bzw.
+zusätzlich `postalias` bei Postfix.
+
+Auf Benutzerebene können den rechten Teil solcher Regeln auch in der Datei
+`~/.forward` definieren, etwa für die automatische Beantwortung von E-Mails
+mittels `vacation`-Programm:
+
+```
+\joe, "|/usr/bin/vacation joe"
+```
+
+### Wie können Sie die Mail-Warteschlange verwalten?
+
+Nachrichten, die nicht sofort versendet werden, landen in einer Queue:
+`/var/spool/mqueue` (Sendmail), `/var/spool/postfix` (Postfix) und
+`/var/spool/exim` (Exim). Diese kann mittels `mailq` abgefragt werden; bei
+Sendmail auch mit `sendmail -bp`. Dies kann mittels `sendmail -bd -q30m` in
+einem periodischen Abstand von 30 Minuten automatisch erledigt werden. Mit
+`sendmail -q` wird die Warteschlange sofort abgearbeitet.
+
 ## (108.4) Drucker und Drockvorgänge verwalten
 
 # Netz-Grundlagen
