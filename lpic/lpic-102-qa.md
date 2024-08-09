@@ -1401,16 +1401,78 @@ namens `color` für `localhost` und die IP-Adresse `192.168.101.32` freigegeben.
 
 ## (109.1) Grundlagen von Internet-Protokollen
 
+### Was sind IP-Adressen? Netzmasken? Netzwerkklassen?
+
+### Welche IP-Adressen sind für besondere Zwecke reserviert?
+
+### Wie unterscheiden sich grundlegende Protokolle IP, ICMP, TCP, UDP?
+
+### Wofür wird Routing benötigt? Was ist eine Standardroute?
+
+### Was sind die Hauptunterschiede zwischen IPv4 und IPv6?
+
+### Wie sind IPv6-Adressen aufgebaut?
+
+### Was ist SLAAC?
+
 ## (109.2) Dauerhafte Netz-Konfiguration
+
+### Wie werden Netzwerkschnittstellen konfiguriert?
+
+### Wie werden Routen konfiguriert?
+
+### Was ist der NetworkManager?
 
 ## (109.3) Grundlegende Netz-Fehlersuche
 
+### Wie können Sie Netzwerkschnittstellen starten und stoppen?
+
+### Wofür ist das `ip`-Kommando gut?
+
+### Wozu dienen `ss`, `ping`, `traceroute`, `netcat`?
+
 ## (109.4) Clientseitiges DNS konfigurieren
+
+### Wie wird die Namensauflösung der C-Bibliothek konfiguriert?
+
+### Wozu dient die Datei `/etc/resolv.conf`?
+
+### Was ist die Aufgabe von `systemd-resolved`?
 
 # Sicherheit
 
 ## (110.1) Administrationsaufgaben für Sicherheit durchführen
 
+### Wie können Sie herausfinden, wer gerade angemeldet ist?
+
+### Wozu dienen die Kommandos `last` und `fuser`?
+
+### Wie funktioniert `sudo`?
+
+### Wie werden die Kennwort-Alterungsparameter gesetzt?
+
 ## (110.2) Einen Rechner absichern
 
+### Wozu dienen _shadow passwords_?
+
+### Wie können Sie unbenutzte Netzdienste abschalten?
+
+### Was sind TCP-Wrapper?
+
 ## (110.3) Daten durch Verschlüsselung schützen
+
+### Wozu dient die Secure Shell? Was sind ihre Vorteile?
+
+### Welcher Authentisierungsmechanismus verwendet die SSH?
+
+### Weche Verschlüsselungsverfahren bietet die SSH?
+
+### Was ist X11-Tunneling und wann sollten Sie es benutzen?
+
+### Was sind Portweiterleitungen?
+
+### Wie funktioniert GnuPG?
+
+### Was ist das "Netz des Vertrauens"?
+
+### 
