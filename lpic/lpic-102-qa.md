@@ -1248,6 +1248,155 @@ einem periodischen Abstand von 30 Minuten automatisch erledigt werden. Mit
 
 ## (108.4) Drucker und Drockvorgänge verwalten
 
+### Wofür braucht man einen Drucker-Daemon?
+
+In einem Mehrbenutzersystem wie Linux können mehrere Benutzer gleichzeitig
+drucken, wodurch ein Direktzugriff auf das Gerät Probleme bereiten kann. Ein
+Drucker-Daemon steuert den Zugriff auf Warteschlangen, durch welche
+Druckaufträge in einer klaren Reihenfolge abgearbeitet werden. Der
+Drucker-Daemon verwaltet diese Warteschlangen und steuert den Zugriff auf sie.
+
+### Was ist CUPS?
+
+Das _Common Unix Printing System_ ist das Standard-Drucksystem der meisten
+Linux-Distributionen. Es basiert auf dem _Internet Printing Protocol_ (IPP) und
+verwendet als Transportprotokoll HTTP. Es kann Drucker und Druckerserver nach
+ihren Fähigkeiten befragen und diese entsprechend ansteuern.
+
+Bei Druckaufträgen wird eine "Verhandlung" zwischen den gewählten
+Druckeinstellungen und den Fähigkeiten des angesteuerten Druckers durchgeführt,
+wobei sich die beiden Parteien entweder auf eine Menge von Einstellungen einigen
+können oder der Druckauftrag verworfen werden muss.
+
+Der CUPS-Scheduler ist ein HTTP-Server, der Druckaufträge entgegennimmt und die
+Abfrage von Status- und Geräteinformationen erlaubt. Dieser Zugriff wird auch
+über die CUPS-API geboten.
+
+CUPS umfasst _Filter_ zur Konvertierung verschiedener Eingabeformate und
+_Backends_ für die Ansteuerung verschiedener Schnittstellen.
+
+### Mit welchem Kommando können Sie eine Datei drucken?
+
+Dateien können mit dem Befehl `lpr` ("line printer") gedruckt werden, wobei
+zahlreiche Einstellungen unterstützt werden:
+
+- `-#n`: druckt `n` Exemplare des Dokuments
+- `-P QUEUE`: druckt auf die Warteschlange namens `QUEUE`
+    - übersteuert die Umgebungsvariable `PRINTER`
+- `-o OPTION=VALUE`: unterstützt verschiedene Druckoptionen
+    - `media=`: Papiergrösse (`a4`, `letter` usw.)
+    - `landscape`: Druck im Querformat
+    - `sides=`: Beidseitiger Druck (`one-sided`, `two-sided`,
+      `two-sided-long-edge`, `two-sided-short-edge`)
+    - `jobsheets=START,FINISH`: Umgibt das Dokument mit optionalen Deckblättern
+      mit Informationen zum Druckauftrag (`unclassified`, `confidential`,
+      `topsecret`)
+    - `page-ranges=`: Seitenbereiche (Komma-separierte Listen von Seiten und
+      Seitenbereichen; `1-3`, `1,4,5`, `1-4;10-12,17`)
+    - `page-set=`: Druck gerader (`even`) oder ungerader (`uneven`) Seiten
+    - `number-up=n`: Druck von `n` Dokumenten pro Druckseite (`2`, `4`, `9` usw.)
+    - `number-up-layout=`: Anordung beim Mehrseitendruck (`btlr`: bottom to top,
+      left to right; `btrl`: bottom to top, right to left; usw.)
+    - `prettyprint`: Druck von Textdateien mit Kopf- und Fusszeile
+      (Dateiname, Seitennummer); Syntaxhervorhebung bei C/C++-Quellcode
+
+Beispiel:
+
+```
+$ lpr -# 3 -P HPLaserjet -o sides=two-sided-short-edge -o number-up=2 essay.pdf
+```
+
+Diese Optionen können mittels `lpoptions` auch als benutzer- oder systemweite
+(wenn durch `root` ausgefÜhrt) Standards abgespeichert werden. Mit `lpoptions
+-l` können die derzeit geltenden Standardwerte ausgegeben werden. Diese liegen
+in der Datei `~/.lpoptions`.
+
+Eigene Druckaufträge können mittels `lprm JOBNUMMER` abgebrochen werden. Durch
+`root` können auch Aufträge anderer Benutzer abgebrochen werden. Ob ein Abbruch
+tatsächlich erfolgt, hängt davon ab, ob der jeweilige Druckauftrag bereits beim
+Drucker angekommen ist.
+
+### Wie fragen Sie den Zustand einer Druckerwarteschlange ab?
+
+Die Warteschlange kann mit den Befehlen `lpq` oder `lpstat` abgefragt werden,
+welche verschiedene Optionen unterstützen:
+
+- `lpq`
+    `-P QUEUE`: Aufträge einer bestimmten Warteschlange anzeigen
+    `-a`: Aufträge aller Warteschlangen anzeigen
+    `-l`: Anzeige mit zusätzlichen Optionen
+- `lpstat`
+    - `-a`: Anzeige, ob eine Warteschlange Aufträge akzeptiert
+    - `-c`: Druckerklassen und dazugehörige Drucker
+    - `-d`: Standarddrucker
+    - `-o QUEUE`: Inhalt einer bestimmten Warteschlange 
+    - `-p`: Drucker/Warteschlangen mit Information, ob sie zum Drucken
+      freigeschaltet sind
+    - `-r`: Anzeige, ob der CUPS-Server läuft
+    - `-s`: Anzeige einer Statuszusammenfassung (äquivalent zu `lptstat -dcp`)
+    - `-t`: Anzeige von Statusinformationen (äquivalent zu `lpstat -rdcvapo`)
+    - `-v`: Anzeige von Druckern/Warteschlangen mit Anschlussarten
+
+Die Druckerwarteschlangen liegen in `/var/spool/cups`.
+
+### Wie funktioniert die CUPS-Formatumwandlung?
+
+Vom Druckauftrag bis zur tatsächlichen Druckausgabe führt CUPS folgende 
+Arbeitsschritte aus:
+
+1. Bestimmung des MIME-Types der auszugebenden Datei über die Tabelle
+   `/etc/cups/mime.types`.
+2. Ermittlung der Konvertierungsschritte anhand der Datei
+   `/etc/cups/mime.convs`, welche Quell- und Zielformate mit den jeweiligen
+   "Kosten" der Konvertierung auflistet. Es wird ein möglichst "günstiger"
+   Konvertierungspfad anhand dieser Kostenangabe ermittelt.
+    - Das Zielformat ist `application/vnd.cups-postscript`.
+    - Der Pfad erfolgt i.d.R. über das Format `application/postscript`
+      (allgemeins Postscript), welches mittels `pstops` in ein CUPS-spezifisches
+      Format überführt wird, wobei Operationen wie mehrseitiger Druck pro
+      Druckseite ausgeführt werden.
+3. Direkte Weitergabe des Auftrags an einen PostScript-fähigen Drucker bzw.
+   Konvertierung in eine druckerspezifische Sprache (PCL, ESC/P) mithilfe von
+   GhostScript über ein entsprechendes Backend (`/usr/lib/cups/backend`).
+
+Vom Drucker unterstützte Optionen finden sich in gerätespezifischen PPD-Dateien
+(_PostScript Printer Description_), welche direkt vom Hersteller oder über
+[linuxprining.org](https://linuxprinting.org) bezogen werden können.
+
+### Wie geben Sie einen Drucker an ihrem System über CUPS für andere Rechner frei?
+
+Ein Drucker kann über das CUPS-Webinterface (unter `http://localhost:631`) oder
+über das Kommandozeilenwerkzeug `lpadmin` unter Angabe eines Anschlusstyps
+(z.B. `-v parallel:/dev/lp0`) und einer PPD-Datei innerhalb von
+`/usr/share/cups/model` (z.B. `-m laserjet.ppd`) konfiguriert und mit `lpinfo -x
+WARTESCHLANGE` gelöscht werden. (Mit `lpinfo -v` und `lpinfo -m` können
+verfügbare Anschlusstypen bzw. PPD-Dateien aufgelistet werden.) Die
+Einstellungen werden in `/etc/cups/printers.conf` und die verwendeten
+PPD-Dateien in `/etc/cups/ppd` abgelegt.
+
+Standardmässig kann nur vom lokalen Rechner gedruckt werden. Dies lässt sich
+über eine entsprechende Konfiguration in `/etc/cups/cupsd.conf` ändern:
+
+```
+<Location /printers>
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+    Allow from 192.168.101.0/24
+</Location>
+
+<Location /printers/color>
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+    Allow from 192.168.101.32
+</Location>
+```
+
+Im ersten Beispiel werden alle Drucker für `localhost` und das Netz
+`192.168.101.*` freigegeben. Im zweiten Beispiel wird der spezifische Drucker
+namens `color` für `localhost` und die IP-Adresse `192.168.101.32` freigegeben.
+
 # Netz-Grundlagen
 
 ## (109.1) Grundlagen von Internet-Protokollen
