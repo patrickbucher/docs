@@ -1574,25 +1574,104 @@ zu DHCP muss sich kein Gerät an die herausgegebenen IP-Adressen "erinnern".
 
 ### Wie werden Netzwerkschnittstellen konfiguriert?
 
+Netzwerkkarten werden nicht wie andere Geräte über `/dev`-Einträge sondern als
+Schnittstellen angesprochen. Die Namen der Netzwerkkarten werden via `udev`
+vergeben (z.B. `wlp2s0` oder `enp0s31f6`) und bleiben gleich, solange das Gerät
+an der gleichen Schnittstelle angeschlossen bleibt.
+
+Die persistente Konfiguration von Netzwerkschnittstellen ist
+distributionsabhängig. Eine temporäre Konfiguration kann mit dem Befehl `ip`
+(neu) bzw. `ifconfig` (alt) vorgenommen werden.
+
+Der `ip`-Befehl hat folgende Aufrufsyntax:
+
+    ip Optionen Objekt Befehl Parameter
+
+Als Objekt kann `link` (Schnittstelle), `addr` (Adressierung) und `route`
+(Routing) verwendet werden.
+
+Als Befehle stehen `list`/`show` (standardmässig) zum Anzeigen, `set` zum
+Setzen, `add` zum Hinzufügen und `del` zum Entfernen von Einstellungen. Mit dem
+`help`-Befehl erhält man eine Hilfeseite, welche auch für Objekte funktioniert
+(z.B. `ip link help`).
+
+Eine IP-Adresse kann in CIDR-Form konfiguriert werden:
+
+```
+# ip addr add local 192.168.2.1/24 dev eth0 brd +
+```
+
+Mit `brd +` wird die Broadcast-Adresse automatisch gesetzt.
+
+Die Schnittstelle muss noch aktiviert werden:
+
+```
+# ip link set up dev eth0
+```
+
+Eine konfigurierte IP-Adresse kann folgendermassen gelöscht werden:
+
+```
+# ip addr delete local 192.168.2.1/24 dev eth0
+```
+
 ### Wie werden Routen konfiguriert?
 
+Routen werden über den Befehl `ip route` konfiguriert, z.B.:
+
+```
+# ip route add 10.0.3.0/24 via 192.168.0.1 dev eth0
+# ip route add 112.22.3.4 dev ppp0
+# ip route add default via 112.22.3.4 dev ppp0
+```
+
+Hierbei handelt es sich um ein Gerät mit mehreren Schnittstellen: `eth0` als
+Ethernet-Karte und `ppp0` als Modem. Es werden folgende Regeln konfiguriert:
+
+- Pakete ins Netz `10.0.3.0/24` sollen über die Schnittstelle `eth0` ans Ziel
+  `192.168.0.1` gesendet werden.
+- Pakete an die Adresse `112.22.3.4` sollen über das Modem `ppp0` verschickt
+  werden.
+- Als Standardgateway dient das Modem `ppp0` über die Adresse `112.22.3.4`.
+
+Routen können mit `ip route change` modifiziert und mit `ip route delete`
+gelöscht werden. Die Auflistung erfolgt mit `ip route` bzw. `ip route list`.
+
+Mit `route` steht ein älteres Werkzeug für die gleichen Aufgaben mit etwas
+anderer Syntax zur Verfügung.
+
 ### Was ist der NetworkManager?
+
+TODO: p. 442-
 
 ## (109.3) Grundlegende Netz-Fehlersuche
 
 ### Wie können Sie Netzwerkschnittstellen starten und stoppen?
 
+TODO: ???
+
 ### Wofür ist das `ip`-Kommando gut?
 
+Das `ip`-Kommando dient zur Konfiguration von Netzwerkschnittstellen (`ip
+link`), Adressen (`ip addr`) und Routen (`ip route`).
+
 ### Wozu dienen `ss`, `ping`, `traceroute`, `netcat`?
+
+TODO: 459-
 
 ## (109.4) Clientseitiges DNS konfigurieren
 
 ### Wie wird die Namensauflösung der C-Bibliothek konfiguriert?
 
+TODO: p. 455-
+
 ### Wozu dient die Datei `/etc/resolv.conf`?
 
+TODO: p. 455-
+
 ### Was ist die Aufgabe von `systemd-resolved`?
+
+TODO: p. 455-
 
 # Sicherheit
 
