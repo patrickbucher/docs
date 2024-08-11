@@ -1694,25 +1694,88 @@ gibt es hierzu auch die Befehle `ifup DEVICE` und `ifdown DEVICE`.
 ### Wofür ist das `ip`-Kommando gut?
 
 Das `ip`-Kommando dient zur Konfiguration von Netzwerkschnittstellen (`ip
-link`), Adressen (`ip addr`) und Routen (`ip route`).
+link`), Adressen (`ip addr`) und Routen (`ip route`). Weiterführende Erklärungen
+finden sich in vorausgegangenen Abschnitten.
 
 ### Wozu dienen `ss`, `ping`, `traceroute`, `netcat`?
 
-TODO: 459-
+Die genannten Programme dienen der Fehlersuche im Netzwerk und haben folgende
+Funktionalität:
+
+- `ss` listet alle Sockets auf. Mit `-l` werden lauschende Programme
+  (Serverdienste) aufgelistet, mit `-a` lauschende Programme _und_ Clients; und
+  standardmässig nur clientseitige. Mit `-t` bzw. `-u` können die Sockets auf
+  TCP bzw. UDP eingeschränkt werden. (`netstat` ist eine ältere Alternative, die
+  fast gleich zu bedienen ist.)
+- `ping` überprüft die Erreichbarkeit eines Zielsystems anhand dessen IP-Adresse
+  oder Hostnamens mithilfe eines ICMP `echo request`-Datagramms, das im
+  Erfolgsfall mit einem `echo reply`-Datagramm quittiert wird. So kann die
+  Verbindung zu sich selbst (`127.0.0.1`), die Namensauflösung oder das Routing
+  getestet werden.
+- `traceroute` verfolgt den Pfad zu einem Zielsystem, indem es jeweils drei
+  Pakete auf zufälligen Ports an dieses sendet. Hierzu werden von 1 aufsteigende
+  TTL-Werte verwendet, sodass das jeweilige Zwischenziel mit `TIME EXCEEDED`
+  antwortet und sich dadurch zu erkennen gibt. Die Zielstation gibt ein `PORT
+  UNREACHABLE` zurück, wodurch das Ende der Kette erkannt wird. (`tracepath` ist
+  eine vereinfache Version von `traceroute` mit weniger
+  Einstellungsmöglichkeiten.)
+- `netcat` (und `nmap`) sind Portscanner, die ein entferntes System nach offenen
+  Ports überprüfen. Diese können entweder _open_ (offen), _closed_ (d.h. der
+  Verbindungsversuch wurde mit einer Fehlermeldung quittiert) oder _filtered_
+  (d.h. es wird keine Antwort zurückgeliefert, da von einer Firewall verworfen)
+  sein. Das Scannen von Ports auf einem fremden System kann rechtlich
+  problematisch sein.
+
+DNS kann mithilfe von `host` und `dig` getestet werden.
 
 ## (109.4) Clientseitiges DNS konfigurieren
 
 ### Wie wird die Namensauflösung der C-Bibliothek konfiguriert?
 
-TODO: p. 455-
+Die C-Bibliothek zur Namensauflösung wird in `/etc/resolv.conf` konfiguriert.
+Diese wird bei modernen Distributionen oftmals generiert bzw. per Symlink auf
+eine dynamische Datei im `/run`-Verzeichnis verlinkt (z.B. auf
+`/run/systemd/resolve/stub-resolv.conf`, wenn `systemd-resolvd` als Resolver
+eingesetzt wird).
+
+Die Datei enthält folgende Angaben:
+
+- `domain`: Der lokale Domainname des Rechners.
+- `search`: Eine Reihe von Suchdomänen (schliesst sich mit `domain` gegenseitig
+  aus)
+- `nameserver`: Der zu verwendende Namensserver; max. drei Einträge.
+- `sortlist`: Präferenz bei mehreren zurückgelieferten Adressen pro Rechnernamen
+  (max. 10 Einträge).
+- `options`: Besondere Resolver-Einstellungen (ungebräuchlich).
+
+Die Datei `/etc/hosts` kann für die statische Namensauflösung konfiguriert
+werden, indem die erste Spalte eine IP-Adresse und die zweite Spalte einen oder
+mehrere Hostnamen aufführt, z.B.:
+
+```
+127.0.0.1       localhost
+192.168.1.112	foobar.whatever.ch foobar
+```
+
+Ob und in welcher Reihenfolge die verschiedenen Informationsquellen (DNS-Server,
+Hosts-Datei) verwendet werden, kann in der Datei `/etc/nsswitch.conf` unter der
+Option `hosts` angegeben werden, z.B.:
+
+```
+hosts: files dns
+```
+
+In diesem Fall wird zuerst die Datei `/etc/hosts` für die Namensauflösung und
+erst dann DNS gemäss der Regeln in `/etc/resolv.conf` konsultiert.
 
 ### Wozu dient die Datei `/etc/resolv.conf`?
 
-TODO: p. 455-
+siehe oben
 
 ### Was ist die Aufgabe von `systemd-resolved`?
 
-TODO: p. 455-
+Der Dienst `systemd-resolved` ist ein von systemd zur Verfügung gestellter
+DNS-Resolver als Alternative zu bestehenden Implementierungen.
 
 # Sicherheit
 
