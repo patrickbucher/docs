@@ -1507,13 +1507,68 @@ werden. Wichtige Ports, die man kennen sollte, sind:
 
 ### Wofür wird Routing benötigt? Was ist eine Standardroute?
 
-TODO
+Mithilfe von Routing erfährt ein Rechner, an welche Adresse er ein Paket senden
+muss, damit dieses einen Schritt näher zu seinem Ziel gelangt. Routing wird dann
+benötigt, wenn die Daten nicht (wie in einem lokalen Netz) direkt an ihr Ziel
+gesendet werden können, sondern Zwischenschritte dazu nötig sind.
+
+Ist der Empfänger dem Absender nicht direkt bekannt, sendet er das Paket einfach
+über eine Standardroute (_standard gateway_), etwa einen Router heraus. Das
+betreffende Gerät kümmert sich dann um die korrekte Weiterleitung des Pakets.
+
+Der Kernel unterhält eine Routing-Tabelle, welche mit `ip route` eingesehen und
+angepasst werden kann.
 
 ### Was sind die Hauptunterschiede zwischen IPv4 und IPv6?
 
+- IPv4 arbeitet mit 32-Bit-Adressen und unterstützt daher max. ca. 4.3 Mia.
+  Adressen. IPv6 verwendet hingegen 128-Bit-Adressen, was eine wesentlich höhere
+  Anzahl Adressen erlaubt.
+- Mit IPv6 können automatisch Konfigurationsparameter von einem Router bezogen
+  werden, wodurch DHCP in vielen Fällen nicht mehr benötigt wird.
+- Ein IPv6-Header besteht aus sieben Feldern, wobei auch mehrere Header pro
+  Paket unterstützt werden.
+- IPv6 bietet zusätzliche Möglichkeiten zur Authentifizierung,
+  Integritätssicherung und ist besser (rückwärtskompatibel) erweiterbar. 
+- Bei IPv6 gibt es im Gegensatz zu IPv4 keine Broadcast-Adressen. dafür
+  _Unicast_ (einzelner Empfänger), _Anycast_ (ein Empfänger aus einer Gruppe
+  möglicher Empfänger) und _Multicast_ (mehrere Empfänger).
+
 ### Wie sind IPv6-Adressen aufgebaut?
 
+IPv6-Adressen werden hexadezimal in acht Gruppen zu je 16 Bits
+(`fe80:0000:0000:0000:025a:b6ff:fe9c:406a`) dargestellt, wobei der längste
+Null-Block auch durch `::` abgekürzt werden kann (`fe80::025a:b6ff:fe9c:406a`).
+
+Die Adresse besteht aus einem Netz- und Hostanteil von je 64 Bit.
+
+Die Loopback-Adresse lautet neu `::1`.
+
+Manunterscheidet zwischen globalen (_global_), verbindungslokalen
+(_link-local_), standortlokalen (_site-local_) und eindeutig lokalen
+(_unique-local_) Sichrbarkeiten (_scopes_).
+
+Eine Netzwerkschnittstelle kann mehere Adressen haben.
+
 ### Was ist SLAAC?
+
+SLAAC bedeutet _stateless address autoconfiguration_ (zustandslose automatische
+Adresskonfiguration) und erlaubt eine automatische Konfiguration der IP-Adresse
+in einem IPv6-Netzwerk ohne DHCP. Der Prozess läuft folgendermassen ab:
+
+1. Der Host erzeugt eine verbindungslokale Adresse aus dem Präfix `fe80::/64`
+   und einer aus der MAC-Adresse der Schnittstelle abgeleiteten Adresse.
+2. Der Host verschickt eine verbindungslokale Router-Aufforderung (_router
+   solicitation_, RS) an die Adresse `ff02::2`, wodurch alle Router im Subnetz
+   angesprochen werden.
+3. Der bzw. die Router teilen mit einer Router-Ankündigung (_router
+   advertisement_, RA) mit, welche Präfixe sie routen können.
+4. Der Host kann aufgrund dieser Information weitere lokale Adressen
+   generieren.
+
+Diese Adressen sind zeitlich begrenzt gültig und müssen erneuert werden, wozu
+Router RAs auch unaufgefordert in periodischen Abständen versenden. Im Gegensatz
+zu DHCP muss sich kein Gerät an die herausgegebenen IP-Adressen "erinnern".
 
 ## (109.2) Dauerhafte Netz-Konfiguration
 
