@@ -1403,11 +1403,111 @@ namens `color` für `localhost` und die IP-Adresse `192.168.101.32` freigegeben.
 
 ### Was sind IP-Adressen? Netzmasken? Netzwerkklassen?
 
+IPv4-Adressen sind Adressen von 32 Bit (4 Bytes) Länge, die als _dotted quads_
+notiert werden, z.B. `192.168.1.1`, wobei jeder dieser vier Teile eine
+8-Bit-Zahl von 0 bis 255 haben kann.
+
+Eine IP-Adresse besteht aus einem Host- und aus einem Netzteil; die Netzmaske
+gibt an, wie lange der Netzteil ist: Jedes als 1 gesetzte Bit ist ein Netz-Bit;
+jedes als 0 gesetzte Bit ist ein Host-Bit. (Netz-Bits dürften nur links in einer
+ununterbrochenen Reihe stehen.
+
+Netzwerke werden anhand ihrer Netzmaske in verschiedene Klassen eingeteilt. Die
+wichtigsten lauten:
+
+| Klasse | Adresse von |       Adresse bis | Erstes Byte |
+|--------|------------:|------------------:|------------:|
+| A      |   `0.0.0.0` | `127.255.255.255` | `0????????` |
+| B      | `128.0.0.0` | `191.255.255.255` | `10???????` |
+| C      | `192.0.0.0` | `223.255.255.255` | `110??????` |
+
+Die Verteilung von Netz- und Hostteil kann auch feiner aufgeteilt werden
+(_classless inter-domain routing_, CIDR), z.B.:
+
+|       Netzmaske | CIDR-Notation | Anzahl Netz-Bits | Anzahl Host-Bits |
+|----------------:|--------------:|-----------------:|-----------------:|
+|     `255.0.0.0` |          `/8` |              `8` |             `24` |
+|   `255.255.0.0` |         `/16` |             `16` |             `16` |
+| `155.255.128.0` |         `/17` |             `17` |             `15` |
+
+Adressen mit einem Netzwerkanteil von mehr als 19 Bit werden im Internet nicht
+direkt geroutet.
+
+
 ### Welche IP-Adressen sind für besondere Zwecke reserviert?
+
+- Die erste Adresse eines Netzwerks (Stationsteil nur binäre Nullen ist die _Netzwerkadresse_.
+- Die letzte Adresse eines Netzwerks (Stationsteil nur binäre Einsen ist die _Broadcast-Adresse_.
+- Die Adressen dazwischen stehen für die Hostadressierung zur Verfügung.
+- Die IP-Adresse `127.0.0.1` bzw. das Netz `127.0.0.0/8` steht für den lokalen
+  Host (`localhost`).
 
 ### Wie unterscheiden sich grundlegende Protokolle IP, ICMP, TCP, UDP?
 
+- Das _Internet Protocol_ IP ist ein vebindungsloses Protokoll, das Pakete (sog.
+  _Datagramme_) bis zu einer Grösse von 65535 Bytes übertragen kann bzw.
+  grössere Pakete in mehrere Pakete fragmentiert. Der Header besteht aus
+  folgenden Informationen: Quell- und Zieladresse, Lebensdauer (_time to live_,
+  TTL; die bei jedem Sprung um 1 vermindert und das Paket beim Erreichen des
+  Werts 0 verworfen wird), dem Protokoll der höheren Schicht (TCP, UDP usw.)
+  sowie weiteren Feldern wie z.B. einer Prüfsumme über den Header (aber nicht
+  über das Gesamtpaket).
+- Das _Internet Control Message Protocol_ ICMP ist ein IP-Hilfsprotokoll und
+  dient zur Netzverwaltung und zur Meldung von Netzwerkproblemen. Es wird u.a.
+  von `ping` verwendet, welches `echo request`- und `echo reply`-Meldungen
+  verwendet.
+- Das _Transmission Protocol_ TCP ist ein zuverlässiges, verbindungsorientiertes
+  Protokoll. Pakete werden mit einer Sequenznummer durchnummeriert, wodurch sie
+  bei einer abweichenden Ankommensreihenfolge (etwa durch unterschiedliche
+  Routen) wieder in die richtige Reihenfolge gebracht werden können. Pakete
+  werden als angekommen quittiert, worauf der Sender weiss, dass ein Paket
+  angekommen ist, oder ob es nach einer abgelaufenen Zeitspanne erneut
+  übertragen werden muss. Ein TCP-Paket verfügt über einen Header von 20 Byte.
+  Der Verbindungsaufbau zwischen einem Sender und einem Empfänger erfolgt über
+  den Drei-Wege-Handschake:
+    1. Der Sender schickt ein Paket mit dem Flag `SYN` an den Empfänger.
+    2. Der Empfänger quittiert das Paket mit den Flags `SYN` und `ACK`
+    3. Der Sender quittiert dieses Paket wiederum mit `ACK`.
+    4. Mit dem `FIN`- anstelle des `SYN`-Flags kann die Verbindung über einen
+       Zwei-Wege-Handshake wieder abgebaut werden (Antwort: `ACK`).
+- Das _User Datagram Protocol_ UDP ist ein unzuverlässiges, verbindungsloses
+  Protokoll und kommt dann zum Einsatz, wenn der Overhead des
+  TCP-Drei-Wege-Handshakes sich nicht lohnt, da der Verlust einzelner Pakete
+  weniger schwerwiegend als etwaige Verzögerungen in der Übertragung ist (z.B.
+  Videoübertragung, Internet-Telefonie).
+
+TCP und UDP arbeiten mit _Sockets_: eine Kombination aus IP-Adresse und einer
+_Portnummer_ von 0 bis 65535 mit folgenden Unterbereichen:
+
+- 0 bis 1023 sind die _well-known ports_ bekannter Dienste, die nur von `root`
+  an einen Prozess gebunden werden können.
+- 1024 bis 49151 sind bei der IANA registriere Ports.
+- 49152 bis 65535 sind frei verfügbare Ports.
+
+Die Bedeutung der Portnummern kann in der Datei `/etc/services` nachgeschlagen
+werden. Wichtige Ports, die man kennen sollte, sind:
+
+| Port | Protokoll | Dienst | Bedeutung                                                    |
+|-----:|-----------|--------|--------------------------------------------------------------|
+|   20 | TCP       | FTP    | Datenübertragung (Datenverbindung)                           |
+|   21 | TCP       | FTP    | Datenübertragung (Steuerverbindung)                          |
+|   22 | TCP       | SSH    | Anmeldung auf entfernten Rechnern, Datenübertragung (sicher) |
+|   23 | TCP       | Telnet | Anmeldung auf entfernten Rechnern (unsicher)                 |
+|   25 | TCP       | SMTP   | E-Mail-Übertragung                                           |
+|   53 | TCP/UDP   | DNS    | Namensauflösung                                              |
+|   80 | TCP       | HTTP   | World Wide Web                                               |
+|  110 | TCP       | POP3   | Zugriff auf E-Mail-Postfächer                                |
+|  123 | TCP/UDP   | NTP    | Zeitsynchronisation                                          |
+|  143 | TCP       | IMAP   | Zugriff auf E-Mail-Postfächer                                |
+|  389 | TCP       | LDAP   | Verzeichnisdienst                                            |
+|  443 | TCP       | HTTPS  | Sicheres HTTP (via TLS)                                      |
+|  636 | TCP       | LDAPS  | Sicheres LDAP (via TLS)                                      |
+|  993 | TCP       | IMAPS  | Sicheres IMAP (via TLS)                                      |
+|  995 | TCP       | POP3S  | Sicheres POP3 (via TLS)                                      |
+
 ### Wofür wird Routing benötigt? Was ist eine Standardroute?
+
+TODO
 
 ### Was sind die Hauptunterschiede zwischen IPv4 und IPv6?
 
@@ -1474,5 +1574,3 @@ namens `color` für `localhost` und die IP-Adresse `192.168.101.32` freigegeben.
 ### Wie funktioniert GnuPG?
 
 ### Was ist das "Netz des Vertrauens"?
-
-### 
