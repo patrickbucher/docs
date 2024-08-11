@@ -1642,13 +1642,54 @@ anderer Syntax zur Verfügung.
 
 ### Was ist der NetworkManager?
 
-TODO: p. 442-
+Der NetworkManager dient Arbeitsplatz- und mobilen Rechnern bei der möglichst
+automatischen Konfiguration ihrer Netzwerkverbindung in wechselnden Umgebungen
+(etwa unterwegs mit WLAN). Der NetworkManager besteht aus einem Daemon, einem
+Kommandozeilenprogramm `nmcli` sowie verschiedenen grafischen Oberflächen
+("Applets"), je nach Desktop-Umgebung. Die Konfiguration der
+Netzwerkschnittstellen erfolgt über DBus. Der NetworkManager speichert u.a.
+WiFi-Passphrasen verschlüsselt ab, was das Wiederverbinden mit bekannten Netzen
+sehr komfortabel macht.
+
+Die wichtigsten Unterbefehle von `nmcli` lauten:
+
+- `nmcli general status`: Statusanzeige
+- `ncmli networking on/off`: Netzwerkschnittstellen aktivieren/deaktivieren
+- `nmcli networking connectivity`: Konnektivität überprüfen; mögliche Ergebnisse:
+    - `unknown`: unbekannt
+    - `none`: keine Verbindung
+    - `portal`: hinter einem captive Portal (WLAN-Hotspot)
+    - `limited`: Verbindung zum lokalen Netz, aber nicht zum Internet
+    - `full`: uneingeschränkte Internetverbindung
+- `nmcli radio wifi/wan`: WiFi/WAN-Konnektivität überprüfen; mögliche Ergebnisse:
+    - `enabled`: aktiv
+    - `disabled`: inaktiv
+- `nmcli radio wifi/wan on/off`: WiFi/WAN an- bzw. ausschalten
+- `nmcli connection`: Auflisten aller Verbindungen
+- `nmcli connection show NAME/UUID`: Zeigt die Verbindung mit dem entsprechenden
+  Namen bzw. der entsprechenden UUID detailliert an
+- `nmcli connection up/down`: Aktivierung/Deaktivierung der Verbindung
+- `nmcli device disconnect`: Verbindung daktivieren; automatische Re-aktivierung
+  ausschliessen
+- `nmcli connection add/modify/edit/delete`: Verbindungen hinzufügen,
+  bearbeiten (direkt bzw. über Texteditor), löschen
+- `nmcli device`: Status der Schnittstellen ausgeben
+- `nmcli device show INTERFACE`: Detaillierte Ausgabe zu einer Schnittstelle
+  (ohne `INTERFACE`: aller Schnittstellen)
+- `nmcli device connect/disconnect INTERFACE`: Schnittstelle
+  aktivieren/deaktivieren
+- `nmcli device wifi`: Status der WiFi-Schnittstellen ausgeben
+
+Die Befehle können auf eindeutige Präfixe abgekürzt werden (z.B. `nmcli c s` für
+`nmcli connection show`).
 
 ## (109.3) Grundlegende Netz-Fehlersuche
 
 ### Wie können Sie Netzwerkschnittstellen starten und stoppen?
 
-TODO: ???
+Eine Netzwerkschnittstelle namens `DEVICE` kann mit `ip link set up dev DEVICE`
+aktiviert und mit `ip link set down dev DEVICE` deaktiviert werden. Traditionell
+gibt es hierzu auch die Befehle `ifup DEVICE` und `ifdown DEVICE`.
 
 ### Wofür ist das `ip`-Kommando gut?
 
