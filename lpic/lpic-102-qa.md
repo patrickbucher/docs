@@ -1783,32 +1783,261 @@ DNS-Resolver als Alternative zu bestehenden Implementierungen.
 
 ### Wie können Sie herausfinden, wer gerade angemeldet ist?
 
+Das Programm `who` listet die angemeldeten Benutzer mit Namen (1. Spalte) und
+angemeldetem Terminal auf (`:0`: X-Bildschirm, `pts/X` oder `ttyX`:
+Pseudoterminals). Der Befehl `w` listet ähnliche (und standardmässig: mehr)
+Informationen auf, wie z.B. die Uptime, die Anzahl angemeldeter Benutzer sowie
+die durchschnittliche Systemlast.
+
 ### Wozu dienen die Kommandos `last` und `fuser`?
+
+Mit `last` werden vergangene Anmeldevorgänge angezeigt (wer wann und wie lange
+angemeldet war). Hierzu wird die binäre Datei `/var/log/wtmp` als
+Informationsquelle verwendet.
+
+Mit `fuser` kann man herausfinden, welcher Prozess bzw. Benutzer derzeit eine
+Systemressource verwendet. Die Ausgabe listet die betreffenden PIDs mitsamt
+einem Suffix auf, die Bescheid über die Art der Ressourcennutzung geben:
+
+- `c`: als Arbeitsverzeichnis verwendet
+- `e`: als Programmdatei ausgeführt
+- `f`: als Datei geöffnet (lesend)
+- `F`: als Datei geöffnet (schreibend)
+- `r`: als Wurzelverzeichnis benutzt
+- `m`: als Shared Library benutzt
+
+Mit der Option `-n` kann ein Namensraum (`file`: Standard, `tcp`, `udp`) und
+eine Portnummer bzw. ein Servicename aus `/etc/services` angegeben werden.
 
 ### Wie funktioniert `sudo`?
 
+Das Programm `sudo` erlaubt die Ausführung einzelner Programme mit
+`root`-Rechten. Hierzu kann in der Datei `/etc/sudoers` eingestellt werden,
+welcher Benutzer von welchem System aus welche Befehle mit `root`-Rechten
+ausführen darf. Es werden auch Muster erlaubt, um die Programmparameter
+entsprechend einzuschränken, z.B.:
+
+```
+joe ALL = /usr/bin/vim [a-zA-Z0-9]*
+```
+
+Dies erlaubt es dem Benutzer `joe` von allen Rechnern aus, das Programm `vim`
+auf Dateien mit alphanumerischem Dateinamen auszuführen. (Hier ist Vorsicht
+geboten, da Vim die Ausführung von Shell-Befehlen unterstützt.)
+
+Die Datei `/etc/sudoers` sollte über das Programm `visudo` ausgeführt werden,
+welche sich um die Syntaxprüfung und Sicherheitskopie kümmert und dabei dem
+Benutzer die Datei im bevorzugten Texteditor bearbeiten lässt. Es können in der
+letzten Spalte auch mehrere Befehle durch Komma getrennt aufgeführt werden; die
+Option `ALL` lässt den betreffenden Benutzer alle Befehle mit `root`-Rechten
+ausführen. Mit `!` können Befehle ausgeschlossen werden.
+
+Mit dem Präfix `%` können auch ganze Benutzergruppen berechtigt werden.
+
+Mit `sudo -e` bzw. `sudoedit` können einzelne Dateien mithilfe von `sudo`
+editiert werden.
+
 ### Wie werden die Kennwort-Alterungsparameter gesetzt?
+
+Siehe die Ausführungen zu `/etc/shadow` weiter oben.
 
 ## (110.2) Einen Rechner absichern
 
 ### Wozu dienen _shadow passwords_?
 
+Siehe die Ausführungen zu `/etc/shadow` weiter oben.
+
 ### Wie können Sie unbenutzte Netzdienste abschalten?
 
+Netzdienste, die über `inetd` laufen, können in der Datei `/etc/inetd.conf`
+deaktiviert werden, indem man die entsprechende Zeile löscht oder
+auskommentiert. Bei `xinetd`-Diensten kann in der Datei `/etc/xinetd.conf` das
+Attribut `disable = yes` gesetzt werden, um den betreffenden Dienst zu
+deaktivieren. Dienste, die via systemd gestartet werden, können mittels
+`systemctl disable --now SERVICE` gestoppt und deaktiviert werden.
+
 ### Was sind TCP-Wrapper?
+
+Der TCP-Wrapper `tcpd` erlaubt die Einschränkung auf `inetd`-Dienste anhand von
+IP-Adressen und Hostnamen, die in der Datei `/etc/hosts.allow` (erlaubt) und
+`/etc/hosts.deny` (verwehrt) konfiguriert werden können:
+
+pop3d : 192.168.10.0/24
+
+In der Datei `/etc/hosts.allow` würde diese Regel den Zugriff auf das
+POP3-Protokoll aus dem Netz `192.168.10.*` erlauben; in der Datei
+`/etc/hosts.deny` entsprechend verwehren.
+
+`xinetd` kombiniert die Funktionalität von `inetd` und `tcpd`, wodurch sich
+Dienste und Zugriffseinschränkungen gemeinsam in `/etc/xinetd.conf` bzw. in
+einzelnen Dateien unter `/etc/xinetd.d/` konfigurieren lassen.
 
 ## (110.3) Daten durch Verschlüsselung schützen
 
 ### Wozu dient die Secure Shell? Was sind ihre Vorteile?
 
+Mithilfe der Secure Shell (SSH) lassen sich verschlüsselte Verbindungen zu einem
+entfernten System aufbauen. Neben interaktiven Sitzungen (`ssh`) können auch
+Dateien verschlüsselt kopiert (`scp`) oder verschlüsselte FTP-Sitzungen
+unterhalten werden (`sftp`).
+
 ### Welcher Authentisierungsmechanismus verwendet die SSH?
+
+Die SSH erlaubt die Authentifizierung via Passwort, unterstützt aber auch die
+Authentifizierung über einen öffentlichen Schlüssel, der zu diesem Zweck zuerst
+auf dem Zielsystem hinterlegt werden muss (`ssh-copy-id`). Der SSH-Schlüssel
+selber kann dabei durch eine Passphrase geschützt werden, sofern dieser
+Schlüssel interaktiv verwendet wird.
 
 ### Weche Verschlüsselungsverfahren bietet die SSH?
 
+Die SSH verwendet _public key encryption_, wozu die Verfahren RSA, ed25519
+(elliptische Kurven), ECDSA und DSA (veraltet) zur Verfügung stehen.
+
 ### Was ist X11-Tunneling und wann sollten Sie es benutzen?
+
+Mithilfe von X11-Tunneling (`ssh -X`) lassen sich X-Window-Fenster von einem
+entfernten System lokal anzeigen. Die Übertragung der X-Render-Befehle und
+Fensterinhalte erfolgt dabei verschlüsselt.
 
 ### Was sind Portweiterleitungen?
 
+Mit _local forwarding_ (`ssh -L`) lässt sich ein Dienst von einem Zielsystem
+unter einem lokalen Socket ansprechen. Das ist dann hilfreich, wenn zwar der
+SSH-Port offen aber der Zielport geschlossen ist:
+
+```
+$ ssh -L localhost:15432:dbserver:5432
+```
+
+Hierdurch wird die auf dem entfernten Server `dbserver` laufende
+PostgreSQL-Instanz auf Port `5432` lokal unter dem Port `15432` verfügbar
+gemacht.
+
+Mit _remote forwarding_ (`ssh -R`) leitet einen Port von einem Zielsystem auf
+das lokale System um:
+
+```
+$ ssh -R appserver:8080:localhost:8999
+```
+
+Anfragen zum entfernten Server `appserver`, die auf Port `8080` gelangen, werden
+zum lokalen System auf den Port 8999 weitergeleitet. Hierdurch kann etwa eine
+Anwendung lokal statt auf dem Server betrieben werden, was die Fehlerursache
+vereinfachen kann, aber ein Sicherheitsrisiko darstellt.
+
 ### Wie funktioniert GnuPG?
 
+GnuPG bietet asymmetrische Verschlüsselung, wozu jeder Benutzer ein
+Schlüsselpaar bestehend aus einem öffentlichen und einem privaten Schlüssel
+erstellt. (Für die tatsächliche Verschlüsselung wird aus Effizienzgründen ein
+symmetrischer Schlüssel pro Vorgang erzeugt, der dann asymmetrisch verschlüsselt
+übertragen wird.)
+
+Jeder Teilnehmer erzeugt einen Schlüssel:
+
+```
+$ gpg --gen-key
+```
+
+Der Schlüssel sollte auf einen Schlüsselserver (die sich untereinander
+synchronisieren) exportiert werden, damit ihn andere Teilnehmer verwnden können:
+
+```
+$ gpg --keyserver --send-keys KEYID
+```
+
+Die Schlüssel-ID kann folgendermassen ermittelt werden:
+
+```
+$ gpg --list-keys
+```
+
+Mithilfe eines daraus abgeleiteten Widerrufszertifikats kann der Schlüssel
+später für ungültig erklärt werden:
+
+```
+$ gpg --output revoke.asc --gen-revoke NAME
+```
+
+Durch die Publikation des Widerrufszertifikats lässt sich der Schlüssel für
+ungültig erklären.
+
+Schlüssel anderer Teilnehmer lassen sich aus einer Datei importieren:
+
+```
+$ gpg --import pubkey.gpg
+```
+
+Der Schlüssel eines anderen Teilnehmers kann signiert werden:
+
+```
+$ gpg --sign-keys NAME
+```
+
+Die Signaturen eines Schlüssels lassen sich folgendermassen überprüfen:
+
+```
+$ gpg --check-sigs NAME
+```
+
+Das Vertrauenslevel eines importierten Schlüssels lässt sich interaktiv
+einstellen:
+
+```
+$ gpg --edit-key NAME
+```
+
+Dateien lassen sich verschlüsseln und am Ziel wieder entschlüsseln:
+
+```
+$ gpg --output text.txt.gpg --encrypt --recipient NAME text.txt
+$ gpg --output text.txt --decrypt text.txt.gpg
+```
+
+Hierzu wird der Inhalt mit dem _öffentlichen_ Schlüssels des Empfängers
+verschlüsselt. Dieser kann anschliessend mit dem _privaten_ Schlüssel des
+Empfängers wieder entschlüsselt werden.
+
+Dateien lassen sich zudem signieren; die Signatur kann am Ziel überprüft werden:
+
+```
+$ gpg --output text.txt.sig --sign text.txt
+$ gpg --verify text.txt.sig
+```
+
+Hierbei wird eine Prüfsumme über die Originaldatei gebildet und mit dem
+eigenen _privaten_ Schlüssel verschlüsselt. Der Empfänger kann die Signatur
+mithilfe des _öffentlichen_ Schlüssels des Senders entschlüsseln und die dadurch
+resultierende Prüfsumme mit der eigens nachgerechneten Prüfsumme vergleichen.
+
+Mit dem Parameter `--armor` wird statt einer binären eine ASCII-Ausgabe erzeugt,
+die sich gut in E-Mails einbetten lässt.
+
+Mit der Option `--clearsign` erhält man beim Signieren eine Ausgabedatei im
+ASCII-Format.
+
+Eine alleinstehende Signatur kann mittels `--detach-sign` erzeugt werden. Die
+Verifikation erfordert dann die inhaltliche Datei und die alleinstehende
+Signatur:
+
+```
+$ gpg --verify text.txt.sig text.txt
+```
+
+Verschiedene Einstellungen können in `~/.gnupg` getroffen werden, etwa wie oft
+die Passphrase zur Freigabe des Schlüssels eingegeben werden muss. Weiter können
+Gruppen von Empfängern definiert werden.
+
+Der `gpg-agent` erlaubt es, eingegebene Passpharen eine Zeit lang im
+Arbeitsspeicher vorzuhalten, damit die Passphrase nicht bei jedem Vorgang
+eingegeben werden muss.
+
 ### Was ist das "Netz des Vertrauens"?
+
+Hat Person A den öffentlichen Schlüssel von Person B signiert, und hat Person B
+den öffentlichen Schlüssel von Person C signiert, gibt es eine Vertrauenskette
+von Person A via Person B zu Person C. Person A und C können also sicher
+miteinander kommunizieren, da sie beide der Person B vertrauen. Durch das
+Hinterlegen dieser Signaturen auf einem öffentlichen Schlüsselserver entsteht
+ein Netz des Vertrauens.
