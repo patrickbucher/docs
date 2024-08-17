@@ -1531,8 +1531,8 @@ everything is ready to run the registration command (`sudo` is used for all
      + Done!
 
 Dehydrated can now be run to request the certificates. Certificates that are
-missing, or that will will expire within the next 30 days, are requested by
-providing the `--cron` option:
+missing, or that will expire within the next 30 days, are requested by providing
+the `--cron` option:
 
     $ sudo -u acme dehydrated --cron
     # INFO: Using main config file /etc/dehydrated/config
