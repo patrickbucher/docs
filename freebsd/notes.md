@@ -140,3 +140,22 @@ Destroy a boot environment no longer needed:
 Run:
 
     $ pkg audit
+
+# Slow SSH
+
+When initiating an SSH session from another machine to a FreeBSD machine (e.g.
+my storage NAS at home) takes a long time, set the following option in
+`/etc/ssh/sshd_config`:
+
+    UseDNS no
+
+Restart `sshd`:
+
+    # service sshd restart
+
+By default, SSH checks if the forward and reverse record of a client are the
+same.
+
+Alternatively, configure your client (e.g. `thinkcentre`) host in `/etc/hosts`:
+
+    192.168.1.101   thinkcentre
