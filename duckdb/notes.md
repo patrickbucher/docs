@@ -1,5 +1,9 @@
 # DuckDB
 
+- [Heise](https://www.heise.de/blog/Ente-gut-alles-gut-DuckDB-ist-eine-besondere-Datenbank-9753854.html)
+- OLAP: online analytical processing
+- OLTP: online transactional processing
+
 ## Intro
 
 - DuckDB allows you to analyze existing structured data efficiently without
