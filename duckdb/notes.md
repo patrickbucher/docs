@@ -52,6 +52,70 @@
 - Window functions and subqueries are available, too.
 - Data can be dumped using `CREATE TABLE <name> AS SELECT`.
 
+## Getting Started
+
+- DuckDB works on different operating systems (Linux, Windows, macOS) and
+  architectures (Intel/AMD and ARM). Various programming languages are
+  supported, e.g. Python, JavaScript, Go, Rust. DuckDB can also be used as a
+  command line tool.
+- The DuckDB CLI can be downloaded from the [GitHub
+  Release](https://github.com/duckdb/duckdb/releases) page.
+    - For Linux, download the `duckdb_cli-linux-amd64.zip` archive, unzip it,
+      and copy the file `duckdb` to `~/.local/bin`.
+- The CLI supports various "dot" commands:
+    - `.open FILENAME`: open a new database file
+    - `.read FILENAME`: read a file containing SQL commands
+    - `.tables`: list tables/views
+    - `.timer on/off`: toggles SQL timing output
+    - `mode`: controls output formats
+        - `duckbox`: boxed output (adjusted to display size)
+        - `box`: boxed output (complete)
+        - `csv`
+        - `ascii`
+        - `table`
+        - `list`
+        - `column`
+        - `json`
+        - `jsonline`
+        - `line`
+        - `html`
+        - `insert`: SQL insert statements
+        - `trash`: discard output
+    - `.maxrows`: truncates the number of rows to be displayed
+    - `.excel`: output as Excel spreadsheet
+    - `.prompt '°> '`: set the prompt to `°>`
+    - `.exit` or `.quit`: exit the CLI
+    - `.help`: display help
+- Default options/commands can be defined in `~/.duckdbrc`
+- The CLI supports various options: `duckdb [OPTIONS] FILENAME [COMMANDS]`:
+    - `-readonly`: open database in read-only mode
+    - `-json`/`-line`: sets output mode to `json`/`line`
+    - `-unsigned`: allows for loading unsigned extensions
+    - `-s COMMAND`/`-c COMMAND`: runs a provided command and then exits
+    - `-help`: lists all CLI arguments
+- DuckDB supports extensions:
+    - Extensions can be queried using the `duckdb_extensions()` function:
+        - `SELECT extension_name, loaded, installed FROM duckdb_extensions();`
+    - Extensions can be installed using the `INSTALL` and activated using the
+      `LOAD` command:
+        - `INSTALL httpfs;`
+        - `LOAD httpfs;`
+        - This installs/loads an extension to query files to be loaded from the
+          Internet. (Also supports S3 buckets.)
+
+### Example
+
+Download [population
+data](https://github.com/bnokoro/Data-Science/blob/master/countries%20of%20the%20world.csv)
+from this CSV file as `population.csv`.
+
+    $ duckdb
+    D select * from population.csv;
+
+Convert to JSON:
+
+    $ duckdb -json -c 'select * from "population.csv";' >population.json
+
 ## Misc
 
 Idea: analyze audit trail of Exoscale (JSON) with DuckDB
