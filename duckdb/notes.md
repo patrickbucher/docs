@@ -120,6 +120,28 @@ Convert to JSON:
 
     $ duckdb -json -c 'select * from "population.csv";' >population.json
 
+### Superleague
+
+    select * from "superleague.json";
+
+    create table league as select * from "superleague.json";
+
+    create view goals as
+    select homeTeam, awayTeam, homeGoals, awayGoals, (homeGoals + awayGoals) as goals
+    from league;
+
+    select * from goals order by goals desc;
+
+    export database './football';
+
+    import database './football';
+
+### Exoscale
+
+    describe from exoscale.json;
+
+    from exoscale.json select unnext("iam-role") as row;
+
 ## Misc
 
 Idea: analyze audit trail of Exoscale (JSON) with DuckDB

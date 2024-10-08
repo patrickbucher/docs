@@ -1,0 +1,1082 @@
+[
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 4,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 4,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 4,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 1,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 3,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 3,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 5,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 4,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 4,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 4,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 3,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 4,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "Servette FC",
+    "homeGoals": 5,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 5,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 3,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 4,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "Servette FC",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 3,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 3,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "Servette FC",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 0,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 4,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "Servette FC",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 3,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 5,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "Servette FC",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 1,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Basel 1893",
+    "homeGoals": 3,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 5,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 0,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 1,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 2,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 1,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 0,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 3,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "Servette FC",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "Servette FC",
+    "homeGoals": 5,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "Servette FC",
+    "homeGoals": 1,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 5,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Sion",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Sion",
+    "homeGoals": 1,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lausanne-Sport",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 1,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Zürich",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 3,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 5,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "Servette FC",
+    "homeGoals": 0,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 1,
+    "awayGoals": 5
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Basel 1893",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "BSC Young Boys",
+    "homeGoals": 1,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "Servette FC",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 4
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Zürich",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "Grasshopper Club Zürich",
+    "homeGoals": 5,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "Servette FC",
+    "homeGoals": 4,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 4,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "BSC Young Boys",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Lugano",
+    "homeGoals": 2,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "Servette FC",
+    "homeGoals": 1,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 2,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 5,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "Grasshopper Club Zürich",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "Servette FC",
+    "homeGoals": 5,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Sion",
+    "homeGoals": 2,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC Lugano",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 4,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC St. Gallen 1879",
+    "homeGoals": 1,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Sion",
+    "homeGoals": 3,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "Servette FC",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 0,
+    "awayGoals": 0
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Sion",
+    "homeGoals": 0,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC St. Gallen 1879",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 4,
+    "awayGoals": 2
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Luzern",
+    "homeGoals": 0,
+    "awayGoals": 3
+  },
+  {
+    "homeTeam": "FC Sion",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 1,
+    "awayGoals": 1
+  },
+  {
+    "homeTeam": "FC Luzern",
+    "awayTeam": "FC Lausanne-Sport",
+    "homeGoals": 0,
+    "awayGoals": 2
+  }
+]
