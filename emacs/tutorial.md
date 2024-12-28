@@ -24,3 +24,13 @@
 | `M->`       | move to end of text                           |
 | `C-u N CMD` | execute command `CMD` `N` times               |
 | `M-N CMD`   | same, but using Meta key                      |
+| `C-x 1`     | kill all other windows                        |
+| `C-h k CMD` | display documentation for command `CMD`       |
+| `C-d`       | kill character right of cursor                |
+| `M-d`       | kill word right of cursor                     |
+| `C-k`       | kill from cursor to end of line               |
+| `M-k`       | kill from cursor to end of sentence           |
+| `C-<SPC>`   | set/end mark                                  |
+| `C-w`       | kill marked text                              |
+| `C-y`       | yank (re-insert) killed text                  |
+| `M-y`       | replace yanked text with earlier kill         |
