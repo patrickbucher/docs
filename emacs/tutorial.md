@@ -34,3 +34,8 @@
 | `C-w`       | kill marked text                              |
 | `C-y`       | yank (re-insert) killed text                  |
 | `M-y`       | replace yanked text with earlier kill         |
+| `C-/`       | undo one command (same as `C-_` or `C-x u`)   |
+| `C-x C-f`   | find a file                                   |
+| `C-x C-b`   | list buffers                                  |
+| `C-x b BUF` | open buffer named BUF                         |
+| `C-x s`     | save buffers to their files                   |
