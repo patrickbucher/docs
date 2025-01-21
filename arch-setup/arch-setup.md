@@ -344,7 +344,7 @@ For model: Samsung M2825ND
 Install, enable and start cups:
 
     pacman -S cups cups-filters ghostscript
-    systemctl enable org.cups.cupsd.service
+    systemctl enable org.cups.cupsd.service # or just "cups"?
     systemctl start org.cups.cupsd.service
 
 Avahi:
@@ -373,6 +373,8 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
     cupsaccept samsung
     lpoptions -d samsung
     lpoptions -o sides=two-sided-long-edge -o media=a4
+
+Checkout [CUPS](localhost:631) Admin UI.
 
 ## Pinentry
 
