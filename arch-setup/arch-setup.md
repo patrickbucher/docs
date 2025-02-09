@@ -376,6 +376,9 @@ Then install (find out URI and driver using `lpinfo -v` and `lpinfo -m`):
 
 Checkout [CUPS](localhost:631) Admin UI.
 
+For the Brother HL-L5100DN printer, the _Generic PCL Laser Printer_
+(manufacturer: _Generic_) works best.
+
 ## Pinentry
 
 Make sure to use the curses version of `pinentry`:
