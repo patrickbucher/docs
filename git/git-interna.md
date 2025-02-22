@@ -68,4 +68,8 @@ Note that the file name is _not_ stored with the object.
 
 ## Trees
 
-TODO
+Git stores directory entries (files, folders) as _trees_ and file contents as
+_blobs_. A tree object consists of one or more tree entries, each of which
+stores a SHA-1 pointer to a subtree (sub-directory) or a blob (file).
+
+TODO: continue with [Git Objects](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)
