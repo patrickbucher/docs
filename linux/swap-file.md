@@ -10,5 +10,5 @@ Activate it:
 
 Check it:
 
-    sudo swapon show
+    sudo swapon --show
     free -h
