@@ -1,0 +1,35 @@
+services:
+  guacd:
+    image: guacamole/guacd:latest
+    ports:
+      - 4822:4822
+  guacamole:
+    image: guacamole/guacamole
+    volumes:
+      - initdb:/opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema:ro
+    links:
+      - guacd
+      - database
+    ports:
+      - 8080:8080
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRESQL_ENABLED: true
+      POSTGRESQL_HOSTNAME: database
+      POSTGRESQL_DATABASE: guacamole
+      POSTGRESQL_USERNAME: guacamole
+      POSTGRESQL_PASSWORD: topsecret
+  database:
+    image: postgres:latest
+    volumes:
+      - initdb:/docker-entrypoint-initdb.d:ro
+      - postgres-db:/var/lib/postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: guacamole
+      POSTGRES_USER: guacamole
+      POSTGRES_PASSWORD: topsecret
+volumes:
+  postgres-db:
+  initdb:
