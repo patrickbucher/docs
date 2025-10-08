@@ -6,7 +6,7 @@ Create a new Debian VM on Exoscale (used here: 12 "Bookworm").
 
 Connect using SSH, e.g.:
 
-    ssh debian@194.182.191.231
+    ssh debian@desktop
 
 Run updates (select default options when asked):
 
@@ -46,6 +46,6 @@ Download and install [TightVNC](https://www.tightvnc.com/download.php) (client o
 
 Create an SSH tunnel:
 
-    ssh -L 59000:localhost:5901 debian@194.182.191.231 
+    ssh -L localhost:59000:desktop:5901 debian@desktop
 
 Run TightVNC and connect to `localhost:59000`.
