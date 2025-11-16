@@ -175,6 +175,53 @@ The `htpasswd` file can be extended, as existing entries are updated and new ent
 # htpasswd /var/www/htpasswd user
 ```
 
+# Httpd Blocks and Redirects
+
+Requests to sites or locations can be denied using the `block` directive. A blank `block` will return the HTTP 403 error, and `block drop` immediately terminates the request (_The connection was reset_).
+
+```conf
+location "/special/*" {
+	block
+}
+
+location "/private/*" {
+	block drop
+}
+```
+
+A server's block can be overwritten using `pass` in a location.
+
+```conf
+block
+location "/public/*" {
+	pass
+}
+```
+
+Usually, blocks are accompanied by redirects as `block return` directives with a HTTP status code, e.g. 301 for _Moved Permanently_ (for permanent redirects) or 302 for _Found_ (for temporary ones). 307 and 308 have the same purpose, but unlike 301 and 302 do not allow for a change of the request method.
+
+```conf
+location "/classified.html" {
+	block return 301 "http://www.cia.gov"
+}
+```
+
+Redirects work for both servers and locations. The following macros are available to define more flexible redirect rules:
+
+- `$SERVER_NAME`: the name of the server
+- `$REQUEST_URI`: the client request after the server part
+- `$DOCUMENT_URI`: request path without the query string
+- `$QUERY_STRING`: request query string (everything after the `?`)
+- `$SERVER_ADDR`: the server's IP address
+- `$SERVER_PORT`: the server's port number
+
+For the request `http://jokes.paedubucher.ch/search.php?q=category=dadjokes`, the macros will have the following values assigned:
+
+- `$SERVER_NAME`: `jokes.paedubucher.ch`
+- `$REQUEST_URI`: `/search.php?q=category=dadjokes`
+- `$DOCUMENT_URI`: `/search.php`
+- `$QUERY_STRING`: `q=category=dadjokes`
+
 # Glossary
 
 - CARP: network redundancy protocol
