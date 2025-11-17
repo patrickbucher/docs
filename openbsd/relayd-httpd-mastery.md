@@ -222,6 +222,56 @@ For the request `http://jokes.paedubucher.ch/search.php?q=category=dadjokes`, th
 - `$DOCUMENT_URI`: `/search.php`
 - `$QUERY_STRING`: `q=category=dadjokes`
 
+# Globs and Patterns
+
+For server and location indications, glob wildcards are allowed: `?` to match a single character, and `*` to match zero or more characters. Character classes (as lists or ranges) within square brackets are also allowed, which are case-insensitive, e.g. `[a-z]`. They can be negated as `[!a-z]`. Named character classes, such as `alpha` or `alnum` are _not_ supported.
+
+In order to use Lua patterns, the `match` directive has to be used:
+
+```conf
+server match "w+.paedubucher.ch" {
+	location match "/w+/" {
+	}
+}
+```
+
+Lua patterns support character classes with a `%` prefix:
+
+- `.`: any character
+- `%a`: letters
+- `%d`: digits
+- `%g`: printable characters (except spaces)
+- `%l`: lowercase letters
+- `%u`: uppercase letters
+- `%w`: alphanumeric characters
+- `%c`: control characters
+- `%p`: punctuation characters
+- `%s`: space characters
+- `%x`: hexadecimal digits
+
+Sets can be built from classes, e.g. `[%a%d]` for all letters and digits, or by defining lists (`[aeiou]` for vowels) or ranges (`[a-h]` for letters 'a' to 'h'). Negations are defined as `[^aeiou]` (i.e. no vowels). Escape special characters using `%`, e.g. `[%[]` to match a literal `[`.
+
+The suffixes `*`, `+`, `-`, `?` are supported.
+
+The following wildcards are supported:
+
+- `?`: zero or one characters
+- `*`: zero or more characters (greedy)
+- `+`: one or more characters (greedy)
+- `-`: zero or more characters
+
+Use `^` and `$` as anchors for the beginning and end of a string.
+
+Groups of characters are captured within `()` and referred to by `%1`, `%2`, etc.
+
+```conf
+location match '^/(%d%d%d%d)-(%d%d)-(%d%d)/.+$' {
+	block return 302 "/article.cgi?y=%1&m=%2&d=%3"
+}
+```
+
+See `patterns(7)` for more information on Lua patterns.
+
 # Glossary
 
 - CARP: network redundancy protocol
