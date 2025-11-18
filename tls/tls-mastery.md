@@ -4,17 +4,22 @@ subtitle: Notes on TLS
 author: Patrick Bucher
 ---
 
-These notes are based on [TLS
-Mastery](https://www.tiltedwindmillpress.com/product/tls/) by Michael W. Lucas.
-I highly recommend to buy that book. The examples have been modified as needed.
-Appendices providing instructions on how to setup a basic web and DNS server
-have been added.
+These notes are based on [TLS Mastery](https://www.tiltedwindmillpress.com/product/tls/) by Michael W. Lucas. The examples have been modified. Appendices providing instructions on how to setup a basic web and DNS server have been added.
 
 # Chapter 0: Introduction
+
+The current TLS version is 1.3. Older TLS versions (1.2, 1.1) or SSL (3, 2) must no longer be used.
+
+TLS encrypts a single TCP/IP connection.
 
 OpenSSL commands have the following syntax:
 
     $ openssl [subcommand] [flags]
+
+Use the `version` subcommand to see version information:
+
+    $ openssl version
+    OpenSSL 3.6.0 1 Oct 2025 (Library: OpenSSL 3.6.0 1 Oct 2025)
 
 The flags use single dashes with long names: `-foo`, not `-f` or `--foo`.
 
@@ -36,12 +41,9 @@ There are two `openssl` commands:
 
 1. Fetching the certificate using `s_client`:
     - `-showcerts`: show the TLS certificate
-    - `-connect`: specify a `host:port` to connect to (`paedubucher.ch` on TLS
-      port `443`)
-    - `</dev/null`: do not provide any input, which is usually required from
-      `openssl` commands
-2. Parsing and displaying the certificate using `x509` (deals with X.509
-   certificates):
+    - `-connect`: specify a `host:port` to connect to (`paedubucher.ch` on TLS port `443`)
+    - `</dev/null`: do not provide any input, which is usually required from `openssl` commands
+2. Parsing and displaying the certificate using `x509` (deals with X.509 certificates):
     - `-text`: output human-readable text instead of the binary representation
     - `-noout`: do not output the encoded certificate
 
@@ -49,10 +51,7 @@ Man pages are usually to be found with `openssl-[subcommand]`. Check `apropos op
 
 ## Regulation
 
-The FIPS (Federal Information Processing Standards) regulates which TLS
-algorithms can be used. For organizations operating under FIPS regulation, those
-guidelines are mandatory, even though the FIPS lacks a bit behind (e.g. `SHA-1`
-is still considered safe).
+The FIPS (Federal Information Processing Standards) regulates which TLS algorithms can be used. For organizations operating under FIPS regulation, those guidelines are mandatory, even though the FIPS lacks a bit behind (e.g. `SHA-1` is still considered safe).
 
 TLS is used for TCP, DTLS for UDP protocols; they work mostly the same.
 
