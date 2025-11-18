@@ -272,6 +272,56 @@ location match '^/(%d%d%d%d)-(%d%d)-(%d%d)/.+$' {
 
 See `patterns(7)` for more information on Lua patterns.
 
+# Httpd Debugging and Logging
+
+Logs are being written into `/var/www/logs` by default. Activity is logged into `access.log`, errors into `error.log` for all servers by default.
+
+The format of the log messages can be defined on the `server` level using the `log style` directive. The default `common` format looks like this:
+
+```plain
+jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:31:17 +0100] "GET /index.html HTTP/1.1" 304 0
+```
+
+The nowadays wider used `combined` format looks as follows:
+
+```plain
+jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:33:18 +0100] "GET /index.html HTTP/1.1" 304 0 "" "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0"
+```
+
+The `forwarded` style is the same as `combined`, but also logs the `X-Forwarded-For` and `X-Forwarded-Port` headers.
+
+Define separate log files for a server using the `log access` and `log error` directive, respectively:
+
+```conf
+server "jokes.paedubucher.ch" {
+	log style combined
+	log access jokes_access
+	log error jokes_error
+}
+```
+
+In order to use sub-directories for logging, the path relative to `/var/www/logs` must be enclosed within quotation marks:
+
+```
+server "jokes.paedubucher.ch" {
+	log style combined
+	log access "jokes/access"
+	log error "jokes/error"
+}
+```
+
+Those directories have been created manually!
+
+Logs will be rotated according to the rules in `/etc/newsyslog.conf`, which must be extended for custom log file names and locations.
+
+Logging can be deactivated on the `server` or `location` level using the `no log` directive.
+
+The global log directory can be changed using the `logdir` directive, which can be outside the `chroot` directory of `/var/www`.
+
+Logs can be sent to `syslog` using the `log syslog` directive.
+
+Test the current configuration using `httpd -n`. Define an alternative configuration file using `httpd -f FILE`. Combine those to flags to test a configuration file before it is put into its place. Overwrite macro values using `-D`.
+
 # Glossary
 
 - CARP: network redundancy protocol
