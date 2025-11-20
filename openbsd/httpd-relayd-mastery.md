@@ -302,7 +302,7 @@ server "jokes.paedubucher.ch" {
 
 In order to use sub-directories for logging, the path relative to `/var/www/logs` must be enclosed within quotation marks:
 
-```
+```conf
 server "jokes.paedubucher.ch" {
 	log style combined
 	log access "jokes/access"
@@ -321,6 +321,97 @@ The global log directory can be changed using the `logdir` directive, which can 
 Logs can be sent to `syslog` using the `log syslog` directive.
 
 Test the current configuration using `httpd -n`. Define an alternative configuration file using `httpd -f FILE`. Combine those to flags to test a configuration file before it is put into its place. Overwrite macro values using `-D`.
+
+# Dynamic Content and Chroots
+
+FastCGI hands off dynamic content processing to a pool of separate processes. OpenBSD's FastCGI implementation is called `slowcgi(8)`. Enable it by adding the following line to `/etc/rc.conf.local`:
+
+```conf
+slowcgi_flags=""
+```
+
+Run `slowcgi` in debug mode in the foreground using the `-d` flag, or start it in background:
+
+```plain
+# rcctl start slowcgi
+```
+
+By default, `slowcgi` listens to a socket at `/var/www/run/slowcgi.sock`, which can be changed using the `-s` flag. Set a custom httpd chroot directory using the `-p` flag.
+
+The following configuration hands off requests to `slowcgi`:
+
+```conf
+server "jokes.paedubucher.ch" {
+	listen on * port 80
+	root "/jokes.paedubucher.ch"
+
+	location "/cgi-bin/*" {
+		root "/"
+		fastcgi
+	}
+}
+```
+
+The `root` directive makes httpd serving requests to `jokes.paedubucher.ch/cgi-bin/` using the chroot's `/cgi-bin/` directory. The `fastcgi` directive tells httpd to pass the request to a FastCGI server.
+
+The demo application `bgplg` in `/var/www/cgi-bin` makes use of the (statically compiled) binaries in `/var/www/bin`, which are _not_ executable by default. Allow their execution as follows (with setuid):
+
+```plain
+# chmod 555 /var/www/cgi-bin/bgplg
+# chmod 4555 /var/www/bin/ping*
+# chmod 4555 /var/www/bin/traceroute*
+```
+
+The files must not be owned by the `www` user. Now the sample application _BGPD Looking Glass_ is available under `http://jokes.paedubucher.ch/cgi-bin/bgplg`.
+
+Create a custom Perl script in `/var/www/cgi-bin/foo.pl`:
+
+```perl
+#!/usr/bin/perl
+
+print "Content-type: text/html\n\n";
+print "<h1>Hello, World!</h1>\n";
+```
+
+In order to run this script over the web, copy the `perl` interpreter and all the libraries it depends on into the chroot:
+
+```plain
+$ which perl
+/usr/bin/perl
+# mkdir -p /var/www/usr/bin
+# cp `which perl` /var/www/usr/bin/
+$ ldd `which perl` | awk '{ print $7 }' | grep 'lib'
+/usr/lib/libperl.so.26.0
+/usr/lib/libm.so.10.1
+/usr/lib/libc.so.102.0
+/usr/libexec/ld.so
+# mkdir -p /var/www/usr/lib
+# mkdir -p /var/www/usr/libexec
+# cp /usr/lib/libperl.so.26.0 /var/www/usr/lib/
+# cp /usr/lib/libm.so.10.1 /var/www/usr/lib/
+# cp /usr/lib/libc.so.102.0 /var/www/usr/lib/
+# cp /usr/libexec/ld.so /var/www/usr/libexec/
+```
+
+Those binaries must be updated manually after a system/package update.
+
+The script under `http://jokes.paedubucher.ch/cgi-bin/foo.pl` should now output "Hello, World!".
+
+If this doesn't work, test it manually using `chroot`:
+
+```plain
+# chroot /var/www/ /cgi-bin/foo.pl
+```
+
+A statically linked shell such as `/bin/sh` can be copied into the chroot environment for testing purposes, but shall be removed thereafter for security reasons.
+
+For a PHP/MySQL setup, install the following packages:
+
+```plain
+# pkg_add mariadb-server php-curl php-mysqli
+```
+
+TODO: p. 66
 
 # Glossary
 
