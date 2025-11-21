@@ -18,18 +18,14 @@ Use `rcctl` to manage the service, e.g. `rcctl enable httpd` to automatically st
 
 An example configuration is available under `/etc/examples/httpd.conf`. A minimal configuration looks as follows:
 
-```conf
-server "jokes.paedubucher.ch" {
-	listen on * port 80
-	root "/jokes.paedubucher.ch"
-}
-```
+    server "jokes.paedubucher.ch" {
+        listen on * port 80
+        root "/jokes.paedubucher.ch"
+    }
 
 Accompanied by this entry in `/etc/hosts` for testing:
 
-```plain
-127.0.0.1	jokes.paedubucher.ch
-```
+    127.0.0.1	jokes.paedubucher.ch
 
 Multiple `server` definitions of the same name, listening to different IP addresses or ports, are allowed. It's common to serve both HTTP on port 80 and HTTPS on port 443 for the same server name.
 
@@ -39,9 +35,7 @@ Most options apply to single server rather than globally.
 
 Configuration files can be included:
 
-```conf
-include "/etc/sites/default.conf"
-```
+    include "/etc/sites/default.conf"
 
 It's a common practice to define different sites in a folder `/etc/sites` in their own `.conf` files.
 
@@ -59,9 +53,7 @@ The `/var/www` directory includes the following sub-directories:
 
 The chroot directory can be changed using the `chroot` directive in the config file:
 
-```conf
-chroot "/www"
-```
+    chroot "/www"
 
 ## Server Options
 
@@ -69,142 +61,110 @@ For the IP address, `*` and `::` can be used to listen to all IPv4 and IPv6 addr
 
 Alternative names for the same server can be given using the `alias` directive. The `directory index` directive defines the name of the index file:
 
-```conf
-server "jokes.paedubucher.ch" {
-	alias "funpage.paedubucher.ch"
-	listen on $public_ip port 80
-	root "/jokes.paedubucher.ch"
-	directory index index.htm
-}
-```
+    server "jokes.paedubucher.ch" {
+        alias "funpage.paedubucher.ch"
+        listen on $public_ip port 80
+        root "/jokes.paedubucher.ch"
+        directory index index.htm
+    }
 
 The `directory auto index` setting creates an automatic index page.
 
 With the `gzip-static` option enabled, clients capable of decompression will be served a file with the suffix `.gz`, if available. Generate those as follows from all HTML files:
 
-```plain
-# find /var/www/jokes.paedubucher.ch -type f -iname '*.html' -exec gzip -k {} \;
-```
+    # find /var/www/jokes.paedubucher.ch -type f -iname '*.html' -exec gzip -k {} \;
 
 Configuration options for the same directive can be combined. The following two lines…
 
-```conf
-directory auto index
-directory index index.htm
-```
+    directory auto index
+    directory index index.htm
 
 … can be merged into a single line:
 
-```conf
-directory {auto index, index index.htm}
-```
+    directory {auto index, index index.htm}
 
 Configurations can be applied to locations matching a certain pattern. This setting will serve files relative to its `/cgi-bin/` location from the server's root:
 
-```conf
-location "/cgi-bin/*" {
-	root "/"
-}
-```
+    location "/cgi-bin/*" {
+        root "/"
+    }
 
 ## Locations
 
 Locations can be used to overwrite settings:
 
-```conf
-directory auto index
-location "/files/" {
-	directory no auto index
-}
-```
+    directory auto index
+    location "/files/" {
+        directory no auto index
+    }
 
 ## MIME Types
 
 MIME types can be defined using a `types` section, mapping a MIME type to various file extensions:
 
-```conf
-types {
-	text/html	html htm
-}
-```
+    types {
+        text/html	html htm
+    }
 
 Examples are provided in `/usr/share/misc/mime.types`, which can also be included:
 
-```conf
-include "/usr/share/misc/mime.types"
-```
+    include "/usr/share/misc/mime.types"
 
 ## Macros
 
 Macros can be defined before any configuration directives, and be used using a `$` prefix (`public_ip`):
 
-```conf
-public_ip="127.0.0.1"
-server "jokes.paedubucher.ch" {
-	listen on $public_ip port 80
-	root "/jokes.paedubucher.ch"
-}
-```
+    public_ip="127.0.0.1"
+    server "jokes.paedubucher.ch" {
+        listen on $public_ip port 80
+        root "/jokes.paedubucher.ch"
+    }
 
 Macros do not expand within quote marks. Macros can also be set via `-D` for testing:
 
-```plain
-httpd -dvv -D public_ip=192.168.1.100
-```
+    httpd -dvv -D public_ip=192.168.1.100
 
 ## Authentication
 
 Access can be protected using the `htpasswd` mechanism, referring to a `htpasswd` file within the chrooted directory:
 
-```conf
-location "/nsfw/*" {
-	authenticate with "/htpasswd"
-}
-```
+    location "/nsfw/*" {
+        authenticate with "/htpasswd"
+    }
 
 Use `htpasswd(1)` to generate the `htpasswd` file:
 
-```plain
-# htpasswd -I >/var/www/htpasswd
-user:topsecret
-```
+    # htpasswd -I >/var/www/htpasswd
+    user:topsecret
 
 The `htpasswd` file can be extended, as existing entries are updated and new entries appended to the file:
 
-```plain
-# htpasswd /var/www/htpasswd user
-```
+    # htpasswd /var/www/htpasswd user
 
 # Httpd Blocks and Redirects
 
 Requests to sites or locations can be denied using the `block` directive. A blank `block` will return the HTTP 403 error, and `block drop` immediately terminates the request (_The connection was reset_).
 
-```conf
-location "/special/*" {
-	block
-}
+    location "/special/*" {
+        block
+    }
 
-location "/private/*" {
-	block drop
-}
-```
+    location "/private/*" {
+        block drop
+    }
 
 A server's block can be overwritten using `pass` in a location.
 
-```conf
-block
-location "/public/*" {
-	pass
-}
-```
+    block
+    location "/public/*" {
+        pass
+    }
 
 Usually, blocks are accompanied by redirects as `block return` directives with a HTTP status code, e.g. 301 for _Moved Permanently_ (for permanent redirects) or 302 for _Found_ (for temporary ones). 307 and 308 have the same purpose, but unlike 301 and 302 do not allow for a change of the request method.
 
-```conf
-location "/classified.html" {
-	block return 301 "http://www.cia.gov"
-}
-```
+    location "/classified.html" {
+        block return 301 "http://www.cia.gov"
+    }
 
 Redirects work for both servers and locations. The following macros are available to define more flexible redirect rules:
 
@@ -228,12 +188,10 @@ For server and location indications, glob wildcards are allowed: `?` to match a 
 
 In order to use Lua patterns, the `match` directive has to be used:
 
-```conf
-server match "w+.paedubucher.ch" {
-	location match "/w+/" {
-	}
-}
-```
+    server match "w+.paedubucher.ch" {
+        location match "/w+/" {
+        }
+    }
 
 Lua patterns support character classes with a `%` prefix:
 
@@ -264,11 +222,9 @@ Use `^` and `$` as anchors for the beginning and end of a string.
 
 Groups of characters are captured within `()` and referred to by `%1`, `%2`, etc.
 
-```conf
-location match '^/(%d%d%d%d)-(%d%d)-(%d%d)/.+$' {
-	block return 302 "/article.cgi?y=%1&m=%2&d=%3"
-}
-```
+    location match '^/(%d%d%d%d)-(%d%d)-(%d%d)/.+$' {
+        block return 302 "/article.cgi?y=%1&m=%2&d=%3"
+    }
 
 See `patterns(7)` for more information on Lua patterns.
 
@@ -278,37 +234,29 @@ Logs are being written into `/var/www/logs` by default. Activity is logged into 
 
 The format of the log messages can be defined on the `server` level using the `log style` directive. The default `common` format looks like this:
 
-```plain
-jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:31:17 +0100] "GET /index.html HTTP/1.1" 304 0
-```
+    jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:31:17 +0100] "GET /index.html HTTP/1.1" 304 0
 
 The nowadays wider used `combined` format looks as follows:
 
-```plain
-jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:33:18 +0100] "GET /index.html HTTP/1.1" 304 0 "" "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0"
-```
+    jokes.paedubucher.ch 127.0.0.1 - - [18/Nov/2025:06:33:18 +0100] "GET /index.html HTTP/1.1" 304 0 "" "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0"
 
 The `forwarded` style is the same as `combined`, but also logs the `X-Forwarded-For` and `X-Forwarded-Port` headers.
 
 Define separate log files for a server using the `log access` and `log error` directive, respectively:
 
-```conf
-server "jokes.paedubucher.ch" {
-	log style combined
-	log access jokes_access
-	log error jokes_error
-}
-```
+    server "jokes.paedubucher.ch" {
+        log style combined
+        log access jokes_access
+        log error jokes_error
+    }
 
 In order to use sub-directories for logging, the path relative to `/var/www/logs` must be enclosed within quotation marks:
 
-```conf
-server "jokes.paedubucher.ch" {
-	log style combined
-	log access "jokes/access"
-	log error "jokes/error"
-}
-```
+    server "jokes.paedubucher.ch" {
+        log style combined
+        log access "jokes/access"
+        log error "jokes/error"
+    }
 
 Those directories have been created manually!
 
@@ -326,41 +274,33 @@ Test the current configuration using `httpd -n`. Define an alternative configura
 
 FastCGI hands off dynamic content processing to a pool of separate processes. OpenBSD's FastCGI implementation is called `slowcgi(8)`. Enable it by adding the following line to `/etc/rc.conf.local`:
 
-```conf
-slowcgi_flags=""
-```
+    slowcgi_flags=""
 
 Run `slowcgi` in debug mode in the foreground using the `-d` flag, or start it in background:
 
-```plain
-# rcctl start slowcgi
-```
+    # rcctl start slowcgi
 
 By default, `slowcgi` listens to a socket at `/var/www/run/slowcgi.sock`, which can be changed using the `-s` flag. Set a custom httpd chroot directory using the `-p` flag.
 
 The following configuration hands off requests to `slowcgi`:
 
-```conf
-server "jokes.paedubucher.ch" {
-	listen on * port 80
-	root "/jokes.paedubucher.ch"
+    server "jokes.paedubucher.ch" {
+        listen on * port 80
+        root "/jokes.paedubucher.ch"
 
-	location "/cgi-bin/*" {
-		root "/"
-		fastcgi
-	}
-}
-```
+        location "/cgi-bin/*" {
+            root "/"
+            fastcgi
+        }
+    }
 
 The `root` directive makes httpd serving requests to `jokes.paedubucher.ch/cgi-bin/` using the chroot's `/cgi-bin/` directory. The `fastcgi` directive tells httpd to pass the request to a FastCGI server.
 
 The demo application `bgplg` in `/var/www/cgi-bin` makes use of the (statically compiled) binaries in `/var/www/bin`, which are _not_ executable by default. Allow their execution as follows (with setuid):
 
-```plain
-# chmod 555 /var/www/cgi-bin/bgplg
-# chmod 4555 /var/www/bin/ping*
-# chmod 4555 /var/www/bin/traceroute*
-```
+    # chmod 555 /var/www/cgi-bin/bgplg
+    # chmod 4555 /var/www/bin/ping*
+    # chmod 4555 /var/www/bin/traceroute*
 
 The files must not be owned by the `www` user. Now the sample application _BGPD Looking Glass_ is available under `http://jokes.paedubucher.ch/cgi-bin/bgplg`.
 
@@ -375,23 +315,21 @@ print "<h1>Hello, World!</h1>\n";
 
 In order to run this script over the web, copy the `perl` interpreter and all the libraries it depends on into the chroot:
 
-```plain
-$ which perl
-/usr/bin/perl
-# mkdir -p /var/www/usr/bin
-# cp `which perl` /var/www/usr/bin/
-$ ldd `which perl` | awk '{ print $7 }' | grep 'lib'
-/usr/lib/libperl.so.26.0
-/usr/lib/libm.so.10.1
-/usr/lib/libc.so.102.0
-/usr/libexec/ld.so
-# mkdir -p /var/www/usr/lib
-# mkdir -p /var/www/usr/libexec
-# cp /usr/lib/libperl.so.26.0 /var/www/usr/lib/
-# cp /usr/lib/libm.so.10.1 /var/www/usr/lib/
-# cp /usr/lib/libc.so.102.0 /var/www/usr/lib/
-# cp /usr/libexec/ld.so /var/www/usr/libexec/
-```
+    $ which perl
+    /usr/bin/perl
+    # mkdir -p /var/www/usr/bin
+    # cp `which perl` /var/www/usr/bin/
+    $ ldd `which perl` | awk '{ print $7 }' | grep 'lib'
+    /usr/lib/libperl.so.26.0
+    /usr/lib/libm.so.10.1
+    /usr/lib/libc.so.102.0
+    /usr/libexec/ld.so
+    # mkdir -p /var/www/usr/lib
+    # mkdir -p /var/www/usr/libexec
+    # cp /usr/lib/libperl.so.26.0 /var/www/usr/lib/
+    # cp /usr/lib/libm.so.10.1 /var/www/usr/lib/
+    # cp /usr/lib/libc.so.102.0 /var/www/usr/lib/
+    # cp /usr/libexec/ld.so /var/www/usr/libexec/
 
 Those binaries must be updated manually after a system/package update.
 
@@ -399,19 +337,84 @@ The script under `http://jokes.paedubucher.ch/cgi-bin/foo.pl` should now output 
 
 If this doesn't work, test it manually using `chroot`:
 
-```plain
-# chroot /var/www/ /cgi-bin/foo.pl
-```
+    # chroot /var/www/ /cgi-bin/foo.pl
 
 A statically linked shell such as `/bin/sh` can be copied into the chroot environment for testing purposes, but shall be removed thereafter for security reasons.
 
 For a PHP/MySQL setup, install the following packages:
 
-```plain
-# pkg_add mariadb-server php-curl php-mysqli
+    # pkg_add mariadb-server php-curl php-mysqli
+
+When asked for versions of different PHP packages, make sure to select them consistently. Add the following to `/etc/rc.conf.local` (the PHP version may vary):
+
+    pkg_scripts="mysqld php84_fpm"
+
+Move the MariaDB socket into the chroot:
+
+    # mkdir -p /var/www/var/run/mysql
+    # chown _mysql:_mysql /var/www/var/run/mysql
+
+Adjust `/etc/my.cnf` accordingly:
+
+    [client-client]
+    socket = /var/www/var/run/mysql/mysql.sock
+
+    [client]
+    socket = /var/www/var/run/mysql/mysql.sock
+
+    [mysqld]
+    socket = /var/www/var/run/mysql/mysql.sock
+
+TODO: consider just setting the socket in the `[client-server]` section
+
+The system database can now be created, and MariaDB started:
+
+    # mysql_install_db
+    # rcctl start mysqld
+
+Consider hardening the MariaDB setup:
+
+    # mariadb-secure-installation
+
+Setup the database `demo` and the user `dbuser` with the password `dbpwd`:
+
+    # mysql -u root -p
+    > create database demo;
+    > grant all privileges on demo.* to "dbuser"@"localhost" identified by "dbpwd";
+    > flush privileges;
+    > exit
+
+TODO: add some demo table with data for later selection
+
+PHP is configured in `/etc/php-8.4.ini`. The various modules needed to run Wordpess are best copied from the sample directory:
+
+    # cp /etc/php-8.4.sample/* /etc/php-8.4/
+
+PHP-FPM can be configured under `/etc/php-fpm.conf`. It is started as a service:
+
+    # rcctl start php84_fpm
+
+Use PHP-FPM's FastCGI socket instead of the default one from slowcgi in your site config:
+
+    server "jokes.paedubucher.ch" {
+        listen on * port 80
+        root "/jokes.paedubucher.ch"
+
+        directory index index.php
+        location "*.php" {
+            fastcgi socket "/run/php-fpm.sock"
+        }
+    }
+
+Create a file `index.php` under `/var/www/jokes.paedubucher.ch`:
+
+```php
+<?php phpinfo(); ?>
 ```
 
-TODO: p. 66
+TODO: DB access example using credentials
+
+Which should be available under `http://jokes.paedubucher.ch/` and show the current PHP configuration.
 
 # Glossary
 
