@@ -343,7 +343,7 @@ A statically linked shell such as `/bin/sh` can be copied into the chroot enviro
 
 For a PHP/MySQL setup, install the following packages:
 
-    # pkg_add mariadb-server php-curl php-mysqli
+    # pkg_add mariadb-server php-curl php-dbo_mysql
 
 When asked for versions of different PHP packages, make sure to select them consistently. Add the following to `/etc/rc.conf.local` (the PHP version may vary):
 
@@ -356,16 +356,8 @@ Move the MariaDB socket into the chroot:
 
 Adjust `/etc/my.cnf` accordingly:
 
-    [client-client]
+    [client-server]
     socket = /var/www/var/run/mysql/mysql.sock
-
-    [client]
-    socket = /var/www/var/run/mysql/mysql.sock
-
-    [mysqld]
-    socket = /var/www/var/run/mysql/mysql.sock
-
-TODO: consider just setting the socket in the `[client-server]` section
 
 The system database can now be created, and MariaDB started:
 
@@ -384,7 +376,11 @@ Setup the database `demo` and the user `dbuser` with the password `dbpwd`:
     > flush privileges;
     > exit
 
-TODO: add some demo table with data for later selection
+Reconnect with the created user (password will be prompted):
+
+    $ mysql -u dbuser -p demo
+    $ create table food (id integer not null auto_increment primary key, name varchar(100) not null);
+    $ insert into food (name) values ('Salami'), ('Mozzarella'), ('Beer');
 
 PHP is configured in `/etc/php-8.4.ini`. The various modules needed to run Wordpess are best copied from the sample directory:
 
@@ -412,9 +408,37 @@ Create a file `index.php` under `/var/www/jokes.paedubucher.ch`:
 <?php phpinfo(); ?>
 ```
 
-TODO: DB access example using credentials
-
 Which should be available under `http://jokes.paedubucher.ch/` and show the current PHP configuration.
+
+Add a file `food.php` under `/var/www/jokes.paedubucher.ch` to query the database:
+
+```php
+<html>
+    <head>
+        <title>Food</title>
+    </head>
+    <body>
+        <ol>
+        <?php
+        try {
+            $db = new PDO("mysql:host=127.0.0.1;dbname=demo", "dbuser", "dbpwd");
+            foreach ($db->query("select id, name from food;") as $food) {
+                $id = $food['id'];
+                $name = $food['name'];
+                echo("<li value=\"{$id}\">");
+                echo("{$name}");
+                echo("</li>");
+            }
+        } catch (PDOException $e) {
+            die($e);
+        }
+        ?>
+        </ol>
+    </body>
+</html>
+```
+
+Which should now display the food from the database table unter `http://jokes.paedubucher.ch/food.php`.
 
 # Glossary
 
