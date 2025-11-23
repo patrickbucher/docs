@@ -26,3 +26,7 @@ Run the `dev` task, which re-runs `main.ts` after file changes:
 
     $ deno task dev
 
+Add a dependency:
+
+    $ deno add jsr:@std/expect
+
