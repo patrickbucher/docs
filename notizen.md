@@ -393,7 +393,7 @@ auf einen Willen zum Leben zurück. Doch wie können zwei so gegensätzliche
 Momente wie das Apollinische und das Dionysische aus dem gleichen Trieb heraus
 entstehen?
 
-Nietzsches löst diesen Widerspruch auf, indem er darauf hinweist, dass der
+Nietzsche löst diesen Widerspruch auf, indem er darauf hinweist, dass der
 Wille zum Leben zu unterschiedlichen Zeiten – und also: zu unterschiedlichen
 Existenzbedingungen – unterschiedlich Ausdruck fand.  In Zeiten des Chaos wirkt
 das Apollinische ordnend und lebenserhaltend.  In Zeiten der Ordnung bewahrt
