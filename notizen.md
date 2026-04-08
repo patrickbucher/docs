@@ -10,14 +10,14 @@ Patrick Bucher
 
 Das Weggeben seines Besitzes und Gerümpels ist ein schrittweiser
 Prozess. Ich räumte meinen Kleiderschrank auf und mistete ihn recht
-radikal aus -- wie ich damals meinte. Doch zwei Wochen später konnte ich
+radikal aus – wie ich damals meinte. Doch zwei Wochen später konnte ich
 noch einmal eine etwas geringere, aber dennoch stattliche Menge an
 Kleidern loswerden und dem Altkleidercontainer anvertrauen.
 
 Man nimmt einen Gegenstand, den man noch zu benötigen glaubt, aus seinem
 Schrank, Büchergestell oder sonstwoher, ist sich beim Weggeben oder
 Entsorgen zunächst nicht sicher, ob man das Ding vielleicht nicht doch
-noch gebrauchen könnte -- und trennt sich schliesslich unwiederbringlich
+noch gebrauchen könnte – und trennt sich schliesslich unwiederbringlich
 davon. Eine Woche später kann man sich dann kaum noch daran erinnern,
 was man damals eigentlich alles weggegeben oder entsorgt hat. Man kommt
 doch ohne all diese Gegenstände aus, wodurch die Bereitschaft auf ein
@@ -27,12 +27,12 @@ Wer radikal entrümpelt und den grössten Teil seines Besitzes auf einmal
 aufgibt, gelangt zwar schneller an sein Ziel eines Daseins ohne
 weltlichen Besitz, schiesst aber wahrscheinlich dabei über sein Ziel
 hinaus, weil ihm gewisse Gegenstände dann doch fehlen werden, und er
-sich diese neu anschaffen muss -- und weil er dabei den geschilderten
+sich diese neu anschaffen muss – und weil er dabei den geschilderten
 Lernprozess nicht miterlebt.
 
 Das Entrümpeln ist eine harte emotionale, organisatorische und teilweise
-auch körperliche Arbeit. Aber man gewinnt dadurch viele Erkenntnisse --
-über sich selbst und die Welt -- und ändert dabei seine Einstellung zu
+auch körperliche Arbeit. Aber man gewinnt dadurch viele Erkenntnisse –
+über sich selbst und die Welt – und ändert dabei seine Einstellung zu
 weltlichem Besitz und seinen Prioritäten. Wer an einem Wohnort oder an
 einer besonders geräumigen und gut eingerichteten Wohnung hängt, für den
 wird das Loswerden von Gegenständen Erleichterung bringen. Plötzlich
@@ -150,7 +150,7 @@ dabei herauskommt. In vielen anderen Bereichen werden solche Ansätze
 jedoch als überholt und unzeitgemäss abgestempelt, was kaum mit eigens
 gemachten Erfahrungen untermauert wird, sondern motiviert ist durch die
 marktschreierischen Absichten derjenigen, die angeblich über eine
-bessere und zeitgemässere -- und meistens teurere -- Methode verfügen.
+bessere und zeitgemässere – und meistens teurere – Methode verfügen.
 Solche Marktschreier finden sich viele unter Beratern, Pädagogen und
 anderen Scharlatanen, jedoch kaum unter Musikern und Handwerkern.
 
@@ -199,7 +199,7 @@ finden und in seinen Vorhaben weiter kommen zu können.
 > gesehen zu werden, und noch immer nicht, ob Herr Schulze des Sehens
 > würdig sei.»*
 
----Karl Kraus
+–-Karl Kraus
 
 Gestern schaute ich mir in St. Petersburg die wunderbare
 [Isaakskathedrale](TODO) an. Dazu stellte ich mich an eine überraschend kurze
@@ -395,19 +395,19 @@ In seinem frühen Werk *Die Geburt der Tragödie (aus dem Geiste der
 Musik)* unterscheidet Friedrich Nietzsche zwischen zwei Momenten der
 griechischen Tragödie: Dem Apollinischen und dem Dionysischen. Das
 Apollinische, durch den Gott Apollo repräsentiert, umfasst die bildende
-Kunst: Gemälde, Skulpturen, Architektur -- alles, was Bewegung in etwas
+Kunst: Gemälde, Skulpturen, Architektur – alles, was Bewegung in etwas
 festes bannt. Die dionysischen Künste hingegen, repräsentiert durch den
 Gott Bacchus Dionysos, sind lebendig: Gesang, Theater, Tanz. Das
 dynamische bleibt in Bewegung. Das Apollinische konserviert, das
 Dionysische erneuert. Der frühe Nietzsche, ein Anhänger Schopenhauers,
-führt das menschliche Handeln -- dionysisches wie apollinisches -- auf
+führt das menschliche Handeln – dionysisches wie apollinisches – auf
 einen Willen zum Leben zurück. Doch wie können zwei so gegensätzliche
 Momente wie das Apollinische und das Dionysische aus dem gleichen Trieb
 heraus entstehen?
 
 Nietzsches löst diesen Widerspruch auf, indem er darauf hinweist, dass
-der Wille zum Leben zu unterschiedlichen Zeiten -- und also: zu
-unterschiedlichen Existenzbedingungen -- unterschiedlich Ausdruck fand.
+der Wille zum Leben zu unterschiedlichen Zeiten – und also: zu
+unterschiedlichen Existenzbedingungen – unterschiedlich Ausdruck fand.
 In Zeiten des Chaos wirkt das Apollinische ordnend und lebenserhaltend.
 In Zeiten der Ordnung bewahrt das Dionysische das Leben vor der
 Erstarrung. Die griechische Tragödie, welche dem apollinischen, zu
@@ -416,7 +416,7 @@ lebenserhaltend.
 
 Nietzsche sieht in diesen Handlungsweisen die Quelle der Moral. Diese
 ist nicht beständig, sondern an bestimmte Lebensumstände gebunden.
-Unsere abendländische Moral -- dazu gehören die 10 Gebote -- entstand zu
+Unsere abendländische Moral – dazu gehören die 10 Gebote – entstand zu
 einer Zeit, als das verfolgte jüdische Volk die Wüste durchwanderte. Du
 sollst nicht töten, weil jeder Verlust das Volk schwächt. Du sollst
 nicht stehlen, nicht lügen, nicht begehren, nicht die Ehe brechen, dir
@@ -454,8 +454,8 @@ sondern ein lebensverneinendes Pflichtprogramm geworden.
 Lange Zeit hatten Namenstage einen höheren Stellenwert als Geburtstage.
 Man feierte eben einmal im Jahr, immer an einem bestimmten Tag. Ob nun
 seit der eigenen Geburt oder dem Martyrium irgend eines obskuren
-Heiligen die Erde gleich zur Sonne stand -- und wie oft sie es seither
-getan hat -- ist nicht von Belang. Wer feiern will, Zeit, Geld und
+Heiligen die Erde gleich zur Sonne stand – und wie oft sie es seither
+getan hat – ist nicht von Belang. Wer feiern will, Zeit, Geld und
 Freunde dazu hat, der soll feiern! Einen Anlass an einem bestimmten Tag
 im Jahr braucht es dazu nicht. Und schon gar keinen Geburtstag. Wir
 sollten dieses alljährliche, apollinische Geburtstagsfest vergessen und
@@ -481,8 +481,8 @@ darin:
 
 Er denkt an Thomas Bernhard, an den Famulus und an den Maler Strauch;
 und denkt an Franz-Josef Muraus Ideale Spadolinis und Eisenbergs
-einerseits -- und die einfachen Leute unten im Ort andererseits; an
-Atzbacher und Reger -- an die Verschmelzung von Bernhards Idealen des
+einerseits – und die einfachen Leute unten im Ort andererseits; an
+Atzbacher und Reger – an die Verschmelzung von Bernhards Idealen des
 Ignoranten und des Wahnsinnigen. Er denkt an die unerträgliche Mitte,
 wie sie der Philister Tschitschikow in Gogols *Toten Seelen* darstellt,
 oder an Winston Smith in Orwells *1984*, der die Zuflucht bei den Proles
@@ -492,7 +492,7 @@ Er denkt an Nassim Talebs intellektuellen Nero einerseits und an den
 antiintellektuellen Fat Tony andererseits. Er hört sich zum Entspannen
 Bachs Oboenkonzerte und die 2. Orchestersuite an; manchmal ist ihm aber
 Heavy Metal lieber. Bei Flöten- und Gitarrensoli denkt er an Himmel und
-Hölle -- und er merkt, dass er dazwischen schlecht aufgehoben ist. Er
+Hölle – und er merkt, dass er dazwischen schlecht aufgehoben ist. Er
 befindet sich in ständiger Spannung zwischen dem Apollinischen und dem
 Dionysischen, ergötzt sich am Stubenhocker Schopenhauer einerseits und
 am Sturmtruppenführer Jünger andererseits. Er weiss, dass er den Alltag
@@ -526,20 +526,20 @@ Vergleich: Ein Buch muss nach erstmaligem Durchlesen noch nicht
 *ausgetrunken* ist. Zwar gibt es Bücher, von denen mir nach der ersten
 Lektüre nur noch die Hülle übrig bleibt, also das gebundene Papier.
 Damit weiss ich nichts anderes anzufangen, als es in die Sammelstelle
-zurückzubringen -- ins Antiquariat. Andere Bücher behalte ich nach der
+zurückzubringen – ins Antiquariat. Andere Bücher behalte ich nach der
 ersten Lektüre, um sie später erneut lesen zu können. Es sind Bücher,
 die scheinbar mit mir mitwachsen, wie es Mortimer J. Adler und Charles
 van Doren im Schlusskapitel ihres Werkes *How to Read a Book*
 beschrieben haben. Thomas Bernhards *Auslöschung* ist ein solches Buch.
 Ich habe es schon dreimal im deutschen Original und je einmal in einer
 englischen und einer französischen Übersetzung gelesen. Hermann Hesses
-*Unterm Rad* habe ich schon des öfteren gelesen -- und werde es wieder
+*Unterm Rad* habe ich schon des öfteren gelesen – und werde es wieder
 lesen. Fëdor Dostoevskijs *Verbrechen und Strafe* (*Schuld und Sühne*)
-und Franz Kafkas *Prozess* habe ich zweimal gelesen -- und werde sie
+und Franz Kafkas *Prozess* habe ich zweimal gelesen – und werde sie
 erneut lesen. Schopenhauers *Aphorismen zur Lebensweisheit*, Ernst
 Jüngers *In Stahlgewittern*, Lev Tolstojs *Krieg und Frieden*, David
 Humes *Untersuchung über den menschlichen Verstand*, sowie einige Werke
-Gogols, sind alles Werke, die ich gelesen habe -- und noch einmal lesen
+Gogols, sind alles Werke, die ich gelesen habe – und noch einmal lesen
 werde. Diese Bücher werden mir bei erneuter Lektüre noch mehr Freude
 bereiten.
 
@@ -550,7 +550,7 @@ gelagerten Bücher in einigen Monaten oder Jahren noch viel besser zu
 geniessen verstehen als jetzt. Bis dahin ziehe ich hie und da einen Band
 aus einem Bücherregal, blase den Staub vom Umschlag, nehme eine
 Kostprobe, und entscheide, ob der richtige Zeitpunkt zur Verköstigung
-schon gekommen ist -- ob ich für die Lektüre schon reif genug bin. Ist
+schon gekommen ist – ob ich für die Lektüre schon reif genug bin. Ist
 dies nicht der Fall, schliesse ich den Band und lagere ihn wieder ein,
 in der Hoffnung, früher oder später die notwendige Reife dafür erlangt
 zu haben. Manch ein Buch ist mir auf diese Weise in meiner Bibliothek
@@ -596,8 +596,8 @@ Rechtfertigung!) Nassim Taleb bezeichnet solche Rechtfertigungen als
 Erst wenn eine Rechtfertigung in seine Lebenskonzeption (in sein
 *Narrativ*) passt, wird sie akzeptiert.
 
-Für rein private Entscheidungen, die niemandem -- nicht mal einem selbst
--- schaden, sollte man sich nicht rechtfertigen müssen. Es zwingt einen
+Für rein private Entscheidungen, die niemandem – nicht mal einem selbst
+– schaden, sollte man sich nicht rechtfertigen müssen. Es zwingt einen
 auch niemand dazu, schliesslich kann man die Rechtfertigung auch einfach
 verweigern. Doch ist das Fordern von Rechtfertigung überhaupt schon eine
 Belästigung, der niemand ausgesetzt werden sollte. Das Problem liegt
@@ -624,7 +624,7 @@ enger gefassten Narrativ. Der Unterschied zwischen *sucker* und
 Der *nicht-sucker* schert sich einen Dreck um Narrative. Der *sucker*
 hingegen kann nicht verstehen, dass etwas ausserhalb seines eigenen
 Narrativs Liegendes überhaupt erstrebenswert sein könnte. Was ausserhalb
-seines Narrativs liegt, ist abwegig, unheimlich -- und
+seines Narrativs liegt, ist abwegig, unheimlich – und
 Zeitverschwendung. Wer etwas derartiges verfolgt, muss zu einer
 Rechtfertigung gezwungen werden, bis diese ins eigene Narrativ
 hineinpasst. Damit lässt sich *sucker* ins Deutsche übersetzen. Es
@@ -640,8 +640,8 @@ Männer beim Schänden einer Häuserwand zeigt: Einen jungen Mann im typischen
 Sprayer-Outfit und einen glatzköpfigen älteren Herrn im Professoren-Outfit mit
 Brille, Tweedjacke mit Flicken an den Ellenbogen und Tabakpfeife. Der junge
 Mann hat seinen Graffiti-Tag an die Wand geschmiert. Der ältere Herr hat gut
-leserlich «Edward.» an die Wand geschrieben. Der ältere Herr sagt -- wohl nach
-einer Rechtfertigung gefragt -- zum verwundert dreinblickenden Sprayer: «Yes
+leserlich «Edward.» an die Wand geschrieben. Der ältere Herr sagt – wohl nach
+einer Rechtfertigung gefragt – zum verwundert dreinblickenden Sprayer: «Yes
 well, legibility and correct punctuation might not be ‹street›, *but that\'s
 how I roll, motherfucker*.»
 
@@ -655,7 +655,7 @@ how I roll, motherfucker*.»
 
 Was bedeutet das Wort «Smalltalk»? Man braucht gar nicht lange nach
 einer eine Definition zu suchen, denn die wortwörtliche Übersetzung ins
-Deutsche -- *Kleingerede* -- gibt den Sachverhalt zutreffend wieder. Es
+Deutsche – *Kleingerede* – gibt den Sachverhalt zutreffend wieder. Es
 wird etwas geredet, und zwar etwas Kleines, es wird *im Kleinen*
 geredet, meistens etwas Kleinbürgerliches oder Kleingeistiges. Es muss
 nicht etwas besonders Dummes sein, nein, dumm reicht schon, besonders
@@ -700,7 +700,7 @@ Verwendung des exakt gleichen Wortschatzes von xbeliebigen Kleinrednern
 geführt wird. Beide wissen, dass das Wetter am Wochenende schlecht war,
 beide wissen, dass das Wetter jetzt am Montagmorgen schön ist, und beide
 wissen, wie ein kleinrednerisches Gegenüber diese Situation
-üblicherweise einschätzt -- doch diese Einschätzungen müssen dennoch
+üblicherweise einschätzt – doch diese Einschätzungen müssen dennoch
 miteinander geteilt werden, man schaukelt sich hoch im Kleinen in die
 höchsten Sphären des Kleingeistes, wo der grösste gemeinsame Nenner dem
 geistigen Horizont deckungsgleich ist. Es genügt nicht, das gleiche zu
@@ -778,7 +778,7 @@ Buch, nicht jedoch der Akt des Lesens.
 
 Also lese ich immer zwei Bücher gleichzeitig: das erste mit der mir
 grösstmöglichen Konzentration und Sorgfalt, wozu ich mir Notizen mache
--- und das andere nach Lust und Laune und ohne Ziel, sodass ich es
+– und das andere nach Lust und Laune und ohne Ziel, sodass ich es
 einfach wieder zurück ins Regal stellen kann, wenn es mich langweilt,
 und ich mich dem nächsten zuwenden kann. Wichtig ist es, sich nicht zu
 verzetteln und den Nachttisch mit Büchern vollzustellen, in denen man
@@ -800,7 +800,7 @@ Beim Erlernen von Fremdsprachen könnte ich auch so vorgehen. Ich nehme
 Russisch-Lektionen mit Hausaufgaben und allem, was ein Unterricht für
 gewöhnlich mit sich bringt. Habe ich gerade Lust, mich mit der
 russischen Sprache zu befassen, heisst das nicht, dass ich Verben
-konjugieren oder Vokabeln memorieren möchte -- oder mir irgend einen
+konjugieren oder Vokabeln memorieren möchte – oder mir irgend einen
 gestellten Dialog zwischen einem Moskoviter Fremdenführer und einem
 deutschen Touristen anhören möchte. Statt nun einfach *gar nichts* zu
 machen, könnte ich in einem Lermontov- oder in einem Tolstoj-Band
@@ -808,7 +808,7 @@ blättern, auch wenn ich das Meiste noch nicht verstehe. Das ist immer
 noch besser, als meine Lust auf die Beschäftigung mit der russischen
 Sprache ungenutzt verfliegen zu lassen. Ich habe den zielgerichteten,
 zuweilen auch etwas langweiligen Sprachunterricht auf der einen Seite,
-wofür ich zumindest *das Nötigste* tun sollte -- und das unsystematische
+wofür ich zumindest *das Nötigste* tun sollte – und das unsystematische
 stöbern in den Russischen Klassikern (die es im Original lesen zu können
 mein eigentliches Ziel ist) auf der anderen Seite.
 
@@ -818,8 +818,8 @@ zielgerichtet unter der Anwendung von Willenskraft lernen sollten; dies
 sei der Weg zum Erfolg. Das mag zwar stimmen, aber gerade im
 Spracherwerb lehren uns Kleinkinder, dass es auch völlig unsystematisch
 und chaotisch geht, wenn man sich einfach an der Sprache versucht, wie
-einem der Schnabel gewachsen ist. Wir wissen nicht, welcher Ansatz --
-der systematische oder der chaotische -- uns wirklich zum Ziel führt.
+einem der Schnabel gewachsen ist. Wir wissen nicht, welcher Ansatz –
+der systematische oder der chaotische – uns wirklich zum Ziel führt.
 Darum verfolgen wir einfach *beide Ansätze*, womit wir füher oder später
 ganz sicher an unser Ziel gelangen.
 
@@ -835,8 +835,8 @@ erscheinen uns diese Bewegungen als unnatürlich, sind auch diese unsere
 Spuren noch keine Stunde alt. Die gemachten Schritte erscheinen uns bald
 als zu lang, bald als zu kurz, schlagen seltsame Richtungen ein und
 verlaufen so unregelmässig, dass uns das Befolgen der Spur anstrengt und
-uns bald erschöpft. Als wir diese Spuren in den Schnee setzten -- es ist
-noch keine Stunde her -- fühlten sich unsere Bewegungen ganz natürlich
+uns bald erschöpft. Als wir diese Spuren in den Schnee setzten – es ist
+noch keine Stunde her – fühlten sich unsere Bewegungen ganz natürlich
 an. Erst, wenn wir auf den Pfaden unserer Vergangenheit wandeln, wird
 die Bewegung unnatürlich, verkrampft und mühsam. Erfahren wir solches
 beim Wandeln auf fremden Spuren, verwundert uns dies nicht weiter. Doch
