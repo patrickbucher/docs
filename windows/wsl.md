@@ -55,3 +55,9 @@ Get rid of the distribution `Debian`:
 ```powershell
 wsl --unregister Debian
 ```
+
+Set default login user:
+
+```powershell
+wsl --manage DISTRO --set-default-user USER
+```
